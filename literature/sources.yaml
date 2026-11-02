@@ -51,7 +51,7 @@
     (AUS; Irshaid and Varam equal contribution). Project page daravaram.github.io/FedPCD links arXiv 2610.13508.
     GitHub repo DaraVaram/FedPCD is the project-page source only (files: README.md, index.html, css/, js/, assets/);
     its README says "preprint, under review" and "Code is empty until the code is public"; js/main.js sets
-    LINKS.code = "" (button shows "Coming soon"), re-checked 2026-11-02 in the cross-review. No code release exists.
+    LINKS.code = "" (button shows "Coming soon"), re-checked 2026-11-02 in the cross-review. Code not publicly released as of 2026-11-02.
     Venue of the submission not stated.
   relevance: "Federated extension of PCD: FedAvg aggregate as primary, per-client pseudo-gradients as secondary constraints, client-history cache; O(1/T) rate under a uniform-alignment assumption."
   topics: [pcd, federated, fairness, heterogeneity]
@@ -753,4 +753,35 @@
   verified_by: "PMLR v180 page citation meta tags (title, authors, date 2022-08-17, conference 'Uncertainty in Artificial Intelligence')."
   relevance: "Anchored program with general K and a shared scheduled margin; PCD ancestry (cited by PCD and by the survey draft)."
   topics: [pareto, anchored-projection, pcd-ancestry]
+  local_pdf: false
+
+# ---------------------------------------------------------------- added in cross-review round 2 (2026-11-02)
+- id: jiang2024gaqat
+  type: paper
+  title: "GAQAT: gradient-adaptive quantization-aware training for domain generalization"
+  authors: ["Jiacheng Jiang", "Yuan Meng", "Chen Tang", "Han Yu", "Qun Li", "Zhi Wang", "Wenwu Zhu"]
+  date: 2024-12-07
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2412.05551", code: null}
+  identifiers: {doi: null, arxiv: "2412.05551"}
+  license: null
+  verified_by: "arXiv API (v1 2024-12-07, title/authors; no journal_ref or comment), checked 2026-11-02. Content claims (task-vs-smoothness gradient conflict in quantizer scales, freezing by a 'gradient disorder' threshold) come from search-result snippets and abstract only; full text not read."
+  relevance: "Prior gradient-conflict work in quantization-aware training; reduces the novelty of a PCD-QAT direction (D5)."
+  topics: [quantization, gradient-conflict, prior-art]
+  local_pdf: false
+
+- id: kang2025dho
+  type: paper
+  title: "Simple yet Effective Semi-supervised Knowledge Distillation from Vision-Language Models via Dual-Head Optimization"
+  authors: ["Seongjae Kang", "Dong Bok Lee", "Hyungjoon Jang", "Sung Ju Hwang"]
+  date: 2025-05-12
+  venue: "NeurIPS 2026 (per arXiv comment)"
+  status: accepted
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2505.07675", code: null}
+  identifiers: {doi: null, arxiv: "2505.07675"}
+  license: null
+  verified_by: "arXiv API (v3; comment 'Accepted at NeurIPS 2026. 52 pages, 17 figures'); full-text PDF v3 read for §2.3 (Fig. 3, Eq. 3, Prop. 1/Cor. 1) and App. G.2 (Tables 26–27). Acceptance is author-stated; proceedings page not checked."
+  relevance: "Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p]."
+  topics: [kd, gradient-conflict, measured-cosine]
   local_pdf: false
