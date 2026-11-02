@@ -2,7 +2,7 @@
   type: repository
   title: "Priority-Constrained Descent (PCD)"
   authors: ["Dara Varam", "Mohamed I. AlHajri"]
-  date: 2026
+  date: 2026-09-21
   venue: GitHub
   status: published
   urls:
@@ -10,25 +10,25 @@
     paper: https://arxiv.org/abs/2606.29521
   identifiers: {doi: null, arxiv: "2606.29521"}
   license: MIT
-  verified_by: "Repository page README/license and author project page, checked 2026-11-02; clone blocked by DNS, exact last commit date not independently readable"
-  relevance: "Official PyTorch PCD implementation and CIFAR pruning / sparsity experiment scripts; repository page explicitly links the paper and author project page."
+  verified_by: "Read-only shallow clone and git log at HEAD e9afdbc9f4cb09343934eadb31dc72ea5ebac9b0 (2026-09-29); first commits dated 2026-09-21; LICENSE and pyproject.toml; checked 2026-11-02"
+  relevance: "Author-linked PyTorch rewrite with PCD CIFAR experiment scripts; release omits baselines and physical-pruning export. Its README/scripts state PCD sweeps use a --prox group soft-threshold step (lambda=1e-3; 5e-4 for MobileNetV2), but PCD paper v2 does not disclose this step; exact original-run provenance and baseline treatment need clarification."
   topics: [pcd, optimization, pytorch, pruning]
   local_pdf: false
 - id: irshaid2026fedpcdcode
   type: repository
-  title: "FedPCD implementation (Code link destination unresolved)"
+  title: "FedPCD code (not released as of 2026-11-02)"
   authors: ["Yousef Irshaid", "Dara Varam", "Mohamed I. AlHajri"]
   date: 2026
-  venue: GitHub (destination not verified)
+  venue: GitHub project page
   status: unverified
   urls:
     official: null
     project: https://daravaram.github.io/FedPCD/
     paper: https://arxiv.org/abs/2610.13508
   identifiers: {doi: null, arxiv: "2610.13508"}
-  license: "unknown; repository target not resolved"
-  verified_by: "Author project page states a Code link exists, but its target could not be resolved through available browser/search; GitHub clone access failed DNS, checked 2026-11-02"
-  relevance: "Potential implementation for federated client-fairness experiments; authorship, code, license, dependencies, and reproducibility cannot be confirmed until the target is available."
+  license: null
+  verified_by: "Author project's js/main.js sets code URL to empty; linked DaraVaram/FedPCD repository README says 'Coming soon' and 'Code is empty until the code is public'; repository contains the project page only, checked 2026-11-02"
+  relevance: "The authors' project repository documents that FedPCD implementation is not publicly released; there is no source code license or implementation to reproduce at this date."
   topics: [fedpcd, federated-learning]
   local_pdf: false
 - id: cifar10
@@ -42,8 +42,8 @@
     official: https://www.cs.toronto.edu/~kriz/cifar.html
   identifiers: {doi: null, arxiv: null}
   license: "No dataset license statement located on the official dataset page; use and redistribution terms need clarification"
-  verified_by: "Official dataset owner page states dataset provenance and size; license checked on that page 2026-11-02"
-  relevance: "PCD and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 10 classes."
+  verified_by: "Official Toronto dataset page states provenance, split, 163 MB Python archive size, and asks users to cite the tech report; no dataset license statement located, checked 2026-11-02"
+  relevance: "PCD and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 10 classes; cite Krizhevsky's tech report when used."
   topics: [cifar10, image-classification, benchmark]
   local_pdf: false
 - id: cifar100
@@ -57,8 +57,8 @@
     official: https://www.cs.toronto.edu/~kriz/cifar.html
   identifiers: {doi: null, arxiv: null}
   license: "No dataset license statement located on the official dataset page; use and redistribution terms need clarification"
-  verified_by: "Official dataset owner page states dataset provenance; page describes CIFAR-100 alongside CIFAR-10; license checked 2026-11-02"
-  relevance: "PCD pruning and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 100 classes."
+  verified_by: "Official Toronto dataset page states provenance, split, 161 MB Python archive size, and asks users to cite the tech report; no dataset license statement located, checked 2026-11-02"
+  relevance: "PCD pruning and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 100 classes; cite Krizhevsky's tech report when used."
   topics: [cifar100, image-classification, benchmark]
   local_pdf: false
 - id: fashion_mnist
