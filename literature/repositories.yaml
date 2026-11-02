@@ -1,0 +1,79 @@
+- id: varam2026pcdcode
+  type: repository
+  title: "Priority-Constrained Descent (PCD)"
+  authors: ["Dara Varam", "Mohamed I. AlHajri"]
+  date: 2026
+  venue: GitHub
+  status: published
+  urls:
+    official: https://github.com/DaraVaram/priority-constrained-descent
+    paper: https://arxiv.org/abs/2606.29521
+  identifiers: {doi: null, arxiv: "2606.29521"}
+  license: MIT
+  verified_by: "Repository page README/license and author project page, checked 2026-11-02; clone blocked by DNS, exact last commit date not independently readable"
+  relevance: "Official PyTorch PCD implementation and CIFAR pruning / sparsity experiment scripts; repository page explicitly links the paper and author project page."
+  topics: [pcd, optimization, pytorch, pruning]
+  local_pdf: false
+- id: irshaid2026fedpcdcode
+  type: repository
+  title: "FedPCD implementation (Code link destination unresolved)"
+  authors: ["Yousef Irshaid", "Dara Varam", "Mohamed I. AlHajri"]
+  date: 2026
+  venue: GitHub (destination not verified)
+  status: unverified
+  urls:
+    official: null
+    project: https://daravaram.github.io/FedPCD/
+    paper: https://arxiv.org/abs/2610.13508
+  identifiers: {doi: null, arxiv: "2610.13508"}
+  license: "unknown; repository target not resolved"
+  verified_by: "Author project page states a Code link exists, but its target could not be resolved through available browser/search; GitHub clone access failed DNS, checked 2026-11-02"
+  relevance: "Potential implementation for federated client-fairness experiments; authorship, code, license, dependencies, and reproducibility cannot be confirmed until the target is available."
+  topics: [fedpcd, federated-learning]
+  local_pdf: false
+- id: cifar10
+  type: dataset
+  title: "The CIFAR-10 dataset"
+  authors: ["Alex Krizhevsky", "Vinod Nair", "Geoffrey Hinton"]
+  date: 2009
+  venue: University of Toronto dataset page
+  status: published
+  urls:
+    official: https://www.cs.toronto.edu/~kriz/cifar.html
+  identifiers: {doi: null, arxiv: null}
+  license: "No dataset license statement located on the official dataset page; use and redistribution terms need clarification"
+  verified_by: "Official dataset owner page states dataset provenance and size; license checked on that page 2026-11-02"
+  relevance: "PCD and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 10 classes."
+  topics: [cifar10, image-classification, benchmark]
+  local_pdf: false
+- id: cifar100
+  type: dataset
+  title: "The CIFAR-100 dataset"
+  authors: ["Alex Krizhevsky", "Vinod Nair", "Geoffrey Hinton"]
+  date: 2009
+  venue: University of Toronto dataset page
+  status: published
+  urls:
+    official: https://www.cs.toronto.edu/~kriz/cifar.html
+  identifiers: {doi: null, arxiv: null}
+  license: "No dataset license statement located on the official dataset page; use and redistribution terms need clarification"
+  verified_by: "Official dataset owner page states dataset provenance; page describes CIFAR-100 alongside CIFAR-10; license checked 2026-11-02"
+  relevance: "PCD pruning and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 100 classes."
+  topics: [cifar100, image-classification, benchmark]
+  local_pdf: false
+- id: fashion_mnist
+  type: dataset
+  title: "Fashion-MNIST"
+  authors: ["Han Xiao", "Kashif Rasul", "Roland Vollgraf"]
+  date: 2017
+  venue: GitHub / arXiv
+  status: published
+  urls:
+    official: https://github.com/zalandoresearch/fashion-mnist
+    arxiv: https://arxiv.org/abs/1708.07747
+  identifiers: {doi: null, arxiv: "1708.07747"}
+  license: "MIT shown on repository; applicability to dataset contents was not independently established"
+  verified_by: "Official project repository page confirms dataset provenance, counts, shape, arXiv citation, and displays MIT license; scope of license checked 2026-11-02"
+  relevance: "FedPCD low-cost federated image classification benchmark; 60,000 train and 10,000 test 28x28 grayscale images, 10 classes."
+  topics: [fashion-mnist, federated-learning, benchmark]
+  local_pdf: false
