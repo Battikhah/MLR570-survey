@@ -1,2 +1,753 @@
 # Source registry. Schema: literature/README.md. Never add unverified data without status: unverified.
-[]
+# Papers only (repositories/datasets are registered separately by Codex; code URLs appear as urls.code).
+# All lookups below were performed 2026-11-02 by the Claude literature worker (Orca task_94c59c478ef4).
+# "arXiv API" = export.arxiv.org/api/query metadata (title, authors, first-posted date, journal_ref, comment).
+# OpenReview pages/API returned a bot-challenge (HTTP 403) for every request in this pass; DBLP and
+# Semantic Scholar APIs were rate-limited (HTTP 429), so venues not confirmable elsewhere stay unverified.
+
+# ---------------------------------------------------------------- PCD core
+- id: varam2026pcd
+  type: paper
+  title: "Not All Objectives Are Born Equal: Priority-Constrained Descent for Hierarchical Multi-Objective Optimization"
+  authors: ["Dara Varam", "Mohamed I. AlHajri"]
+  date: 2026-09
+  venue: "Transactions on Machine Learning Research (TMLR)"
+  status: published
+  urls:
+    official: https://openreview.net/forum?id=HT01yGHLEt
+    arxiv: https://arxiv.org/abs/2606.29521
+    code: https://github.com/DaraVaram/priority-constrained-descent
+  identifiers: {doi: null, arxiv: "2606.29521"}
+  license: null
+  verified_by: >-
+    TMLR accepted-papers listing (jmlr.org/tmlr/papers/) entry "Dara Varam, Mohamed I. AlHajri, September 2026"
+    with openreview forum HT01yGHLEt; TMLR bib (jmlr.org/tmlr/papers/bib/HT01yGHLEt.bib); arXiv API journal_ref
+    "Transactions on Machine Learning Research 2026"; arXiv abs page (v1 2026-06-28, v2 2026-09-21);
+    v2 PDF header "Published in Transactions on Machine Learning Research (09/2026)". OpenReview page itself
+    not loadable (bot challenge). Code URL: repo README links arXiv 2606.29521 and project page
+    daravaram.github.io/PCD (same GitHub account DaraVaram; page lists contact varam@mit.edu); TMLR listing
+    'code' link points to that project page. The paper PDF itself contains no code URL. MIT license per
+    GitHub API (code audit delegated to Codex).
+  relevance: "The method under study. Defines the PCD QP, EMA normalization, guarantees (per-step secondary progress, CMS fixed points) and their scope; evaluated on pruning/sparsity/low-rank only."
+  topics: [pcd, hierarchical-moo, gradient-conflict, pruning, sparsity]
+  local_pdf: true
+
+- id: irshaid2026fedpcd
+  type: paper
+  title: "FedPCD: Priority-Constrained Federated Aggregation"
+  authors: ["Yousef Irshaid", "Dara Varam", "Mohamed I. AlHajri"]
+  date: 2026-10-09
+  venue: "arXiv"
+  status: preprint
+  urls:
+    official: https://daravaram.github.io/FedPCD/
+    arxiv: https://arxiv.org/abs/2610.13508
+    code: null
+  identifiers: {doi: null, arxiv: "2610.13508"}
+  license: null
+  verified_by: >-
+    arXiv API + abs page (v1 only, 2026-10-09, cs.LG, 30 pages, no journal_ref); PDF v1 author block
+    (AUS; Irshaid and Varam equal contribution). Project page daravaram.github.io/FedPCD links arXiv 2610.13508.
+    GitHub repo DaraVaram/FedPCD is a project-page repo (no license, no training code found in README);
+    no code release located. No venue/acceptance information found.
+  relevance: "Federated extension of PCD: FedAvg aggregate as primary, per-client pseudo-gradients as secondary constraints, client-history cache; O(1/T) rate under a uniform-alignment assumption."
+  topics: [pcd, federated, fairness, heterogeneity]
+  local_pdf: true
+
+- id: gong2021dbgd
+  type: paper
+  title: "Automatic and Harmless Regularization with Constrained and Lexicographic Optimization: A Dynamic Barrier Approach"
+  authors: ["Chengyue Gong", "Xingchao Liu", "Qiang Liu"]
+  date: 2021-12-06
+  venue: "NeurIPS 2021"
+  status: published
+  urls:
+    official: https://proceedings.neurips.cc/paper/2021/hash/f7b027d45fd7484f6d0833823b98907e-Abstract.html
+    arxiv: null
+    code: null
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "NeurIPS proceedings page citation meta tags (title, authors, date 2021-12-06). An NSF-PAR copy is titled 'Bi-objective Trade-off with Dynamic Barrier Gradient Descent' (seen in search results only, not opened). Full text not read in this pass; claims about it come from varam2026pcd Sec. 4.1."
+  relevance: "Direct ancestor: for K=2 the PCD QP coincides with the DBGD update (raw gradients); DBGD has convergence proofs for constrained/lexicographic settings that PCD lacks."
+  topics: [lexicographic, constrained-optimization, dynamic-barrier, pcd-ancestry]
+  local_pdf: false
+
+- id: lopezpaz2017gem
+  type: paper
+  title: "Gradient Episodic Memory for Continual Learning"
+  authors: ["David Lopez-Paz", "Marc'Aurelio Ranzato"]
+  date: 2017-06-26
+  venue: "NIPS 2017"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1706.08840", code: null}
+  identifiers: {doi: null, arxiv: "1706.08840"}
+  license: null
+  verified_by: "arXiv API (comment 'Published at NIPS 2017'); full-text PDF v6 inspected: primal QP min ½||g−g̃||² s.t. <g̃,g_k> ≥ 0 and the 'small constant γ ≥ 0 added to v*' margin (p. 5, text near Eq. 11)."
+  relevance: "Closest prior work for any PCD continual-learning direction: the same minimal-Euclidean-deviation projection of the current-task gradient onto half-spaces defined by memory gradients."
+  topics: [continual-learning, gradient-projection, pcd-ancestry]
+  local_pdf: true
+
+- id: chaudhry2019agem
+  type: paper
+  title: "Efficient Lifelong Learning with A-GEM"
+  authors: ["Arslan Chaudhry", "Marc'Aurelio Ranzato", "Marcus Rohrbach", "Mohamed Elhoseiny"]
+  date: 2018-12-02
+  venue: "ICLR 2019"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1812.00420", code: null}
+  identifiers: {doi: null, arxiv: "1812.00420"}
+  license: null
+  verified_by: "arXiv API (comment 'Published as a conference paper at ICLR 2019')."
+  relevance: "Single-constraint (averaged memory gradient) variant of GEM = K=2 projection with τ=0 and no normalization."
+  topics: [continual-learning, gradient-projection]
+  local_pdf: false
+
+- id: chaudhry2019tiny
+  type: paper
+  title: "On Tiny Episodic Memories in Continual Learning"
+  authors: ["Arslan Chaudhry", "Marcus Rohrbach", "Mohamed Elhoseiny", "Thalaiyasingam Ajanthan", "Puneet K. Dokania", "Philip H. S. Torr"]
+  date: 2019-02-27
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1902.10486", code: null}
+  identifiers: {doi: null, arxiv: "1902.10486"}
+  license: null
+  verified_by: "arXiv API title/authors/date only; venue not verified; content (experience replay as a strong simple baseline) recalled, not re-read in this pass."
+  relevance: "Potential contradicting evidence for projection-based CL: plain experience replay (a weighted sum) as a cheap strong baseline. Must be re-read before citing any result."
+  topics: [continual-learning, baseline, contradicting-evidence]
+  local_pdf: false
+
+- id: farajtabar2019ogd
+  type: paper
+  title: "Orthogonal Gradient Descent for Continual Learning"
+  authors: ["Mehrdad Farajtabar", "Navid Azizan", "Alex Mott", "Ang Li"]
+  date: 2019-10-15
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1910.07104", code: null}
+  identifiers: {doi: null, arxiv: "1910.07104"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "Projection-based continual learning (orthogonal to past-task gradient subspace); related to the CL candidate."
+  topics: [continual-learning, gradient-projection]
+  local_pdf: false
+
+# ---------------------------------------------------------------- gradient-conflict / MTL
+- id: yu2020pcgrad
+  type: paper
+  title: "Gradient Surgery for Multi-Task Learning"
+  authors: ["Tianhe Yu", "Saurabh Kumar", "Abhishek Gupta", "Sergey Levine", "Karol Hausman", "Chelsea Finn"]
+  date: 2020-01-19
+  venue: "NeurIPS 2020"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2001.06782", code: "https://github.com/tianheyu927/PCGrad"}
+  identifiers: {doi: null, arxiv: "2001.06782"}
+  license: null
+  verified_by: "arXiv API (comment 'NeurIPS 2020. Code is available at https://github.com/tianheyu927/PCGrad')."
+  relevance: "PCGrad; symmetric projection baseline used by PCD and the KD proposal."
+  topics: [gradient-conflict, mtl]
+  local_pdf: false
+
+- id: liu2021cagrad
+  type: paper
+  title: "Conflict-Averse Gradient Descent for Multi-task Learning"
+  authors: ["Bo Liu", "Xingchao Liu", "Xiaojie Jin", "Peter Stone", "Qiang Liu"]
+  date: 2021-10-26
+  venue: "NeurIPS 2021"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2110.14048", code: null}
+  identifiers: {doi: null, arxiv: "2110.14048"}
+  license: null
+  verified_by: "arXiv API (comment 'Conference on Neural Information Processing Systems, 2021')."
+  relevance: "CAGrad baseline; average-anchored, worst-case-improving direction."
+  topics: [gradient-conflict, mtl]
+  local_pdf: false
+
+- id: sener2018mgda
+  type: paper
+  title: "Multi-Task Learning as Multi-Objective Optimization"
+  authors: ["Ozan Sener", "Vladlen Koltun"]
+  date: 2018-10-10
+  venue: "NeurIPS 2018"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1810.04650", code: null}
+  identifiers: {doi: null, arxiv: "1810.04650"}
+  license: null
+  verified_by: "arXiv API (comment 'In Neural Information Processing Systems (NeurIPS) 2018')."
+  relevance: "MGDA(-UB) for deep MTL; min-norm convex-combination baseline. (Original MGDA: Désidéri 2012, cited by PCD, not separately verified.)"
+  topics: [mtl, pareto, mgda]
+  local_pdf: false
+
+- id: navon2022nashmtl
+  type: paper
+  title: "Multi-Task Learning as a Bargaining Game"
+  authors: ["Aviv Navon", "Aviv Shamsian", "Idan Achituve", "Haggai Maron", "Kenji Kawaguchi", "Gal Chechik", "Ethan Fetaya"]
+  date: 2022-02-02
+  venue: "ICML 2022"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2202.01017", code: null}
+  identifiers: {doi: null, arxiv: "2202.01017"}
+  license: null
+  verified_by: "arXiv API (comment 'ICML 2022')."
+  relevance: "Nash-MTL; symmetric bargaining baseline (AuxiNash is its asymmetric auxiliary-learning descendant)."
+  topics: [mtl, gradient-conflict]
+  local_pdf: false
+
+- id: liu2021imtl
+  type: paper
+  title: "Towards Impartial Multi-task Learning"
+  authors: ["Liyang Liu", "Yi Li", "Zhanghui Kuang", "Jing-Hao Xue", "Yimin Chen", "Wenming Yang", "Qingmin Liao", "Wayne Zhang"]
+  date: 2021
+  venue: "ICLR 2021"
+  status: published
+  urls: {official: "https://iclr.cc/virtual/2021/poster/2894", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "ICLR 2021 virtual poster page title fetched; author list from web-search snippets (OpenReview blocked) — author list should be re-checked against the OpenReview PDF."
+  relevance: "IMTL; equal-projection gradient balancing (symmetric)."
+  topics: [mtl, gradient-conflict]
+  local_pdf: false
+
+- id: senushkin2023alignedmtl
+  type: paper
+  title: "Independent Component Alignment for Multi-Task Learning"
+  authors: ["Dmitry Senushkin", "Nikolay Patakin", "Arseny Kuznetsov", "Anton Konushin"]
+  date: 2023-05-30
+  venue: "CVPR 2023"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2305.19000", code: null}
+  identifiers: {doi: null, arxiv: "2305.19000"}
+  license: null
+  verified_by: "arXiv API (journal_ref 'CVPR2023')."
+  relevance: "Aligned-MTL; condition-number-based gradient alignment (symmetric)."
+  topics: [mtl, gradient-conflict]
+  local_pdf: false
+
+- id: liu2023famo
+  type: paper
+  title: "FAMO: Fast Adaptive Multitask Optimization"
+  authors: ["Bo Liu", "Yihao Feng", "Peter Stone", "Qiang Liu"]
+  date: 2023-06-06
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2306.03792", code: null}
+  identifiers: {doi: null, arxiv: "2306.03792"}
+  license: null
+  verified_by: "arXiv API title/authors/date. NeurIPS 2023 poster listing appeared in web-search results but the page did not render on fetch; venue left unverified."
+  relevance: "O(1)-cost loss-weighting MTL baseline used in PCD's experiments; relevant as a cheap alternative to K-backprop methods."
+  topics: [mtl, loss-weighting]
+  local_pdf: false
+
+- id: chen2018gradnorm
+  type: paper
+  title: "GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks"
+  authors: ["Zhao Chen", "Vijay Badrinarayanan", "Chen-Yu Lee", "Andrew Rabinovich"]
+  date: 2017-11-07
+  venue: "ICML 2018"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1711.02257", code: null}
+  identifiers: {doi: null, arxiv: "1711.02257"}
+  license: null
+  verified_by: "arXiv API (journal_ref 'Proceedings of the 35th International Conference on Machine Learning (2018), 793-802')."
+  relevance: "Gradient-norm balancing; the natural 'normalization-only' control for PCD's EMA normalization."
+  topics: [mtl, loss-weighting, normalization]
+  local_pdf: false
+
+- id: kendall2018uncertainty
+  type: paper
+  title: "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics"
+  authors: ["Alex Kendall", "Yarin Gal", "Roberto Cipolla"]
+  date: 2017-05-19
+  venue: "CVPR 2018"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1705.07115", code: null}
+  identifiers: {doi: null, arxiv: "1705.07115"}
+  license: null
+  verified_by: "arXiv API (comment 'CVPR 2018')."
+  relevance: "Learned loss weighting baseline (symmetric)."
+  topics: [mtl, loss-weighting]
+  local_pdf: false
+
+- id: lin2019paretomtl
+  type: paper
+  title: "Pareto Multi-Task Learning"
+  authors: ["Xi Lin", "Hui-Ling Zhen", "Zhenhua Li", "Qingfu Zhang", "Sam Kwong"]
+  date: 2019-12-30
+  venue: "NeurIPS 2019"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1912.12854", code: null}
+  identifiers: {doi: null, arxiv: "1912.12854"}
+  license: null
+  verified_by: "arXiv API (comment '33rd Conference on Neural Information Processing Systems (NeurIPS 2019)')."
+  relevance: "Preference-vector Pareto methods: an alternative way to encode unequal importance."
+  topics: [pareto, mtl, preference]
+  local_pdf: false
+
+- id: kurin2022unitary
+  type: paper
+  title: "In Defense of the Unitary Scalarization for Deep Multi-Task Learning"
+  authors: ["Vitaly Kurin", "Alessandro De Palma", "Ilya Kostrikov", "Shimon Whiteson", "M. Pawan Kumar"]
+  date: 2022-01-11
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2201.04122", code: null}
+  identifiers: {doi: null, arxiv: "2201.04122"}
+  license: null
+  verified_by: "arXiv API (comment 'NeurIPS 2022 camera-ready version')."
+  relevance: "CONTRADICTING EVIDENCE: argues tuned plain summation matches specialized MTL optimizers."
+  topics: [mtl, contradicting-evidence, scalarization]
+  local_pdf: false
+
+- id: xin2022mtohelp
+  type: paper
+  title: "Do Current Multi-Task Optimization Methods in Deep Learning Even Help?"
+  authors: ["Derrick Xin", "Behrooz Ghorbani", "Justin Gilmer", "Ankush Garg", "Orhan Firat"]
+  date: 2022-12-06
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/580c4ec4738ff61d5862a122cdf139b6-Abstract.html", arxiv: "https://arxiv.org/abs/2209.11379", code: null}
+  identifiers: {doi: null, arxiv: "2209.11379"}
+  license: null
+  verified_by: "NeurIPS proceedings page citation meta tags (authors in proceedings order) + arXiv API."
+  relevance: "CONTRADICTING EVIDENCE: large-scale study finding specialized MTO methods do not beat well-tuned scalarization; sets the bar for PCD comparisons (tuned baselines, equal search effort)."
+  topics: [mtl, contradicting-evidence, scalarization]
+  local_pdf: false
+
+- id: royer2023scalarization
+  type: paper
+  title: "Scalarization for Multi-Task and Multi-Domain Learning at Scale"
+  authors: ["Amelie Royer", "Tijmen Blankevoort", "Babak Ehteshami Bejnordi"]
+  date: 2023-10-13
+  venue: "NeurIPS 2023"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=TSuq3debnD", arxiv: "https://arxiv.org/abs/2310.08910", code: null}
+  identifiers: {doi: null, arxiv: "2310.08910"}
+  license: null
+  verified_by: "arXiv API (comment 'NeurIPS 2023; https://openreview.net/forum?id=TSuq3debnD'). OpenReview not loadable."
+  relevance: "CONTRADICTING EVIDENCE: scalarization competitive at scale."
+  topics: [mtl, contradicting-evidence, scalarization]
+  local_pdf: false
+
+- id: lin2022randomweighting
+  type: paper
+  title: "Reasonable Effectiveness of Random Weighting: A Litmus Test for Multi-Task Learning"
+  authors: ["Baijiong Lin", "Feiyang Ye", "Yu Zhang", "Ivor W. Tsang"]
+  date: 2021-11-20
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2111.10603", code: null}
+  identifiers: {doi: null, arxiv: "2111.10603"}
+  license: null
+  verified_by: "arXiv API title/authors/date; publication venue not verified."
+  relevance: "CONTRADICTING EVIDENCE / litmus baseline: random loss weights as a sanity baseline for MTL optimizers."
+  topics: [mtl, contradicting-evidence]
+  local_pdf: false
+
+- id: du2018auxgradsim
+  type: paper
+  title: "Adapting Auxiliary Losses Using Gradient Similarity"
+  authors: ["Yunshu Du", "Wojciech M. Czarnecki", "Siddhant M. Jayakumar", "Mehrdad Farajtabar", "Razvan Pascanu", "Balaji Lakshminarayanan"]
+  date: 2018-12-05
+  venue: null
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1812.02224", code: null}
+  identifiers: {doi: null, arxiv: "1812.02224"}
+  license: null
+  verified_by: "arXiv API (v2; no journal_ref/comment). Survey draft also reports it as an arXiv preprint."
+  relevance: "Main-task-anchored gating of auxiliary losses by gradient cosine; asymmetric precedent."
+  topics: [auxiliary-learning, gradient-conflict, asymmetric]
+  local_pdf: false
+
+- id: skalse2022lmorl
+  type: paper
+  title: "Lexicographic Multi-Objective Reinforcement Learning"
+  authors: ["Joar Skalse", "Lewis Hammond", "Charlie Griffin", "Alessandro Abate"]
+  date: 2022
+  venue: "IJCAI 2022"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2212.13769", code: null}
+  identifiers: {doi: null, arxiv: "2212.13769"}
+  license: null
+  verified_by: "arXiv API journal_ref 'IJCAI 2022 ... Main Track, Pages 3430-3436'."
+  relevance: "Lexicographic (strict priority) optimization in learning; contrasts with PCD's soft τ-priority."
+  topics: [lexicographic, rl]
+  local_pdf: false
+
+# ---------------------------------------------------------------- constrained learning
+- id: chamon2020pacc
+  type: paper
+  title: "Probably Approximately Correct Constrained Learning"
+  authors: ["Luiz F. O. Chamon", "Alejandro Ribeiro"]
+  date: 2020-06-09
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2006.05487", code: null}
+  identifiers: {doi: null, arxiv: "2006.05487"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "Primal-dual constrained learning theory: the standard alternative to PCD when a secondary must meet a level (constraint) rather than make per-step progress."
+  topics: [constrained-learning, primal-dual]
+  local_pdf: false
+
+- id: cotter2019twoplayer
+  type: paper
+  title: "Two-Player Games for Efficient Non-Convex Constrained Optimization"
+  authors: ["Andrew Cotter", "Heinrich Jiang", "Karthik Sridharan"]
+  date: 2018-04-17
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1804.06500", code: null}
+  identifiers: {doi: null, arxiv: "1804.06500"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "Lagrangian/proxy-Lagrangian constrained training for non-convex models (fairness-rate constraints)."
+  topics: [constrained-learning, fairness]
+  local_pdf: false
+
+- id: agarwal2018reductions
+  type: paper
+  title: "A Reductions Approach to Fair Classification"
+  authors: ["Alekh Agarwal", "Alina Beygelzimer", "Miroslav Dudík", "John Langford", "Hanna Wallach"]
+  date: 2018-03-06
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1803.02453", code: null}
+  identifiers: {doi: null, arxiv: "1803.02453"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "Standard fairness-constrained baseline (exponentiated-gradient reduction)."
+  topics: [fairness, constrained-learning]
+  local_pdf: false
+
+- id: gallegoposada2025cooper
+  type: paper
+  title: "Cooper: A Library for Constrained Optimization in Deep Learning"
+  authors: ["Jose Gallego-Posada", "Juan Ramirez", "Meraj Hashemizadeh", "Simon Lacoste-Julien"]
+  date: 2025-04-01
+  venue: null
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2504.01212", code: null}
+  identifiers: {doi: null, arxiv: "2504.01212"}
+  license: null
+  verified_by: "arXiv API title/authors/date; used as a baseline (Lagrangian route) in varam2026pcd Sec. 5.1.2."
+  relevance: "Lagrangian constrained-optimization baseline/tool; PCD compared against it."
+  topics: [constrained-learning, tooling]
+  local_pdf: false
+
+- id: sagawa2020groupdro
+  type: paper
+  title: "Distributionally Robust Neural Networks for Group Shifts: On the Importance of Regularization for Worst-Case Generalization"
+  authors: ["Shiori Sagawa", "Pang Wei Koh", "Tatsunori B. Hashimoto", "Percy Liang"]
+  date: 2019-11-20
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1911.08731", code: null}
+  identifiers: {doi: null, arxiv: "1911.08731"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "Worst-group robustness baseline for the centralized 'groups-as-clients' PCD direction."
+  topics: [robustness, fairness, group-shift]
+  local_pdf: false
+
+- id: zhang2019trades
+  type: paper
+  title: "Theoretically Principled Trade-off between Robustness and Accuracy"
+  authors: ["Hongyang Zhang", "Yaodong Yu", "Jiantao Jiao", "Eric P. Xing", "Laurent El Ghaoui", "Michael I. Jordan"]
+  date: 2019-01-24
+  venue: "ICML 2019"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1901.08573", code: null}
+  identifiers: {doi: null, arxiv: "1901.08573"}
+  license: null
+  verified_by: "arXiv API (comment 'Appeared in ICML 2019')."
+  relevance: "Clean-vs-robust trade-off objective; candidate secondary for a robustness direction."
+  topics: [robustness, adversarial]
+  local_pdf: false
+
+- id: xue2024caat
+  type: paper
+  title: "Conflict-Aware Adversarial Training"
+  authors: ["Zhiyu Xue", "Haohan Wang", "Yao Qin", "Ramtin Pedarsani"]
+  date: 2024-10-21
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2410.16579", code: null}
+  identifiers: {doi: null, arxiv: "2410.16579"}
+  license: null
+  verified_by: "arXiv API title/authors/date. A BMVC 2025 version appeared in search results only (not opened); venue unverified."
+  relevance: "Prior work for the robustness direction: projects adversarial gradient relative to clean gradient (gradient-conflict view of the accuracy-robustness trade-off)."
+  topics: [robustness, gradient-conflict]
+  local_pdf: false
+
+# ---------------------------------------------------------------- federated
+- id: mcmahan2017fedavg
+  type: paper
+  title: "Communication-Efficient Learning of Deep Networks from Decentralized Data"
+  authors: ["H. Brendan McMahan", "Eider Moore", "Daniel Ramage", "Seth Hampson", "Blaise Agüera y Arcas"]
+  date: 2016-02-17
+  venue: "AISTATS 2017"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1602.05629", code: null}
+  identifiers: {doi: null, arxiv: "1602.05629"}
+  license: null
+  verified_by: "arXiv API journal_ref 'Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS) 2017'."
+  relevance: "FedAvg; FedPCD's primary direction."
+  topics: [federated]
+  local_pdf: false
+
+- id: li2020fedprox
+  type: paper
+  title: "Federated Optimization in Heterogeneous Networks"
+  authors: ["Tian Li", "Anit Kumar Sahu", "Manzil Zaheer", "Maziar Sanjabi", "Ameet Talwalkar", "Virginia Smith"]
+  date: 2018-12-14
+  venue: "MLSys 2020"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1812.06127", code: null}
+  identifiers: {doi: null, arxiv: "1812.06127"}
+  license: null
+  verified_by: "arXiv API (comment 'MLSys 2020')."
+  relevance: "FedProx; drift-control baseline NOT included in FedPCD's evaluation."
+  topics: [federated, heterogeneity]
+  local_pdf: false
+
+- id: karimireddy2020scaffold
+  type: paper
+  title: "SCAFFOLD: Stochastic Controlled Averaging for Federated Learning"
+  authors: ["Sai Praneeth Karimireddy", "Satyen Kale", "Mehryar Mohri", "Sashank J. Reddi", "Sebastian U. Stich", "Ananda Theertha Suresh"]
+  date: 2019-10-14
+  venue: "ICML 2020"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1910.06378", code: null}
+  identifiers: {doi: null, arxiv: "1910.06378"}
+  license: null
+  verified_by: "arXiv API (comment '... v3 fixes typos, ICML version'); 'Proceedings of the 37th ICML, PMLR 2020, pp. 5132-5143' as cited in irshaid2026fedpcd reference list (not checked on proceedings.mlr.press)."
+  relevance: "Client-drift correction baseline; cited but NOT compared in FedPCD."
+  topics: [federated, heterogeneity, client-drift]
+  local_pdf: false
+
+- id: wang2020fednova
+  type: paper
+  title: "Tackling the Objective Inconsistency Problem in Heterogeneous Federated Optimization"
+  authors: ["Jianyu Wang", "Qinghua Liu", "Hao Liang", "Gauri Joshi", "H. Vincent Poor"]
+  date: 2020-07-15
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2007.07481", code: null}
+  identifiers: {doi: null, arxiv: "2007.07481"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified (no arXiv comment; DBLP/S2 rate-limited)."
+  relevance: "FedNova normalized averaging; relevant because FedPCD also normalizes client directions — a normalization-only control."
+  topics: [federated, heterogeneity, normalization]
+  local_pdf: false
+
+- id: acar2021feddyn
+  type: paper
+  title: "Federated Learning Based on Dynamic Regularization"
+  authors: ["Durmus Alp Emre Acar", "Yue Zhao", "Ramon Matas Navarro", "Matthew Mattina", "Paul N. Whatmough", "Venkatesh Saligrama"]
+  date: 2021-11-08
+  venue: "ICLR 2021"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2111.04263", code: null}
+  identifiers: {doi: null, arxiv: "2111.04263"}
+  license: null
+  verified_by: "arXiv API (comment 'Slightly extended version of ICLR 2021 Paper')."
+  relevance: "Source of the Dirichlet non-IID partition protocol FedPCD follows."
+  topics: [federated, heterogeneity, benchmark-protocol]
+  local_pdf: false
+
+- id: li2020qffl
+  type: paper
+  title: "Fair Resource Allocation in Federated Learning"
+  authors: ["Tian Li", "Maziar Sanjabi", "Ahmad Beirami", "Virginia Smith"]
+  date: 2019-05-25
+  venue: "ICLR 2020"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1905.10497", code: null}
+  identifiers: {doi: null, arxiv: "1905.10497"}
+  license: null
+  verified_by: "arXiv API (comment 'ICLR 2020')."
+  relevance: "q-FFL fairness baseline (in FedPCD)."
+  topics: [federated, fairness]
+  local_pdf: false
+
+- id: mohri2019afl
+  type: paper
+  title: "Agnostic Federated Learning"
+  authors: ["Mehryar Mohri", "Gary Sivek", "Ananda Theertha Suresh"]
+  date: 2019-02-01
+  venue: null
+  status: unverified
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1902.00146", code: null}
+  identifiers: {doi: null, arxiv: "1902.00146"}
+  license: null
+  verified_by: "arXiv API title/authors/date; venue not verified."
+  relevance: "AFL minimax fairness baseline (in FedPCD)."
+  topics: [federated, fairness]
+  local_pdf: false
+
+- id: li2021ditto
+  type: paper
+  title: "Ditto: Fair and Robust Federated Learning Through Personalization"
+  authors: ["Tian Li", "Shengyuan Hu", "Ahmad Beirami", "Virginia Smith"]
+  date: 2020-12-08
+  venue: "ICML 2021"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2012.04221", code: null}
+  identifiers: {doi: null, arxiv: "2012.04221"}
+  license: null
+  verified_by: "arXiv API (comment 'Accepted by ICML 2021')."
+  relevance: "Personalization-based fairness baseline (in FedPCD)."
+  topics: [federated, fairness, personalization]
+  local_pdf: false
+
+- id: hu2022fedmgda
+  type: paper
+  title: "Federated Learning Meets Multi-objective Optimization"
+  authors: ["Zeou Hu", "Kiarash Shaloudegi", "Guojun Zhang", "Yaoliang Yu"]
+  date: 2020-06-20
+  venue: "IEEE Transactions on Network Science and Engineering (2022)"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2006.11489", code: null}
+  identifiers: {doi: null, arxiv: "2006.11489"}
+  license: null
+  verified_by: "arXiv API (comment 'Accepted at IEEE Transactions on Network Science and Engineering 2022'); DOI not looked up."
+  relevance: "FedMGDA+: symmetric MOO aggregation; FedPCD's main conceptual foil."
+  topics: [federated, mgda, fairness]
+  local_pdf: false
+
+- id: wang2021fedfv
+  type: paper
+  title: "Federated Learning with Fair Averaging"
+  authors: ["Zheng Wang", "Xiaoliang Fan", "Jianzhong Qi", "Chenglu Wen", "Cheng Wang", "Rongshan Yu"]
+  date: 2021-04-30
+  venue: "IJCAI 2021"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2104.14937", code: null}
+  identifiers: {doi: null, arxiv: "2104.14937"}
+  license: null
+  verified_by: "arXiv API (comment 'Accepted by IJCAI2021')."
+  relevance: "FedFV: PCGrad-style projection of conflicting client gradients with history; strongest CIFAR-10 competitor in FedPCD."
+  topics: [federated, fairness, gradient-conflict]
+  local_pdf: false
+
+# ---------------------------------------------------------------- KD (already in the survey draft)
+- id: hinton2015kd
+  type: paper
+  title: "Distilling the Knowledge in a Neural Network"
+  authors: ["Geoffrey Hinton", "Oriol Vinyals", "Jeff Dean"]
+  date: 2015-03-09
+  venue: "NIPS 2014 Deep Learning Workshop"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1503.02531", code: null}
+  identifiers: {doi: null, arxiv: "1503.02531"}
+  license: null
+  verified_by: "arXiv API (comment 'NIPS 2014 Deep Learning Workshop')."
+  relevance: "Standard KD loss used as the secondary in the current proposal."
+  topics: [kd]
+  local_pdf: false
+
+- id: zhu2021sckd
+  type: paper
+  title: "Student Customized Knowledge Distillation: Bridging the Gap Between Student and Teacher"
+  authors: ["Yichen Zhu", "Yi Wang"]
+  date: 2021-10
+  venue: "ICCV 2021"
+  status: published
+  urls: {official: "https://doi.org/10.1109/ICCV48922.2021.00501", arxiv: null, code: null}
+  identifiers: {doi: "10.1109/ICCV48922.2021.00501", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI metadata (title, authors, container '2021 IEEE/CVF ICCV', issued 2021-10)."
+  relevance: "Supervised-primary gradient-similarity gating of KD terms: closest KD precedent for asymmetric KD."
+  topics: [kd, gradient-conflict, asymmetric]
+  local_pdf: false
+
+- id: hayder2026dtokd
+  type: paper
+  title: "DTO-KD: Dynamic Trade-off Optimization for Effective Knowledge Distillation"
+  authors: ["Zeeshan Hayder", "Ali Cheraghian", "Lars Petersson", "Mehrtash Harandi", "Richard Hartley"]
+  date: 2026
+  venue: "ICLR 2026"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/e546ce4230c15bc422a500bb47b341ea-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "ICLR 2026 proceedings page citation meta tags (title; first five authors shown — full author list not checked beyond five)."
+  relevance: "MOO-based KD comparator (dynamic task/KD trade-off)."
+  topics: [kd, gradient-conflict, moo]
+  local_pdf: false
+
+- id: chen2026scope
+  type: paper
+  title: "Selective Confidence-Guided Projection-Based Encoding for Medical Image Classification"
+  authors: ["Tao Chen", "Chuan Zhou", "Yifan Wang", "Lubomir M. Hadjiiski", "Qian Dong"]
+  date: 2026-09-11
+  venue: "Journal of Imaging"
+  status: published
+  urls: {official: "https://doi.org/10.3390/jimaging12090436", arxiv: null, code: null}
+  identifiers: {doi: "10.3390/jimaging12090436", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI metadata (first five authors listed; issued 2026-09-11)."
+  relevance: "Classification-priority gradient-conflict removal for KD plus confidence-weighted relations: very close to the KD proposal."
+  topics: [kd, gradient-conflict, reliability]
+  local_pdf: false
+
+- id: yuan2026tpkd
+  type: paper
+  title: "Learning Beyond Full Imitation: Task-Preserving Knowledge Distillation"
+  authors: ["Qianfeng Yuan", "Wenbing Tao"]
+  date: 2026-09-30
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2609.39338", code: null}
+  identifiers: {doi: null, arxiv: "2609.39338"}
+  license: null
+  verified_by: "arXiv API title/authors/date."
+  relevance: "Asymmetric KD that projects teacher directions to protect task margins: close to PCD-KD."
+  topics: [kd, asymmetric, projection]
+  local_pdf: false
+
+- id: sumit2026chad
+  type: paper
+  title: "When Does Knowledge Distillation Hurt? Reliability-Aware Distillation for Low-Resource Language Summarization"
+  authors: ["Dipto Sumit", "Ankan Kumar Roy Srizon", "Sadia Khair Rodela", "Atia Haque Asha", "Mourchona Afrin", "Niloy Farhan", "Farig Sadeque"]
+  date: 2026-07-22
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2607.19956", code: null}
+  identifiers: {doi: null, arxiv: "2607.19956"}
+  license: null
+  verified_by: "arXiv API title/authors/date."
+  relevance: "Reliability-aware KD reporting that teacher-confidence-only gates offered little benefit (per survey draft)."
+  topics: [kd, reliability, contradicting-evidence]
+  local_pdf: false
+
+# ---------------------------------------------------------------- added after re-reading PCD related work
+- id: hu2020softgem
+  type: paper
+  title: "Gradient Episodic Memory with a Soft Constraint for Continual Learning"
+  authors: ["Guannan Hu", "Wu Zhang", "Hu Ding", "Wenhao Zhu"]
+  date: 2020-11-16
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2011.07801", code: null}
+  identifiers: {doi: null, arxiv: "2011.07801"}
+  license: null
+  verified_by: "arXiv API title/authors/date (no journal_ref). Described in varam2026pcd Sec. 2 as adding 'a unit-normalized positive margin at K = 2' to GEM; full text not read."
+  relevance: "Closest prior art to PCD-for-continual-learning: GEM plus a normalized positive margin (essentially K=2 PCD with instantaneous normalization)."
+  topics: [continual-learning, gradient-projection, pcd-ancestry]
+  local_pdf: false
+
+- id: ye2022pngd
+  type: paper
+  title: "Pareto Navigation Gradient Descent: a First-Order Algorithm for Optimization in Pareto Set"
+  authors: ["Mao Ye", "Qiang Liu"]
+  date: 2022-08-17
+  venue: "UAI 2022 (PMLR 180)"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v180/ye22a.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "PMLR v180 page citation meta tags (title, authors, date 2022-08-17, conference 'Uncertainty in Artificial Intelligence')."
+  relevance: "Anchored program with general K and a shared scheduled margin; PCD ancestry (cited by PCD and by the survey draft)."
+  topics: [pareto, anchored-projection, pcd-ancestry]
+  local_pdf: false
