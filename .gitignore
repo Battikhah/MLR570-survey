@@ -1,1 +1,77 @@
+# --- OS / editor ---
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Credentials & secrets (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+credentials*.json
+secrets*.json
+*.token
+.netrc
+kaggle.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Datasets (download via scripts; never commit) ---
+data/*
+!data/README.md
+*.tar.gz
+*.zip
+*.npz
+*.h5
+*.hdf5
+*.parquet
+
+# --- Model checkpoints & generated artifacts ---
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+checkpoints/
+outputs/*
+!outputs/README.md
+runs/
+wandb/
+mlruns/
+lightning_logs/
+tb_logs/
+
+# --- Downloaded literature (copyrighted PDFs stay local; metadata is committed) ---
+literature/pdfs/*
+!literature/pdfs/README.md
+
+# --- LaTeX build products ---
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+paper/build/
+
+# --- JS tooling (not used by this project) ---
+node_modules/
