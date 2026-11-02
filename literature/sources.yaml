@@ -27,7 +27,8 @@
     not loadable (bot challenge). Code URL: repo README links arXiv 2606.29521 and project page
     daravaram.github.io/PCD (same GitHub account DaraVaram; page lists contact varam@mit.edu); TMLR listing
     'code' link points to that project page. The paper PDF itself contains no code URL. MIT license per
-    GitHub API (code audit delegated to Codex).
+    GitHub API. Cross-review static audit (2026-11-02): shallow clone HEAD e9afdbc9f4cb (2026-09-29 +0400),
+    3 commits; LICENSE "Copyright (c) 2026 Dara Varam and Mohamed I. AlHajri"; details in literature/notes/varam2026pcd.md.
   relevance: "The method under study. Defines the PCD QP, EMA normalization, guarantees (per-step secondary progress, CMS fixed points) and their scope; evaluated on pruning/sparsity/low-rank only."
   topics: [pcd, hierarchical-moo, gradient-conflict, pruning, sparsity]
   local_pdf: true
@@ -48,8 +49,10 @@
   verified_by: >-
     arXiv API + abs page (v1 only, 2026-10-09, cs.LG, 30 pages, no journal_ref); PDF v1 author block
     (AUS; Irshaid and Varam equal contribution). Project page daravaram.github.io/FedPCD links arXiv 2610.13508.
-    GitHub repo DaraVaram/FedPCD is a project-page repo (no license, no training code found in README);
-    no code release located. No venue/acceptance information found.
+    GitHub repo DaraVaram/FedPCD is the project-page source only (files: README.md, index.html, css/, js/, assets/);
+    its README says "preprint, under review" and "Code is empty until the code is public"; js/main.js sets
+    LINKS.code = "" (button shows "Coming soon"), re-checked 2026-11-02 in the cross-review. No code release exists.
+    Venue of the submission not stated.
   relevance: "Federated extension of PCD: FedAvg aggregate as primary, per-client pseudo-gradients as secondary constraints, client-history cache; O(1/T) rate under a uniform-alignment assumption."
   topics: [pcd, federated, fairness, heterogeneity]
   local_pdf: true
