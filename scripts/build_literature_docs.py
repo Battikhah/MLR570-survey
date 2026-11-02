@@ -28,12 +28,27 @@ def authors(record):
 
 def generate():
     rows = records()
-    table = ["# Literature matrix", "", "| ID | Title | Authors | Year | Venue | Status | Topics | Relevance |", "|---|---|---|---:|---|---|---|---|"]
+    table = [
+        "# Literature matrix",
+        "",
+        "| ID | Title | Authors | Year | Venue | Status | Topics | Relevance |",
+        "|---|---|---|---:|---|---|---|---|",
+    ]
     for r in rows:
         year = str(r.get("date") or "")[:4]
         topics = ", ".join(r.get("topics") or [])
-        fields = [r["id"], r.get("title") or "", authors(r), year, r.get("venue") or "", r.get("status") or "unverified", topics, r.get("relevance") or ""]
-        table.append("| " + " | ".join(str(v).replace("|", "\\|").replace("\n", " ") for v in fields) + " |")
+        fields = [
+            r["id"],
+            r.get("title") or "",
+            authors(r),
+            year,
+            r.get("venue") or "",
+            r.get("status") or "unverified",
+            topics,
+            r.get("relevance") or "",
+        ]
+        escaped = (str(value).replace("|", "\\|").replace("\n", " ") for value in fields)
+        table.append("| " + " | ".join(escaped) + " |")
     grouped = {}
     for r in rows:
         topic = (r.get("topics") or ["uncategorized"])[0]
@@ -43,7 +58,11 @@ def generate():
         bib.extend([f"## {topic}", ""])
         for r in entries:
             date = str(r.get("date") or "n.d.")
-            entry = f"[{r['id']}] {authors(r)}, ‘{r.get('title') or ''},’ {r.get('venue') or ''}, {date}. Status: {r.get('status') or 'unverified'}. {r.get('relevance') or ''}"
+            entry = (
+                f"[{r['id']}] {authors(r)}, ‘{r.get('title') or ''},’ "
+                f"{r.get('venue') or ''}, {date}. Status: "
+                f"{r.get('status') or 'unverified'}. {r.get('relevance') or ''}"
+            )
             bib.extend(["- " + entry, ""])
     target = ROOT / "docs/literature"
     target.mkdir(parents=True, exist_ok=True)
