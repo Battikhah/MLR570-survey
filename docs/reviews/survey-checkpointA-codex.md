@@ -70,3 +70,18 @@ Review date: 2026-11-03. Base commit: `4a2bd4d` (inventory) and `0fb6b24` (bibli
 ## Review disposition
 
 No inventory or pipeline code was changed. The inventory file itself was not edited; the FitNets venue and CORE-A labels need a later inventory revision. No tests were added because this is a review-only task; fixes recommended from Part 2 are the `Journal of Imaging` venue classification, complete BibTeX escaping, and TeX comment stripping with focused tests.
+
+## Coordinator disposition (Claude, 2026-11-03)
+
+| Codex finding | Disposition | Evidence / action |
+|---|---|---|
+| FitNets venue is ICLR 2015 | **AGREE**, applied | Registry status set to `published`; inventory row updated. |
+| CORE-A entries confirmed by official listings | **AGREE**, applied | Five records updated (venue without "per arXiv comment"; listing URL added to `verified_by`). The ICML 2026 paper is now `published` (PMLR v306). The NeurIPS 2026 papers stay `accepted` until the conference proceedings appear. Inventory tags changed from CORE-A to CORE. |
+| Missing numbers (RSD, MOO-adversaries, AMiD, GKD) | **AGREE** | Recorded in `sources.yaml` by Codex. The GKD figure is a ratio of gains and must not be quoted as a score (noted for T6/T12/T13). |
+| Omissions: DeepKD, PLD, LTKD | **AGREE**, added | All three verified on their official NeurIPS 2025 / CVPR 2026 pages (CVF returned 403 for LTKD, so it was confirmed via the CVPR listing and arXiv 2506.18496). Records `huang2025deepkd`, `bassam2025pld`, `kim2026ltkd`. The LTKD author list beyond the first author is unverified. |
+| Diffusion-model distillation not covered | **Open:** scope question for the user at Checkpoint A | Recommended: out of scope (step distillation of generative samplers is a different problem), with one sentence in the scope paragraph. |
+| `chen2026scope` ("Journal of Imaging") misclassified as `@inproceedings` | **DISAGREE** | `JOURNAL` uses `re.I` and the pattern contains `journal`, so it matches. `entry()` returns `@article{chen2026scope,` (checked with `uv run --frozen python -c ...`, and in the generated `refs.bib`). A regression test was added (`test_escaping_of_bibtex_specials_in_title_author_venue`). |
+| Incomplete escaping (`_ $ ^ ~`; authors unescaped) | **AGREE**, fixed | `_esc` now maps `& % # _ $ ^ ~` and is applied to authors as well. |
+| TeX comments counted as citations | **AGREE**, fixed | Unescaped `%` to end of line is stripped before key extraction. A test covers `\citealp`, `\citeauthor`, `\citep*`, optional arguments, full-line and trailing comments, and an escaped `\%`. |
+| `--check` rewrites `refs.bib` | **AGREE** (by design) | The docstring already says `--check` writes and then checks. `refs.bib` is generated and never hand-edited. |
+| `uv` offline in the Codex sandbox | Noted | All commands re-run by the coordinator: 213 tests pass, `ruff` clean, `build_bib --check` OK, hygiene OK. |

@@ -777,12 +777,12 @@
   title: "Simple yet Effective Semi-supervised Knowledge Distillation from Vision-Language Models via Dual-Head Optimization"
   authors: ["Seongjae Kang", "Dong Bok Lee", "Hyungjoon Jang", "Sung Ju Hwang"]
   date: 2025-05-12
-  venue: "NeurIPS 2026 (per arXiv comment)"
+  venue: "NeurIPS 2026"
   status: accepted
   urls: {official: null, arxiv: "https://arxiv.org/abs/2505.07675", code: "https://github.com/erjui/DHO"}
   identifiers: {doi: null, arxiv: "2505.07675"}
   license: "none stated (no LICENSE file per GitHub API, 2026-11-03)"
-  verified_by: "arXiv API (v3; comment 'Accepted at NeurIPS 2026. 52 pages, 17 figures'); full-text PDF v3 read for §2.3 (Fig. 3, Eq. 3, Prop. 1/Cor. 1) and App. G.2 (Tables 26–27). Acceptance is author-stated; proceedings page not checked. T4b 2026-11-03: v3 abstract links github.com/erjui/DHO (repo description '[Neurips 2026] Official Code Repository'); paper text states +3% / +0.1% ImageNet accuracy with 1% / 10% labels (new SoTA claim, Sec. 1)."
+  verified_by: "arXiv API (v3; comment 'Accepted at NeurIPS 2026. 52 pages, 17 figures'); full-text PDF v3 read for §2.3 (Fig. 3, Eq. 3, Prop. 1/Cor. 1) and App. G.2 (Tables 26–27). Acceptance is author-stated; proceedings page not checked. T4b 2026-11-03: v3 abstract links github.com/erjui/DHO (repo description '[Neurips 2026] Official Code Repository'); paper text states +3% / +0.1% ImageNet accuracy with 1% / 10% labels (new SoTA claim, Sec. 1). Checkpoint-A re-check (Codex, 2026-11-03): listed in the official NeurIPS 2026 Downloads directory (https://neurips.cc/Downloads/2026); poster page contents not read."
   relevance: "Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p]."
   topics: [kd, gradient-conflict, measured-cosine]
   local_pdf: false
@@ -1380,12 +1380,12 @@
   title: "You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces"
   authors: ["Hamza Etcibasi", "Ramazan Gokberk Cinbis"]
   date: 2026-10-27
-  venue: "NeurIPS 2026 (per arXiv comment)"
+  venue: "NeurIPS 2026"
   status: accepted
   urls: {official: null, arxiv: "https://arxiv.org/abs/2610.37937", code: "https://github.com/HamzaEtcibasi/RPKD"}
   identifiers: {doi: null, arxiv: "2610.37937"}
   license: "MIT (GitHub API)"
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'To appear at NeurIPS 2026 ... Code: github.com/HamzaEtcibasi/RPKD'; proceedings page not yet checked; full text read (pdftotext) for the headline table: Table 3 ImageNet-1K DeiT-T->MobileNetV2 RPKD 72.67 vs OFA 71.39, RSD 72.18; Table 4 ResNet34->ResNet18 RPKD 72.23."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'To appear at NeurIPS 2026 ... Code: github.com/HamzaEtcibasi/RPKD'; proceedings page not yet checked; full text read (pdftotext) for the headline table: Table 3 ImageNet-1K DeiT-T->MobileNetV2 RPKD 72.67 vs OFA 71.39, RSD 72.18; Table 4 ResNet34->ResNet18 RPKD 72.23. Checkpoint-A re-check (Codex, 2026-11-03): listed in the official NeurIPS 2026 Downloads directory (https://neurips.cc/Downloads/2026); poster page contents not read."
   relevance: "RPKD: distils by matching teacher and student similarity distributions over a shared set of random prototypes, so representations need not be aligned; newest cross-architecture method found."
   topics: [kd, feature-kd, heterogeneous-kd, sota]
   local_pdf: false
@@ -1590,12 +1590,12 @@
   title: "Distilling What Matters: Confidence-Aware Selective Distillation for Large Language Models"
   authors: ["Ayan Sengupta", "Vaibhav Seth", "Tanmoy Chakraborty"]
   date: 2026-09-29
-  venue: "NeurIPS 2026 (per arXiv comment)"
+  venue: "NeurIPS 2026"
   status: accepted
   urls: {official: null, arxiv: "https://arxiv.org/abs/2609.36734", code: null}
   identifiers: {doi: null, arxiv: "2609.36734"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted at NeurIPS 2026'; proceedings page not checked; full text read (pdftotext) for the headline table: Table 1 GPT2-XL->GPT2-base average ROUGE-L 19.6 (CaRE-Divergence) vs FKL 17.0, alpha-beta divergence 18.4 (5 seeds). No code URL found."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted at NeurIPS 2026'; proceedings page not checked; full text read (pdftotext) for the headline table: Table 1 GPT2-XL->GPT2-base average ROUGE-L 19.6 (CaRE-Divergence) vs FKL 17.0, alpha-beta divergence 18.4 (5 seeds). No code URL found. Checkpoint-A re-check (Codex, 2026-11-03): listed in the official NeurIPS 2026 Downloads directory (https://neurips.cc/Downloads/2026); poster page contents not read."
   relevance: "Confidence-aware selective distillation for LLMs (CaRE-Divergence plus a 'Revival' step): distil where the teacher is confident and correct; recent selective-transfer method beyond vision."
   topics: [kd, reliability, llm-kd, sota]
   local_pdf: false
@@ -1860,12 +1860,12 @@
   title: "Toward Understanding Adversarial Distillation: Why Robust Teachers Fail"
   authors: ["Hongsin Lee", "Hye Won Chung"]
   date: 2026-05-21
-  venue: "ICML 2026 (per arXiv comment)"
-  status: accepted
+  venue: "ICML 2026 (PMLR 306)"
+  status: published
   urls: {official: null, arxiv: "https://arxiv.org/abs/2605.21999", code: "https://github.com/HongsinLee/why-robust-teachers-fail"}
   identifiers: {doi: null, arxiv: "2605.21999"}
   license: "none stated (no LICENSE file per GitHub API, 2026-11-03)"
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted to ICML 2026. Code is available at ...'; proceedings page not checked. Analysis paper; no single headline number recorded (tables not read)."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted to ICML 2026. Code is available at ...'; proceedings page not checked. Analysis paper; no single headline number recorded (tables not read). Checkpoint-A re-check (Codex, 2026-11-03): PMLR v306 entry https://proceedings.mlr.press/v306/lee26g.html, pp. 63527-63607."
   relevance: "Analysis of when stronger robust teachers fail to produce robust students; CONTRADICTING-EVIDENCE source for 'better teacher = better robust student'."
   topics: [kd, robustness, contradicting-evidence, theory]
   local_pdf: false
@@ -1920,12 +1920,12 @@
   title: "Reviving Stale Updates: Data-Free Knowledge Distillation for Asynchronous Federated Learning"
   authors: ["Baris Askin", "Holger R. Roth", "Zhenyu Sun", "Carlee Joe-Wong", "Gauri Joshi", "Ziyue Xu"]
   date: 2025-11-01
-  venue: "NeurIPS 2026 (per arXiv comment)"
+  venue: "NeurIPS 2026"
   status: accepted
   urls: {official: null, arxiv: "https://arxiv.org/abs/2511.00655", code: null}
   identifiers: {doi: null, arxiv: "2511.00655"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted to NeurIPS 2026'; proceedings page not checked; abstract: FedRevive trains up to 29.7% faster and reaches up to 11.4 pp higher final accuracy than baselines."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted to NeurIPS 2026'; proceedings page not checked; abstract: FedRevive trains up to 29.7% faster and reaches up to 11.4 pp higher final accuracy than baselines. Checkpoint-A re-check (Codex, 2026-11-03): listed in the official NeurIPS 2026 Downloads directory (https://neurips.cc/Downloads/2026); poster page contents not read."
   relevance: "FedRevive: server-side data-free KD refreshes stale client updates in asynchronous FL."
   topics: [kd, federated, data-free, sota]
   local_pdf: false
@@ -2131,11 +2131,11 @@
   authors: ["Adriana Romero", "Nicolas Ballas", "Samira Ebrahimi Kahou", "Antoine Chassang", "Carlo Gatta", "Yoshua Bengio"]
   date: 2014-12-19
   venue: "ICLR 2015"
-  status: unverified
+  status: published
   urls: {official: null, arxiv: "https://arxiv.org/abs/1412.6550", code: null}
   identifiers: {doi: "10.48550/arXiv.1412.6550", arxiv: "1412.6550"}
   license: null
-  verified_by: "Merged survey T3 + T4b, 2026-11-03: title, six authors, date and abstract checked on arXiv by both workers. CONFLICT: T3 recorded venue ICLR 2015, T4b found no venue comment via the arXiv API. Venue kept as ICLR 2015 but status unverified until checked against an ICLR 2015 listing (Checkpoint A re-check)."
+  verified_by: "Merged survey T3 + T4b, 2026-11-03: title, six authors, date and abstract checked on arXiv by both workers. CONFLICT: T3 recorded venue ICLR 2015, T4b found no venue comment via the arXiv API. RESOLVED by Checkpoint-A re-check (Codex, 2026-11-03): the official ICLR 2015 archive (https://iclr.cc/archive/www/2015.html) lists FitNets with the six-author byline."
   relevance: "CLASSIC: origin of feature-based KD (intermediate 'hints' with a learned regressor)."
   topics: [kd, feature-kd, classic]
   local_pdf: false
@@ -2153,4 +2153,50 @@
   verified_by: "Merged survey T3 + T4b, 2026-11-03. T3: CVF CVPR 2019 listing metadata and abstract. T4b: arXiv API (comment 'Accepted to CVPR 2019') and CVF page citation meta."
   relevance: "CLASSIC: transfers distance and angle relations among samples; origin of relation-based KD."
   topics: [kd, relation-kd, classic]
+  local_pdf: false
+
+# ---------------------------------------------------------------- survey checkpoint A additions (2026-11-03)
+- id: huang2025deepkd
+  type: paper
+  title: "DeepKD: A Deeply Decoupled and Denoised Knowledge Distillation Trainer"
+  authors: ["Haiduo Huang", "Jiangcheng Song", "Yadong Zhang", "Pengju Ren"]
+  date: 2025
+  venue: "NeurIPS 2025"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2025/hash/2756ffa0487af8d276a0b1baf78732f4-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: "10.52202/085713-0915", arxiv: null}
+  license: null
+  verified_by: "Official NeurIPS 2025 proceedings abstract page checked 2026-11-03 (title, four authors, Main Conference Track, DOI). Found by the Codex checkpoint-A review. No headline number on the abstract page; full paper not read."
+  relevance: "Optimizer-side KD trainer: separate momentum updaters for the task, target-class and non-target-class gradients (extending DOT) with GSNR-guided momentum, plus a dynamic top-k denoising mask. Belongs in the KD x MOO section next to DOT and DTO-KD."
+  topics: [kd, optimizer, gradient-conflict, sota]
+  local_pdf: false
+
+- id: bassam2025pld
+  type: paper
+  title: "PLD: A Choice-Theoretic List-Wise Knowledge Distillation"
+  authors: ["Ejafa Bassam", "Dawei Zhu", "Kaigui Bian"]
+  date: 2025
+  venue: "NeurIPS 2025"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2025/hash/c6b2921f24f82dc05cda53bbe50bab90-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: "10.52202/085713-4542", arxiv: null}
+  license: null
+  verified_by: "Official NeurIPS 2025 proceedings abstract page checked 2026-11-03 (title, three authors, Main Conference Track, DOI). Found by the Codex checkpoint-A review. No headline number on the abstract page; full paper not read."
+  relevance: "Logit KD as a Plackett-Luce list-wise ranking loss (true label first, then teacher-ordered classes); a convex, translation-invariant surrogate that subsumes weighted cross-entropy and removes the separate KD weight."
+  topics: [kd, logit-kd, sota]
+  local_pdf: false
+
+- id: kim2026ltkd
+  type: paper
+  title: "Distilling Balanced Knowledge from a Biased Teacher"
+  authors: ["Seonghak Kim"]
+  date: 2026
+  venue: "CVPR 2026"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2026/html/Kim_Distilling_Balanced_Knowledge_from_a_Biased_Teacher_CVPR_2026_paper.html", arxiv: "https://arxiv.org/abs/2506.18496", code: null}
+  identifiers: {doi: null, arxiv: "2506.18496"}
+  license: null
+  verified_by: "CVPR 2026 open-access listing (pp. 18032-18041) and poster page via search results 2026-11-03; direct CVF fetch returned HTTP 403. arXiv 2506.18496 v2 (2026-02-27); v1 (June 2025) titled 'Biased Teacher, Balanced Student'. Full author list beyond the first author NOT verified. Found by the Codex checkpoint-A review."
+  relevance: "Long-tailed KD (LTKD): decomposes the KL objective into cross-group and within-group terms, rebalancing the first and reweighting the second so tail classes are not dominated by a head-biased teacher; reliability under class imbalance."
+  topics: [kd, unreliable-teacher, long-tailed, sota]
   local_pdf: false

@@ -82,7 +82,9 @@
 
 - [agarwal2024gkd] Rishabh Agarwal et al., ‘On-Policy Distillation of Language Models: Learning from Self-Generated Mistakes,’ ICLR 2024, 2023-06-23. Status: published. GKD: trains the student on its own samples with teacher feedback under a chosen divergence (generalised JSD); the reference on-policy LLM-KD method.
 
-- [askin2026fedrevive] Baris Askin et al., ‘Reviving Stale Updates: Data-Free Knowledge Distillation for Asynchronous Federated Learning,’ NeurIPS 2026 (per arXiv comment), 2025-11-01. Status: accepted. FedRevive: server-side data-free KD refreshes stale client updates in asynchronous FL.
+- [askin2026fedrevive] Baris Askin et al., ‘Reviving Stale Updates: Data-Free Knowledge Distillation for Asynchronous Federated Learning,’ NeurIPS 2026, 2025-11-01. Status: accepted. FedRevive: server-side data-free KD refreshes stale client updates in asynchronous FL.
+
+- [bassam2025pld] Ejafa Bassam et al., ‘PLD: A Choice-Theoretic List-Wise Knowledge Distillation,’ NeurIPS 2025, 2025. Status: published. Logit KD as a Plackett-Luce list-wise ranking loss (true label first, then teacher-ordered classes); a convex, translation-invariant surrogate that subsumes weighted cross-entropy and removes the separate KD weight.
 
 - [beyer2022patientkd] Lucas Beyer et al., ‘Knowledge Distillation: A Good Teacher Is Patient and Consistent,’ CVPR 2022, 2022. Status: published. Demonstrates that distillation outcomes depend strongly on long training and consistent teacher/student image views. It underscores the need to hold recipes fixed when comparing optimization rules.
 
@@ -98,7 +100,7 @@
 
 - [du2020aekd] Shangchen Du et al., ‘Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space,’ NeurIPS 2020, 2020. Status: published. Multi-teacher KD as MGDA with a disagreement tolerance: the earliest symmetric MOO formulation of KD (CLASSIC lineage for the KD x MOO section).
 
-- [etcibasi2026rpkd] Hamza Etcibasi et al., ‘You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces,’ NeurIPS 2026 (per arXiv comment), 2026-10-27. Status: accepted. RPKD: distils by matching teacher and student similarity distributions over a shared set of random prototypes, so representations need not be aligned; newest cross-architecture method found.
+- [etcibasi2026rpkd] Hamza Etcibasi et al., ‘You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces,’ NeurIPS 2026, 2026-10-27. Status: accepted. RPKD: distils by matching teacher and student similarity distributions over a shared set of random prototypes, so representations need not be aligned; newest cross-architecture method found.
 
 - [goldblum2020ard] Micah Goldblum et al., ‘Adversarially Robust Distillation,’ AAAI 2020, 2019-05-23. Status: published. CLASSIC: first adversarially robust distillation (ARD).
 
@@ -124,6 +126,8 @@
 
 - [huang2023diffkd] Tao Huang et al., ‘Knowledge Diffusion for Distillation,’ NeurIPS 2023, 2023-05-25. Status: published. DiffKD: treats student features as noisy teacher features and denoises them with a lightweight diffusion model before matching; also detection/segmentation.
 
+- [huang2025deepkd] Haiduo Huang et al., ‘DeepKD: A Deeply Decoupled and Denoised Knowledge Distillation Trainer,’ NeurIPS 2025, 2025. Status: published. Optimizer-side KD trainer: separate momentum updaters for the task, target-class and non-target-class gradients (extending DOT) with GSNR-guided momentum, plus a dynamic top-k denoising mask. Belongs in the KD x MOO section next to DOT and DTO-KD.
+
 - [jang2025fedgo] Won-Jun Jang et al., ‘Provably Near-Optimal Federated Ensemble Distillation with Negligible Overhead,’ ICML 2025, 2025-02-10. Status: published. FedGO: weights client logits with GAN-discriminator-based per-sample estimates, with a near-optimality guarantee for federated ensemble distillation.
 
 - [jang2025vl2lite] Jinseong Jang et al., ‘VL2Lite: Task-Specific Knowledge Distillation from Large Vision-Language Models to Lightweight Networks,’ CVPR 2025, 2025. Status: published. VL2Lite: distils VLM (CLIP-like) visual and text-aligned knowledge into lightweight CNN classifiers during training only.
@@ -134,11 +138,13 @@
 
 - [jung2024peeraid] Jaewon Jung et al., ‘PeerAiD: Improving Adversarial Distillation from a Specialized Peer Tutor,’ CVPR 2024, 2024-03-11. Status: published. PeerAiD: a peer network trained on the student's adversarial examples serves as tutor, instead of a fixed robust teacher.
 
-- [kang2025dho] Seongjae Kang et al., ‘Simple yet Effective Semi-supervised Knowledge Distillation from Vision-Language Models via Dual-Head Optimization,’ NeurIPS 2026 (per arXiv comment), 2025-05-12. Status: accepted. Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p].
+- [kang2025dho] Seongjae Kang et al., ‘Simple yet Effective Semi-supervised Knowledge Distillation from Vision-Language Models via Dual-Head Optimization,’ NeurIPS 2026, 2025-05-12. Status: accepted. Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p].
 
 - [kenfack2025agrekd] Patrik Kenfack et al., ‘Adaptive Group Robust Ensemble Knowledge Distillation,’ TMLR (11/2025), 2024-11-22. Status: published. AGRE-KD: selects/weights ensemble teachers by gradient direction relative to a biased model so the student inherits worst-group robustness; teacher selection under spurious correlation.
 
 - [khan2024hydrafl] Momin Ahmad Khan et al., ‘HYDRA-FL: Hybrid Knowledge Distillation for Robust and Accurate Federated Learning,’ NeurIPS 2024, 2024-09-30. Status: published. Shows KD-based FL amplifies poisoning; adds shallow-layer distillation to keep KD benefits without amplifying attacks. Robust x federated KD.
+
+- [kim2026ltkd] Seonghak Kim, ‘Distilling Balanced Knowledge from a Biased Teacher,’ CVPR 2026, 2026. Status: published. Long-tailed KD (LTKD): decomposes the KL objective into cross-group and within-group terms, rebalancing the first and reweighting the second so tail classes are not dominated by a head-biased teacher; reliability under class imbalance.
 
 - [ko2024distillm] Jongwoo Ko et al., ‘DistiLLM: Towards Streamlined Distillation for Large Language Models,’ ICML 2024, 2024-02-06. Status: published. DistiLLM: skew KL divergence plus an adaptive off-policy replay of student-generated outputs; efficient alternative to fully on-policy KD.
 
@@ -152,7 +158,7 @@
 
 - [lee2025saad] Hongsin Lee et al., ‘Sample-wise Adaptive Weighting for Transfer Consistency in Adversarial Distillation,’ TMLR, 2025-12-11. Status: published. SAAD: robust teachers do not always transfer robustness; re-weights samples by 'transfer consistency' between teacher and student adversarial behaviour.
 
-- [lee2026robustteachers] Hongsin Lee et al., ‘Toward Understanding Adversarial Distillation: Why Robust Teachers Fail,’ ICML 2026 (per arXiv comment), 2026-05-21. Status: accepted. Analysis of when stronger robust teachers fail to produce robust students; CONTRADICTING-EVIDENCE source for 'better teacher = better robust student'.
+- [lee2026robustteachers] Hongsin Lee et al., ‘Toward Understanding Adversarial Distillation: Why Robust Teachers Fail,’ ICML 2026 (PMLR 306), 2026-05-21. Status: published. Analysis of when stronger robust teachers fail to produce robust students; CONTRADICTING-EVIDENCE source for 'better teacher = better robust student'.
 
 - [li2022ats] Xin-Chun Li et al., ‘Asymmetric Temperature Scaling Makes Larger Networks Teach Well Again,’ NeurIPS 2022, 2022-10-10. Status: published. ATS: different temperatures for the target and non-target classes restore the discriminability of a large teacher's wrong-class logits; explains the capacity gap.
 
@@ -192,9 +198,9 @@
 
 - [qiu2023dpk] Zengyu Qiu et al., ‘Better Teacher Better Student: Dynamic Prior Knowledge for Knowledge Distillation,’ ICLR 2023, 2022-06-13. Status: published. DPK: feeds part of the teacher's features to the student as dynamic prior knowledge (masked feature mixing) so larger teachers yield better students.
 
-- [romero2015fitnets] Adriana Romero et al., ‘FitNets: Hints for Thin Deep Nets,’ ICLR 2015, 2014-12-19. Status: unverified. CLASSIC: origin of feature-based KD (intermediate 'hints' with a learned regressor).
+- [romero2015fitnets] Adriana Romero et al., ‘FitNets: Hints for Thin Deep Nets,’ ICLR 2015, 2014-12-19. Status: published. CLASSIC: origin of feature-based KD (intermediate 'hints' with a learned regressor).
 
-- [sengupta2026casd] Ayan Sengupta et al., ‘Distilling What Matters: Confidence-Aware Selective Distillation for Large Language Models,’ NeurIPS 2026 (per arXiv comment), 2026-09-29. Status: accepted. Confidence-aware selective distillation for LLMs (CaRE-Divergence plus a 'Revival' step): distil where the teacher is confident and correct; recent selective-transfer method beyond vision.
+- [sengupta2026casd] Ayan Sengupta et al., ‘Distilling What Matters: Confidence-Aware Selective Distillation for Large Language Models,’ NeurIPS 2026, 2026-09-29. Status: accepted. Confidence-aware selective distillation for LLMs (CaRE-Divergence plus a 'Revival' step): distil where the teacher is confident and correct; recent selective-transfer method beyond vision.
 
 - [shen2022dlb] Yiqing Shen et al., ‘Self-Distillation from the Last Mini-Batch for Consistency Regularization,’ CVPR 2022, 2022-03-30. Status: published. DLB: teacher-free self-distillation that reuses the previous mini-batch's soft predictions on overlapping samples as targets; no extra network.
 

@@ -26,8 +26,13 @@ JOURNAL = re.compile(
 NOTES = {"preprint": "Preprint", "under-review": "Under review", "unverified": "Unverified record"}
 
 
+_SPECIAL = {"&": r"\&", "%": r"\%", "#": r"\#", "_": r"\_", "$": r"\$",
+            "^": r"\^{}", "~": r"\~{}"}
+COMMENT = re.compile(r"(?<!\\)%.*")  # TeX comment: unescaped % to end of line
+
+
 def _esc(text):
-    return str(text).replace("&", r"\&").replace("%", r"\%").replace("#", r"\#")
+    return "".join(_SPECIAL.get(ch, ch) for ch in str(text))
 
 
 def entry(r):
@@ -44,7 +49,7 @@ def entry(r):
         kind, venue_field = "inproceedings", ("booktitle", venue)
     fields = [
         ("title", "{" + _esc(r["title"]) + "}"),  # double braces keep capitalisation
-        ("author", " and ".join(r.get("authors") or ["Anonymous"])),
+        ("author", " and ".join(_esc(a) for a in (r.get("authors") or ["Anonymous"]))),
         ("year", str(r.get("date") or "")[:4] or "n.d."),
     ]
     if venue_field:
@@ -67,7 +72,8 @@ def cited_keys(tex_root):
     for path in sorted(Path(tex_root).rglob("*.tex")):
         if "tmlr" in path.parts:  # vendored template example
             continue
-        for group in CITE.findall(path.read_text(encoding="utf-8")):
+        text = COMMENT.sub("", path.read_text(encoding="utf-8"))
+        for group in CITE.findall(text):
             keys.update(k.strip() for k in group.split(",") if k.strip())
     return keys
 
