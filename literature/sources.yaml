@@ -1370,7 +1370,7 @@
   urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_Cross-Architecture_Distillation_Made_Simple_with_Redundancy_Suppression_ICCV_2025_paper.html", arxiv: null, code: null}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "CVF ICCV2025 page (citation meta: title, 4 authors; abstract). Headline number NOT extracted (tables did not survive pdftotext); abstract states RSD outperforms OFA on CIFAR-100 and ImageNet-1k with a fraction of its parameter overhead. etcibasi2026rpkd Table 3 reports RSD 72.18 on DeiT-T->MobileNetV2 (secondary source)."
+  verified_by: "CVF ICCV2025 page (citation meta: title, 4 authors; abstract) and official CVF PDF, Table 1: CIFAR-100 Swin-T->ResNet18 RSD 83.92 vs OFA 80.54; Swin-T->MobileNetV2 RSD 83.68 vs OFA 80.98. Table 2 reports ImageNet-1K DeiT-T->MobileNetV2 RSD 72.18 (primary source)."
   relevance: "RSD: cross-architecture KD as redundancy suppression (invariance maximisation + feature decorrelation) with a lightweight decoupling module; simpler alternative to OFA."
   topics: [kd, feature-kd, heterogeneous-kd, sota]
   local_pdf: false
@@ -1472,10 +1472,10 @@
   date: 2022-10-10
   venue: "NeurIPS 2022"
   status: published
-  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/187d94b3c93343f0e925b5cf729eadd5-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.04427", code: null}
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/187d94b3c93343f0e925b5cf729eadd5-Abstract.html", arxiv: "https://arxiv.org/abs/2210.04427", code: "https://gitee.com/lxcnju/ats-mindspore"}
   identifiers: {doi: null, arxiv: "2210.04427"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted By NeurIPS 2022'; title found in the official NeurIPS 2022 listing; full text read (pdftotext) for the headline table: Table 2 CIFAR-100 WRN28-8->ShuffleNetV1 KD 70.87 vs KD+ATS 73.58. No official code URL found in the paper text."
+  verified_by: "Official NeurIPS 2022 proceedings page and PDF: exact title, seven authors, venue, DOI 10.52202/068431-0277, Table 2 CIFAR-100 WRN28-8->ShuffleNetV1 KD 70.87 vs KD+ATS 73.58. The paper links its MindSpore demo at https://gitee.com/lxcnju/ats-mindspore; no license identified."
   relevance: "ATS: different temperatures for the target and non-target classes restore the discriminability of a large teacher's wrong-class logits; explains the capacity gap."
   topics: [kd, capacity-gap, temperature, sota]
   local_pdf: false
@@ -1610,7 +1610,7 @@
   urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Dong_Confound_from_All_Sides_Distill_with_Resilience_Multi-Objective_Adversarial_Paths_ICCV_2025_paper.html", arxiv: null, code: null}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "CVF ICCV2025 page (citation meta: title, 4 authors; abstract) and CVF PDF partly read (Sec. 3: Tchebycheff decomposition with Riesz s-energy preference vectors). Headline number NOT extracted (tables did not survive pdftotext). No code URL found."
+  verified_by: "CVF ICCV2025 official page and CVF PDF, Table 2: ViT-B student, zero-shot robust evaluation across 15 datasets at image-level epsilon 2/255: average Clean 58.96, PGD 35.70, CW 34.95, AutoAttack 34.16. Table 3 gives ViT-B averages across CLIP architectures. Sec. 3 describes Tchebycheff decomposition with Riesz s-energy preference vectors. No code URL found."
   relevance: "Uses multi-objective optimisation to generate diverse targeted adversaries (one per preference vector) for robust distillation from VLMs to small models; MOO used for data generation, not loss balancing."
   topics: [kd, moo, robustness, vlm-kd, sota]
   local_pdf: false
@@ -1655,7 +1655,7 @@
   urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2024/hash/5be69a584901a26c521c2b51e40a4c20-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2306.13649", code: null}
   identifiers: {doi: null, arxiv: "2306.13649"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted at ICLR 2024'; title found in the official ICLR 2024 listing; Sec. 1 text: averaged over T5 students, on-policy GKD gives relative gains of 2.1x on summarization and 1.7x on machine translation over the initial student. No official code URL in the paper."
+  verified_by: "arXiv API 2026-11-03; official ICLR 2024 proceedings page and PDF. Sec. 1 (PDF p. 2) reports gains over initial student averaged across T5 student sizes: on-policy GKD gain is 2.1x baseline-KD gain on summarization, 1.7x on machine translation, and 1.9x on arithmetic reasoning; these are relative gain ratios, not final scores. No official code URL in the paper."
   relevance: "GKD: trains the student on its own samples with teacher feedback under a chosen divergence (generalised JSD); the reference on-policy LLM-KD method."
   topics: [kd, llm-kd, on-policy, sota]
   local_pdf: false
@@ -1730,7 +1730,7 @@
   urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/54a468d19bc5727800096d9c7c51a423-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2510.15982", code: "https://github.com/aailab-kaist/AMiD"}
   identifiers: {doi: null, arxiv: "2510.15982"}
   license: "Apache-2.0 (GitHub API)"
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'ICLR 2026'; ICLR 2026 proceedings page (citation_title match). Headline number NOT extracted (PDF text extraction failed to expose tables)."
+  verified_by: "arXiv API 2026-11-03; official ICLR 2026 proceedings abstract and PDF. Table 1: GPT-2 XL (1.5B)->GPT-2 (0.1B), mean ROUGE-L across five task-agnostic instruction datasets is 23.40 for AMiD vs 21.76 for ABKD; Table 2 gives task-specific results."
   relevance: "AMiD: generalises teacher-student 'assistant' (interpolated) distributions with an alpha-mixture family and divergence; latest assistant-distribution LLM-KD method."
   topics: [kd, llm-kd, capacity-gap, sota]
   local_pdf: false
