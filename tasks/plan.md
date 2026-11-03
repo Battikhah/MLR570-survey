@@ -46,7 +46,7 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 ### Phase 0: Foundation
 - [x] T1 Manuscript skeleton and build
 - [x] T2 Bibliography pipeline (`sources.yaml` → `refs.bib`) with a cite-key check
-- [ ] T3 Register and verify the draft's 28 URLs
+- [x] T3 Register and verify the draft's 28 URLs
 - [ ] T4 Taxonomy (Fig. 1) and existing-survey comparison (Table I)
 
 - [ ] T4b State-of-the-art method inventory (2022–2026, verified; gates Checkpoint A)

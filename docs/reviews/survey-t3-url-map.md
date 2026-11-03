@@ -32,3 +32,20 @@ Each row maps a distinct URL in `Project Files/Current_Survey.md`; repeated appe
 | 192 | <https://doi.org/10.1109/cvpr42600.2020.00396> | `yuan2020labelkd` | New | published | Official CVF CVPR 2020 proceedings entry and paper checked 2026-11-03 for title, complete authors, venue/pages and abstract. DOI matches the publisher record. |
 | 193 | <https://proceedings.neurips.cc/paper_files/paper/2021/file/376c6b9ff3bedbbea56751a84fffc10c-Paper.pdf> | `stanton2021kdwork` | New | published | Official NeurIPS proceedings PDF checked 2026-11-03 for full author block and paper contents; proceedings abstract page confirms title and NeurIPS 2021 venue. |
 | 194 | <https://openaccess.thecvf.com/content/CVPR2022/html/Beyer_Knowledge_Distillation_A_Good_Teacher_Is_Patient_and_Consistent_CVPR_2022_paper.html> | `beyer2022patientkd` | New | published | Official CVF CVPR 2022 paper PDF and indexed proceedings metadata checked 2026-11-03 for exact title, full authors, venue/pages and abstract; direct HTML fetch returned HTTP 403. |
+
+## Cross-agent spot-check (Claude, 2026-11-03)
+
+Four of the 14 new records were checked independently by Claude (`AGENTS.md` §5):
+
+| Record | Verdict | Evidence |
+|---|---|---|
+| `cho2019efficacy` | AGREE | Title, authors (Cho, Hariharan) and ICCV 2019 match the CVF listing URL used in the draft (L13, L26). |
+| `zhang2022camkd` | AGREE | arXiv 2201.00007, "Accepted to ICASSP 2022" (author-stated); the record's status is correctly `accepted`, not `published`. |
+| `mishra2021cckd` | AGREE | Only arXiv v1 (2021-07-06) was found; no journal version. `preprint` is correct, and the survey text must say "preprint". |
+| `lan2025labelrevision` | AGREE | HKBU scholars record: IEEE TCDS vol. 17, issue 6, online 2025-04-11; arXiv 2404.03693. |
+
+The frozen-environment checks that Codex could not run in its sandbox were re-run by the coordinator after the cherry-pick:
+- `build_literature_docs.py`: no diff;
+- `ruff check .`: pass;
+- `check_repo_hygiene.py`: OK;
+- `build_bib.py --check`: 77 entries, OK.
