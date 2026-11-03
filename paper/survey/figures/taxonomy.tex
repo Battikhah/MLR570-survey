@@ -1,21 +1,21 @@
 % Fig. 1 -- taxonomy of the survey (Task T4). Plain TikZ (no extra libraries/packages).
 % Branches = survey sections (referenced by label, so numbers follow the manuscript);
 % leaves = sub-topics; right column = 2-4 representative CORE methods, taken ONLY from
-% docs/survey/sota-inventory.md (tag CORE, or CORE-P / CORE-A marked with *).
+% docs/survey/sota-inventory.md (tag CORE, or CORE-P preprint marked with *; checkpoint-A revision adds DeepKD, PLD, LTKD).
 % Registry ids per leaf (for the section authors):
 %  logit-calib:  zhao2022dkd li2023ctkd sun2024lskd hossain2025luminet
-%  logit-div:    huang2022dist lv2024wkd xu2025ldrld xiang2025ekd
+%  logit-div:    huang2022dist lv2024wkd bassam2025pld xu2025ldrld xiang2025ekd
 %  feat-same:    chen2022simkd liu2023fcfd miles2024vkd zhang2025vrm
-%  feat-cross:   hao2023ofakd zhou2025tcs zhang2025rsd etcibasi2026rpkd(*)
+%  feat-cross:   hao2023ofakd zhou2025tcs zhang2025rsd etcibasi2026rpkd
 %  online:       qian2022switokd yang2023lmcl
 %  self:         shen2022dlb yang2023nkd(USKD) jeong2025selfdistill
 %  multi-t:      yang2025mtkdrl kenfack2025agrekd
 %  cap-gap:      li2022ats qiu2023dpk qian2025aid
 %  data-free:    tran2024nayer liu2024ssdkd
-%  rel-target:   sun2025rld hu2024tgeokd
-%  rel-weight:   su2025eakd kenfack2025agrekd sengupta2026casd(*)
-%  moo-tradeoff: zhao2023dot hayder2026dtokd yuan2026tpkd(*) yang2026spofa(*)
-%  moo-other:    zhu2026upmopd(*) kang2025dho(*) dong2025mooadv
+%  rel-target:   sun2025rld hu2024tgeokd kim2026ltkd
+%  rel-weight:   su2025eakd kenfack2025agrekd sengupta2026casd
+%  moo-tradeoff: zhao2023dot huang2025deepkd hayder2026dtokd yuan2026tpkd(*) yang2026spofa(*)
+%  moo-other:    zhu2026upmopd(*) kang2025dho dong2025mooadv
 %  llm:          gu2024minillm agarwal2024gkd ko2025distillm2 shing2025taid
 %  vlm:          wu2023tinyclip yang2024clipkd li2024promptkd jang2025vl2lite
 %  robust:       huang2023adaad jung2024peeraid lee2025igdm lee2025saad
@@ -38,18 +38,18 @@
     \node[leaf] (L#1) at (3.95,#1) {#2};
     \node[meth] at (8.45,#1) {#3};}
   \leaf{0}{Logit: decoupling, calibration}{DKD, CTKD, LSKD, LumiNet}
-  \leaf{1}{Logit: divergences, relations}{DIST, WKD, LDRLD, EKD}
+  \leaf{1}{Logit: divergences, relations}{DIST, WKD, PLD, LDRLD, EKD}
   \leaf{2}{Feature: same architecture}{SimKD, FCFD, VkD, VRM}
-  \leaf{3}{Feature: cross-architecture}{OFA-KD, TCS, RSD, RPKD*}
+  \leaf{3}{Feature: cross-architecture}{OFA-KD, TCS, RSD, RPKD}
   \leaf{4}{Online / mutual}{SwitOKD, L-MCL}
   \leaf{5}{Self-distillation}{DLB, USKD, label-averaging view}
   \leaf{6}{Multi-teacher}{MTKD-RL, AGRE-KD}
   \leaf{7}{Capacity gap}{ATS, DPK, AID}
   \leaf{8}{Data-free}{NAYER, SSD-KD}
-  \leaf{9}{Refined teacher targets}{RLD, TGeo-KD}
-  \leaf{10}{Sample weighting / selection}{EA-KD, AGRE-KD, CaRE-Div*}
-  \leaf{11}{Task--KD trade-off}{DOT, DTO-KD, TPKD*, SPOFA*}
-  \leaf{12}{MOO elsewhere in KD}{UP-MOPD*, DHO*, MOO adversaries}
+  \leaf{9}{Refined teacher targets}{RLD, TGeo-KD, LTKD}
+  \leaf{10}{Sample weighting / selection}{EA-KD, AGRE-KD, CaRE-Div}
+  \leaf{11}{Task--KD trade-off}{DOT, DeepKD, DTO-KD, TPKD*, SPOFA*}
+  \leaf{12}{MOO elsewhere in KD}{UP-MOPD*, DHO, MOO adversaries}
   \leaf{13}{LLM distillation}{MiniLLM, GKD, DistiLLM-2, TAID}
   \leaf{14}{VLM $\rightarrow$ small models}{TinyCLIP, CLIP-KD, PromptKD, VL2Lite}
   \leaf{15}{Adversarially robust KD}{AdaAD, PeerAiD, IGDM, SAAD}
