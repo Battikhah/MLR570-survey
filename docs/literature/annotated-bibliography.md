@@ -78,9 +78,9 @@
 
 - [du2020aekd] Shangchen Du, ‘Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space,’ NeurIPS 2020, 2020. Status: unverified. Multi-teacher KD as MGDA with a disagreement tolerance; symmetric baseline for multi-teacher PCD (idea I5).
 
-- [hayder2025mokd] Zeeshan Hayder et al., ‘MoKD: Multi-Task Optimization for Knowledge Distillation,’ , 2025-05-13. Status: preprint. Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn, so it shows the framing but cannot serve as a baseline.
+- [hayder2025mokd] Zeeshan Hayder et al., ‘MoKD: Multi-Task Optimization for Knowledge Distillation,’ , 2025-05-13. Status: preprint. Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn. INTERPRETATION: likely superseded by DTO-KD (hayder2026dtokd; same first four authors plus Richard Hartley, matching the withdrawal note 'major changes to the paper and the authorship'). Cite DTO-KD, not MoKD.
 
-- [hayder2026dtokd] Zeeshan Hayder et al., ‘DTO-KD: Dynamic Trade-off Optimization for Effective Knowledge Distillation,’ ICLR 2026, 2026. Status: published. MOO-based KD comparator (dynamic task/KD trade-off).
+- [hayder2026dtokd] Zeeshan Hayder et al., ‘DTO-KD: Dynamic Trade-off Optimization for Effective Knowledge Distillation,’ ICLR 2026, 2026. Status: published. Direct optimizer-side KD comparator. FAMO-style (Liu et al. 2023) min-norm convex combination of grad log L_distill and grad log L_task with closed-form weights pi* (Eqs. 11-12); equal contribution to both losses (Cor. 3.3), i.e. SYMMETRIC, versus PCD's fixed priority. Amortized variant avoids the second backprop (Eq. 18). CIFAR-100 ResNet32x4->ResNet8x4: 76.40 (Table 2; that table lists DKD 75.44 vs 76.32 in mdistiller -- cross-paper numbers differ). Same first four authors as the withdrawn MoKD (hayder2025mokd).
 
 - [hinton2015kd] Geoffrey Hinton et al., ‘Distilling the Knowledge in a Neural Network,’ NIPS 2014 Deep Learning Workshop, 2015-03-09. Status: published. Standard KD loss used as the secondary in the current proposal.
 

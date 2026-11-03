@@ -674,10 +674,10 @@
   urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/e546ce4230c15bc422a500bb47b341ea-Abstract-Conference.html", arxiv: null, code: null}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "ICLR 2026 proceedings page citation meta tags (title; first five authors shown — full author list not checked beyond five)."
-  relevance: "MOO-based KD comparator (dynamic task/KD trade-off)."
-  topics: [kd, gradient-conflict, moo]
-  local_pdf: false
+  verified_by: "ICLR 2026 proceedings abstract page and full paper PDF (pdftotext), 2026-11-03: Sec. 3.1 Eqs. 6-12, Thm 3.1, Cor. 3.2-3.5, Alg. 1, Eq. 18, Table 2 (CIFAR-100). No code link on the proceedings page."
+  relevance: "Direct optimizer-side KD comparator. FAMO-style (Liu et al. 2023) min-norm convex combination of grad log L_distill and grad log L_task with closed-form weights pi* (Eqs. 11-12); equal contribution to both losses (Cor. 3.3), i.e. SYMMETRIC, versus PCD's fixed priority. Amortized variant avoids the second backprop (Eq. 18). CIFAR-100 ResNet32x4->ResNet8x4: 76.40 (Table 2; that table lists DKD 75.44 vs 76.32 in mdistiller -- cross-paper numbers differ). Same first four authors as the withdrawn MoKD (hayder2025mokd)."
+  topics: [kd, gradient-conflict, moo, sota]
+  local_pdf: true
 
 - id: chen2026scope
   type: paper
@@ -858,7 +858,7 @@
   identifiers: {doi: null, arxiv: "2505.08170"}
   license: null
   verified_by: "arXiv abs page 2026-11-03: v2 (2025-08-02) is a WITHDRAWAL ('Major changes to the paper and the authorship'); no PDF available. Cite only as withdrawn prior art."
-  relevance: "Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn, so it shows the framing but cannot serve as a baseline."
+  relevance: "Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn. INTERPRETATION: likely superseded by DTO-KD (hayder2026dtokd; same first four authors plus Richard Hartley, matching the withdrawal note 'major changes to the paper and the authorship'). Cite DTO-KD, not MoKD."
   topics: [kd, gradient-conflict, mtl]
   local_pdf: false
 
