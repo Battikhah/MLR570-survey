@@ -785,3 +785,124 @@
   relevance: "Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p]."
   topics: [kd, gradient-conflict, measured-cosine]
   local_pdf: false
+
+# ---------------------------------------------------------------- phase 7: state-of-the-art KD (2026-11-03)
+- id: zhao2022dkd
+  type: paper
+  title: "Decoupled Knowledge Distillation"
+  authors: ["Borui Zhao", "Quan Cui", "Renjie Song", "Yiyu Qiu", "Jiajun Liang"]
+  date: 2022
+  venue: "CVPR 2022"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2022/html/Zhao_Decoupled_Knowledge_Distillation_CVPR_2022_paper.html", arxiv: "https://arxiv.org/abs/2203.08679", code: "https://github.com/megvii-research/mdistiller"}
+  identifiers: {doi: "10.1109/CVPR52688.2022.01165", arxiv: "2203.08679"}
+  license: null
+  verified_by: "CVF open-access listing and arXiv id via search 2026-11-03; CIFAR-100/ImageNet numbers read from the mdistiller README (MIT) 2026-11-03. Author list beyond the first author taken from the CVF listing snippet; re-check before citing."
+  relevance: "Splits KD into TCKD and NCKD with hand-set weights alpha/beta; natural K=3 test case for PCD (CE | TCKD, NCKD) and a loss-side state-of-the-art baseline."
+  topics: [kd, logit-kd, sota]
+  local_pdf: false
+
+- id: zhao2023dot
+  type: paper
+  title: "DOT: A Distillation-Oriented Trainer"
+  authors: ["Borui Zhao", "Quan Cui", "Renjie Song", "Jiajun Liang"]
+  date: 2023-07-17
+  venue: "ICCV 2023"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2023/html/Zhao_DOT_A_Distillation-Oriented_Trainer_ICCV_2023_paper.html", arxiv: "https://arxiv.org/abs/2307.08436", code: "https://github.com/megvii-research/mdistiller"}
+  identifiers: {doi: null, arxiv: "2307.08436"}
+  license: null
+  verified_by: "arXiv abs page (comment: accepted to ICCV 2023) 2026-11-03; mdistiller README states it is the official DOT implementation and lists KD+DOT CIFAR-100/ImageNet numbers."
+  relevance: "Closest optimizer-side state of the art for the task-vs-distillation trade-off (separate, larger momentum for the KD gradient); mandatory baseline for PCD-in-KD."
+  topics: [kd, optimizer, gradient-conflict, sota]
+  local_pdf: false
+
+- id: sun2024lskd
+  type: paper
+  title: "Logit Standardization in Knowledge Distillation"
+  authors: ["Shangquan Sun"]
+  date: 2024
+  venue: "CVPR 2024 (Highlight)"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2403.01427", code: "https://github.com/sunshangquan/logit-standardization-KD"}
+  identifiers: {doi: null, arxiv: "2403.01427"}
+  license: null
+  verified_by: "Official repository README (title, venue, arXiv id, CIFAR-100 tables for KD/CTKD/DKD/MLKD with and without LS) 2026-11-03. Full author list not checked; repository licence not checked."
+  relevance: "Loss-side state of the art; standardisation also addresses logit scale, overlapping PCD's scale-invariance argument. Supplies MLKD+LS 78.28 (ResNet32x4->ResNet8x4) as the reference ceiling."
+  topics: [kd, logit-kd, sota]
+  local_pdf: false
+
+- id: sun2025rld
+  type: paper
+  title: "Knowledge Distillation with Refined Logits"
+  authors: ["Wujie Sun", "Defang Chen", "Siwei Lyu", "Genlang Chen", "Chun Chen", "Can Wang"]
+  date: 2024-08-14
+  venue: "ICCV 2025 (per arXiv comment)"
+  status: accepted
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2408.07703", code: "https://github.com/zju-SWJ/RLD"}
+  identifiers: {doi: null, arxiv: "2408.07703"}
+  license: null
+  verified_by: "arXiv abs page v3 (2025-07-27, comment ICCV 2025) 2026-11-03; v1 date from arXiv id not separately checked."
+  relevance: "States that wrong teacher predictions make KD and CE inconsistent and repairs the teacher target with labels; main comparator for reversed-priority PCD (label as constraint) under unreliable teachers."
+  topics: [kd, unreliable-teacher, sota]
+  local_pdf: false
+
+- id: hayder2025mokd
+  type: paper
+  title: "MoKD: Multi-Task Optimization for Knowledge Distillation"
+  authors: ["Zeeshan Hayder", "Ali Cheraghian", "Lars Petersson", "Mehrtash Harandi"]
+  date: 2025-05-13
+  venue: null
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2505.08170", code: null}
+  identifiers: {doi: null, arxiv: "2505.08170"}
+  license: null
+  verified_by: "arXiv abs page 2026-11-03: v2 (2025-08-02) is a WITHDRAWAL ('Major changes to the paper and the authorship'); no PDF available. Cite only as withdrawn prior art."
+  relevance: "Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn, so it shows the framing but cannot serve as a baseline."
+  topics: [kd, gradient-conflict, mtl]
+  local_pdf: false
+
+- id: yang2026spofa
+  type: paper
+  title: "Heterogeneous Knowledge Distillation via Geometry Decoupling and Momentum-Aware Gradient Regulation"
+  authors: ["Wuming Yang", "Xiang Zhang", "Hongmin Zhao"]
+  date: 2026-06-23
+  venue: null
+  status: under-review
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2606.24557", code: null}
+  identifiers: {doi: null, arxiv: "2606.24557"}
+  license: null
+  verified_by: "arXiv abs page 2026-11-03 (comment 'Preprint. Under review.'); method detail beyond the abstract not read."
+  relevance: "MEMA: EMA-baseline test of task-vs-distillation gradient conflict that penalises harmful distillation signals (task-first, opposite of PCD's guaranteed KD progress); closest 2026 optimizer-side neighbour."
+  topics: [kd, gradient-conflict, heterogeneous-kd]
+  local_pdf: false
+
+- id: lu2025ciard
+  type: paper
+  title: "CIARD: Cyclic Iterative Adversarial Robustness Distillation"
+  authors: ["Liming Lu", "Shuchao Pang", "Xu Zheng", "Xiang Gu", "Anan Du", "Yunhuai Liu", "Yongbin Zhou"]
+  date: 2025-09-16
+  venue: null
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2509.12633", code: "https://github.com/eminentgu/CIARD"}
+  identifiers: {doi: null, arxiv: "2509.12633"}
+  license: null
+  verified_by: "arXiv abs page 2026-11-03; repository not opened (licence unknown)."
+  relevance: "Attributes clean-accuracy loss in robust distillation to divergent clean/robust teacher objectives; robust-KD comparator for idea I2."
+  topics: [kd, robustness, gradient-conflict]
+  local_pdf: false
+
+- id: du2020aekd
+  type: paper
+  title: "Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space"
+  authors: ["Shangchen Du"]
+  date: 2020
+  venue: "NeurIPS 2020"
+  status: unverified
+  urls: {official: "https://papers.nips.cc/paper/2020/hash/91c77393975889bd08f301c9e13a44b7-Abstract.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "NeurIPS proceedings URL from search results 2026-11-03; page not opened; author list incomplete."
+  relevance: "Multi-teacher KD as MGDA with a disagreement tolerance; symmetric baseline for multi-teacher PCD (idea I5)."
+  topics: [kd, multi-teacher, mgda]
+  local_pdf: false
