@@ -4,3 +4,55 @@
 \section{Introduction}
 \label{sec:intro}
 \textit{[To be written: Problem statement and trends; motivation and gap; Table I (comparison with existing surveys); Fig. 1 taxonomy; scope; organisation.]}
+
+% --- Table I / Fig. 1 (T4) ---
+% Every cell is justified by a section number of the compared survey in docs/survey/table1-evidence.md.
+% The "This survey" row states the coverage planned in tasks/plan.md (Secs. sec:logit..sec:benchmarks).
+\newcommand{\tY}{$\checkmark$}
+\newcommand{\tP}{$\circ$}
+\newcommand{\tN}{$\times$}
+\begin{table}[htbp]
+\centering
+\caption{Comparison with existing surveys. \tY: covered in a dedicated section; \tP: covered
+partially or only in a narrower setting; \tN: not covered; ?: not determinable (full text not
+accessible, judged from the abstract only). ``MOO in KD'': the distillation and task objectives
+treated with multi-objective optimisation (Pareto, gradient balancing or conflict handling); loss
+weighting alone counts as \tP. ``2024--26'': discusses knowledge-distillation methods published in
+2024--2026. The section-level evidence for every cell is in the project file
+\texttt{docs/survey/table1-evidence.md}.}
+\label{tab:surveys}
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llccccccccc}
+\toprule
+Survey & Venue & Year & Logit & \shortstack{Feat./\\relation} & Schemes & \shortstack{Teacher\\reliab.} &
+  \shortstack{MOO\\in KD} & \shortstack{Bench./\\results} & \shortstack{LLM/\\VLM} & \shortstack{2024--26\\methods} \\
+\midrule
+\citeauthor{gou2021kdsurvey}         & IJCV     & \citeyear{gou2021kdsurvey}         & \tY  & \tY  & \tY  & \tN   & \tN   & \tY  & \tN   & \tN   \\
+\citeauthor{wang2022kdreview}        & TPAMI    & \citeyear{wang2022kdreview}        & \tY  & \tY  & \tY  & \tP & \tN   & \tN   & \tN   & \tN   \\
+\citeauthor{hu2023tsasurvey}         & arXiv    & \citeyear{hu2023tsasurvey}         & \tY  & \tY  & \tY  & \tN   & \tP & \tN   & \tN   & \tN   \\
+\citeauthor{moslemi2024kdsurvey}     & MLWA     & \citeyear{moslemi2024kdsurvey}     & \tY  & \tY  & \tP & ?     & ?     & ?     & \tP & ?     \\
+\citeauthor{xu2024llmkdsurvey}       & arXiv    & \citeyear{xu2024llmkdsurvey}       & \tP & \tP & \tP & \tN   & \tN   & \tN   & \tY  & \tP \\
+\citeauthor{mansourian2025kdsurvey}  & TMLR     & \citeyear{mansourian2025kdsurvey}  & \tY  & \tY  & \tY  & \tP & \tP & \tY  & \tY  & \tP \\
+\citeauthor{yang2025llmkdsurvey}     & ACM TIST & \citeyear{yang2025llmkdsurvey}     & \tP & \tP & \tN   & \tN   & \tN   & \tP & \tY  & \tP   \\
+\citeauthor{chen2026gradmoo}$^{\dagger}$ & TMLR & \citeyear{chen2026gradmoo}         & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   \\
+\midrule
+This survey                          & --       & 2026                               & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize $^{\dagger}$A survey of gradient-based multi-objective deep learning (first posted 2025): it
+covers MOO in depth but does not mention distillation.
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\input{figures/taxonomy}
+\caption{Taxonomy of the survey. Branches are the survey sections; each leaf lists representative
+state-of-the-art methods (2022--2026) discussed in that section. Methods marked * are preprints or
+have an author-stated acceptance not yet confirmed in proceedings. Benchmark leaves list methods
+whose reported results anchor the comparison tables of Sec.~\ref{sec:benchmarks}.}
+\label{fig:taxonomy}
+\end{figure}
+% --- end Table I / Fig. 1 (T4) ---

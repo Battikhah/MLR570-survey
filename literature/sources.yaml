@@ -2200,3 +2200,126 @@
   relevance: "Long-tailed KD (LTKD): decomposes the KL objective into cross-group and within-group terms, rebalancing the first and reweighting the second so tail classes are not dominated by a head-biased teacher; reliability under class imbalance."
   topics: [kd, unreliable-teacher, long-tailed, sota]
   local_pdf: false
+
+# ---------------------------------------------------------------- survey T4: existing surveys for Table I (2026-11-03)
+# Verified 2026-11-03 by the Claude T4 worker (Orca task_1aba4b8161fe). Section lists read from the arXiv PDFs
+# (pdftotext); per-cell evidence for Table I is in docs/survey/table1-evidence.md.
+- id: gou2021kdsurvey
+  type: paper
+  title: "Knowledge Distillation: A Survey"
+  authors: ["Jianping Gou", "Baosheng Yu", "Stephen J. Maybank", "Dacheng Tao"]
+  date: 2021-03-22
+  venue: "International Journal of Computer Vision (IJCV), 129(6):1789-1819"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-021-01453-z", arxiv: "https://arxiv.org/abs/2006.05525", code: null}
+  identifiers: {doi: "10.1007/s11263-021-01453-z", arxiv: "2006.05525"}
+  license: null
+  verified_by: "Crossref DOI record (title, 4 authors, IJCV 129(6) pp. 1789-1819, issued 2021-03-22); arXiv API (v7 2021-05-20, comment 'accepted for publication in International Journal of Computer Vision (2021)'); section list read from the arXiv v7 PDF, 2026-11-03."
+  relevance: "The most-cited general KD survey (knowledge types, schemes, algorithms, performance comparison); row of Table I. Pre-2021 coverage only."
+  topics: [kd, survey]
+  local_pdf: false
+
+- id: wang2022kdreview
+  type: paper
+  title: "Knowledge Distillation and Student-Teacher Learning for Visual Intelligence: A Review and New Outlooks"
+  authors: ["Lin Wang", "Kuk-Jin Yoon"]
+  date: 2022-06-01
+  venue: "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 44(6):3048-3068"
+  status: published
+  urls: {official: "https://doi.org/10.1109/TPAMI.2021.3055564", arxiv: "https://arxiv.org/abs/2004.05937", code: null}
+  identifiers: {doi: "10.1109/TPAMI.2021.3055564", arxiv: "2004.05937"}
+  license: null
+  verified_by: "Crossref DOI record (title, 2 authors, TPAMI 44(6) pp. 3048-3068, issue date 2022-06; early access 2021); arXiv API (v7 2021-06-17, journal_ref 'IEEE TPAMI, 2021'); section list read from the arXiv v7 PDF, 2026-11-03."
+  relevance: "TPAMI review of KD / student-teacher learning for vision, organised by number of teachers, data format and learning setting; row of Table I."
+  topics: [kd, survey]
+  local_pdf: false
+
+- id: mansourian2025kdsurvey
+  type: paper
+  title: "A Comprehensive Survey on Knowledge Distillation"
+  authors: ["Amir M. Mansourian", "Rozhan Ahmadi", "Masoud Ghafouri", "Amir Mohammad Babaei", "Elaheh Badali Golezani", "Zeynab Yasamani Ghamchi", "Vida Ramezanian", "Alireza Taherian", "Kimia Dinashi", "Amirali Miri", "Shohreh Kasaei"]
+  date: 2025-09
+  venue: "Transactions on Machine Learning Research (TMLR)"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=3cbJzdR78B", arxiv: "https://arxiv.org/abs/2503.12067", code: "https://github.com/IPL-Sharif/KD_Survey"}
+  identifiers: {doi: null, arxiv: "2503.12067"}
+  license: "none stated (GitHub API: no license)"
+  verified_by: "TMLR accepted-papers listing (jmlr.org/tmlr/papers/) entry 'September 2025' with openreview forum 3cbJzdR78B and code link IPL-Sharif/KD_Survey; TMLR bib 3cbJzdR78B.bib (year 2025, 11 authors); arXiv API (v2 2025-10-11, comment 'Published at TMLR'); PDF header 'Published in Transactions on Machine Learning Research (09/2025)'; section list read from the arXiv v2 PDF, 2026-11-03. OpenReview page not loaded."
+  relevance: "Closest and most recent general KD survey (sources, schemes, algorithms, modalities, LLM/foundation-model KD, performance comparison); row of Table I and the main survey this one must differentiate from."
+  topics: [kd, survey]
+  local_pdf: false
+
+- id: moslemi2024kdsurvey
+  type: paper
+  title: "A survey on knowledge distillation: Recent advancements"
+  authors: ["Amir Moslemi", "Anna Briskina", "Zubeka Dang", "Jason Li"]
+  date: 2024-12
+  venue: "Machine Learning with Applications, 18:100605"
+  status: published
+  urls: {official: "https://doi.org/10.1016/j.mlwa.2024.100605", arxiv: null, code: null}
+  identifiers: {doi: "10.1016/j.mlwa.2024.100605", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI record (title, 4 authors, MLWA vol. 18 article 100605, issued 2024-12); DOAJ record listed by web search; abstract via OpenAlex (gold OA), 2026-11-03. Full text NOT read: ScienceDirect returned HTTP 403 to both curl and WebFetch and no repository copy exists (OpenAlex any_repository_has_fulltext=false), so its Table I row rests on the abstract only."
+  relevance: "2024 general KD survey (response/feature/relation KD, self-/cross-modal/adversarial distillation, limited-data and privacy-preserving KD); row of Table I."
+  topics: [kd, survey]
+  local_pdf: false
+
+- id: xu2024llmkdsurvey
+  type: paper
+  title: "A Survey on Knowledge Distillation of Large Language Models"
+  authors: ["Xiaohan Xu", "Ming Li", "Chongyang Tao", "Tao Shen", "Reynold Cheng", "Jinyang Li", "Can Xu", "Dacheng Tao", "Tianyi Zhou"]
+  date: 2024-02-20
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2402.13116", code: null}
+  identifiers: {doi: null, arxiv: "2402.13116"}
+  license: null
+  verified_by: "arXiv API (9 authors, v1 2024-02-20, v4 2024-10-21, comment '43 pages', no journal_ref); no published version found in Crossref title search, 2026-11-03; section list read from the arXiv v4 PDF."
+  relevance: "Main survey of LLM distillation (knowledge elicitation, distillation algorithms, skill and domain distillation); row of Table I."
+  topics: [kd, survey, llm]
+  local_pdf: false
+
+- id: chen2026gradmoo
+  type: paper
+  title: "Gradient-Based Multi-Objective Deep Learning: Algorithms, Theories, Applications, and Beyond"
+  authors: ["Weiyu Chen", "Baijiong Lin", "Xiaoyuan Zhang", "Xi Lin", "Han Zhao", "Qingfu Zhang", "James T. Kwok"]
+  date: 2026-08
+  venue: "Transactions on Machine Learning Research (TMLR)"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=eCUcXXH3PS", arxiv: "https://arxiv.org/abs/2501.10945", code: null}
+  identifiers: {doi: null, arxiv: "2501.10945"}
+  license: null
+  verified_by: "TMLR accepted-papers listing entry 'August 2026' with openreview forum eCUcXXH3PS; TMLR bib eCUcXXH3PS.bib (year 2026, 7 authors); arXiv API (v1 2025-01-19, v3 2025-08-06), 2026-11-03. Section list read from the arXiv v3 PDF; the word 'distill' does not occur in it. Referred to as 'Chen et al. 2025' (arXiv year) in tasks/plan.md."
+  relevance: "Survey of gradient-based MOO for deep learning (MGDA-style gradient balancing, Pareto sets, theory, applications); MOO-side row of Table I, showing MOO surveys do not cover KD."
+  topics: [moo, survey, gradient-conflict]
+  local_pdf: false
+
+- id: hu2023tsasurvey
+  type: paper
+  title: "Teacher-Student Architecture for Knowledge Distillation: A Survey"
+  authors: ["Chengming Hu", "Xuan Li", "Dan Liu", "Haolun Wu", "Xi Chen", "Ju Wang", "Xue Liu"]
+  date: 2023-08-08
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2308.04268", code: null}
+  identifiers: {doi: null, arxiv: "2308.04268"}
+  license: null
+  verified_by: "arXiv API (7 authors, v1 2023-08-08, comment '20 pages. arXiv admin note: substantial text overlap with arXiv:2210.17332', no journal_ref); no published version found in a Crossref title search, 2026-11-03; section list read from the arXiv v1 PDF."
+  relevance: "2023 KD survey organised by teacher-student architecture and purpose (compression, expansion, adaptation, enhancement); extra row of Table I."
+  topics: [kd, survey]
+  local_pdf: false
+
+- id: yang2025llmkdsurvey
+  type: paper
+  title: "Survey on Knowledge Distillation for Large Language Models: Methods, Evaluation, and Application"
+  authors: ["Chuanpeng Yang", "Yao Zhu", "Wang Lu", "Yidong Wang", "Qian Chen", "Chenlong Gao", "Bingjie Yan", "Yiqiang Chen"]
+  date: 2025-11-24
+  venue: "ACM Transactions on Intelligent Systems and Technology (TIST), 16(6):1-27"
+  status: published
+  urls: {official: "https://doi.org/10.1145/3699518", arxiv: "https://arxiv.org/abs/2407.01885", code: null}
+  identifiers: {doi: "10.1145/3699518", arxiv: "2407.01885"}
+  license: null
+  verified_by: "Crossref DOI record (title, 8 authors in the published order, ACM TIST 16(6) pp. 1-27, online 2025-11-24); arXiv API (v1 2024-07-02; arXiv author order lists Wang Lu before Yao Zhu), 2026-11-03. Section list read from the arXiv v1 PDF."
+  relevance: "LLM-KD survey with its own evaluation of white-box and black-box KD on GPT-2/OPT/LLaMA; extra row of Table I."
+  topics: [kd, survey, llm]
+  local_pdf: false
