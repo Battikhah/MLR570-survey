@@ -1,0 +1,48 @@
+% MLR570 survey -- TMLR template (vendored in tmlr/, Apache-2.0, upstream 7bf90ef).
+% Build:  cd paper/survey && latexmk     (settings in latexmkrc; output in build/)
+\documentclass[10pt]{article}
+\usepackage[preprint]{tmlr}   % [preprint] shows author names
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs,multirow,graphicx,xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{url}
+
+\title{State-of-the-Art Knowledge Distillation: A Survey of Knowledge Types,
+Training Schemes, and Multi-Objective Optimization}
+
+\author{\name Khalid Hamdan \email TBD \\ \addr American University of Sharjah
+  \AND \name Aly Khaled Ismail Mahmoud \email TBD \\ \addr American University of Sharjah
+  \AND \name Hasan Akel \email TBD \\ \addr American University of Sharjah
+  \AND \name Salim Akel \email TBD \\ \addr American University of Sharjah}
+
+\def\month{MM}
+\def\year{2026}
+\def\openreview{\url{https://openreview.net/forum?id=XXXX}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\textit{[To be written last (Task 15): motivation, key contributions, high-level structure, key trends (G2).]}
+\end{abstract}
+
+\input{sections/01_intro}
+\input{sections/02_prelim}
+\input{sections/03a_logit}
+\input{sections/03b_feature}
+\input{sections/04_schemes}
+\input{sections/05_reliability}
+\input{sections/06a_moo}
+\input{sections/06b_kd_moo}
+\input{sections/07_emerging}
+\input{sections/08_benchmarks}
+\input{sections/09_future}
+\input{sections/10_conclusion}
+
+\bibliography{refs}
+\bibliographystyle{tmlr}
+
+\end{document}

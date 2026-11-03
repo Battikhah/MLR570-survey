@@ -44,8 +44,8 @@
 The tasks are in `tasks/todo.md`, with acceptance criteria, verification, dependencies and files. Ordered index:
 
 ### Phase 0: Foundation
-- [ ] T1 Manuscript skeleton and build
-- [ ] T2 Bibliography pipeline (`sources.yaml` → `refs.bib`) with a cite-key check
+- [x] T1 Manuscript skeleton and build
+- [x] T2 Bibliography pipeline (`sources.yaml` → `refs.bib`) with a cite-key check
 - [ ] T3 Register and verify the draft's 28 URLs
 - [ ] T4 Taxonomy (Fig. 1) and existing-survey comparison (Table I)
 
