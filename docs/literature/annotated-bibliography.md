@@ -4,6 +4,12 @@
 
 - [du2018auxgradsim] Yunshu Du et al., ‘Adapting Auxiliary Losses Using Gradient Similarity,’ , 2018-12-05. Status: preprint. Main-task-anchored gating of auxiliary losses by gradient cosine; asymmetric precedent.
 
+## calibration
+
+- [guo2017calibration] Chuan Guo et al., ‘On Calibration of Modern Neural Networks,’ ICML 2017, PMLR 70, 2017. Status: published. Foundational evidence that modern classifiers can be miscalibrated and that temperature scaling is a post-hoc calibration method. It motivates keeping calibration temperature distinct from KD temperature.
+
+- [ovadia2019shiftuncertainty] Yaniv Ovadia et al., ‘Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift,’ NeurIPS 2019, 2019. Status: published. Large-scale comparison shows uncertainty methods and calibration behavior can change under dataset shift. It bounds claims that in-distribution confidence alone is a reliable gate.
+
 ## cifar10
 
 - [cifar10] Alex Krizhevsky et al., ‘The CIFAR-10 dataset,’ University of Toronto dataset page, 2009. Status: published. PCD and FedPCD classification benchmark; 50,000 train and 10,000 test 32x32 color images, 10 classes; cite Krizhevsky's tech report when used.
@@ -74,9 +80,13 @@
 
 ## kd
 
+- [beyer2022patientkd] Lucas Beyer et al., ‘Knowledge Distillation: A Good Teacher Is Patient and Consistent,’ CVPR 2022, 2022. Status: published. Demonstrates that distillation outcomes depend strongly on long training and consistent teacher/student image views. It underscores the need to hold recipes fixed when comparing optimization rules.
+
 - [chen2026scope] Tao Chen et al., ‘Selective Confidence-Guided Projection-Based Encoding for Medical Image Classification,’ Journal of Imaging, 2026-09-11. Status: published. Classification-priority gradient-conflict removal for KD plus confidence-weighted relations: very close to the KD proposal.
 
-- [du2020aekd] Shangchen Du, ‘Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space,’ NeurIPS 2020, 2020. Status: unverified. Multi-teacher KD as MGDA with a disagreement tolerance; symmetric baseline for multi-teacher PCD (idea I5).
+- [cho2019efficacy] Jang Hyun Cho et al., ‘On the Efficacy of Knowledge Distillation,’ ICCV 2019, 2019. Status: published. Classic empirical analysis showing teacher accuracy alone does not predict distillation utility and that teacher-student capacity mismatch can limit transfer. It anchors discussion of teacher-student compatibility.
+
+- [du2020aekd] Shangchen Du et al., ‘Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space,’ NeurIPS 2020, 2020. Status: published. Multi-teacher KD as MGDA with a disagreement tolerance; symmetric baseline for multi-teacher PCD (idea I5).
 
 - [hayder2025mokd] Zeeshan Hayder et al., ‘MoKD: Multi-Task Optimization for Knowledge Distillation,’ , 2025-05-13. Status: preprint. Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn. INTERPRETATION: likely superseded by DTO-KD (hayder2026dtokd; same first four authors plus Richard Hartley, matching the withdrawal note 'major changes to the paper and the authorship'). Cite DTO-KD, not MoKD.
 
@@ -86,17 +96,35 @@
 
 - [kang2025dho] Seongjae Kang et al., ‘Simple yet Effective Semi-supervised Knowledge Distillation from Vision-Language Models via Dual-Head Optimization,’ NeurIPS 2026 (per arXiv comment), 2025-05-12. Status: accepted. Only source found with MEASURED CE–KD gradient cosine: single-head CE+KD baseline final-epoch cos(∇CE, ∇KD) ≈ −0.39 to −0.45 across ResNet-18 stages and −0.76 at the classifier head (8-dataset mean, 16-shot, CLIP RN50 zero-shot teacher). Prop. 1 proves head-level conflict whenever the student prediction lies in the ball with diameter [y, p].
 
+- [lan2025labelrevision] Weichao Lan et al., ‘Improve Knowledge Distillation via Label Revision and Data Selection,’ IEEE Transactions on Cognitive and Developmental Systems, 2025-04-11. Status: published. Combines teacher-label revision with sample selection to reduce harmful supervision. It is a repair-and-select alternative to hard rejection of unreliable teacher outputs.
+
+- [lee2022hardgatekd] Dongkyu Lee et al., ‘Hard Gate Knowledge Distillation - Leverage Calibration for Robust and Reliable Language Model,’ EMNLP 2022, 2022. Status: published. Applies a hard gate based on calibration to select between teacher guidance and ground-truth training in language-model distillation. It is a selective-transfer method and a calibration-based comparator.
+
 - [lu2025ciard] Liming Lu et al., ‘CIARD: Cyclic Iterative Adversarial Robustness Distillation,’ , 2025-09-16. Status: preprint. Attributes clean-accuracy loss in robust distillation to divergent clean/robust teacher objectives; robust-KD comparator for idea I2.
+
+- [meng2019conditionalts] Zhong Meng et al., ‘Conditional Teacher-Student Learning,’ ICASSP 2019, 2019. Status: published. Early correctness-conditioned teacher-student scheme that chooses teacher guidance only when its prediction matches the label. It is a direct antecedent for selective transfer by correctness.
+
+- [mishra2021cckd] Sourav Mishra et al., ‘Confidence Conditioned Knowledge Distillation,’ arXiv, 2021-07-06. Status: preprint. Uses teacher probability assigned to the ground-truth class to condition sample-specific distillation, distinguishing correctness-aware confidence from maximum softmax confidence.
+
+- [park2019rkd] Wonpyo Park et al., ‘Relational Knowledge Distillation,’ CVPR 2019, 2019. Status: published. Transfers pairwise distances and angles among examples rather than matching each example independently. It is a foundational relational-KD comparator.
+
+- [romero2015fitnets] Adriana Romero et al., ‘FitNets: Hints for Thin Deep Nets,’ ICLR 2015, 2014-12-19. Status: published. Foundational intermediate-feature distillation method using hints and a learned regressor to bridge representation dimensions. It represents feature-based KD in the survey taxonomy.
+
+- [stanton2021kdwork] Samuel Stanton et al., ‘Does Knowledge Distillation Really Work?,’ NeurIPS 2021, 2021. Status: published. Separates student-teacher fidelity from generalization and reports that closer imitation does not always improve generalization. It cautions against using KD loss as a proxy for student utility.
 
 - [sumit2026chad] Dipto Sumit et al., ‘When Does Knowledge Distillation Hurt? Reliability-Aware Distillation for Low-Resource Language Summarization,’ arXiv, 2026-07-22. Status: preprint. Reliability-aware KD reporting that teacher-confidence-only gates offered little benefit (per survey draft).
 
 - [sun2024lskd] Shangquan Sun, ‘Logit Standardization in Knowledge Distillation,’ CVPR 2024 (Highlight), 2024. Status: published. Loss-side state of the art; standardisation also addresses logit scale, overlapping PCD's scale-invariance argument. Supplies MLKD+LS 78.28 (ResNet32x4->ResNet8x4) as the reference ceiling.
 
-- [sun2025rld] Wujie Sun et al., ‘Knowledge Distillation with Refined Logits,’ ICCV 2025 (per arXiv comment), 2024-08-14. Status: accepted. States that wrong teacher predictions make KD and CE inconsistent and repairs the teacher target with labels; main comparator for reversed-priority PCD (label as constraint) under unreliable teachers.
+- [sun2025rld] Wujie Sun et al., ‘Knowledge Distillation with Refined Logits,’ ICCV 2025 (per arXiv comment), 2024-08-14. Status: published. States that wrong teacher predictions make KD and CE inconsistent and repairs the teacher target with labels; main comparator for reversed-priority PCD (label as constraint) under unreliable teachers.
 
 - [yang2026spofa] Wuming Yang et al., ‘Heterogeneous Knowledge Distillation via Geometry Decoupling and Momentum-Aware Gradient Regulation,’ , 2026-06-23. Status: under-review. MEMA: EMA-baseline test of task-vs-distillation gradient conflict that penalises harmful distillation signals (task-first, opposite of PCD's guaranteed KD progress); closest 2026 optimizer-side neighbour.
 
+- [yuan2020labelkd] Li Yuan et al., ‘Revisiting Knowledge Distillation via Label Smoothing Regularization,’ CVPR 2020, 2020. Status: published. Shows that weak teachers can still help and analyzes KD as learned label smoothing, including teacher-free KD. It provides a counterexample to equating teacher weakness with useless supervision.
+
 - [yuan2026tpkd] Qianfeng Yuan et al., ‘Learning Beyond Full Imitation: Task-Preserving Knowledge Distillation,’ arXiv, 2026-09-30. Status: preprint. Asymmetric KD that projects teacher directions to protect task margins: close to PCD-KD.
+
+- [zhang2022camkd] Hailin Zhang et al., ‘Confidence-Aware Multi-Teacher Knowledge Distillation,’ ICASSP 2022, 2021-12-30. Status: accepted. Assigns sample-wise reliability to multiple teachers using ground-truth labels and intermediate features. It extends reliability-aware selection to multi-teacher KD.
 
 - [zhao2022dkd] Borui Zhao et al., ‘Decoupled Knowledge Distillation,’ CVPR 2022, 2022. Status: published. Splits KD into TCKD and NCKD with hand-set weights alpha/beta; natural K=3 test case for PCD (CE | TCKD, NCKD) and a loss-side state-of-the-art baseline.
 
@@ -109,6 +137,10 @@
 - [gong2021dbgd] Chengyue Gong et al., ‘Automatic and Harmless Regularization with Constrained and Lexicographic Optimization: A Dynamic Barrier Approach,’ NeurIPS 2021, 2021-12-06. Status: published. Direct ancestor: for K=2 the PCD QP coincides with the DBGD update (raw gradients); DBGD has convergence proofs for constrained/lexicographic settings that PCD lacks.
 
 - [skalse2022lmorl] Joar Skalse et al., ‘Lexicographic Multi-Objective Reinforcement Learning,’ IJCAI 2022, 2022. Status: published. Lexicographic (strict priority) optimization in learning; contrasts with PCD's soft τ-priority.
+
+## moo
+
+- [shamsian2023auxinash] Aviv Shamsian et al., ‘Auxiliary Learning as an Asymmetric Bargaining Game,’ ICML 2023, PMLR 202, 2023. Status: published. Introduces AuxiNash for asymmetric auxiliary-task bargaining and learns task preferences from their main-task contribution. It is a preference-aware MOO comparator, not a KD-specific method.
 
 ## mtl
 

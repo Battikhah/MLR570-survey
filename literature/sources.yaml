@@ -838,11 +838,11 @@
   authors: ["Wujie Sun", "Defang Chen", "Siwei Lyu", "Genlang Chen", "Chun Chen", "Can Wang"]
   date: 2024-08-14
   venue: "ICCV 2025 (per arXiv comment)"
-  status: accepted
-  urls: {official: null, arxiv: "https://arxiv.org/abs/2408.07703", code: "https://github.com/zju-SWJ/RLD"}
-  identifiers: {doi: null, arxiv: "2408.07703"}
+  status: published
+  urls: {official: "https://doi.org/10.1109/ICCV51701.2025.00111", arxiv: "https://arxiv.org/abs/2408.07703", code: "https://github.com/zju-SWJ/RLD"}
+  identifiers: {doi: "10.1109/ICCV51701.2025.00111", arxiv: "2408.07703"}
   license: null
-  verified_by: "arXiv abs page v3 (2025-07-27, comment ICCV 2025) 2026-11-03; v1 date from arXiv id not separately checked."
+  verified_by: "arXiv abs page checked 2026-11-03 for title/authors and v3 history; ICCV proceedings metadata indexed by search and DOI record checked for publication identity, full authors, pages 1110-1119. DOI resolver direct fetch was unavailable; full proceedings text not inspected."
   relevance: "States that wrong teacher predictions make KD and CE inconsistent and repairs the teacher target with labels; main comparator for reversed-priority PCD (label as constraint) under unreliable teachers."
   topics: [kd, unreliable-teacher, sota]
   local_pdf: false
@@ -895,14 +895,225 @@
 - id: du2020aekd
   type: paper
   title: "Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space"
-  authors: ["Shangchen Du"]
+  authors: ["Shangchen Du", "Shan You", "Xiaojie Li", "Jianlong Wu", "Fei Wang", "Chen Qian", "Changshui Zhang"]
   date: 2020
   venue: "NeurIPS 2020"
-  status: unverified
-  urls: {official: "https://papers.nips.cc/paper/2020/hash/91c77393975889bd08f301c9e13a44b7-Abstract.html", arxiv: null, code: null}
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2020/file/91c77393975889bd08f301c9e13a44b7-Paper.pdf", arxiv: null, code: null}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "NeurIPS proceedings URL from search results 2026-11-03; page not opened; author list incomplete."
+  verified_by: "Official NeurIPS proceedings PDF checked 2026-11-03: title and complete author block on p. 0, abstract and method framing on p. 0, venue via proceedings URL."
   relevance: "Multi-teacher KD as MGDA with a disagreement tolerance; symmetric baseline for multi-teacher PCD (idea I5)."
   topics: [kd, multi-teacher, mgda]
+  local_pdf: false
+
+# ---------------------------------------------------------------- survey draft URL registrations (2026-11-03)
+- id: cho2019efficacy
+  type: paper
+  title: "On the Efficacy of Knowledge Distillation"
+  authors: ["Jang Hyun Cho", "Bharath Hariharan"]
+  date: 2019
+  venue: "ICCV 2019"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content_ICCV_2019/html/Cho_On_the_Efficacy_of_Knowledge_Distillation_ICCV_2019_paper.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official CVF ICCV 2019 listing indexed metadata and abstract; title, authors, venue, pages, and publication year checked 2026-11-03. Direct fetch returned HTTP 403; full text not inspected."
+  relevance: "Classic empirical analysis showing teacher accuracy alone does not predict distillation utility and that teacher-student capacity mismatch can limit transfer. It anchors discussion of teacher-student compatibility."
+  topics: [kd, teacher-student-compatibility, reliability]
+  local_pdf: false
+
+- id: romero2015fitnets
+  type: paper
+  title: "FitNets: Hints for Thin Deep Nets"
+  authors: ["Adriana Romero", "Nicolas Ballas", "Samira Ebrahimi Kahou", "Antoine Chassang", "Carlo Gatta", "Yoshua Bengio"]
+  date: 2014-12-19
+  venue: "ICLR 2015"
+  status: published
+  urls: {official: null, arxiv: "https://arxiv.org/abs/1412.6550", code: null}
+  identifiers: {doi: "10.48550/arXiv.1412.6550", arxiv: "1412.6550"}
+  license: null
+  verified_by: "arXiv abs page checked 2026-11-03 for title, six authors, initial submission date, abstract, and v4 history; abstract describes intermediate hints and projection layers."
+  relevance: "Foundational intermediate-feature distillation method using hints and a learned regressor to bridge representation dimensions. It represents feature-based KD in the survey taxonomy."
+  topics: [kd, feature-kd]
+  local_pdf: false
+
+- id: park2019rkd
+  type: paper
+  title: "Relational Knowledge Distillation"
+  authors: ["Wonpyo Park", "Dongju Kim", "Yan Lu", "Minsu Cho"]
+  date: 2019
+  venue: "CVPR 2019"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content_CVPR_2019/html/Park_Relational_Knowledge_Distillation_CVPR_2019_paper.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official CVF CVPR 2019 listing metadata and abstract found via publisher search 2026-11-03; title, authors, venue, pages, and method summary checked. Direct fetch returned HTTP 403; full text not inspected."
+  relevance: "Transfers pairwise distances and angles among examples rather than matching each example independently. It is a foundational relational-KD comparator."
+  topics: [kd, relational-kd]
+  local_pdf: false
+
+- id: meng2019conditionalts
+  type: paper
+  title: "Conditional Teacher-Student Learning"
+  authors: ["Zhong Meng", "Jinyu Li", "Yong Zhao", "Yifan Gong"]
+  date: 2019
+  venue: "ICASSP 2019"
+  status: published
+  urls: {official: "https://doi.org/10.1109/icassp.2019.8683438", arxiv: "https://arxiv.org/abs/1904.12399", code: null}
+  identifiers: {doi: "10.1109/ICASSP.2019.8683438", arxiv: "1904.12399"}
+  license: null
+  verified_by: "Microsoft Research author-hosted paper and official ICASSP 2019 conference program checked 2026-11-03 for title/authors; proceedings program confirms venue and pages 6445-6449. DOI matched the conference record; arXiv abs confirms linked preprint."
+  relevance: "Early correctness-conditioned teacher-student scheme that chooses teacher guidance only when its prediction matches the label. It is a direct antecedent for selective transfer by correctness."
+  topics: [kd, reliability, selective-distillation]
+  local_pdf: false
+
+- id: mishra2021cckd
+  type: paper
+  title: "Confidence Conditioned Knowledge Distillation"
+  authors: ["Sourav Mishra", "Suresh Sundaram"]
+  date: 2021-07-06
+  venue: "arXiv"
+  status: preprint
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2107.06993", code: null}
+  identifiers: {doi: null, arxiv: "2107.06993"}
+  license: null
+  verified_by: "arXiv abs page checked 2026-11-03 for title, authors, submitted date, and abstract; no publication venue listed on the page."
+  relevance: "Uses teacher probability assigned to the ground-truth class to condition sample-specific distillation, distinguishing correctness-aware confidence from maximum softmax confidence."
+  topics: [kd, reliability, confidence]
+  local_pdf: false
+
+- id: guo2017calibration
+  type: paper
+  title: "On Calibration of Modern Neural Networks"
+  authors: ["Chuan Guo", "Geoff Pleiss", "Yu Sun", "Kilian Q. Weinberger"]
+  date: 2017
+  venue: "ICML 2017, PMLR 70"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v70/guo17a.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official PMLR proceedings entry checked 2026-11-03 for exact title, author list, ICML 2017 venue, volume/pages, and abstract including temperature scaling."
+  relevance: "Foundational evidence that modern classifiers can be miscalibrated and that temperature scaling is a post-hoc calibration method. It motivates keeping calibration temperature distinct from KD temperature."
+  topics: [calibration, uncertainty]
+  local_pdf: false
+
+- id: ovadia2019shiftuncertainty
+  type: paper
+  title: "Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift"
+  authors: ["Yaniv Ovadia", "Emily Fertig", "Jie Ren", "Zachary Nado", "D. Sculley", "Sebastian Nowozin", "Joshua Dillon", "Balaji Lakshminarayanan", "Jasper Snoek"]
+  date: 2019
+  venue: "NeurIPS 2019"
+  status: published
+  urls: {official: "https://papers.neurips.cc/paper_files/paper/2019/hash/8558cb408c1d76621371888657d2eb1d-Abstract.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official NeurIPS proceedings page checked 2026-11-03 for exact title, nine authors, venue, and abstract describing calibration/uncertainty under distribution shift."
+  relevance: "Large-scale comparison shows uncertainty methods and calibration behavior can change under dataset shift. It bounds claims that in-distribution confidence alone is a reliable gate."
+  topics: [calibration, uncertainty, dataset-shift]
+  local_pdf: false
+
+- id: lee2022hardgatekd
+  type: paper
+  title: "Hard Gate Knowledge Distillation - Leverage Calibration for Robust and Reliable Language Model"
+  authors: ["Dongkyu Lee", "Zhiliang Tian", "Yingxiu Zhao", "Ka Chun Cheung", "Nevin L. Zhang"]
+  date: 2022
+  venue: "EMNLP 2022"
+  status: published
+  urls: {official: "https://aclanthology.org/2022.emnlp-main.665/", arxiv: "https://arxiv.org/abs/2210.12427", code: null}
+  identifiers: {doi: null, arxiv: "2210.12427"}
+  license: null
+  verified_by: "ACL Anthology entry and linked paper checked 2026-11-03 for exact title, five authors, venue, and abstract."
+  relevance: "Applies a hard gate based on calibration to select between teacher guidance and ground-truth training in language-model distillation. It is a selective-transfer method and a calibration-based comparator."
+  topics: [kd, reliability, calibration, language-models]
+  local_pdf: false
+
+- id: zhang2022camkd
+  type: paper
+  title: "Confidence-Aware Multi-Teacher Knowledge Distillation"
+  authors: ["Hailin Zhang", "Defang Chen", "Can Wang"]
+  date: 2021-12-30
+  venue: "ICASSP 2022"
+  status: accepted
+  urls: {official: null, arxiv: "https://arxiv.org/abs/2201.00007", code: null}
+  identifiers: {doi: null, arxiv: "2201.00007"}
+  license: null
+  verified_by: "arXiv abs page checked 2026-11-03 for title/authors/date and comment 'Accepted to ICASSP 2022'; acceptance is author-stated on arXiv and proceedings metadata was not separately checked."
+  relevance: "Assigns sample-wise reliability to multiple teachers using ground-truth labels and intermediate features. It extends reliability-aware selection to multi-teacher KD."
+  topics: [kd, reliability, multi-teacher]
+  local_pdf: false
+
+- id: lan2025labelrevision
+  type: paper
+  title: "Improve Knowledge Distillation via Label Revision and Data Selection"
+  authors: ["Weichao Lan", "Yiu-ming Cheung", "Qing Xu", "Buhua Liu", "Zhikai Hu", "Mengke Li", "Zhenghua Chen"]
+  date: 2025-04-11
+  venue: "IEEE Transactions on Cognitive and Developmental Systems"
+  status: published
+  urls: {official: "https://doi.org/10.1109/tcds.2025.3559881", arxiv: null, code: null}
+  identifiers: {doi: "10.1109/TCDS.2025.3559881", arxiv: null}
+  license: null
+  verified_by: "Author-hosted publication-version PDF checked 2026-11-03 for title, full author list, DOI, received/revised/accepted and publication dates, journal volume/issue/pages, and abstract."
+  relevance: "Combines teacher-label revision with sample selection to reduce harmful supervision. It is a repair-and-select alternative to hard rejection of unreliable teacher outputs."
+  topics: [kd, reliability, label-revision, data-selection]
+  local_pdf: false
+
+- id: shamsian2023auxinash
+  type: paper
+  title: "Auxiliary Learning as an Asymmetric Bargaining Game"
+  authors: ["Aviv Shamsian", "Aviv Navon", "Neta Glazer", "Kenji Kawaguchi", "Gal Chechik", "Ethan Fetaya"]
+  date: 2023
+  venue: "ICML 2023, PMLR 202"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v202/shamsian23a.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official PMLR proceedings page checked 2026-11-03 for title, full author list, volume/pages, conference and abstract describing asymmetric bargaining and learned task preferences."
+  relevance: "Introduces AuxiNash for asymmetric auxiliary-task bargaining and learns task preferences from their main-task contribution. It is a preference-aware MOO comparator, not a KD-specific method."
+  topics: [moo, auxiliary-learning, preference]
+  local_pdf: false
+
+- id: yuan2020labelkd
+  type: paper
+  title: "Revisiting Knowledge Distillation via Label Smoothing Regularization"
+  authors: ["Li Yuan", "Francis E. H. Tay", "Guilin Li", "Tao Wang", "Jiashi Feng"]
+  date: 2020
+  venue: "CVPR 2020"
+  status: published
+  urls: {official: "https://doi.org/10.1109/cvpr42600.2020.00396", arxiv: "https://arxiv.org/abs/1909.11723", code: null}
+  identifiers: {doi: "10.1109/CVPR42600.2020.00396", arxiv: "1909.11723"}
+  license: null
+  verified_by: "Official CVF CVPR 2020 proceedings entry and paper checked 2026-11-03 for title, complete authors, venue/pages and abstract. DOI matches the publisher record."
+  relevance: "Shows that weak teachers can still help and analyzes KD as learned label smoothing, including teacher-free KD. It provides a counterexample to equating teacher weakness with useless supervision."
+  topics: [kd, label-smoothing, reliability]
+  local_pdf: false
+
+- id: stanton2021kdwork
+  type: paper
+  title: "Does Knowledge Distillation Really Work?"
+  authors: ["Samuel Stanton", "Pavel Izmailov", "Polina Kirichenko", "Alexander A. Alemi", "Andrew Gordon Wilson"]
+  date: 2021
+  venue: "NeurIPS 2021"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2021/file/376c6b9ff3bedbbea56751a84fffc10c-Paper.pdf", arxiv: "https://arxiv.org/abs/2106.05945", code: null}
+  identifiers: {doi: null, arxiv: "2106.05945"}
+  license: null
+  verified_by: "Official NeurIPS proceedings PDF checked 2026-11-03 for full author block and paper contents; proceedings abstract page confirms title and NeurIPS 2021 venue."
+  relevance: "Separates student-teacher fidelity from generalization and reports that closer imitation does not always improve generalization. It cautions against using KD loss as a proxy for student utility."
+  topics: [kd, generalization, evaluation]
+  local_pdf: false
+
+- id: beyer2022patientkd
+  type: paper
+  title: "Knowledge Distillation: A Good Teacher Is Patient and Consistent"
+  authors: ["Lucas Beyer", "Xiaohua Zhai", "Amélie Royer", "Larisa Markeeva", "Rohan Anil", "Alexander Kolesnikov"]
+  date: 2022
+  venue: "CVPR 2022"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2022/html/Beyer_Knowledge_Distillation_A_Good_Teacher_Is_Patient_and_Consistent_CVPR_2022_paper.html", arxiv: null, code: null}
+  identifiers: {doi: "10.1109/CVPR52688.2022.01065", arxiv: null}
+  license: null
+  verified_by: "Official CVF CVPR 2022 paper PDF and indexed proceedings metadata checked 2026-11-03 for exact title, full authors, venue/pages and abstract; direct HTML fetch returned HTTP 403."
+  relevance: "Demonstrates that distillation outcomes depend strongly on long training and consistent teacher/student image views. It underscores the need to hold recipes fixed when comparing optimization rules."
+  topics: [kd, training-recipe, evaluation]
   local_pdf: false
