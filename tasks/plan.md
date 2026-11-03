@@ -23,8 +23,15 @@
 | — | References | IEEE style, generated from `literature/sources.yaml` | — |
 
 ## Architecture decisions
-- **Format: LaTeX IEEEtran journal** (RECOMMENDED; awaiting the user's confirmation). It matches the sample. `pdflatex`, `latexmk`, `bibtex`, IEEEtran, TikZ and pgfplots are installed locally (checked 2026-11-03).
+- **Format: LaTeX, TMLR template** (user decision, 2026-11-03).
+  - The official `JmlrOrg/tmlr-style-file` (Apache-2.0, upstream commit `7bf90ef`) is vendored in `paper/survey/tmlr/`.
+  - The `[preprint]` option shows the team as authors.
+  - Citations are natbib author-year (`\citet`/`\citep`, `tmlr.bst`). This satisfies G11's "consistent format (such as IEEE)" requirement with a consistent author-year style.
   - Layout: `paper/survey/main.tex` plus one file per section under `paper/survey/sections/`, with figures under `paper/survey/figures/`.
+- **State-of-the-art criterion** (the user's condition for approving the plan):
+  - **Core methods** (the ones discussed in depth) must be published 2022–2026 at a major venue (CVPR / ICCV / ECCV / NeurIPS / ICML / ICLR / AAAI / TMLR / TPAMI / IJCV), or be a 2025–2026 preprint with reported results on standard benchmarks.
+  - **Classics** (Hinton 2015, FitNets, AT, CRD, RKD, DML, BYOT…) appear only as background and lineage.
+  - The verified inventory comes from Task 4b. Checkpoint A shows the user the core list before any section is written.
 - **Single source of truth for references:** `literature/sources.yaml` → `scripts/build_bib.py` → `paper/survey/refs.bib`.
   - A check fails the build when a `\cite` key has no record.
   - A source with `status: unverified` may be cited only with an explicit "(preprint / unverified)" qualifier in the text.
@@ -42,7 +49,9 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 - [ ] T3 Register and verify the draft's 28 URLs
 - [ ] T4 Taxonomy (Fig. 1) and existing-survey comparison (Table I)
 
-### Checkpoint A (human): scope, taxonomy, Table I, and format confirmed
+- [ ] T4b State-of-the-art method inventory (2022–2026, verified; gates Checkpoint A)
+
+### Checkpoint A (human): scope, taxonomy, Table I, state-of-the-art inventory confirmed
 
 ### Phase 1: Core sections (parallel: Claude / Codex, each cross-reviewed)
 - [ ] T5 §II Preliminaries + Fig. 2
@@ -67,6 +76,25 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 
 ### Checkpoint D (human / team): full manuscript review
 
+## Team ownership (user decision, 2026-11-03: Khalid ≈35%, Aly ≈25%, Hasan ≈25%, Salim ≈10%)
+
+The weights are estimates of each section's share of the manuscript's writing effort.
+
+**How ownership works:**
+- ORCA agents (Claude/Codex) produce research, verified sources and a first draft.
+- The **owner** edits, finalises and signs off on their section.
+- The cross-agent review still applies.
+- Foundation and audit tasks (T1–T3, T4b, T16) are done by the agents and are not counted.
+
+| Owner | Sections (task) | Weight |
+|---|---|---|
+| **Khalid (≈35%)** | §I Introduction + Table I + Fig. 1 taxonomy (T4, T15); §VI-A MOO primer + Fig. 5 (T10); §VI-B/C KD × MOO + Table IV (T11); §IX Future directions (T14); Abstract + §X Conclusion (T15) | 10 + 8 + 12 + 4 + 3 = **37** |
+| **Aly (≈25%)** | §II Preliminaries + Fig. 2 (T5); §III-A Logit-based state of the art + Table II (T6); §VIII Benchmarks (T13) | 4 + 15 + 6 = **25** |
+| **Hasan (≈25%)** | §III-B Feature- and relation-based + Fig. 3 (T7); §IV Training schemes + Fig. 4 (T8); §VII Emerging settings (T12) | 12 + 9 + 4 = **25** |
+| **Salim (≈10%)** | §V Teacher reliability + Table III (T9) | **10** |
+
+Each section file starts with `% Owner: <name>` so that ownership is visible in the source.
+
 ## Risks and mitigations
 | Risk | Impact | Mitigation |
 |---|---|---|
@@ -79,7 +107,7 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 | Unknown length limit, deadline or rubric | Med | Open question to the instructor; the structure works at any length |
 
 ## Open questions
-1. Format: confirm LaTeX IEEEtran (recommended) or Markdown.
+1. ~~Format~~: resolved, TMLR LaTeX.
 2. For the instructor: page or length limit, deadline, rubric, and whether IEEE style is mandatory.
-3. Team: which teammates own or co-write which sections? Workers can draft, and humans finalise.
+3. ~~Team split~~: resolved (table above).
 4. The draft's project framing ("the proposed project…", L175–187) becomes neutral survey framing, with claims and attributions preserved. Please confirm that this rewording is acceptable under the "preserve the draft" rule.
