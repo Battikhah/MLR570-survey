@@ -41,3 +41,26 @@ SCOPE’s MDPI full text returned HTTP 403 in the recorded revision pass; this r
 - "The radius $c$ is therefore a dial between the weighted sum and MGDA, which is CAGrad's main advantage over both." → "The radius $c$ interpolates between the weighted sum and MGDA, an option neither of them offers."
 
 Other rewrites: "clearly matters" → "matters"; "FAMO thus offers" → "FAMO gets"; "Priority is therefore learned rather than imposed" → "The priority is learned, not imposed"; "just enough of" → "the smallest multiple of"; "which of these common-descent directions" → "which common-descent direction"; "a multi-teacher tool rather than a way to arbitrate ..." → "weighs teachers against each other, not the task against the teacher"; "Several ... rather than" → "Some ..., not"; "The direction of priority therefore remains an open empirical question" → "The question of which side should have priority in distillation is still untested"; the SCOPE venue sentence was also reworded.
+
+## Cycle 2 verdict (Codex)
+
+| ID | Verdict | Evidence |
+|---|---|---|
+| T10-1 | CONFIRMED — FIXED | `literature/sources.yaml` now records `liu2023famo` as published at NeurIPS 2023 and links the official proceedings page; `06a_moo.tex` no longer calls it an unverified preprint. The [NeurIPS proceedings entry](https://papers.neurips.cc/paper_files/paper/2023/hash/b2fe1ee8d936ac08dd26f2ff58986c8f-Abstract-Conference.html) names four authors and identifies Advances in Neural Information Processing Systems 36 (NeurIPS 2023), Main Conference Track. `build_bib.py --check` passes. |
+| T11-1 | CONFIRMED — FIXED | In `06b_kd_moo.tex`, SCOPE prose now states venue and application; Table IV gives `--` for cost and `medical image classification` for evidence. Neither contains review-status/process wording. Remaining provenance is in comments/review notes, not typeset prose or table cells. |
+
+### Second humanizer pass: sentence-by-sentence check
+
+Compared the 12 rewrites listed above against the source sentences in `3380922`. Ten preserve the technical claim, hedge, and citation context: the common-descent direction phrasing; “clearly matters” → “matters”; CAGrad's radius/dial phrasing; “FAMO thus offers” → “FAMO gets”; learned versus imposed priority; “just enough” → “smallest multiple”; the AE-KD task/teacher distinction; the evidence-thinner premise → “Few papers test that premise directly”; the scale-versus-conflict sentence; and the SCOPE venue/application description. None adds or removes a citation. Two change epistemic scope and are unresolved: “open empirical question” → “still untested” can assert no test exists, whereas the original states an open question after noting that no paper compares the two priorities under one protocol; “inconsistency that readers should not silently fix” → “contradicts the paper's own explanation” removes the caution and is more categorical. The nearby SCKD description supports a discrepancy (Sec. 3.4 / Algorithm 1 use cosine ≥ threshold while surrounding prose describes removing conflicting, negatively aligned terms), but the rewrite changes the hedge. Coordinator review is needed on these two wording shifts. No section files were edited for this review.
+
+### Requested checks
+
+- `cd paper/survey && latexmk -interaction=nonstopmode` → exit 0; `main.pdf` was already up to date, so no compilation occurred.
+- `UV_CACHE_DIR=/private/tmp/uv-cache uv run --frozen --offline python scripts/build_bib.py --check` → exit 0, `citation check OK`.
+- `UV_CACHE_DIR=/private/tmp/uv-cache uv run --frozen --offline pytest -q -m 'not slow and not requires_data'` → exit 0, 219 passed, 1 skipped (MPS unavailable).
+
+## Coordinator resolution (2026-11-07)
+
+Both cycle-2 wording disagreements are resolved by restoring the original hedges in plain wording (`06b_kd_moo.tex`):
+- "is still untested" → "therefore remains an open empirical question". This does not assert that no test exists.
+- "contradicts the paper's own explanation" → "appears inconsistent with the paper's own explanation, and readers should not silently correct it". This keeps the caution and the hedge.

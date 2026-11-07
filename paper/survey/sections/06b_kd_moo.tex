@@ -81,8 +81,8 @@ output- or feature-distillation term on or off with a binary gate. The gate uses
 between the supervised gradient and that distillation term's gradient. This makes the label the
 primary objective, as the priority rules of Section~\ref{sec:moo_priority} do, but the update is
 the plain sum of the surviving losses, not a constrained program. The signal is the student's
-optimisation state, not the teacher's correctness. The published rule contradicts the paper's own
-explanation. Section~3.4 and Algorithm~1 remove a term when its cosine is
+optimisation state, not the teacher's correctness. The published rule appears inconsistent with the paper's own
+explanation, and readers should not silently correct it. Section~3.4 and Algorithm~1 remove a term when its cosine is
 \emph{greater than or equal to} the threshold $\varphi$, with $\varphi=0$ by default, while the
 surrounding text speaks of removing conflicting, that is negatively aligned, terms. Algorithm~1
 also initialises the gates once, before the training loop, so whether a removed term can return
@@ -240,8 +240,8 @@ and badly enough, that the combination rule matters. Few papers test that premis
 Table~\ref{tab:kd_moo} splits into rules that balance the two losses (AE-KD, DTO-KD) and rules
 that rank them. The rankers disagree about which side should win. SCKD, SCOPE, TPKD, MEMA and PCD
 protect the label. DOT and DeepKD let distillation lead. Both camps report gains on CIFAR-100,
-and no paper compares a label-first rule with a teacher-first rule under one protocol. The
-question of which side should have priority in distillation is still untested.
+and no paper compares a label-first rule with a teacher-first rule under one protocol. Which
+side should have priority in distillation therefore remains an open empirical question.
 % INTERPRETATION.
 
 \paragraph{The scalarisation debate.}
