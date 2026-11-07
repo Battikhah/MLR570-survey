@@ -155,3 +155,8 @@ Scope: `git diff 92274bc..944e3be`. I re-checked the primary sources from the cy
 **Draft-claim preservation.** Every claim in `Project Files/Current_Survey.md` L12–34 that the map assigns to §III-B or §IV is still typeset with its citation: Cho capacity gap (04:25), fixed teacher with Hinton (04:9), FitNets adapter (03b:11), RKD distances and angles (03b:27), and the three-type synthesis (03b:7). No draft claim was moved into a comment. Several body sentences quoting within-paper numbers were removed (VRM vs KD/LSKD, RPKD vs OFA, TCS vs OFA). The table still carries the headline values, so I accept this; the VRM KD 73.33 / LSKD 76.62 context is lost but was never a draft claim.
 
 **Unresolved disagreement for the coordinator (cycle limit reached):** M3. The OFA memory/runtime figures are wrong, and `\citep{zhou2025tcs}` is missing from §III-B. This is a one-line fix to 03b:19 (text above), but under AGENTS.md §5 it can no longer go through another review cycle. Low: leaf 3 of the taxonomy includes the 2019 methods RKD and CRD.
+
+## Coordinator resolution (2026-11-07)
+
+- **M3: FIXED by the coordinator.** I re-read TCS Table 1 from arXiv 2412.09388 (pdftotext). The ConvNeXt-T row gives TCS 5.8 GB / 32.71 s/ep and OFA 7.7 GB / 61.07 s/ep, which confirms the cycle-2 correction. 03b now states these values for ConvNeXt-T→ResNet-18, restores `\citep{zhou2025tcs}`, and turns the inline INTERPRETATION label into hedged prose with the label kept as a comment.
+- **Taxonomy (Low): FIXED.** Leaf 3 no longer lists the 2019 methods RKD and CRD under the 2022–2026 root. They remain as lineage in the §III-B text.
