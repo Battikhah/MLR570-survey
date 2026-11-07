@@ -91,3 +91,35 @@ I found no contradictions. 03a:48 forward-references USKD to `\S\ref{sec:schemes
 - Medium: 6 (M1 AGRE-KD group labels; M2 FCFD bridge cell; M3 unsupported TCS cost claim; M4 SPOFA preprint unqualified; M5 inventory/registry jargon and bib keys in the table; M6 Table II footnotes on the wrong page).
 - Low: 9.
 - All 12 Table II numbers and all §IV numbers AGREE with their primary sources. The build, the bib check and the tests all pass (exit 0).
+
+## Response (Codex, cycle 1)
+
+Findings below refer to the submitted review's line references; evidence line numbers refer to the corrected working tree.
+
+| Finding | Status | Response and evidence |
+|---|---|---|
+| H1 | FIXED | §IV now says SwitOKD expert mode pauses teacher updates while the student continues learning, and learning mode resumes teacher updates; the follow-up calls this the teacher-update pause (`paper/survey/sections/04_schemes.tex:13,15`). |
+| H2 | FIXED | Removed the reviewer/process clauses from body prose, retained `\citep{cho2019efficacy}`, and moved the open leaf-name decision into a LaTeX comment (`paper/survey/sections/04_schemes.tex:19,25`). |
+| M1 | FIXED | AGRE-KD is described as using an auxiliary biased model and gradient deviation, targeting worst-group accuracy without group labels (`paper/survey/sections/04_schemes.tex:21,23`). |
+| M2 | FIXED | FCFD's table cell now states its convolution-plus-BatchNorm bridge into the teacher tail (`paper/survey/sections/03b_feature.tex:57`). |
+| M3 | FIXED | Removed the unsupported preprocessing/storage claim; the interpretation caveat remains and Table 1's memory/runtime values are stated with a source comment (`paper/survey/sections/03b_feature.tex:19`). |
+| M4 | FIXED | SPOFA is identified as a 2026 preprint under review (`paper/survey/sections/03b_feature.tex:23`). |
+| M5 | FIXED | Removed inventory/CORE/registry terms and BibTeX keys from typeset sections and tables; scheme table now uses method names only (`paper/survey/sections/03b_feature.tex:39,49-81`; `paper/survey/sections/04_schemes.tex:39,41-54`). Search for `inventory|CORE|registry|texttt` in both section files returned no matches. |
+| M6 | FIXED | Removed all table footnotes; result cells carry table labels and adjacent `% src:` comments within the float (`paper/survey/sections/03b_feature.tex:55-77`). |
+| L1 | FIXED | DiffKD's support cell now states that the paper reports CIFAR heterogeneous pairs (`paper/survey/sections/03b_feature.tex:63`). |
+| L2 | FIXED | RPKD's projector cell now distinguishes fixed random teacher maps from learned student maps (`paper/survey/sections/03b_feature.tex:77`). |
+| L3 | FIXED | VkD's cell now says task-specific normalization (`paper/survey/sections/03b_feature.tex:67`). |
+| L4 | FIXED | Corrected the preservation map against `nl -ba Project Files/Current_Survey.md`: Introduction L12-15, conventional KD L21-26, and knowledge types L30-34 (`docs/reviews/survey-t8-preservation.md:3,7-20`). |
+| L5 | FIXED | Set the AT registry date to publication year 2017 while retaining arXiv identifier 1612.03928; regenerated BibTeX now renders `year = {2017}`. Removed the venue-provenance sentence from the paper body (`literature/sources.yaml:1933-1940`; `paper/survey/refs.bib`, `zagoruyko2017at`). |
+| L6 | FIXED | Updated RSD's headline result to ImageNet-1K DeiT-T→MobileNetV2 72.18 (Table 2) and reduced the unextracted-number count to three (`docs/survey/sota-inventory.md:98,231`). |
+| L7 | FIXED | Added the capacity-gap cross-reference to DIST in §III-A and TAID/AMiD in §VI-B with citations (`paper/survey/sections/04_schemes.tex:27`). |
+| L8 | FIXED | Moved VRM out of the same-architecture leaf into the relational/cross-architecture leaf and added the rationale as a LaTeX comment (`paper/survey/figures/taxonomy.tex:17,43-44`). |
+| L9 | FIXED | NORM is described as merging into the following classifier after training with no inference-parameter increase; the table states this explicitly (`paper/survey/sections/03b_feature.tex:13,59`). |
+| Writing: repeated comparison templates | FIXED | Grouped the projector and relation discussion by design axis, varied sentence structure, and removed repetitive per-method comparison lead-ins (`paper/survey/sections/03b_feature.tex:11-31`). |
+| Writing: repeated result synthesis | FIXED | Removed the duplicate results paragraph; the table caption now carries the cross-paper comparability caveat (`paper/survey/sections/03b_feature.tex:39-47,81`). |
+| Writing: contrastive closers | FIXED | Recast the noted generic negatives as direct limits or conditions across §III-B and §IV (`paper/survey/sections/03b_feature.tex:19,41`; `paper/survey/sections/04_schemes.tex:11,25,31`). |
+| Writing: SPOFA meta-commentary | FIXED | Replaced the meta-transition with a direct description of its feature transfer and optimizer treatment (`paper/survey/sections/03b_feature.tex:23`). |
+| Writing: inventory bookkeeping | FIXED | Removed year-tag bookkeeping sentences from scheme descriptions; years remain in citations and references (`paper/survey/sections/04_schemes.tex:9,13,17,21,29`). |
+| Writing: repeated imperative selection | FIXED | Removed the repeated imperative chooser constructions and kept scheme guidance in descriptive form and the section synthesis (`paper/survey/sections/04_schemes.tex:15,23,27,31,55`). |
+
+All findings in this review cycle are marked FIXED; none were disputed. The taxonomy leaf name `label-averaging view` remains an owner decision, flagged in a LaTeX comment rather than manuscript prose.

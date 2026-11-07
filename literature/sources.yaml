@@ -1722,7 +1722,7 @@
 
 - id: shin2026amid
   type: paper
-  title: "AMiD: Knowledge Distillation for LLMs with α-mixture Assistant Distribution"
+  title: "AMiD: Knowledge Distillation for LLMs with {\\ensuremath{\\alpha}}-mixture Assistant Distribution"
   authors: ["Donghyeok Shin", "Yeongmin Kim", "Suhyeon Jo", "Byeonghu Na", "Il-Chul Moon"]
   date: 2025-10-13
   venue: "ICLR 2026"
@@ -1934,7 +1934,7 @@
   type: paper
   title: "Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer"
   authors: ["Sergey Zagoruyko", "Nikos Komodakis"]
-  date: 2016-12-12
+  date: 2017
   venue: "ICLR 2017"
   status: published
   urls: {official: "https://iclr.cc/archive/www/doku.php?id=iclr2017:conference_posters.html", arxiv: "https://arxiv.org/abs/1612.03928", code: "https://github.com/szagoruyko/attention-transfer"}

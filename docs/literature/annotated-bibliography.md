@@ -214,7 +214,7 @@
 
 - [shen2022dlb] Yiqing Shen et al., ‘Self-Distillation from the Last Mini-Batch for Consistency Regularization,’ CVPR 2022, 2022-03-30. Status: published. DLB: teacher-free self-distillation that reuses the previous mini-batch's soft predictions on overlapping samples as targets; no extra network.
 
-- [shin2026amid] Donghyeok Shin et al., ‘AMiD: Knowledge Distillation for LLMs with α-mixture Assistant Distribution,’ ICLR 2026, 2025-10-13. Status: published. AMiD: generalises teacher-student 'assistant' (interpolated) distributions with an alpha-mixture family and divergence; latest assistant-distribution LLM-KD method.
+- [shin2026amid] Donghyeok Shin et al., ‘AMiD: Knowledge Distillation for LLMs with {\ensuremath{\alpha}}-mixture Assistant Distribution,’ ICLR 2026, 2025-10-13. Status: published. AMiD: generalises teacher-student 'assistant' (interpolated) distributions with an alpha-mixture family and divergence; latest assistant-distribution LLM-KD method.
 
 - [shing2025taid] Makoto Shing et al., ‘TAID: Temporally Adaptive Interpolated Distillation for Efficient Knowledge Transfer in Language Models,’ ICLR 2025 (Spotlight per arXiv comment), 2025-01-28. Status: published. TAID: interpolates the target from student to teacher over training with an adaptive schedule; addresses the capacity gap and mode collapse in LLM KD.
 
@@ -264,7 +264,7 @@
 
 - [yuan2026tpkd] Qianfeng Yuan et al., ‘Learning Beyond Full Imitation: Task-Preserving Knowledge Distillation,’ arXiv, 2026-09-30. Status: preprint. Asymmetric KD that projects teacher directions to protect task margins: close to PCD-KD.
 
-- [zagoruyko2017at] Sergey Zagoruyko et al., ‘Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer,’ ICLR 2017, 2016-12-12. Status: published. CLASSIC: attention-map transfer.
+- [zagoruyko2017at] Sergey Zagoruyko et al., ‘Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer,’ ICLR 2017, 2017. Status: published. CLASSIC: attention-map transfer.
 
 - [zhang2018dml] Ying Zhang et al., ‘Deep Mutual Learning,’ CVPR 2018, 2018. Status: published. CLASSIC: online mutual learning between peers.
 
