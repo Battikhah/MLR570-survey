@@ -38,6 +38,14 @@
 
 - [lopezpaz2017gem] David Lopez-Paz et al., ‘Gradient Episodic Memory for Continual Learning,’ NIPS 2017, 2017-06-26. Status: published. Closest prior work for any PCD continual-learning direction: the same minimal-Euclidean-deviation projection of the current-task gradient onto half-spaces defined by memory gradients.
 
+## dataset
+
+- [krizhevsky2009cifar] Alex Krizhevsky, ‘Learning Multiple Layers of Features from Tiny Images,’ Technical report, University of Toronto, 2009. Status: published. Source of the CIFAR-100 dataset, the main small-scale KD benchmark (survey T5, Sec. II).
+
+- [lin2014coco] Tsung-Yi Lin et al., ‘Microsoft COCO: Common Objects in Context,’ ECCV 2014 (LNCS), 2014. Status: published. Reference for MS-COCO, the detection benchmark used to test logit KD beyond classification (survey T5, Sec. II).
+
+- [russakovsky2015imagenet] Olga Russakovsky et al., ‘ImageNet Large Scale Visual Recognition Challenge,’ International Journal of Computer Vision (IJCV), 2015-04-11. Status: published. Reference for ImageNet-1K (ILSVRC-2012), the large-scale KD classification benchmark (survey T5, Sec. II).
+
 ## fairness
 
 - [agarwal2018reductions] Alekh Agarwal et al., ‘A Reductions Approach to Fair Classification,’ , 2018-03-06. Status: unverified. Standard fairness-constrained baseline (exponentiated-gradient reduction).

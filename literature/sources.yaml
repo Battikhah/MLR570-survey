@@ -2323,3 +2323,48 @@
   relevance: "LLM-KD survey with its own evaluation of white-box and black-box KD on GPT-2/OPT/LLaMA; extra row of Table I."
   topics: [kd, survey, llm]
   local_pdf: false
+
+- id: krizhevsky2009cifar
+  type: paper
+  title: "Learning Multiple Layers of Features from Tiny Images"
+  authors: ["Alex Krizhevsky"]
+  date: 2009
+  venue: "Technical report, University of Toronto"
+  status: published
+  urls: {official: "https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official CIFAR page https://www.cs.toronto.edu/~kriz/cifar.html cites 'Learning Multiple Layers of Features from Tiny Images, Alex Krizhevsky, 2009'; report PDF resolves (HTTP 200, application/pdf), 2026-11-07. Split sizes used in the survey (50k train / 10k val, 100 classes, 32x32) read from DKD (zhao2022dkd) Sec. 4."
+  relevance: "Source of the CIFAR-100 dataset, the main small-scale KD benchmark (survey T5, Sec. II)."
+  topics: [dataset, benchmark]
+  local_pdf: false
+
+- id: russakovsky2015imagenet
+  type: paper
+  title: "ImageNet Large Scale Visual Recognition Challenge"
+  authors: ["Olga Russakovsky", "Jia Deng", "Hao Su", "Jonathan Krause", "Sanjeev Satheesh", "Sean Ma", "Zhiheng Huang", "Andrej Karpathy", "Aditya Khosla", "Michael Bernstein", "Alexander C. Berg", "Li Fei-Fei"]
+  date: 2015-04-11
+  venue: "International Journal of Computer Vision (IJCV)"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-015-0816-y", arxiv: "https://arxiv.org/abs/1409.0575", code: null}
+  identifiers: {doi: "10.1007/s11263-015-0816-y", arxiv: "1409.0575"}
+  license: null
+  verified_by: "arXiv abs page meta tags (title, 12 authors) and Crossref DOI record (IJCV, issued 2015-04-11), 2026-11-07."
+  relevance: "Reference for ImageNet-1K (ILSVRC-2012), the large-scale KD classification benchmark (survey T5, Sec. II)."
+  topics: [dataset, benchmark]
+  local_pdf: false
+
+- id: lin2014coco
+  type: paper
+  title: "Microsoft COCO: Common Objects in Context"
+  authors: ["Tsung-Yi Lin", "Michael Maire", "Serge Belongie", "James Hays", "Pietro Perona", "Deva Ramanan", "Piotr Dollár", "C. Lawrence Zitnick"]
+  date: 2014
+  venue: "ECCV 2014 (LNCS)"
+  status: published
+  urls: {official: "https://doi.org/10.1007/978-3-319-10602-1_48", arxiv: "https://arxiv.org/abs/1405.0312", code: null}
+  identifiers: {doi: "10.1007/978-3-319-10602-1_48", arxiv: "1405.0312"}
+  license: null
+  verified_by: "Crossref DOI record (title, ECCV 2014 LNCS, 2014), 2026-11-07. Crossref author list (8 authors, order as above) matches the ECCV version; the later arXiv version adds Lubomir Bourdev and Ross Girshick (arXiv abs meta tags, 2026-11-07)."
+  relevance: "Reference for MS-COCO, the detection benchmark used to test logit KD beyond classification (survey T5, Sec. II)."
+  topics: [dataset, benchmark]
+  local_pdf: false
