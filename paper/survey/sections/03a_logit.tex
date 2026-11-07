@@ -1,6 +1,266 @@
 % Owner: Aly  |  Task: T6  |  Drafted by ORCA agents, finalised by the owner.
 % Rules: prose only; every claim cited with \citet/\citep to a literature/sources.yaml record id;
 % compare methods (G6); strengths/weaknesses/applicability (G8). See tasks/todo.md.
+% All numbers: CIFAR-100 top-1 (%), ResNet32x4 -> ResNet8x4 unless stated; each paper's own claim,
+% read from the primary PDF on 2026-11-07 (table given in a "% src:" comment next to each number).
 \section{Logit-Based Distillation}
 \label{sec:logit}
-\textit{[To be written: State-of-the-art logit methods (2022--2026) and their lineage; Table II.]}
+
+Logit-based methods transfer knowledge only through the teacher's output layer. They need no
+projector between feature maps of different shapes, they cost little more than training the student
+alone, and they apply to any pair of classifiers with the same label space. Until 2022 they were
+also thought to trail feature-based methods by a clear margin. On ResNet32$\times$4$\to$ResNet8$\times$4,
+classical KD \citep{hinton2015kd} reaches 73.33\% against 75.51\% for CRD and 75.63\% for ReviewKD
+\citep[Table~6]{zhao2022dkd}.
+% src: DKD Table 6 (KD 73.33, CRD 75.51, ReviewKD 75.63)
+Work since 2022 has closed that gap without touching features, by changing what the KL term in
+Eq.~\eqref{eq:kd-objective} measures. We group the methods by the part of the objective they change:
+how the loss is decomposed (\S\ref{sec:logit-decouple}), how the logits are scaled before the softmax
+(\S\ref{sec:logit-scale}), and which discrepancy replaces the KL divergence
+(\S\ref{sec:logit-div}). Table~\ref{tab:logit-sota} lists each method with its own reported number
+on the common pair. Methods that change \emph{which} teacher outputs to trust, such as RLD, are
+introduced here and analysed in \S\ref{sec:reliability}.
+
+\subsection{Decoupling the KD loss}
+\label{sec:logit-decouple}
+
+\paragraph{DKD.} \citet{zhao2022dkd} rewrite the KL term of Eq.~\eqref{eq:kd-objective} as the sum of
+a binary target-class term (TCKD), which compares the probability each network puts on the true class,
+and a non-target term (NCKD), which compares the distributions over the remaining $C-1$ classes. In
+classical KD the non-target term is multiplied by $1-p^{T}_{y}(\mathbf{z}_t)$, so it shrinks exactly
+on the samples the teacher predicts confidently, which DKD's ablation finds to be the most useful
+ones. DKD removes this coupling and weights the two terms with separate hyper-parameters,
+$\alpha\,\mathrm{TCKD}+\beta\,\mathrm{NCKD}$. This lifts ResNet8$\times$4 from 73.33\% to 76.32\%
+\citep[Table~6]{zhao2022dkd}, a result above CRD and ReviewKD on that pair at the training cost of
+plain KD.
+% src: DKD Table 6 (DKD 76.32, KD 73.33)
+The decomposition has become the reference point for later logit methods, and its code base
+(\texttt{mdistiller}) is the one most of them build on. Its weaknesses are stated by the authors. The
+best $\beta$ depends on the teacher--student pair and must be tuned, and a logit-only loss cannot pass
+on the localisation knowledge that detectors need, so DKD trails ReviewKD on COCO
+\citep{zhao2022dkd}. DKD suits settings where a feature-free, low-cost baseline is
+needed and some tuning of $\beta$ is acceptable.
+
+\paragraph{NKD.} \citet{yang2023nkd} reach a similar diagnosis from a different direction. They split
+KD into a target loss and a non-target loss and note that the teacher's non-target probabilities
+sum to $1-p_y$, which varies between samples and so changes the scale of the non-target term. NKD
+normalises the non-target distributions of teacher and student before matching them. The same paper
+derives USKD, a teacher-free variant with customised soft labels (\S\ref{sec:schemes}). NKD reports
+76.35\% on ResNet32$\times$4$\to$ResNet8$\times$4 and 71.96\% on ImageNet ResNet34$\to$ResNet18
+\citep[Table~1]{yang2023nkd}, which is level with DKD on CIFAR-100 (76.32\% in the same table).
+% src: NKD Table 1 (NKD 76.35 / 71.96; DKD 76.32 / 71.70)
+Compared with DKD, NKD replaces a tuned weight $\beta$ with a fixed normalisation, so it has fewer
+hyper-parameters to search; the price is that it cannot up-weight the non-target term when a pair
+would benefit from it. The 0.03-point difference on CIFAR-100 is far smaller than the cross-paper spread
+noted in \S\ref{sec:prelim-benchmarks} (\textbf{INTERPRETATION}).
+
+\paragraph{SDD.} \citet{wei2024sdd} decouple along space instead of along classes. They pool the
+teacher's and student's final feature maps at several scales, pass each pooled region through the
+classifier to obtain local logits, and split the local terms into \emph{consistent} ones (local and
+global prediction agree) and \emph{complementary} ones (they disagree), giving the latter a larger
+weight. The decomposition is a plug-in for KD, DKD and NKD. Their ablation reports 76.63\% for SD-KD
+on our reference pair against 73.33\% for KD \citep[Table~6]{wei2024sdd}; on ImageNet SD-NKD reaches
+72.33\% and SD-DKD 72.02\% \citep[Table~3]{wei2024sdd}.
+% src: SDD Table 6 (Fusion 76.63 vs N/A 73.33, ResNet32x4-ResNet8x4); SDD Table 3 (ImageNet)
+SDD reads more of the network than the other logit methods, because the local logits need the last
+feature map, but it still needs no projector. Other groups did not reproduce its CIFAR-100 gain at
+the same level: \citet{xiang2025ekd} obtain 75.92\% for SDD and \citet{xu2025ldrld} 75.09\% on the
+same pair.
+% src: EKD Table 1 (SDD 75.92*, own reproduction); LDRLD Table 1 (SDD 75.09)
+SDD is most useful for fine-grained classes and heterogeneous pairs, where the authors report that
+the multi-scale terms matter most \citep{wei2024sdd}.
+
+\paragraph{LDRLD.} \citet{xu2025ldrld} decouple at the finest granularity. Instead of one target versus all
+non-target classes, they recursively split the logits into local pairs of classes and distil the
+dense pairwise relations between them, with adaptive weights that depend on the rank difference within
+each pair and on the pair's total ranking score. LDRLD reports 77.20\% on ResNet32$\times$4$\to$ResNet8$\times$4
+\citep[Table~1]{xu2025ldrld}, 0.88 points above DKD as listed in the same table.
+% src: LDRLD Table 1 (LDRLD 77.20; DKD 76.32)
+DKD and NKD treat the non-target classes as one block; LDRLD argues that the order and the gaps
+between the non-target classes carry information that this blocking discards. The cost is a number
+of pairwise terms that grows with the number of classes considered, which the decay weights limit
+but do not remove.
+
+\subsection{Rescaling the logits: temperature and standardisation}
+\label{sec:logit-scale}
+
+\paragraph{CTKD.} \citet{li2023ctkd} turn the fixed temperature of Eq.~\eqref{eq:softmax-T} into a
+learnable quantity. A small module predicts $T$ and is trained \emph{adversarially}, through a
+gradient-reversal layer, to maximise the distillation loss that the student minimises; a coefficient
+that grows over training raises the difficulty over training, as in curriculum learning. CTKD is a
+plug-in that adds about one parameter in its global form. Its gains are modest and consistent. On
+ImageNet ResNet34$\to$ResNet18 it raises KD from 70.83\% to 71.32\% and DKD from 71.13\% to
+71.51\% \citep[Table~4]{li2023ctkd}, and on CIFAR-100 the improvements over KD range from 0.33 to
+1.12 points across eleven pairs \citep[Table~1]{li2023ctkd}.
+% src: CTKD Table 4 (KD 70.83 -> 71.32; DKD 71.13 -> 71.51); CTKD Table 1 (+0.33 ... +1.12)
+The paper does not report ResNet32$\times$4$\to$ResNet8$\times$4; LSKD's reproduction gives KD+CTKD
+73.39\% on that pair \citep[Table~2]{sun2024lskd}. CTKD removes the grid search over $T$, but it
+keeps one $T$ for teacher and student, so it does not address the mismatch in logit range that LSKD
+targets.
+% src: LSKD Table 2 (KD+CTKD 73.39)
+
+\paragraph{WTTM.} \citet{zheng2024wttm} make the opposite move: they apply the temperature to the
+teacher only and leave the student's softmax at $T=1$. They show that this \emph{transformed teacher
+matching} (TTM) equals KD plus a R\'enyi-entropy regulariser on the student, which explains part of
+KD's benefit as regularisation. WTTM then weights each sample by the power sum of the teacher's
+transformed distribution, a measure of its smoothness. WTTM reports 76.06\% on our reference pair
+\citep[Table~2]{zheng2024wttm} and 72.19\% on ImageNet ResNet34$\to$ResNet18
+\citep[Table~5]{zheng2024wttm}.
+% src: WTTM Table 2 (76.06); WTTM Table 5 (72.19)
+WTTM is the cheapest change in this section, one line of code on top of KD, and its regulariser view
+is useful when reasoning about why KD helps. On CIFAR-100 it is slightly below DKD and NKD, and its
+larger gains come when combined with feature methods (77.36\% with ITRD,
+\citealp[Table~2]{zheng2024wttm}).
+% src: WTTM Table 2 (WTTM+ITRD 77.36)
+
+\paragraph{LSKD.} \citet{sun2024lskd} argue that a shared temperature forces the student to match the
+teacher's logit magnitudes exactly, although only the relations between logits matter for the
+prediction, and a small student may not be able to reach the teacher's range. Their remedy is a
+pre-processing step: each logit vector is z-score standardised (zero mean, unit standard deviation)
+before the softmax, which amounts to a sample-specific temperature proportional to the logits'
+standard deviation. Because it acts only on the inputs to the loss, it plugs into KD, CTKD, DKD and
+MLKD. On ResNet32$\times$4$\to$ResNet8$\times$4 it lifts KD from 73.33\% to 76.62\%, DKD from 76.32\%
+to 77.01\% and MLKD from 77.08\% to 78.28\% \citep[Table~2]{sun2024lskd}.
+% src: LSKD Table 2 (KD+Ours 76.62; DKD+Ours 77.01; MLKD+Ours 78.28)
+LSKD and CTKD both act on the temperature, but in different ways: CTKD learns one global value
+on a curriculum, while LSKD sets it per sample from the logits and frees the student from matching
+the teacher's scale. LSKD and DKD are complementary rather than competing, since standardisation
+changes the inputs of the KL and decoupling changes its structure; the 0.69-point gain of
+DKD+LS over DKD shows that they combine. Two caveats apply. The gains shrink on other pairs, for
+example 0.13 points for DKD on VGG13$\to$VGG8 \citep[Table~2]{sun2024lskd}, and other groups report
+lower numbers for plain KD+LS on our pair (76.16\%, \citealp[Table~1]{xu2025ldrld}).
+% src: LSKD Table 2 (DKD+Ours on VGG13->VGG8: +0.13); LDRLD Table 1 (LSKD 76.16)
+
+\paragraph{LumiNet.} \citet{hossain2025luminet} also recalibrate the logits before distillation, but
+with batch statistics instead of per-sample ones: each class logit is normalised by the mean and
+variance of that class across the mini-batch, so a sample's ``perceived'' logits express how it
+compares with the other samples in the batch. LumiNet reports 77.50\% on our reference pair, averaged
+over five runs \citep[Table~1]{hossain2025luminet}, and an expected calibration error of 0.06 against 0.11 for KD on the same pair
+\citep[Table~5]{hossain2025luminet}.
+% src: LumiNet Table 1 (77.50, 5 trials); Table 5 (ACC/ECE: KD 73.33/0.11, Ours 77.50/0.06)
+LSKD normalises within a sample and LumiNet across samples. A consequence (\textbf{INTERPRETATION}) is
+that LumiNet's targets depend on batch composition, so batch size and class balance within a batch
+become hyper-parameters of the distillation signal.
+
+\subsection{Replacing or enriching the KL divergence}
+\label{sec:logit-div}
+
+\paragraph{DIST.} \citet{huang2022dist} start from the capacity-gap problem: when the teacher is much
+stronger, exact matching of its probabilities with KL becomes too hard for the student. DIST
+replaces KL with a correlation loss. It maximises the Pearson correlation between the student's and
+the teacher's predictions for each sample (inter-class relation) and for each class across the batch
+(intra-class relation), which keeps the ranking and relative spread of predictions while ignoring
+shift and scale. DIST reports 76.31\% on our reference pair \citep[Table~5]{huang2022dist} and
+72.07\% on ImageNet ResNet34$\to$ResNet18 \citep[Table~2]{huang2022dist}, and its largest gains are
+with strong teachers and strong training recipes.
+% src: DIST Table 5 (76.31); DIST Table 2 (72.07)
+DIST and LSKD reach shift- and scale-invariance by different routes, DIST by its loss and LSKD by
+pre-processing before an unchanged KL (\textbf{INTERPRETATION}). The authors note that DIST is less
+effective for binary classification, where there is little inter-class relation to transfer
+\citep{huang2022dist}.
+
+\paragraph{MLKD.} \citet{jin2023mlkd} align predictions at three levels: per instance, across the
+batch (sample-to-sample similarity), and per class (class-to-class correlation). They also
+\emph{augment} each prediction by computing it at several temperatures, so that one output yields
+several target distributions. MLKD reports 77.08\% on ResNet32$\times$4$\to$ResNet8$\times$4
+\citep[Table~2]{jin2023mlkd}, which rises to 78.28\% with LSKD's standardisation
+\citep[Table~2]{sun2024lskd}, the highest logit-only number among the CORE methods in
+Table~\ref{tab:logit-sota}.
+% src: MLKD Table 2 (77.08); LSKD Table 2 (MLKD+Ours 78.28)
+MLKD's batch- and class-level terms are close in spirit to DIST's intra-class relation. Part of its
+gain over DKD may come from the multi-temperature prediction augmentation rather than from the
+multi-level alignment itself; we did not find a comparison against DKD with the same set of
+temperatures (\textbf{HYPOTHESIS}).
+
+\paragraph{WKD.} \citet{lv2024wkd} point out that KL compares the probability of each class only with
+the probability of the same class, so it cannot use the fact that, say, ``dog'' is close to other
+mammals. WKD-L replaces KL with a discrete Wasserstein distance whose ground cost comes from
+category interrelations measured in feature space; WKD-F is a feature-level counterpart based on
+Gaussian Wasserstein distances. WKD-L reports 76.53\% on our reference pair and 77.28\% when combined
+with WKD-F \citep[Table~11]{lv2024wkd}, and 72.49\% on ImageNet ResNet34$\to$ResNet18
+\citep[Table~4]{lv2024wkd}.
+% src: WKD Table 11 (WKD-L 76.53; WKD-L+WKD-F 77.28); WKD Table 4 (ImageNet WKD-L 72.49)
+WKD shares DIST's goal of using cross-class structure but encodes it in the cost of moving
+probability mass rather than in a correlation. The Wasserstein computation and the estimation of the
+cost matrix make it more expensive than the KL-based methods; \citet{lv2024wkd} report its training
+latency on ImageNet.
+
+\paragraph{EKD.} \citet{xiang2025ekd} model each network's output as a Dirichlet distribution over the
+class probabilities, a second-order distribution in the sense of evidential deep learning. EKD distils
+both the expectation of the teacher's Dirichlet (a first-order term close to KD) and the Dirichlet
+itself, so the student also inherits how certain the teacher is. It reports 77.21\% on our reference
+pair \citep[Table~1]{xiang2025ekd} and 72.54\% on ImageNet ResNet50$\to$MobileNet
+\citep[Table~3]{xiang2025ekd}. EKD needs a teacher trained or adapted with the evidential loss, which
+is extra work compared with reusing a standard pretrained teacher (\textbf{INTERPRETATION} from the
+``EDL'' teacher rows in their Table~1).
+% src: EKD Table 1 (77.21; EDL teacher 79.53 vs softmax 79.42); EKD Table 3 (72.54)
+
+\paragraph{PLD.} \citet{bassam2025pld} recast logit distillation as list-wise ranking. Their loss is a
+Plackett--Luce likelihood over a class ordering that puts the true label first and orders the other
+classes by the teacher; the authors state that it is convex and translation-invariant and that it
+subsumes weighted cross-entropy, so it needs no separate distillation weight $\lambda$. We read only
+the NeurIPS abstract page, so these properties are \textbf{VERIFIED} as the authors' claims and we do
+not quote a number. PLD is relevant to \S\ref{sec:kd_moo}: by folding the label and the teacher into
+one target it removes the CE--KD trade-off of Eq.~\eqref{eq:kd-objective} instead of balancing it.
+
+\paragraph{RLD.} \citet{sun2025rld} address a problem that all methods above inherit: when the teacher
+is wrong, its distribution contradicts the label, and the student receives conflicting targets. RLD
+uses the label to refine what is transferred. It distils a binary \emph{sample confidence} and a
+\emph{masked correlation} in which every class that the teacher ranks at or above the true class is masked out,
+so useful class relations survive while the wrong ranking does not. It reports 76.64\% on our
+reference pair \citep[Table~1]{sun2025rld}, 0.32 points above DKD in the same table.
+% src: RLD Table 1 (RLD 76.64; DKD 76.32)
+RLD changes which part of the teacher signal to trust rather than the divergence, and we compare it
+with other reliability methods in \S\ref{sec:reliability}.
+
+\subsection{Comparison and outlook}
+\label{sec:logit-compare}
+
+Table~\ref{tab:logit-sota} summarises the methods. We draw three conclusions from it (\textbf{INTERPRETATION}). First, the three strands are largely orthogonal: LSKD's standardisation
+improves KD, DKD and MLKD alike, and SDD wraps KD, DKD and NKD, which suggests that a decomposition, a
+rescaling and a divergence can be stacked. Second, the spread between the 2024--2025 methods on
+ResNet32$\times$4$\to$ResNet8$\times$4 (about 76.0--77.5\%) is similar to the spread between
+different papers' reproductions of the same method (Section~\ref{sec:prelim-benchmarks}), so the
+table does not support a ranking among them; the clearer signal is the step of about three points
+from KD to the 2022 methods. Third, the open questions have moved from the choice of divergence to
+\emph{which} teacher signal to trust (RLD; \S\ref{sec:reliability}) and to how the distillation term
+should be balanced against the task loss, which \S\ref{sec:kd_moo} examines. For a practitioner, DKD
+or KD with LSKD standardisation is the default we would try first: both are cheap, have public code and are
+reproduced by several independent groups. MLKD with LSKD gives the highest reported number, at the
+cost of several extra loss terms and temperatures to tune.
+
+\begin{table}[t]
+\centering
+\caption{Logit-based distillation methods (NIPS-W: NIPS 2014 Deep Learning Workshop; arXiv 2015). Accuracy is CIFAR-100 top-1 (\%) for
+ResNet32$\times$4$\to$ResNet8$\times$4 as reported by each method's own paper (source table in
+brackets); teacher 79.42, student 72.50. Numbers come from different papers and are not a leaderboard
+(\S\ref{sec:prelim-benchmarks}). n/r: not reported by the paper.}
+\label{tab:logit-sota}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l l p{4.0cm} p{2.5cm} p{3.3cm}@{}}
+\toprule
+Method & Venue & Key idea & R32$\times$4$\to$R8$\times$4 & Code \\
+\midrule
+KD \citep{hinton2015kd} & NIPS-W 2014 & Temperature-softened teacher targets & 73.33 (DKD T6) & -- \\
+DKD \citep{zhao2022dkd} & CVPR 2022 & Target / non-target terms with separate weights & 76.32 (T6) & megvii-research/mdistiller \\
+DIST \citep{huang2022dist} & NeurIPS 2022 & Inter- and intra-class Pearson correlation instead of KL & 76.31 (T5) & hunto/DIST\_KD \\
+CTKD \citep{li2023ctkd} & AAAI 2023 & Adversarially learned temperature on a curriculum & n/r; KD+CTKD 73.39 (LSKD T2) & zhengli97/CTKD \\
+MLKD \citep{jin2023mlkd} & CVPR 2023 & Instance-, batch- and class-level alignment; multi-temperature & 77.08 (T2) & Jin-Ying/Multi-Level-Logit-Distillation \\
+NKD \citep{yang2023nkd} & ICCV 2023 & Normalised non-target distributions & 76.35 (T1) & yzd-v/cls\_KD \\
+WTTM \citep{zheng2024wttm} & ICLR 2024 & Teacher-only temperature; sample weights from power sum & 76.06 (T2) & zkxufo/TTM \\
+LSKD \citep{sun2024lskd} & CVPR 2024 & Z-score standardised logits (plug-in) & KD+LS 76.62; MLKD+LS 78.28 (T2) & sunshangquan/logit-standardization-KD \\
+SDD \citep{wei2024sdd} & CVPR 2024 & Multi-scale local logits, consistent vs complementary & SD-KD 76.63 (T6, ablation) & shicaiwei123/SDD-CVPR2024 \\
+WKD \citep{lv2024wkd} & NeurIPS 2024 & Discrete Wasserstein distance over class relations & WKD-L 76.53 (T11) & JiamingLv/WKD \\
+LumiNet \citep{hossain2025luminet} & TMLR 2025 & Logits normalised by intra-batch class statistics & 77.50 (T1) & ismail31416/LumiNet \\
+RLD \citep{sun2025rld} & ICCV 2025 & Label-refined sample confidence and masked correlation & 76.64 (T1) & zju-SWJ/RLD \\
+LDRLD \citep{xu2025ldrld} & ICCV 2025 & Dense pairwise relations between local class pairs & 77.20 (T1) & yema-web/LDRLD \\
+EKD \citep{xiang2025ekd} & ICCV 2025 & Distils a Dirichlet (second-order) distribution & 77.21 (T1) & Liangyu-Xiang/EKD \\
+PLD \citep{bassam2025pld} & NeurIPS 2025 & Plackett--Luce list-wise ranking loss, no KD weight & not extracted & none found \\
+\bottomrule
+\end{tabular}
+% src (each row checked against the primary PDF, 2026-11-07): DKD T6; DIST T5; LSKD T2 (CTKD row);
+% MLKD T2; NKD T1; WTTM T2; LSKD T2; SDD T6 (Fusion); WKD T11 (appendix); LumiNet T1; RLD T1;
+% LDRLD T1; EKD T1. CTKD Tables 1/3 contain no ResNet32x4->ResNet8x4 column. PLD: abstract page only.
+% Code: GitHub owner/repo from sources.yaml urls.code (EKD repo moved from lyxiang-casia/EKD).
+\end{table}
