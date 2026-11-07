@@ -14,6 +14,7 @@
   title: "Exact title as published"
   authors: ["First Last", "First Last"]
   date: 2026-01-15            # publication / release date (YYYY or YYYY-MM-DD)
+  year: 2026                  # optional: venue year for citations when date is an earlier arXiv date
   venue: "TMLR"               # journal/conference/arXiv/GitHub; null if unknown
   status: published           # published | accepted | preprint | under-review | unverified
   urls:

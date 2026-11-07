@@ -45,3 +45,10 @@ def test_cite_variants_and_comments(tmp_path):
     recs = [{"id": k, "status": "published"} for k in "x y z a b kept".split()]
     missing, unverified = check(recs, tmp_path)
     assert missing == [] and unverified == []
+
+
+def test_year_field_overrides_date_for_citation_year():
+    r = {**BASE, "id": "y", "date": "2023-10-05", "year": 2025, "venue": "TMLR",
+         "status": "published"}
+    assert "year = {2025}" in entry(r)
+    assert "year = {2024}" in entry({**BASE, "id": "n", "venue": "X", "status": "published"})
