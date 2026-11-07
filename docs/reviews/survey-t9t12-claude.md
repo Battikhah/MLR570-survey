@@ -68,3 +68,22 @@ were checked against the full-text notes in `Project Files/Current_Survey.md` L4
 ## 5. Summary
 
 4 High (F1 CaRE inverted, F2 EA-KD inverted, F3 `zhu2021sckd` attribution lost, F4 CHAD draft claim changed), 4 Medium (F5 CIARD uncited, F6 RLD ImageNet omitted, F7 "registry"/inline labels in prose, F8 robust setting misses ICML 2026 contradicting evidence), 4 Low. Builds, bib check and tests pass.
+
+## Response (Codex, cycle 1)
+
+| Finding | Status | Evidence |
+|---|---|---|
+| F1 | FIXED | `paper/survey/sections/05_reliability.tex:27,54` now names CaRE-KD and describes CaRE-Divergence's confidence-conditioned KL switch and Revival's batch rejection/suppression when teacher epistemic uncertainty exceeds the student's; the `sengupta2026casd` registry title was already correct. Checked the CaRE-KD abstract and method at [arXiv:2609.36734](https://arxiv.org/abs/2609.36734). |
+| F2 | FIXED | `paper/survey/sections/05_reliability.tex:15,50` says EA-KD up-weights high-entropy samples. Checked its abstract and method at [arXiv:2311.13621](https://arxiv.org/abs/2311.13621). |
+| F3 | FIXED | `paper/survey/sections/05_reliability.tex:33,55` restores SCKD gradient-similarity gating with `zhu2021sckd`; `docs/reviews/survey-t9.md` row 43 now maps the draft attribution explicitly. Checked the abstract and method on the [official ICCV 2021 paper page](https://openaccess.thecvf.com/content/ICCV2021/html/Zhu_Student_Customized_Knowledge_Distillation_Bridging_the_Gap_Between_Student_and_ICCV_2021_paper.html). |
+| F4 | FIXED | `paper/survey/sections/05_reliability.tex:29` restores the BanSum result: the teacher-confidence and surface-agreement gates were within 0.0001 ROUGE-L of cross-entropy; the CHAD comparison is attributed to `sumit2026chad`. The preservation map now identifies this claim and location. Checked the CHAD abstract, method, and BanSum comparison in its [OpenReview paper](https://openreview.net/pdf/8ebc6fa93853c617dc6c96f6dbdd23dc5588455a.pdf). |
+| F5 | FIXED | `paper/survey/sections/07_emerging.tex:11` cites `lu2025ciard` and specifies contrastive push-loss alignment plus continuous adversarial retraining; checked abstract and method at [arXiv:2509.12633](https://arxiv.org/abs/2509.12633). |
+| F6 | FIXED | `paper/survey/sections/05_reliability.tex:25` identifies RLD's CIFAR-100 and ImageNet evidence; checked abstract and method at [arXiv:2408.07703](https://arxiv.org/abs/2408.07703). |
+| F7 | FIXED | Replaced manuscript-facing “registry” wording with reader-facing uncertainty wording and moved VERIFIED/INTERPRETATION labels into LaTeX comments; `rg` finds no such inline tags or registry wording in either section. |
+| F8 | FIXED | `paper/survey/sections/07_emerging.tex:11` cites `lee2026robustteachers`; that source record was already present, with ICML 2026/PMLR verification in `literature/sources.yaml`. Checked the official [PMLR abstract](https://proceedings.mlr.press/v306/lee26g.html), which supports the stated counterexample. |
+| F9 | FIXED | `docs/reviews/survey-t9.md` now uses exact `paper/survey/sections/05_reliability.tex:<line>` locations instead of paragraph numbers; the L43 and L102–106 entries point to the restored claims. |
+| F10 | FIXED | `paper/survey/sections/05_reliability.tex:7` now says CTSL correctness alone does not assess calibration, student compatibility, or the teacher's other class probabilities. |
+| F11 | FIXED | Table III at `paper/survey/sections/05_reliability.tex:39,42` reduces intercolumn padding; the subsequent PDF build log has no overfull-hbox warning. |
+| F12 | FIXED | `paper/survey/sections/07_emerging.tex:11` states CA-AT's preprint uncertainty once, before the citation; the duplicate trailing qualifier is removed. |
+
+Humanizer pass: 12 phrases or sentence constructions were rewritten; examples: “available registry evidence does not settle” → “the paper does not establish”; “uncertain examples should contribute less” → “up-weights high-entropy samples”; “Two questions are mixed here” → “The methods answer two questions.”
