@@ -123,3 +123,35 @@ Findings below refer to the submitted review's line references; evidence line nu
 | Writing: repeated imperative selection | FIXED | Removed the repeated imperative chooser constructions and kept scheme guidance in descriptive form and the section synthesis (`paper/survey/sections/04_schemes.tex:15,23,27,31,55`). |
 
 All findings in this review cycle are marked FIXED; none were disputed. The taxonomy leaf name `label-averaging view` remains an owner decision, flagged in a LaTeX comment rather than manuscript prose.
+
+## Cycle 2 verdict (Claude)
+
+Scope: `git diff 92274bc..944e3be`. I re-checked the primary sources from the cycle-1 extraction: the SwitOKD, AGRE-KD and FCFD arXiv PDFs, and TCS arXiv 2412.09388 Table 1.
+
+| Command | Result | Exit |
+|---|---|---|
+| `cd paper/survey && latexmk -interaction=nonstopmode` | builds; 0 overfull boxes; Table II on p. 6, with no footnotes left | 0 |
+| `uv run --frozen python scripts/build_bib.py --check` | `citation check OK` | 0 |
+| `uv run --frozen pytest -q -m "not slow and not requires_data"` | `213 passed` | 0 |
+
+| ID | Verdict | Evidence |
+|---|---|---|
+| H1 | CONFIRMED | 04:13 now says "expert mode, which pauses the teacher's updates while the student continues learning from it … learning mode, which resumes teacher updates". This matches the SwitOKD abstract: "expert mode (pause the teacher while keep the student learning) and learning mode (restart the teacher)". |
+| H2 | CONFIRMED | `pdftotext build/main.pdf` finds no "Hasan" outside the author block and no "original survey draft". The leaf-name note is only a LaTeX comment (04:19), so it is not typeset. `\citep{cho2019efficacy}` is kept at 04:25. |
+| M1 | CONFIRMED | 04:21 now says AGRE-KD uses "an auxiliary biased model … without group labels". This matches the AGRE-KD abstract ("Leveraging an additional biased model … unknown underrepresented subgroups"). |
+| M2 | CONFIRMED | Table II now reads "Conv+BN bridge", and 03b:13 says "convolution-plus-BatchNorm bridge". This matches FCFD §3: "bridge module … one convolution and one BatchNorm layer". |
+| M3 | **NOT FIXED (new error, originating in my cycle-1 evidence)** | The storage claim is gone, but 03b:19 now says "versus OFA at 7.5 GB and 52.02 s/epoch". In TCS Table 1 the columns are `S. Self-distill KD DKD CRD DIST OFA LSHL2♯ TCS- TCS`. On the ViT-S row, OFA's memory is **7.6 GB** and its runtime **55.07 s/ep**; 52.02 is LSHL2♯'s runtime and 7.5 is KD/DKD/DIST/LSHL2's memory. On the ConvNeXt-T row (the pair used in Table II), the values are TCS 5.8 GB / 32.71 s and OFA 7.7 GB / 61.07 s. My cycle-1 M3 text quoted the wrong columns, and Codex copied them. **Also a regression:** the rewrite dropped `\citep{zhou2025tcs}` from §III-B (`grep -c zhou2025tcs 03b_feature.tex` → 0), so the TCS paragraph and the Table II row are now uncited. The inline "INTERPRETATION:" label is also typeset mid-paragraph (PDF text line 342). Fix: "TCS reports 5.8 GB and 32.71 s/epoch for ConvNeXt-T→ResNet-18, versus 7.7 GB and 61.07 s/epoch for OFA (Table 1)\citep{zhou2025tcs}", and turn the INTERPRETATION label into ordinary hedged prose ("The PCA basis may, however, …"). |
+| M4 | CONFIRMED | 03b:23: "a 2026 preprint under review". |
+| M5 | CONFIRMED | No "inventory", "CORE", "registry" or `\texttt` keys remain in the PDF text or the section sources (comments aside). Table III lists method names only. |
+| M6 | CONFIRMED | `\footnotetext` is removed. Cells carry "(T1)" etc., and the SimKD caveat is in the caption on the same page (p. 6). |
+| L1–L3, L9 | CONFIRMED | Table II cells 03b:63, 77, 67 and 59, and 03b:13, match the cited papers (DiffKD T9 heterogeneous block; RPKD abstract; VkD task-specific normalisation; NORM "merged … no extra parameters"). |
+| L4 | CONFIRMED | The map now uses L12–15, L21–26 and L30–34 (capacity row L13 and L26). That matches `sed -n '10,34p' "Project Files/Current_Survey.md" \| cat -n` with offset 9. All 14 bullets are still mapped. |
+| L5 | CONFIRMED | `refs.bib` has `year = {2017}`, and the provenance sentence is gone from 03b:11. `sources.yaml` `date: 2017` is acceptable because the arXiv ID (2016) is kept. |
+| L6 | CONFIRMED (justified edit) | `sota-inventory.md:98` gives 72.18 (RSD Table 2), verified in cycle 1 against the CVF PDF. The open-issue count changes from 4 to 3, which is consistent. |
+| L7 | CONFIRMED | 04:27 adds the DIST (§III-A) and TAID/AMiD (§VI-B) cross-references with citations. |
+| L8 | CONFIRMED, with a new Low | Moving VRM is justified. But leaf 3 now lists RKD and CRD (2019) under a root labelled "Knowledge distillation, **2022--2026**", which contradicts the SOTA scope of the taxonomy. Fix: drop RKD and CRD from the leaf (they are lineage in the text). |
+| Writing items | CONFIRMED | The repeated templates, duplicate results paragraph, bookkeeping sentences and imperative choosers are gone. New prose at 03b:35–37 and in the 04 synthesis paragraph reads naturally. |
+
+**Draft-claim preservation.** Every claim in `Project Files/Current_Survey.md` L12–34 that the map assigns to §III-B or §IV is still typeset with its citation: Cho capacity gap (04:25), fixed teacher with Hinton (04:9), FitNets adapter (03b:11), RKD distances and angles (03b:27), and the three-type synthesis (03b:7). No draft claim was moved into a comment. Several body sentences quoting within-paper numbers were removed (VRM vs KD/LSKD, RPKD vs OFA, TCS vs OFA). The table still carries the headline values, so I accept this; the VRM KD 73.33 / LSKD 76.62 context is lost but was never a draft claim.
+
+**Unresolved disagreement for the coordinator (cycle limit reached):** M3. The OFA memory/runtime figures are wrong, and `\citep{zhou2025tcs}` is missing from §III-B. This is a one-line fix to 03b:19 (text above), but under AGENTS.md §5 it can no longer go through another review cycle. Low: leaf 3 of the taxonomy includes the 2019 methods RKD and CRD.
