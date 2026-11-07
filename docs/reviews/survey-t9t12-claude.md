@@ -117,3 +117,8 @@ Reviewed `git diff 1ad4eea..41c5b8f`, 2026-11-07. Checks: `latexmk -interaction=
 ### Unresolved disagreement for the coordinator
 
 F1–F12 are resolved. This was the second and final cycle (AGENTS.md §5), so **N1 (High)** and N2 (Low) are recorded here as unresolved and passed to the coordinator. N1 is a one-edit fix (un-comment three sentences without their tags), but until then the draft-preservation requirement for draft L43 and L105 is not met in the typeset paper.
+
+## Coordinator resolution (2026-11-07)
+
+- **N1 (High): FIXED by the coordinator.** The three commented INTERPRETATION sentences in `05_reliability.tex` are restored as plain prose, each with its `% INTERPRETATION` label kept as a comment above it. That covers draft L43 (label agreement and calibration do not establish student usefulness), draft L105 (CHAD's gradient alignment is a local proxy), and the method-selection heuristics that the following "These are method-selection heuristics" sentence refers to. The preservation map's "Preserved" entries for L43 and L105 are therefore accurate again.
+- **N2 (Low): FIXED by the coordinator.** The CA-MKD sentence now says "we could not confirm from the paper whether…", matching draft L77's hedge. The CHAD entry in `survey-t9.md` no longer says "abstract-level" and cites the full-text table result.
