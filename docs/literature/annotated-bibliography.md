@@ -322,7 +322,7 @@
 
 - [liu2021imtl] Liyang Liu et al., ‘Towards Impartial Multi-task Learning,’ ICLR 2021, 2021. Status: published. IMTL; equal-projection gradient balancing (symmetric).
 
-- [liu2023famo] Bo Liu et al., ‘FAMO: Fast Adaptive Multitask Optimization,’ , 2023-06-06. Status: unverified. O(1)-cost loss-weighting MTL baseline used in PCD's experiments; relevant as a cheap alternative to K-backprop methods.
+- [liu2023famo] Bo Liu et al., ‘FAMO: Fast Adaptive Multitask Optimization,’ NeurIPS 2023, 2023-06-06. Status: published. O(1)-cost loss-weighting MTL baseline used in PCD's experiments; relevant as a cheap alternative to K-backprop methods.
 
 - [navon2022nashmtl] Aviv Navon et al., ‘Multi-Task Learning as a Bargaining Game,’ ICML 2022, 2022-02-02. Status: published. Nash-MTL; symmetric bargaining baseline (AuxiNash is its asymmetric auxiliary-learning descendant).
 

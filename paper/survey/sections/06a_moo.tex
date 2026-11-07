@@ -1,6 +1,223 @@
 % Owner: Khalid  |  Task: T10  |  Drafted by ORCA agents, finalised by the owner.
 % Rules: prose only; every claim cited with \citet/\citep to a literature/sources.yaml record id;
 % compare methods (G6); strengths/weaknesses/applicability (G8). See tasks/todo.md.
+% Every update rule below was checked against the cited paper's PDF (2026-11-07); equation
+% numbers are given in comments next to each rule.
 \section{Multi-Objective Optimization: A Primer}
 \label{sec:moo}
-\textit{[To be written: Pareto optimality, scalarisation, MGDA, PCGrad, CAGrad, Nash-MTL, FAMO, GradNorm; priority and constrained methods; Fig. 5.]}
+
+A distillation loss is almost always a sum of at least two terms: a supervised task loss and one
+or more terms that pull the student towards the teacher. Section~\ref{sec:kd_moo} asks how
+state-of-the-art distillation methods combine these terms. This section sets out the
+multi-objective optimisation (MOO) vocabulary that question needs. We restrict it to
+first-order methods that choose a single update direction from the per-objective gradients,
+because these are the methods distillation papers borrow. \citet{chen2026gradmoo} survey the
+wider field.
+
+\paragraph{Pareto optimality and stationarity.}
+Consider $K$ differentiable losses $L_1,\dots,L_K$ of shared parameters $\theta$, with
+gradients $g_i=\nabla_\theta L_i(\theta)$. A point $\theta^\star$ is Pareto optimal when no other
+point lowers one loss without raising another. Gradient methods cannot certify this global
+property, so they target a local one. A point is \emph{Pareto stationary} when some convex
+combination of the gradients vanishes, $\sum_i\alpha_i g_i=0$ with $\alpha_i\ge0$ and
+$\sum_i\alpha_i=1$. Every Pareto optimal point is Pareto stationary but not conversely
+\citep{sener2018mgda}. Away from such points a direction $d$ exists with $g_i^\top d>0$ for every
+$i$, so a small step along $-d$ lowers all losses at once. The methods below differ in which
+common-descent direction they choose and in what they do when none exists.
+% sener2018mgda Sec. 3.1, KKT conditions and the remark that Pareto optimal => Pareto stationary.
+
+\paragraph{Linear scalarisation.}
+The default in distillation is the weighted sum $L=\sum_i w_iL_i$ with fixed $w_i\ge0$, whose
+gradient is $\sum_i w_ig_i$. It costs a single backward pass. Its known weakness is that, as the
+weights vary, it reaches only the convex part of the Pareto front \citep{gong2021dbgd}. Its
+direction also depends on the raw gradient norms: an objective whose gradient is ten times
+larger dominates the step unless the weights are retuned. Whether this weakness matters in
+deep learning practice is contested, and Section~\ref{sec:kd_moo_critical} returns to the
+evidence.
+% gong2021dbgd Sec. 1: "(2) can only capture the convex envelop of the Pareto front".
+
+\subsection{Symmetric rules}
+\label{sec:moo_symmetric}
+
+The first family treats all objectives alike: permuting the losses permutes the weights but
+does not change the update. These methods were designed for multi-task learning, where no task
+outranks another.
+
+\paragraph{MGDA.}
+\citet{sener2018mgda} cast multi-task learning as MOO and use the multiple-gradient descent
+algorithm (MGDA). It picks the minimum-norm point of the convex hull of the gradients,
+$\min_{\alpha\in\Delta}\|\sum_i\alpha_ig_i\|_2^2$. The result is either zero, which certifies
+Pareto stationarity, or a direction that decreases every loss. For two objectives the weight
+has a closed form, $\hat\alpha=\big[(g_2-g_1)^\top g_2/\|g_1-g_2\|^2\big]_{[0,1]}$; for more
+objectives the authors use Frank--Wolfe. Their MGDA-UB variant takes gradients with respect to
+a shared representation instead of all shared parameters, so it needs only one backward pass.
+Two-objective MGDA favours the objective with the \emph{smaller} gradient: when the hull
+minimiser is interior, the update has the same inner product with both gradients. Faced with a large task gradient and a small distillation gradient, it
+moves mostly along the distillation direction (Fig.~\ref{fig:moo_geometry}). MGDA suits problems
+where no objective should be sacrificed. It is a poor fit when one objective matters
+more.
+% sener2018mgda Eq. (3) (min-norm problem), Eq. (4) (two-task closed form, clipped to [0,1]),
+% Sec. 3.2 / Alg. 2 (Frank-Wolfe), Sec. 3.3 (MGDA-UB, gradients w.r.t. the shared representation Z).
+
+\paragraph{PCGrad.}
+\citet{yu2020pcgrad} keep each task gradient but edit it when it conflicts with another.
+If $g_i^\top g_j<0$, PCGrad replaces $g_i$ by its projection onto the normal plane of $g_j$,
+$g_i\leftarrow g_i-\frac{g_i^\top g_j}{\|g_j\|^2}g_j$. It repeats this for every other task in
+random order and then sums the edited gradients. Compared with MGDA, PCGrad leaves
+non-conflicting gradients untouched, so the update keeps the scale of the original sum rather
+than shrinking to the hull minimiser. It needs one backward pass per objective. It gives no
+priority to any objective. With two objectives both gradients are projected, so the task
+gradient loses its component along the distillation gradient as much as the reverse.
+% yu2020pcgrad Alg. 1 (lines 5-8) and Sec. 2.2 projection formula.
+
+\paragraph{CAGrad.}
+\citet{liu2021cagrad} start from the average gradient $g_0$ and look for the direction within a
+ball around it that most improves the worst-off objective:
+$\max_d\min_i\langle g_i,d\rangle$ subject to $\|d-g_0\|\le c\|g_0\|$. The dual is a problem over
+the simplex, $\min_{w\in\Delta}g_w^\top g_0+\sqrt{\phi}\|g_w\|$ with $\phi=c^2\|g_0\|^2$, and the
+update is $d=g_0+\frac{\sqrt\phi}{\|g_w\|}g_w$. With $c=0$ CAGrad is plain gradient descent on the
+average loss. As $c$ grows the authors show it approaches MGDA. The radius $c$ interpolates
+between the weighted sum and MGDA, an option neither of them offers. CAGrad
+inherits MGDA's symmetry and per-objective backward passes, and adds one hyperparameter.
+% liu2021cagrad Eq. (3) (primal), Alg. 1 (dual over the simplex and the update), Sec. 4 Q2
+% (recovers GD at c = 0 and MGDA as c grows).
+
+\paragraph{Nash-MTL.}
+\citet{navon2022nashmtl} treat the tasks as players in a bargaining game over the update
+direction, with utility $g_i^\top\Delta\theta$ for task $i$. The Nash bargaining solution is
+$\Delta\theta=\sum_i\alpha_ig_i$ where $\alpha$ solves $G^\top G\alpha=1/\alpha$ elementwise, $G$
+being the matrix of task gradients. Unlike MGDA, this solution is invariant to rescaling any
+single loss, so a large gradient no longer wins by size alone. Solving for $\alpha$ requires an
+iterative convex-concave procedure on top of $K$ backward passes.
+% navon2022nashmtl Claim 3.1 (G^T G alpha = 1/alpha), Sec. 3 (scale-invariance axiom).
+
+\paragraph{FAMO.}
+\citet{liu2023famo} ask for the update that maximises the smallest
+relative rate of loss decrease. To first order this is
+$\max_d\min_i(\nabla\log\ell_i)^\top d-\tfrac12\|d\|^2$, whose dual is the MGDA problem applied to
+the gradients of the \emph{log} losses. Instead of computing every gradient, FAMO updates the
+weights from the observed change in each log loss after a step, so it runs with one backward
+pass and $O(1)$ extra memory per iteration. FAMO gets MGDA-like balancing at
+weighted-sum cost. The price is that its weights react to the previous step rather than to the
+current gradients.
+% liu2023famo Eq. (4)-(5) (max-min of relative decrease), Prop. 3.1 / Eq. (6) (dual = min-norm
+% on grad log losses), Sec. 3.2 (amortised O(1) update).
+
+\paragraph{Loss-weighting heuristics.}
+Two older methods change only the scalar weights. GradNorm \citep{chen2018gradnorm} trains the
+weights $w_i$ so that each task's weighted gradient norm tracks the mean norm times
+$[r_i(t)]^\alpha$, where $r_i$ is the task's relative inverse training rate. The weights are then
+renormalised. Uncertainty weighting \citep{kendall2018uncertainty} derives the loss
+$\frac{1}{2\sigma_1^2}L_1+\frac{1}{2\sigma_2^2}L_2+\log\sigma_1\sigma_2$ from a Gaussian
+likelihood with learned task noise $\sigma_i$, so noisier tasks are down-weighted
+automatically. Both keep the single backward pass of the weighted sum (GradNorm needs gradient
+norms only at one shared layer). Neither inspects the angle between gradients, so they address
+scale imbalance but not conflict.
+% chen2018gradnorm Eq. (1)-(2) (L_grad with target G_W(t) x [r_i(t)]^alpha); renormalisation Sec. 3.2.
+% kendall2018uncertainty Eq. (7).
+
+\subsection{Priority, lexicographic and constrained rules}
+\label{sec:moo_priority}
+
+The second family drops symmetry. One objective is primary and the others are constraints or
+tie-breakers. This matches the usual reading of distillation, in which the student must fit the
+labels and the teacher is useful but can be wrong. All five methods below share a
+template. Each finds the direction closest to a reference gradient subject to linear
+inequalities on the other gradients. They differ in what the reference is, how large the
+required progress is, and how the gradients are scaled.
+
+\paragraph{Dynamic barrier gradient descent (DBGD).}
+\citet{gong2021dbgd} study $\min f$ subject to $g\le c$ and the lexicographic version in which
+$f$ is minimised only over the minimisers of $g$. Their update is
+$v=\arg\min_v\|\nabla f-v\|^2$ subject to $\nabla g^\top v\ge\phi(\theta)$, solved in closed form
+as $v=\nabla f+\lambda\nabla g$ with $\lambda=\max\big((\phi-\nabla f^\top\nabla g)/\|\nabla g\|^2,0\big)$.
+The barrier $\phi=\min\big(\alpha(g-\hat g),\beta\|\nabla g\|^2\big)$ forces progress on $g$ while
+it is above its target and relaxes once it is met. DBGD comes with continuous-time convergence
+results for non-convex problems. The authors also argue that tuning a weighted sum cannot
+solve the constrained problem when the duality gap is non-zero.
+% gong2021dbgd Eq. (6) (projection), Eq. (4)/Alg. 1 (closed form), Eq. (8) (barrier), Sec. 3.4 (duality gap).
+
+\paragraph{GEM and A-GEM.}
+Continual learning faced the same geometry earlier. Gradient episodic memory
+\citep{lopezpaz2017gem} projects the current-task gradient $g$ to the nearest $\tilde g$ that
+satisfies $\langle\tilde g,g_k\rangle\ge0$ for every earlier task $k$, solving a small dual QP.
+A-GEM \citep{chaudhry2019agem} keeps one constraint, on the average memory gradient
+$g_{\mathrm{ref}}$, which gives the closed form
+$\tilde g=g-\frac{g^\top g_{\mathrm{ref}}}{g_{\mathrm{ref}}^\top g_{\mathrm{ref}}}g_{\mathrm{ref}}$
+whenever $g^\top g_{\mathrm{ref}}<0$. Here the \emph{new} task is the reference and the old ones
+are constraints that may not get worse, with zero required progress.
+% lopezpaz2017gem Eq. (8) (projection QP), Eq. (11) (dual). chaudhry2019agem Eq. (10)-(11).
+
+\paragraph{Pareto navigation gradient descent (PNGD).}
+\citet{ye2022pngd} want a model that is Pareto optimal for losses $\ell_1,\dots,\ell_m$ and, among
+those, best under a separate criterion $F$ such as a user preference. Their direction is
+$v=\arg\min_v\tfrac12\|\nabla F-v\|^2$ subject to $\nabla\ell_i^\top v\ge\phi_t$ for every $i$,
+where a positive, scheduled margin $\phi_t$ drives the iterate towards the Pareto set. Here
+the reference criterion lies outside the objective vector, and one shared margin applies to
+all losses.
+% ye2022pngd Eq. (7).
+
+\paragraph{AuxiNash.}
+\citet{shamsian2023auxinash} adapt Nash-MTL to auxiliary learning, where one main task is helped
+by auxiliary tasks. They replace the bargaining condition with $G^\top G\alpha=p/\alpha$ for a
+preference vector $p$ on the simplex, and learn $p$ by a bilevel step that improves the main
+task's loss on held-out data. The priority is learned, not imposed. The main task can
+receive more weight, but no constraint guarantees its progress.
+% shamsian2023auxinash Sec. 4.1 (G^T G alpha = p / alpha), Sec. 4.2 (bilevel preference update).
+
+\paragraph{PCD.}
+Priority-constrained descent \citep{varam2026pcd} first rescales each gradient by an
+exponential moving average of its norm, $\tilde g_i=s_ig_i$. It then solves
+$\tilde d^\star=\arg\min_{\tilde d}\tfrac12\|\tilde d-\tilde g_1\|^2$ subject to
+$\tilde g_j^\top\tilde d\ge\tau\|\tilde g_j\|^2$ for each secondary $j$, with one tolerance
+$\tau\in[0,1]$. For two objectives this gives
+$\tilde d^\star=\tilde g_1+\max\big(0,\tau-\tilde g_1^\top\tilde g_2/\|\tilde g_2\|^2\big)\tilde g_2$,
+and the deployed step is rescaled to the primary gradient norm. The authors say the program is
+not new: at $K=2$ it is DBGD with barrier $\beta\|\nabla g\|^2$, and with $\tau=0$ it is
+algorithmically A-GEM. What they add is the per-objective normalisation, which makes $\tau$
+scale-free, and a general-$K$ analysis. The guarantees are limited. Each secondary makes
+first-order progress, but the primary is not guaranteed to descend under strong conflict. The
+paper also proves no convergence theorem for the algorithm as deployed. Compared with DBGD, PCD
+trades DBGD's convergence results for a scale-invariant tolerance; compared with AuxiNash, it
+fixes the priority instead of learning it. Its evidence comes from pruning and low-rank
+compression, not from distillation \citep{varam2026pcd}.
+% varam2026pcd Def. 4.1 / Eq. (4) (QP), Def. 4.5 (EMA normalisation), Cor. 4.6 / Eq. (14) (K = 2
+% closed form), Alg. 1 (rescale to |g_1|), Sec. 4.1 "The construction of Eq. (4) is not itself new"
+% (DBGD at K = 2), Sec. 2 (GEM/A-GEM = PCD with tau = 0), Prop. 4.4, Prop. 4.7 (primary descent
+% only if 1 + tau c - c^2 > 0), Sec. 4.8 "We prove no convergence theorem for Algorithm 1".
+
+\subsection{The two families side by side}
+
+\begin{figure}[t]
+\centering
+\input{figures/moo_geometry}
+\caption{Directions chosen by five rules for one pair of conflicting gradients,
+$g_1=(2,0.5)$ (task) and $g_2=(-0.5,0.8)$ (distillation), $g_1^\top g_2=-0.6$. Weighted sum with
+equal weights; MGDA two-vector min-norm point \citep{sener2018mgda}; PCGrad
+\citep{yu2020pcgrad}; CAGrad with $c=0.5$ \citep{liu2021cagrad}; PCD with $\tau=0.5$ and unit
+normalisation scales, so its direction lies on the dotted line $g_2^\top d=\tau\|g_2\|^2$
+\citep{varam2026pcd}. Arrows are update directions before any rescaling. The vectors are
+illustrative, not measured. Generated by \texttt{figures/moo\_geometry.py}; a unit test
+recomputes each direction.}
+\label{fig:moo_geometry}
+\end{figure}
+
+Figure~\ref{fig:moo_geometry} shows the split on a toy pair in which the task gradient is about
+two and a half times longer than the distillation gradient and the two conflict. MGDA's
+direction ($83^\circ$) has almost no task component, because the min-norm point leans towards
+the shorter gradient. CAGrad with $c=0.5$ sits between the average and MGDA ($66^\circ$). PCGrad
+projects both gradients and returns the longest vector ($53^\circ$). PCD keeps the task gradient
+and adds the smallest multiple of the distillation gradient to meet the constraint ($46^\circ$). It is the
+closest to the task direction among the four conflict-aware rules. The equal-weight sum is
+closest overall ($41^\circ$), but only because the task gradient happens to be the longer one
+here.
+
+The figure does not say which rule is better. Symmetric
+rules suit settings where every objective must improve. Priority rules suit settings where one
+objective is the reason for training and the others are aids. Their cost is a tolerance or
+barrier to set, and none of them guarantees that the primary loss descends when the conflict is
+severe. Most conflict-aware rules need one backward pass per objective. MGDA-UB, FAMO and the
+loss-weighting heuristics avoid that cost by approximation. Whether any of this beats a
+well-tuned weighted sum is an empirical question, taken up for distillation in
+Section~\ref{sec:kd_moo_critical}.
+% Angles from moo_geometry.py output: WS 40.9, MGDA 83.2, PCGrad 52.9, CAGrad 65.5, PCD 45.5 degrees.

@@ -232,12 +232,12 @@
   title: "FAMO: Fast Adaptive Multitask Optimization"
   authors: ["Bo Liu", "Yihao Feng", "Peter Stone", "Qiang Liu"]
   date: 2023-06-06
-  venue: null
-  status: unverified
-  urls: {official: null, arxiv: "https://arxiv.org/abs/2306.03792", code: null}
+  venue: "NeurIPS 2023"
+  status: published
+  urls: {official: "https://papers.neurips.cc/paper_files/paper/2023/hash/b2fe1ee8d936ac08dd26f2ff58986c8f-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2306.03792", code: null}
   identifiers: {doi: null, arxiv: "2306.03792"}
   license: null
-  verified_by: "arXiv API title/authors/date. NeurIPS 2023 poster listing appeared in web-search results but the page did not render on fetch; venue left unverified."
+  verified_by: "arXiv API title/authors/date. Official NeurIPS proceedings page (papers.neurips.cc .../b2fe1ee8d936ac08dd26f2ff58986c8f-Abstract-Conference.html) checked 2026-11-07: title, four authors, Advances in Neural Information Processing Systems 36 (NeurIPS 2023), main conference. Found by the Codex T10/T11 review."
   relevance: "O(1)-cost loss-weighting MTL baseline used in PCD's experiments; relevant as a cheap alternative to K-backprop methods."
   topics: [mtl, loss-weighting]
   local_pdf: false
