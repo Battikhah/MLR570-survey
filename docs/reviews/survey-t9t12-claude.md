@@ -87,3 +87,33 @@ were checked against the full-text notes in `Project Files/Current_Survey.md` L4
 | F12 | FIXED | `paper/survey/sections/07_emerging.tex:11` states CA-AT's preprint uncertainty once, before the citation; the duplicate trailing qualifier is removed. |
 
 Humanizer pass: 12 phrases or sentence constructions were rewritten; examples: “available registry evidence does not settle” → “the paper does not establish”; “uncertain examples should contribute less” → “up-weights high-entropy samples”; “Two questions are mixed here” → “The methods answer two questions.”
+
+## Cycle 2 verdict (Claude)
+
+Reviewed `git diff 1ad4eea..41c5b8f`, 2026-11-07. Checks: `latexmk -interaction=nonstopmode` exit 0, `grep -c Overfull build/*.log` → 0; `build_bib.py --check` exit 0 (`cited but unverified (qualify in text): xue2024caat`, `citation check OK`); `pytest -q -m "not slow and not requires_data"` → `213 passed`, exit 0.
+
+| Finding | Verdict | Evidence |
+|---|---|---|
+| F1 CaRE | CONFIRMED | `05_reliability.tex:27,56` matches arXiv 2609.36734 abstract: CaRE-Divergence switches forward/reverse KL by teacher–student confidence; Revival is "a batch-level epistemic rejection mechanism … that suppresses updates when the teacher is more uncertain than the student". |
+| F2 EA-KD | CONFIRMED | `05:15,52` "up-weights high-entropy samples" = arXiv 2311.13621 abstract "place greater emphasis on high-entropy samples". |
+| F3 SCKD | CONFIRMED | `05:33,57` cite `zhu2021sckd`; `survey-t9.md:10` maps draft L43 to `zhu2021sckd` + `sun2025rld`. Mechanism checked in the CVF ICCV 2021 PDF (Sec. 3.4 "Adaptive Knowledge Distillation via Gradient": cosine similarity between each KD-loss gradient and the student-loss gradient controls the KD terms). |
+| F4 CHAD | CONFIRMED (claim) | `05:29` "teacher-confidence and surface-agreement gates each remained within 0.0001 ROUGE-L of cross-entropy" = CHAD PDF (arXiv 2607.19956) table rows A4 entropy gate / A5 ROUGE gate, Δ −0.0001, and text "sit within ±0.0001 R-L of CE"; +0.0173 for CHAD vs standard KD = abstract. Attribution `sumit2026chad` kept. But see N1. |
+| F5 CIARD | CONFIRMED | `07:11` cites `lu2025ciard`; "contrastive push loss … continuous adversarial retraining" = arXiv 2509.12633 abstract. |
+| F6 RLD | CONFIRMED | `05:25` "CIFAR-100 and ImageNet" = arXiv 2408.07703 abstract. |
+| F7 registry/labels | CONFIRMED | `grep -n -i registry 05_reliability.tex 07_emerging.tex` → no prose hits; labels are now `%` comments only. Side effect: N1. |
+| F8 Lee 2026 | CONFIRMED | `07:11` "a more robust teacher need not improve … confident supervision on robustly unlearnable examples can induce noise memorization" = arXiv 2605.21999 abstract ("Robustly Unlearnable Set"; "confident supervision on unlearnable samples compels the student to memorize spurious noise patterns"). |
+| F9 map locations | CONFIRMED | `survey-t9.md` uses `05_reliability.tex:<line>` references. |
+| F10 CTSL limit | CONFIRMED | `05:7` final sentence. |
+| F11 overfull | CONFIRMED | `\setlength{\tabcolsep}{3pt}` (`05:41`); 0 Overfull in build log. |
+| F12 CA-AT | CONFIRMED | `07:11` ends `\citep{xue2024caat}.`; qualifier stated once in the sentence. |
+
+### New issues introduced by the cycle-1 fix
+
+| ID | Sev. | Verdict | Finding | Recommended fix |
+|---|---|---|---|---|
+| N1 | **High** | DISAGREE | Moving the INTERPRETATION sentences into `%` comments removed them from the typeset survey. Two of them are draft claims that the map lists as "Preserved": draft L43 (correctness/confidence do not establish student usefulness) now only at `05:32` (comment), and draft L105 (CHAD gradient alignment is a local proxy, not a causal retraining test; multilingual result is not CHAD's) partly only at `05:30` (comment; the EWAD+CPDP sentence survives at `05:29`). The method-selection heuristics at `05:35` also vanished from the PDF while `05:36` ("These are method-selection heuristics…") still refers to them, so that sentence now has no antecedent. | Restore these sentences to prose (plain wording, no inline tag), keep the `% INTERPRETATION` label as a comment above each. |
+| N2 | Low | DISAGREE | `05:11` "the paper does not establish that an independent student CE term is retained" is stronger than the draft L77 ("the retained extraction does not establish … remains unchecked"); `survey-t9.md:22` still says CHAD findings are "abstract-level" although `05:29` now cites a table result. | "We could not confirm from the paper whether…"; update the map sentence. |
+
+### Unresolved disagreement for the coordinator
+
+F1–F12 are resolved. This was the second and final cycle (AGENTS.md §5), so **N1 (High)** and N2 (Low) are recorded here as unresolved and passed to the coordinator. N1 is a one-edit fix (un-comment three sentences without their tags), but until then the draft-preservation requirement for draft L43 and L105 is not met in the typeset paper.
