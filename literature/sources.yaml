@@ -1080,6 +1080,7 @@
   title: "Curriculum Temperature for Knowledge Distillation"
   authors: ["Zheng Li", "Xiang Li", "Lingfeng Yang", "Borui Zhao", "Renjie Song", "Lei Luo", "Jun Li", "Jian Yang"]
   date: 2022-11-29
+  year: 2023              # venue year for citations; date keeps first-posted
   venue: "AAAI 2023"
   status: published
   urls: {official: "https://doi.org/10.1609/aaai.v37i2.25236", arxiv: "https://arxiv.org/abs/2211.16231", code: "https://github.com/zhengli97/CTKD"}
@@ -1170,6 +1171,7 @@
   title: "LumiNet: Perception-Driven Knowledge Distillation via Statistical Logit Calibration"
   authors: ["Md. Ismail Hossain", "M M Lutfe Elahi", "Sameera Ramasinghe", "Ali Cheraghian", "Fuad Rahman", "Nabeel Mohammed", "Shafin Rahman"]
   date: 2023-10-05
+  year: 2025              # venue year for citations; date keeps first-posted
   venue: "TMLR (August 2025)"
   status: published
   urls: {official: "https://openreview.net/forum?id=3rU1lp9w2l", arxiv: "https://arxiv.org/abs/2310.03669", code: "https://github.com/ismail31416/LumiNet"}
@@ -1950,6 +1952,7 @@
   title: "Contrastive Representation Distillation"
   authors: ["Yonglong Tian", "Dilip Krishnan", "Phillip Isola"]
   date: 2019-10-23
+  year: 2020              # venue year for citations; date keeps first-posted
   venue: "ICLR 2020 (per arXiv comment)"
   status: accepted
   urls: {official: null, arxiv: "https://arxiv.org/abs/1910.10699", code: "http://github.com/HobbitLong/RepDistiller"}
@@ -2100,6 +2103,7 @@
   title: "Knowledge Distillation with Refined Logits"
   authors: ["Wujie Sun", "Defang Chen", "Siwei Lyu", "Genlang Chen", "Chun Chen", "Can Wang"]
   date: 2024-08-14
+  year: 2025              # venue year for citations; date keeps first-posted
   venue: "ICCV 2025"
   status: published
   urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Sun_Knowledge_Distillation_with_Refined_Logits_ICCV_2025_paper.html", arxiv: "https://arxiv.org/abs/2408.07703", code: "https://github.com/zju-SWJ/RLD"}

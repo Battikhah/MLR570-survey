@@ -31,8 +31,7 @@ distribution at the same time. Following the original draft of this survey, we w
 \end{equation}
 where $\mathcal{L}_{\mathrm{CE}}(y,\mathbf{p}) = -\log p_y$ and $\lambda \ge 0$ sets how much the
 distillation term contributes. Other papers write the same objective as a convex combination
-$(1-\alpha)\mathcal{L}_{\mathrm{CE}} + \alpha\mathcal{L}_{\mathrm{KD}}$, which differs only by a
-rescaling of the learning rate. Throughout the survey, ``KD'' with no qualifier means
+$(1-\alpha)\mathcal{L}_{\mathrm{CE}} + \alpha\mathcal{L}_{\mathrm{KD}}$, which for plain SGD differs only by a global rescaling of the loss, equivalent to rescaling the learning rate; with adaptive optimisers such as Adam, weight decay or gradient clipping the two forms are not exactly equivalent. Throughout the survey, ``KD'' with no qualifier means
 Eq.~\eqref{eq:kd-objective}, and the methods of \S\ref{sec:logit} are described by what they change
 in $\mathcal{L}_{\mathrm{KD}}$, in $\mathbf{p}^{T}$, or in the weight $\lambda$.
 Figure~\ref{fig:kd-pipeline} shows the resulting pipeline.
@@ -82,8 +81,7 @@ The temperature controls how soft the teacher and student distributions are. At 
 teacher puts almost all of its mass on one class, and $\mathcal{L}_{\mathrm{KD}}$ carries little more
 information than the label. Raising $T$ exposes the relative probabilities that the teacher assigns
 to the wrong classes, which \citet{hinton2015kd} call the knowledge the teacher has about which
-classes resemble one another. The $T^2$ factor in Eq.~\eqref{eq:kd-objective} has a purpose. Because
-the soft-target gradients scale as $1/T^2$, multiplying by $T^2$ keeps the relative contribution of the
+classes resemble one another. The $T^2$ factor in Eq.~\eqref{eq:kd-objective} has a purpose. Because, in the high-temperature approximation, the soft-target gradients scale as $1/T^2$ \citep{hinton2015kd}, multiplying by $T^2$ keeps the relative contribution of the
 two terms roughly unchanged when $T$ is tuned \citep{hinton2015kd}. In the high-temperature limit, and
 with zero-mean logits, the KD term reduces to matching logits under a squared error
 \citep{hinton2015kd}. KD therefore sits between two extremes: label-like targets at low $T$ and raw

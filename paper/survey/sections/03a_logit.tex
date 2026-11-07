@@ -6,15 +6,12 @@
 \section{Logit-Based Distillation}
 \label{sec:logit}
 
-Logit-based methods transfer knowledge only through the teacher's output layer. They need no
-projector between feature maps of different shapes, they cost little more than training the student
-alone, and they apply to any pair of classifiers with the same label space. Until 2022 they were
+Logit-based methods supervise the student through the teacher's output layer. In their conventional output-only form, classical KD and most of the methods below, they need no projector between feature maps of different shapes, cost little more than training the student alone, and apply to any pair of classifiers with the same label space. Two methods in this section relax that: SDD computes local logits from the final feature maps, and WKD-L builds its cost matrix from feature-space category relations, so both read intermediate features and add computation while keeping a logit-level loss. Until 2022 they were
 also thought to trail feature-based methods by a clear margin. On ResNet32$\times$4$\to$ResNet8$\times$4,
 classical KD \citep{hinton2015kd} reaches 73.33\% against 75.51\% for CRD and 75.63\% for ReviewKD
 \citep[Table~6]{zhao2022dkd}.
 % src: DKD Table 6 (KD 73.33, CRD 75.51, ReviewKD 75.63)
-Work since 2022 has closed that gap without touching features, by changing what the KL term in
-Eq.~\eqref{eq:kd-objective} measures. We group the methods by the part of the objective they change:
+Work since 2022 has closed that gap mainly by changing what the KL term in Eq.~\eqref{eq:kd-objective} measures, with feature-matching losses left out. We group the methods by the part of the objective they change:
 how the loss is decomposed (\S\ref{sec:logit-decouple}), how the logits are scaled before the softmax
 (\S\ref{sec:logit-scale}), and which discrepancy replaces the KL divergence
 (\S\ref{sec:logit-div}). Table~\ref{tab:logit-sota} lists each method with its own reported number
@@ -72,14 +69,28 @@ the multi-scale terms matter most \citep{wei2024sdd}.
 
 \paragraph{LDRLD.} \citet{xu2025ldrld} decouple at the finest granularity. Instead of one target versus all
 non-target classes, they recursively split the logits into local pairs of classes and distil the
-dense pairwise relations between them, with adaptive weights that depend on the rank difference within
-each pair and on the pair's total ranking score. LDRLD reports 77.20\% on ResNet32$\times$4$\to$ResNet8$\times$4
+dense pairwise relations between them, with adaptive weights that depend on the rank difference within each pair and on the pair's total ranking score. LDRLD reports 77.20\% on ResNet32$\times$4$\to$ResNet8$\times$4
 \citep[Table~1]{xu2025ldrld}, 0.88 points above DKD as listed in the same table.
 % src: LDRLD Table 1 (LDRLD 77.20; DKD 76.32)
 DKD and NKD treat the non-target classes as one block; LDRLD argues that the order and the gaps
 between the non-target classes carry information that this blocking discards. The cost is a number
 of pairwise terms that grows with the number of classes considered, which the decay weights limit
 but do not remove.
+
+\paragraph{LTKD.} \citet{kim2026ltkd} apply decoupling to long-tailed training data, where the
+teacher is biased towards head classes and gives weak supervision on tail classes. LTKD rewrites the
+KD objective as a \emph{cross-group} term, which compares how teacher and student spread probability
+over groups of classes (head, medium, tail), and a \emph{within-group} term, which compares the
+distributions inside each group. It rebalances the cross-group term so that the teacher's head bias
+is not copied, and reweights the within-group terms so that tail groups are not drowned out. On
+CIFAR-100-LT with imbalance factor 100, ResNet32$\times$4$\to$ResNet8$\times$4 reaches 51.08\% overall
+and 27.21\% on tail classes, against 46.11\% and 13.25\% for DKD \citep[Table~1]{kim2026ltkd}.
+% src: LTKD (arXiv 2506.18496v2) Table 1, gamma=100: LTKD All 51.08 / T 27.21; DKD 46.11 / 13.25
+DKD separates the target class from the rest; LTKD separates groups of classes defined by their
+training frequency, which makes it a decoupling method for class imbalance rather than a general
+replacement for KD. The paper evaluates only long-tailed benchmarks, so it gives no number on the
+balanced CIFAR-100 protocol of Table~\ref{tab:logit-sota}, and the group boundaries are an extra
+design choice \citep{kim2026ltkd}.
 
 \subsection{Rescaling the logits: temperature and standardisation}
 \label{sec:logit-scale}
@@ -216,24 +227,23 @@ with other reliability methods in \S\ref{sec:reliability}.
 \subsection{Comparison and outlook}
 \label{sec:logit-compare}
 
-Table~\ref{tab:logit-sota} summarises the methods. We draw three conclusions from it (\textbf{INTERPRETATION}). First, the three strands are largely orthogonal: LSKD's standardisation
-improves KD, DKD and MLKD alike, and SDD wraps KD, DKD and NKD, which suggests that a decomposition, a
-rescaling and a divergence can be stacked. Second, the spread between the 2024--2025 methods on
-ResNet32$\times$4$\to$ResNet8$\times$4 (about 76.0--77.5\%) is similar to the spread between
-different papers' reproductions of the same method (Section~\ref{sec:prelim-benchmarks}), so the
-table does not support a ranking among them; the clearer signal is the step of about three points
-from KD to the 2022 methods. Third, the open questions have moved from the choice of divergence to
-\emph{which} teacher signal to trust (RLD; \S\ref{sec:reliability}) and to how the distillation term
-should be balanced against the task loss, which \S\ref{sec:kd_moo} examines. For a practitioner, DKD
-or KD with LSKD standardisation is the default we would try first: both are cheap, have public code and are
-reproduced by several independent groups. MLKD with LSKD gives the highest reported number, at the
-cost of several extra loss terms and temperatures to tune.
+Table~\ref{tab:logit-sota} summarises the methods (\textbf{INTERPRETATION} below unless cited).
+Across these papers, LSKD's standardisation improves KD, DKD and MLKD \citep[Table~2]{sun2024lskd},
+and SDD wraps KD, DKD and NKD \citep{wei2024sdd}, so decomposition, rescaling and the choice of
+divergence behave as separable design axes. The 2024--2025 methods report 76.0--77.5\% on
+ResNet32$\times$4$\to$ResNet8$\times$4, a range comparable to the gap between different papers'
+reproductions of one method (\S\ref{sec:prelim-benchmarks}); the table therefore does not establish
+a single best method, while the step of about three points from KD (73.33\%) to the 2022 methods is
+consistent across sources. Recent work has shifted from the divergence itself to which teacher signal
+to trust (RLD here; \S\ref{sec:reliability}), to class imbalance in the teacher (LTKD), and to how the
+distillation term is balanced against the task loss (PLD; \S\ref{sec:kd_moo}). DKD and KD+LSKD are
+low-overhead baselines with public code, and both are re-reported by other
+papers (EKD and LDRLD list both, \citealp[Table~1]{xiang2025ekd,xu2025ldrld}); MLKD+LSKD reports the highest value in the table but adds loss terms and temperatures.
 
 \begin{table}[t]
 \centering
 \caption{Logit-based distillation methods (NIPS-W: NIPS 2014 Deep Learning Workshop; arXiv 2015). Accuracy is CIFAR-100 top-1 (\%) for
-ResNet32$\times$4$\to$ResNet8$\times$4 as reported by each method's own paper (source table in
-brackets); teacher 79.42, student 72.50. Numbers come from different papers and are not a leaderboard
+ResNet32$\times$4$\to$ResNet8$\times$4 as given in the source table named in each cell (the method's own paper unless another paper is named, which marks a reproduction); teacher 79.42, student 72.50. Numbers come from different papers and are not a leaderboard
 (\S\ref{sec:prelim-benchmarks}). n/r: not reported by the paper.}
 \label{tab:logit-sota}
 \footnotesize
@@ -256,6 +266,7 @@ LumiNet \citep{hossain2025luminet} & TMLR 2025 & Logits normalised by intra-batc
 RLD \citep{sun2025rld} & ICCV 2025 & Label-refined sample confidence and masked correlation & 76.64 (T1) & zju-SWJ/RLD \\
 LDRLD \citep{xu2025ldrld} & ICCV 2025 & Dense pairwise relations between local class pairs & 77.20 (T1) & yema-web/LDRLD \\
 EKD \citep{xiang2025ekd} & ICCV 2025 & Distils a Dirichlet (second-order) distribution & 77.21 (T1) & Liangyu-Xiang/EKD \\
+LTKD \citep{kim2026ltkd} & CVPR 2026 & Cross-group and within-group KL, rebalanced for long-tailed data & n/r (long-tailed only; CIFAR-100-LT $\gamma{=}100$: 51.08, T1) & none found \\
 PLD \citep{bassam2025pld} & NeurIPS 2025 & Plackett--Luce list-wise ranking loss, no KD weight & not extracted & none found \\
 \bottomrule
 \end{tabular}

@@ -73,3 +73,17 @@ The table's other associated figures also checked: LumiNet ECE 0.06 vs KD 0.11 (
 | `uv run --frozen --offline pytest -q -m "not slow and not requires_data"` | Initial exact invocation failed for the same uv cache permission (exit 2). With the temporary cache override: 212 passed, 1 skipped (MPS unavailable), exit 0. |
 
 No section files were edited. `build_bib.py --check` regenerated `refs.bib`, but `git status --short` remained clean after the run.
+
+## Response (Claude, cycle 1)
+
+| ID | Status | Change / evidence |
+|---|---|---|
+| F1 | FIXED | Added an optional registry field `year` (venue year) used by `scripts/build_bib.py` before `date`; documented in `literature/README.md`; unit test `test_year_field_overrides_date_for_citation_year` in `tests/unit/test_build_bib.py`. Applied to the cited records with an arXiv-vs-venue mismatch: `hossain2025luminet` (2025), `li2023ctkd` (2023), `sun2025rld` (2025), `tian2020crd` (2020). Rendered PDF now shows "Hossain et al., 2025". `hinton2015kd` left at 2015 (arXiv; workshop has no proceedings). Uncited records with the same mismatch, not changed: agarwal2024gkd, askin2026fedrevive, chaudhry2019agem, chen2018gradnorm, goldblum2020ard, gu2024minillm, hu2022fedmgda, hu2024tgeokd, jeong2025selfdistill, kang2025dho, karimireddy2020scaffold, kendall2018uncertainty, kenfack2025agrekd, lee2025igdm, li2020fedprox, li2020qffl, li2021ditto, mcmahan2017fedavg, miles2024projector, mirzadeh2020takd, qiu2023dpk, romero2015fitnets, shin2026amid, su2025eakd, tran2024nayer, yang2023lmcl, yang2024clipkd, zhang2022camkd, zhou2025tcs (section owners should add `year` when they cite them). |
+| F2 | FIXED | LTKD paragraph added to §III-A (decoupling subsection) and a Table II row. Read arXiv 2506.18496v2: it evaluates only long-tailed benchmarks, so the balanced cell is n/r; the row gives CIFAR-100-LT γ=100 R32×4→R8×4 overall 51.08 (Table 1; DKD 46.11). The PDF lists a single author (Seonghak Kim), consistent with the registry. |
+| F3 | FIXED | Opening paragraph scoped to "conventional output-only form" and names SDD (local logits from final feature maps) and WKD-L (feature-space cost matrix) as logit-supervised methods that read features and add compute; "without touching features" replaced. |
+| F4 | FIXED | Caption now says each value comes from the source table named in its cell, with another paper's name marking a reproduction. |
+| F5 | FIXED | §II now says the 1/T² scaling holds in the high-temperature approximation (Hinton et al.). |
+| F6 | FIXED | Equivalence restricted to plain SGD; Adam, weight decay and clipping explicitly excluded. |
+| F7 | FIXED | First/Second/Third cadence and "we would try first" removed; replaced with a synthesis tied to cited evidence (LSKD Table 2, SDD, cross-paper spread, EKD/LDRLD re-reports). |
+
+Checks after the fix (all exit 0): `latexmk` (undefined = 0, overfull = 0), `build_bib.py --check` (160 entries, OK), `build_literature_docs.py`, `ruff check .`, `pytest -q -m "not slow and not requires_data"` (214 passed), `check_repo_hygiene.py`.

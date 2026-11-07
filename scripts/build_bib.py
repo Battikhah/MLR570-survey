@@ -50,7 +50,7 @@ def entry(r):
     fields = [
         ("title", "{" + _esc(r["title"]) + "}"),  # double braces keep capitalisation
         ("author", " and ".join(_esc(a) for a in (r.get("authors") or ["Anonymous"]))),
-        ("year", str(r.get("date") or "")[:4] or "n.d."),
+        ("year", str(r.get("year") or r.get("date") or "")[:4] or "n.d."),  # venue year
     ]
     if venue_field:
         fields.append((venue_field[0], _esc(venue_field[1])))
