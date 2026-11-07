@@ -1935,12 +1935,12 @@
   title: "Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer"
   authors: ["Sergey Zagoruyko", "Nikos Komodakis"]
   date: 2016-12-12
-  venue: null
-  status: unverified
-  urls: {official: null, arxiv: "https://arxiv.org/abs/1612.03928", code: "https://github.com/szagoruyko/attention-transfer"}
+  venue: "ICLR 2017"
+  status: published
+  urls: {official: "https://iclr.cc/archive/www/doku.php?id=iclr2017:conference_posters.html", arxiv: "https://arxiv.org/abs/1612.03928", code: "https://github.com/szagoruyko/attention-transfer"}
   identifiers: {doi: null, arxiv: "1612.03928"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, date; no venue comment; code link in abstract). Venue not verified."
+  verified_by: "arXiv abs page checked 2026-11-07 for title and authors; official ICLR 2017 conference posters archive lists the exact paper title as poster C10."
   relevance: "CLASSIC: attention-map transfer."
   topics: [kd, feature-kd, attention, classic]
   local_pdf: false
@@ -2322,4 +2322,18 @@
   verified_by: "Crossref DOI record (title, 8 authors in the published order, ACM TIST 16(6) pp. 1-27, online 2025-11-24); arXiv API (v1 2024-07-02; arXiv author order lists Wang Lu before Yao Zhu), 2026-11-03. Section list read from the arXiv v1 PDF."
   relevance: "LLM-KD survey with its own evaluation of white-box and black-box KD on GPT-2/OPT/LLaMA; extra row of Table I."
   topics: [kd, survey, llm]
+  local_pdf: false
+- id: furlanello2018bornagain
+  type: paper
+  title: "Born Again Neural Networks"
+  authors: ["Tommaso Furlanello", "Zachary C. Lipton", "Michael Tschannen", "Laurent Itti", "Anima Anandkumar"]
+  date: 2018
+  venue: "ICML 2018"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v80/furlanello18a.html", arxiv: "https://arxiv.org/abs/1805.04770", code: null}
+  identifiers: {doi: null, arxiv: "1805.04770"}
+  license: null
+  verified_by: "PMLR ICML 2018 proceedings page checked 2026-11-07 (title, authors, venue, pages); arXiv abstract checked for record identity."
+  relevance: "CLASSIC: sequential same-architecture student training from a previous model's soft outputs."
+  topics: [kd, self-distillation, classic]
   local_pdf: false

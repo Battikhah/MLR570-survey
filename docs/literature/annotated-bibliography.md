@@ -102,6 +102,8 @@
 
 - [etcibasi2026rpkd] Hamza Etcibasi et al., ‘You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces,’ NeurIPS 2026, 2026-10-27. Status: accepted. RPKD: distils by matching teacher and student similarity distributions over a shared set of random prototypes, so representations need not be aligned; newest cross-architecture method found.
 
+- [furlanello2018bornagain] Tommaso Furlanello et al., ‘Born Again Neural Networks,’ ICML 2018, 2018. Status: published. CLASSIC: sequential same-architecture student training from a previous model's soft outputs.
+
 - [goldblum2020ard] Micah Goldblum et al., ‘Adversarially Robust Distillation,’ AAAI 2020, 2019-05-23. Status: published. CLASSIC: first adversarially robust distillation (ARD).
 
 - [gou2021kdsurvey] Jianping Gou et al., ‘Knowledge Distillation: A Survey,’ International Journal of Computer Vision (IJCV), 129(6):1789-1819, 2021-03-22. Status: published. The most-cited general KD survey (knowledge types, schemes, algorithms, performance comparison); row of Table I. Pre-2021 coverage only.
@@ -262,7 +264,7 @@
 
 - [yuan2026tpkd] Qianfeng Yuan et al., ‘Learning Beyond Full Imitation: Task-Preserving Knowledge Distillation,’ arXiv, 2026-09-30. Status: preprint. Asymmetric KD that projects teacher directions to protect task margins: close to PCD-KD.
 
-- [zagoruyko2017at] Sergey Zagoruyko et al., ‘Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer,’ , 2016-12-12. Status: unverified. CLASSIC: attention-map transfer.
+- [zagoruyko2017at] Sergey Zagoruyko et al., ‘Paying More Attention to Attention: Improving the Performance of Convolutional Neural Networks via Attention Transfer,’ ICLR 2017, 2016-12-12. Status: published. CLASSIC: attention-map transfer.
 
 - [zhang2018dml] Ying Zhang et al., ‘Deep Mutual Learning,’ CVPR 2018, 2018. Status: published. CLASSIC: online mutual learning between peers.
 
