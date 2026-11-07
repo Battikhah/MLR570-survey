@@ -22,8 +22,8 @@ property, so they target a local one. A point is \emph{Pareto stationary} when s
 combination of the gradients vanishes, $\sum_i\alpha_i g_i=0$ with $\alpha_i\ge0$ and
 $\sum_i\alpha_i=1$. Every Pareto optimal point is Pareto stationary but not conversely
 \citep{sener2018mgda}. Away from such points a direction $d$ exists with $g_i^\top d>0$ for every
-$i$, so a small step along $-d$ lowers all losses at once. The methods below differ in which of
-these common-descent directions they choose, and in what they do when none exists.
+$i$, so a small step along $-d$ lowers all losses at once. The methods below differ in which
+common-descent direction they choose and in what they do when none exists.
 % sener2018mgda Sec. 3.1, KKT conditions and the remark that Pareto optimal => Pareto stationary.
 
 \paragraph{Linear scalarisation.}
@@ -54,7 +54,7 @@ a shared representation instead of all shared parameters, so it needs only one b
 Two-objective MGDA favours the objective with the \emph{smaller} gradient: when the hull
 minimiser is interior, the update has the same inner product with both gradients. Faced with a large task gradient and a small distillation gradient, it
 moves mostly along the distillation direction (Fig.~\ref{fig:moo_geometry}). MGDA suits problems
-where no objective should be sacrificed. It is a poor fit where one objective clearly matters
+where no objective should be sacrificed. It is a poor fit when one objective matters
 more.
 % sener2018mgda Eq. (3) (min-norm problem), Eq. (4) (two-task closed form, clipped to [0,1]),
 % Sec. 3.2 / Alg. 2 (Frank-Wolfe), Sec. 3.3 (MGDA-UB, gradients w.r.t. the shared representation Z).
@@ -76,8 +76,8 @@ ball around it that most improves the worst-off objective:
 $\max_d\min_i\langle g_i,d\rangle$ subject to $\|d-g_0\|\le c\|g_0\|$. The dual is a problem over
 the simplex, $\min_{w\in\Delta}g_w^\top g_0+\sqrt{\phi}\|g_w\|$ with $\phi=c^2\|g_0\|^2$, and the
 update is $d=g_0+\frac{\sqrt\phi}{\|g_w\|}g_w$. With $c=0$ CAGrad is plain gradient descent on the
-average loss. As $c$ grows the authors show it approaches MGDA. The radius $c$ is therefore a
-dial between the weighted sum and MGDA, which is CAGrad's main advantage over both. It also
+average loss. As $c$ grows the authors show it approaches MGDA. The radius $c$ interpolates
+between the weighted sum and MGDA, an option neither of them offers. CAGrad
 inherits MGDA's symmetry and per-objective backward passes, and adds one hyperparameter.
 % liu2021cagrad Eq. (3) (primal), Alg. 1 (dual over the simplex and the update), Sec. 4 Q2
 % (recovers GD at c = 0 and MGDA as c grows).
@@ -92,12 +92,12 @@ iterative convex-concave procedure on top of $K$ backward passes.
 % navon2022nashmtl Claim 3.1 (G^T G alpha = 1/alpha), Sec. 3 (scale-invariance axiom).
 
 \paragraph{FAMO.}
-\citet{liu2023famo} (preprint, unverified) ask for the update that maximises the smallest
+\citet{liu2023famo} ask for the update that maximises the smallest
 relative rate of loss decrease. To first order this is
 $\max_d\min_i(\nabla\log\ell_i)^\top d-\tfrac12\|d\|^2$, whose dual is the MGDA problem applied to
 the gradients of the \emph{log} losses. Instead of computing every gradient, FAMO updates the
 weights from the observed change in each log loss after a step, so it runs with one backward
-pass and $O(1)$ extra memory per iteration. FAMO thus offers MGDA-like balancing at
+pass and $O(1)$ extra memory per iteration. FAMO gets MGDA-like balancing at
 weighted-sum cost. The price is that its weights react to the previous step rather than to the
 current gradients.
 % liu2023famo Eq. (4)-(5) (max-min of relative decrease), Prop. 3.1 / Eq. (6) (dual = min-norm
@@ -161,7 +161,7 @@ all losses.
 \citet{shamsian2023auxinash} adapt Nash-MTL to auxiliary learning, where one main task is helped
 by auxiliary tasks. They replace the bargaining condition with $G^\top G\alpha=p/\alpha$ for a
 preference vector $p$ on the simplex, and learn $p$ by a bilevel step that improves the main
-task's loss on held-out data. Priority is therefore learned rather than imposed. The main task can
+task's loss on held-out data. The priority is learned, not imposed. The main task can
 receive more weight, but no constraint guarantees its progress.
 % shamsian2023auxinash Sec. 4.1 (G^T G alpha = p / alpha), Sec. 4.2 (bilevel preference update).
 
@@ -207,7 +207,7 @@ two and a half times longer than the distillation gradient and the two conflict.
 direction ($83^\circ$) has almost no task component, because the min-norm point leans towards
 the shorter gradient. CAGrad with $c=0.5$ sits between the average and MGDA ($66^\circ$). PCGrad
 projects both gradients and returns the longest vector ($53^\circ$). PCD keeps the task gradient
-and adds just enough of the distillation gradient to meet the constraint ($46^\circ$). It is the
+and adds the smallest multiple of the distillation gradient to meet the constraint ($46^\circ$). It is the
 closest to the task direction among the four conflict-aware rules. The equal-weight sum is
 closest overall ($41^\circ$), but only because the task gradient happens to be the longer one
 here.

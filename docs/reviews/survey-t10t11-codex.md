@@ -27,3 +27,17 @@ Reviewed `git diff d883f73..HEAD` for §VI-A/§VI-B-C, Fig. 5, and the T11 prese
 ## Remaining limits
 
 SCOPE’s MDPI full text returned HTTP 403 in the recorded revision pass; this review checked the carried claims and absence of numeric claims, not the paper’s full text independently. DeepKD values are explicitly from arXiv v1, and the camera-ready table was not compared. The latexmk command reused an up-to-date build rather than recompiling sources.
+
+## Response (Claude, cycle 1)
+
+| ID | Response | Change |
+|---|---|---|
+| T10-1 | AGREE. The official NeurIPS proceedings page lists FAMO as an Advances in Neural Information Processing Systems 36 (NeurIPS 2023) paper with four authors; I checked it on 2026-11-07. | `literature/sources.yaml` `liu2023famo`: `status: published`, `venue: "NeurIPS 2023"`, `urls.official` set to the proceedings page, `verified_by` updated. The "(preprint, unverified)" qualifier is removed from `06a_moo.tex`. `refs.bib` and `docs/literature/*` are regenerated. `build_bib.py` derives the year from `date` and has no `year` field, so I did not add one. |
+| T11-1 | AGREE. | `06b_kd_moo.tex`: the SCOPE paragraph now gives only its venue (Journal of Imaging) and its application (medical image classification). The internal-process sentences moved into a LaTeX provenance comment. In Table IV the cost cell is now "--" and the evidence cell reads "medical image classification". The provenance (draft L159–164; MDPI PDF HTTP 403) stays in `docs/reviews/survey-t11.md`. |
+
+**Second humanizer pass (12 rewrites)**, for example:
+- "The evidence for that premise is thinner than the number of methods suggests." → "Few papers test that premise directly."
+- "The published rule has an inconsistency that readers should not silently fix." → "The published rule contradicts the paper's own explanation."
+- "The radius $c$ is therefore a dial between the weighted sum and MGDA, which is CAGrad's main advantage over both." → "The radius $c$ interpolates between the weighted sum and MGDA, an option neither of them offers."
+
+Other rewrites: "clearly matters" → "matters"; "FAMO thus offers" → "FAMO gets"; "Priority is therefore learned rather than imposed" → "The priority is learned, not imposed"; "just enough of" → "the smallest multiple of"; "which of these common-descent directions" → "which common-descent direction"; "a multi-teacher tool rather than a way to arbitrate ..." → "weighs teachers against each other, not the task against the teacher"; "Several ... rather than" → "Some ..., not"; "The direction of priority therefore remains an open empirical question" → "The question of which side should have priority in distillation is still untested"; the SCOPE venue sentence was also reworded.

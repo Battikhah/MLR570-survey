@@ -38,8 +38,8 @@ MOO step. It solves a soft-margin version of MGDA whose dual is the min-norm pro
 constraints $0\le\alpha_m\le C$, and $C\in[1/M,1]$ sets how much disagreement among the $M$
 teachers is tolerated. With $C=1$ it is MGDA; smaller $C$ spreads weight across teachers. The
 gradients are taken with respect to the student's logits, so the weighting adds little cost. AE-KD
-is symmetric among teachers and gives the label no special role. That makes it a multi-teacher
-tool rather than a way to arbitrate between task and teacher. Later multi-teacher methods such as
+is symmetric among teachers and gives the label no special role. It weighs teachers against each
+other, not the task against the teacher. Later multi-teacher methods such as
 AGRE-KD \citep{kenfack2025agrekd} use AE-KD as a baseline.
 % du2020aekd Eq. (7) (CE + weighted KD), Eq. (9) (primal with slack), Eq. (10) (dual, 0 <= alpha_m <= C),
 % Eq. (11) (direction); Fig. 1 right (gradients w.r.t. student logits); Sec. 3.2 "C in [1/M, 1]".
@@ -81,8 +81,8 @@ output- or feature-distillation term on or off with a binary gate. The gate uses
 between the supervised gradient and that distillation term's gradient. This makes the label the
 primary objective, as the priority rules of Section~\ref{sec:moo_priority} do, but the update is
 the plain sum of the surviving losses, not a constrained program. The signal is the student's
-optimisation state, not the teacher's correctness. The published rule has an inconsistency that
-readers should not silently fix. Section~3.4 and Algorithm~1 remove a term when its cosine is
+optimisation state, not the teacher's correctness. The published rule contradicts the paper's own
+explanation. Section~3.4 and Algorithm~1 remove a term when its cosine is
 \emph{greater than or equal to} the threshold $\varphi$, with $\varphi=0$ by default, while the
 surrounding text speaks of removing conflicting, that is negatively aligned, terms. Algorithm~1
 also initialises the gates once, before the training loop, so whether a removed term can return
@@ -106,10 +106,11 @@ Gradient Conflict Resolution removes the parts of the distillation gradient that
 the classification gradient. Classification is the reference objective and is not itself
 modified, which makes SCOPE a one-sided projection, the asymmetric counterpart of PCGrad. Like
 SCKD it treats the label as primary, but it edits the conflicting component instead of dropping
-the whole term. Its full system also contains auxiliary priors and relational losses. The draft's
-reading of the paper did not support transcribing every equation, and we could not re-open the
-full text for this revision, so we give no numbers. SCOPE appeared in the Journal of Imaging,
-outside the venues of our state-of-the-art criterion, and should be read as an application paper.
+the whole term. Its full system also contains auxiliary priors and relational losses.
+It was published in the Journal of
+Imaging and evaluated on medical image classification.
+% Provenance: claims carried from the draft (L159-164); MDPI full text returned HTTP 403 on
+% 2026-11-07, so no equations or numbers are transcribed. See docs/reviews/survey-t11.md.
 % chen2026scope: claims carried from the draft (L159-164, full text read in the earlier pass);
 % MDPI PDF returned HTTP 403 on 2026-11-07, so no table was re-read here.
 
@@ -216,7 +217,7 @@ SCKD & 2021 & CE; each KD term & P(task), gate & +1 per KD term & threshold rule
 DOT & 2023 & CE; KD & P(KD), momentum & +1 & KD 73.33$\to$75.12 [C100 R32$\times$4$\to$R8$\times$4] \\
 DeepKD & 2025 & CE; TCKD; NCKD & P(KD), momentum & +2 & 77.03 [same pair]; DKD+DOT 76.03 $<$ DKD 76.32 \\
 DTO-KD & 2026 & task; distill (log) & S (min-norm) & +1 (ideal); 0 (amortised) & 76.40 vs DKD 75.44 [same pair] \\
-SCOPE & 2026 & CE; relational KD & P(task), projection & not re-checked & medical imaging; not re-read \\
+SCOPE & 2026 & CE; relational KD & P(task), projection & -- & medical image classification \\
 TPKD$^\dagger$ & 2026 & label; conditional KD & P(task), output cone & none ($O(K\log K)$) & 88.05 vs KD 87.58 [C100, VOLO-D2$\to$PiT-B]; no projection 87.83 \\
 MEMA$^\dagger$ & 2026 & task; KD per sample & P(task), damping & none (logit-space) & 80.54$\to$81.80 [C100 Swin-T$\to$R18] \\
 CHAD$^\dagger$ & 2026 & KD per sample & usefulness gate & probe-set gradients & +0.0173 ROUGE-L over KD [BanSum] \\
@@ -233,15 +234,14 @@ PCD & 2026 & primary; secondaries & P(prim.), QP & +1 per secondary & no KD resu
 \label{sec:kd_moo_critical}
 
 The methods above share a premise: the task and distillation gradients conflict often enough,
-and badly enough, that the combination rule matters. The evidence for that premise is thinner
-than the number of methods suggests.
+and badly enough, that the combination rule matters. Few papers test that premise directly.
 
 \paragraph{Symmetric versus priority rules.}
 Table~\ref{tab:kd_moo} splits into rules that balance the two losses (AE-KD, DTO-KD) and rules
 that rank them. The rankers disagree about which side should win. SCKD, SCOPE, TPKD, MEMA and PCD
 protect the label. DOT and DeepKD let distillation lead. Both camps report gains on CIFAR-100,
 and no paper compares a label-first rule with a teacher-first rule under one protocol. The
-direction of priority therefore remains an open empirical question for distillation.
+question of which side should have priority in distillation is still untested.
 % INTERPRETATION.
 
 \paragraph{The scalarisation debate.}
@@ -260,7 +260,7 @@ below DOT. The others we read compare with published baselines at their default 
 % DOT Table 4 (alpha sweep 73.19-73.56 vs DOT 75.12).
 
 \paragraph{Scale or conflict?}
-Several of these gains may come from normalisation and scale rather than from resolving conflict.
+Some of these gains may come from normalisation and scale, not from resolving conflict.
 DTO-KD works on log losses, whose gradients $\nabla L_i/L_i$ already remove each loss's scale.
 PCD's authors make the point explicitly for their largest
 pruning gains. The raw regulariser gradients were one to two orders of magnitude larger than the
