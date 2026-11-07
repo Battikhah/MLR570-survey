@@ -87,3 +87,19 @@ No section files were edited. `build_bib.py --check` regenerated `refs.bib`, but
 | F7 | FIXED | First/Second/Third cadence and "we would try first" removed; replaced with a synthesis tied to cited evidence (LSKD Table 2, SDD, cross-paper spread, EKD/LDRLD re-reports). |
 
 Checks after the fix (all exit 0): `latexmk` (undefined = 0, overfull = 0), `build_bib.py --check` (160 entries, OK), `build_literature_docs.py`, `ruff check .`, `pytest -q -m "not slow and not requires_data"` (214 passed), `check_repo_hygiene.py`.
+
+## Cycle 2 verdict (Codex)
+
+Reviewed `git diff a4601e2..b314f6f`. All seven findings are **CONFIRMED fixed**; no unresolved disagreement remains.
+
+| Finding | Verdict | Cycle 2 evidence |
+|---|---|---|
+| F1 LumiNet venue year | CONFIRMED | `sources.yaml` now sets optional `year: 2025` for LumiNet (while retaining `date: 2023-10-05`); `build_bib.py:53` prefers `year` and falls back to `date`. The unit test `test_year_field_overrides_date_for_citation_year` checks both override and fallback. Generated `refs.bib` changes only four years: LumiNet 2025, CTKD 2023, RLD 2025, and CRD 2020, each matching its registry venue. Extracted rendered PDF text confirms Hossain 2025, Li 2023, Sun/RLD 2025, and Tian/CRD 2020. No unexpected rendered citation-year change found. |
+| F2 LTKD coverage | CONFIRMED | New paragraph and Table II row are present in `03a_logit.tex:80-93,269`. [arXiv v2 Table 1](https://arxiv.org/pdf/2506.18496v2) (PDF p. 5) columns for ResNet32×4→ResNet8×4, γ=100 report LTKD tail/overall 27.21/51.08 and DKD 13.25/46.11; `03a_logit.tex:86-88` reports these correctly. The row labels the long-tailed setting and marks the balanced CIFAR-100 value n/r. Mechanism (cross-group rebalancing and equalized within-group contribution) matches arXiv v2 abstract and Eqs. 10–14. |
+| F3 output-only/cost scope | CONFIRMED | `03a_logit.tex:9-17` limits the projector/cost claim to conventional output-only methods, names SDD and WKD-L as feature-reading exceptions, and removes “without touching features.” |
+| F4 table provenance | CONFIRMED | Caption at `03a_logit.tex:249-252` now says the cited cell source is authoritative and explicitly marks other-paper reproductions. |
+| F5 temperature scaling | CONFIRMED | `02_prelim.tex:85-87` qualifies the 1/T² scaling as a high-temperature approximation. |
+| F6 convex-combination scaling | CONFIRMED | `02_prelim.tex:33-35` restricts learning-rate equivalence to plain SGD and notes adaptive optimizers, weight decay, and clipping. |
+| F7 prose cadence | CONFIRMED | `03a_logit.tex:227-239` replaces the numbered triad and “we would try first” with a sourced synthesis; no formulaic triad remains there. |
+
+The required cycle 2 checks were rerun. `cd paper/survey && latexmk -interaction=nonstopmode`: exit 0, target already up to date; `paper/survey/build/main.log` has no undefined-reference or overfull-box entries. `UV_CACHE_DIR=/private/tmp/uv-cache-review uv run --frozen --offline python scripts/build_bib.py --check`: exit 0, 160 entries, citation check OK. `UV_CACHE_DIR=/private/tmp/uv-cache-review uv run --frozen --offline pytest -q -m "not slow and not requires_data"`: exit 0, 213 passed, 1 skipped (MPS unavailable). The requested diff also changes `paper/survey/sections/02_prelim.tex` and `03a_logit.tex`; this cycle did not edit them. No unresolved issues to escalate from this review.
