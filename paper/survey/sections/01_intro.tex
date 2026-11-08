@@ -3,7 +3,74 @@
 % compare methods (G6); strengths/weaknesses/applicability (G8). See tasks/todo.md.
 \section{Introduction}
 \label{sec:intro}
-\textit{[To be written: Problem statement and trends; motivation and gap; Table I (comparison with existing surveys); Fig. 1 taxonomy; scope; organisation.]}
+
+Knowledge distillation (KD) trains a small student network to match the outputs of a larger teacher, so that
+the student keeps much of the teacher's accuracy at a fraction of its inference cost \citep{hinton2015kd}. The
+original recipe adds a temperature-softened Kullback--Leibler term to the cross-entropy loss. Since then the
+field has grown in several directions at once. Logit methods split the KD loss into parts and reweight them
+\citep{zhao2022dkd}, standardise or rescale logits \citep{sun2024lskd} or learn the temperature
+\citep{li2023ctkd}. Feature and relation methods align intermediate representations or the structure between
+samples \citep{tian2020crd,chen2022simkd,zhang2025vrm}. Other work changes the training scheme, asks when the
+teacher should be trusted at all, or changes how the task gradient and the distillation gradient are combined
+\citep{zhao2023dot,hayder2026dtokd}.
+
+\paragraph{Motivation and gap.} Most of this work reports results on one shared protocol: CIFAR-100 with the
+teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
+from different papers are rarely put side by side with their caveats, and the gains of recent methods are
+often within a point of each other. Table~\ref{tab:surveys} compares this survey with existing ones. The
+broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most of the methods covered here. The most
+recent general survey \citep{mansourian2025kdsurvey} covers newer work, and the LLM-oriented surveys
+\citep{xu2024llmkdsurvey,yang2025llmkdsurvey} focus on language models. None of them builds its method set
+from a stated search, and none treats the combination of task and distillation objectives as a
+multi-objective optimisation problem in its own section. A survey of gradient-based multi-objective learning
+\citep{chen2026gradmoo} covers that side in depth but does not discuss distillation.
+
+\paragraph{Scope and inclusion criteria.} We survey state-of-the-art KD for image classification published
+from 2022 to 2026. A paper is included in the method set when it meets three criteria, fixed before the
+search started. \textbf{I1}: it proposes a KD method in which a student is trained with a teacher signal for
+image classification, in one of five families (logit or loss, feature or relation, training scheme, teacher
+reliability, objective combination). Analysis-only papers are cited as supporting work but not ranked.
+\textbf{I2}: it appeared between January 2022 and November 2026 at CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR,
+AAAI, TMLR, TPAMI or IJCV, or is an arXiv preprint first posted from 2025 without such a venue.
+\textbf{I3}: it reports top-1 accuracy on CIFAR-100 with a standard CRD teacher--student pair, or on
+ImageNet-1K with ResNet34$\to$ResNet18 or ResNet50$\to$MobileNet. Excluded papers carry one of seven codes:
+E1 not KD, or KD only as a tool for another task; E2 not image classification; E3 venue or date outside I2;
+E4 no standard-protocol result; E5 survey or position paper; E6 dataset distillation or compression without a
+teacher; E7 withdrawn or duplicate version. Distillation for language models, vision--language models,
+detection and other tasks is outside the scope and gets only pointers in Section~\ref{sec:emerging}.
+
+\paragraph{Search.} Three searches covered the proceedings listings of the computer-vision venues, the
+machine-learning venues and TMLR, and AAAI, the two journals and arXiv, with snowballing from the comparison
+tables of recent papers. They identified 2,193 records (656, 985 and 552), and 310 were read in full. A
+second pass with broader title terms (``teach'', ``student'', ``mimic'', ``logit'' and others) screened 445
+further records, re-checked 29 cited works that no search had included, and added two methods. Fifteen
+papers that were first inaccessible were later retrieved by hand and added six more. The final set has
+112 methods; two papers could not be assessed because no full text was found. An independent spot-check of
+20 inclusions and 20 exclusions found no errors among the accessible papers.
+
+\paragraph{Taxonomy.} Figure~\ref{fig:taxonomy} shows how the methods are organised. The first axis is what
+knowledge is transferred: logits (Section~\ref{sec:logit}) or features and relations
+(Section~\ref{sec:feature}). The second is how training is arranged: offline, online, self-distillation,
+multi-teacher or data-free (Section~\ref{sec:schemes}). Two further branches are less common in earlier
+surveys: methods that decide how far to trust the teacher (Section~\ref{sec:reliability}), and methods that
+treat the task and distillation losses as separate objectives and combine their gradients with a rule
+(Sections~\ref{sec:moo} and~\ref{sec:kd_moo}).
+
+\paragraph{Contributions.} The survey makes four contributions. First, it gives a method set for 2022--2026
+built from a documented search with fixed criteria, so a reader can check why a method is in or out.
+Second, it describes each family with its strengths, weaknesses and applicability. Third, it reviews
+multi-objective optimisation from the angle of distillation and places the KD methods that use it, including
+the priority-based PCD \citep{varam2026pcd}, among the general gradient-combination rules. Fourth, it
+collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the rows
+whose setting differs from the standard protocol.
+
+\paragraph{Organisation.} Section~\ref{sec:prelim} sets out notation and the benchmark protocol.
+Sections~\ref{sec:logit} and~\ref{sec:feature} cover what knowledge is transferred,
+Section~\ref{sec:schemes} the training schemes and Section~\ref{sec:reliability} teacher reliability.
+Section~\ref{sec:moo} introduces multi-objective optimisation and Section~\ref{sec:kd_moo} reviews how KD
+methods use it. Section~\ref{sec:emerging} points to settings beyond image classification.
+Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
+challenges and Section~\ref{sec:conclusion} concludes.
 
 % --- Table I / Fig. 1 (T4) --- (per-cell evidence: docs/survey/table1-evidence.md)
 % Every cell is justified by a section number of the compared survey in docs/survey/table1-evidence.md.
@@ -36,7 +103,7 @@ Survey & Venue & Year & Logit & \shortstack{Feat./\\relation} & Schemes & \short
 \citeauthor{yang2025llmkdsurvey}     & ACM TIST & \citeyear{yang2025llmkdsurvey}     & \tP & \tP & \tN   & \tN   & \tN   & \tP & \tY  & \tP   \\
 \citeauthor{chen2026gradmoo}$^{\dagger}$ & TMLR & \citeyear{chen2026gradmoo}         & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   & \tN   \\
 \midrule
-This survey                          & --       & 2026                               & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  \\
+This survey                          & --       & 2026                               & \tY  & \tY  & \tY  & \tY  & \tY  & \tY  & \tP  & \tY  \\
 \bottomrule
 \end{tabular}
 

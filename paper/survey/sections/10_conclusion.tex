@@ -3,4 +3,35 @@
 % compare methods (G6); strengths/weaknesses/applicability (G8). See tasks/todo.md.
 \section{Conclusion}
 \label{sec:conclusion}
-\textit{[To be written: Recap and outlook (G10).]}
+
+This survey reviewed knowledge distillation for image classification from 2022 to 2026. Its method set was
+not chosen by hand. Three searches and a gap pass over the main vision and machine-learning venues, two
+journals and recent arXiv preprints produced 112 methods that meet fixed inclusion criteria, and the
+exclusion of every assessed paper is recorded with a code.
+
+The methods fall into five families. Logit methods are the largest group and the cheapest to run: they need
+no projector and apply to any pair with a shared label space. Feature and relation methods give some of the
+highest single-method CIFAR-100 numbers, but they need access to intermediate layers and a module per pair,
+and the best of them can enlarge the deployed student \citep{chen2022simkd}. Training schemes trade accuracy
+on the standard pairs for removing or reducing the cost of a fixed pre-trained teacher. Reliability methods
+decide which teacher outputs to trust, or retrain the teacher for the student. A smaller group changes how the
+task and distillation gradients are combined \citep{zhao2023dot,huang2025deepkd,hayder2026dtokd}. We
+reviewed it next to the general multi-objective rules it borrows from, and placed priority-based rules such as
+PCD \citep{varam2026pcd} among them as one option, without reported numbers on the standard pairs.
+
+The compiled results support a cautious reading. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 the best
+reported configurations are about six points above classical KD, yet most single methods lie within two
+points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack
+one method on another, change the teacher, or add data, and the papers differ in how many runs they average.
+Gaps of a few tenths of a point therefore say little. A second reading is that optimizer-side changes stack on
+loss-side ones, so they should be tested on top of both plain KD and a strong logit loss.
+
+Several questions stay open. Cross-paper comparison would improve if papers reported seed statistics and
+stand-alone numbers for stacked methods. Results depend on the training recipe, as patient and consistent
+teaching shows \citep{beyer2022patientkd}, and a student can generalise well while matching the teacher
+poorly \citep{stanton2021kdwork}. For the objective-combination methods, the main untested point is how
+often the task and distillation gradients conflict on the standard benchmarks at all, and whether the
+extra gradient computations pay off when they do. The debate on whether a tuned weighted sum is enough in
+multi-task learning \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization} suggests that strong
+weighted-sum baselines belong in every such comparison. Section~\ref{sec:future} discusses these
+directions in more detail.
