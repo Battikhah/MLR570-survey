@@ -16,8 +16,7 @@ teacher should be trusted at all, or changes how the task gradient and the disti
 \paragraph{Motivation and gap.} Most of this work reports results on one shared protocol: CIFAR-100 with the
 teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
 from different papers are rarely put side by side with their caveats, and recent gains are often within a
-point of each other. Table~\ref{tab:surveys} compares this survey with existing ones. The broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most of the methods covered here. The most
-recent general survey \citep{mansourian2025kdsurvey} covers newer work, and the LLM-oriented surveys
+point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, \citet{mansourian2025kdsurvey} covers newer work, and the LLM-oriented surveys
 \citep{xu2024llmkdsurvey,yang2025llmkdsurvey} focus on language models. None of them builds its method set
 from a stated search, and none treats the combination of task and distillation objectives as a
 multi-objective optimisation problem in its own section. A survey of gradient-based multi-objective learning
@@ -48,9 +47,7 @@ papers that were first inaccessible were later retrieved by hand and added six m
 \paragraph{Taxonomy.} Figure~\ref{fig:taxonomy} shows how the methods are organised. The first axis is what
 knowledge is transferred: logits (Section~\ref{sec:logit}) or features and relations
 (Section~\ref{sec:feature}). The second is how training is arranged: offline, online, self-distillation,
-multi-teacher or data-free (Section~\ref{sec:schemes}). Two further branches are rarer in earlier surveys:
-methods that decide how far to trust the teacher (Section~\ref{sec:reliability}), and methods that
-treat the task and distillation losses as separate objectives and combine their gradients with a rule
+multi-teacher or data-free (Section~\ref{sec:schemes}). Two branches rarer in earlier surveys cover how far to trust the teacher (Section~\ref{sec:reliability}) and rules that combine the task and distillation gradients
 (Sections~\ref{sec:moo} and~\ref{sec:kd_moo}).
 
 \paragraph{Contributions.} The survey makes four contributions. First, it gives a method set for 2022--2026
@@ -61,11 +58,8 @@ the priority-based PCD \citep{varam2026pcd}, among the general gradient-combinat
 collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the rows
 whose setting differs from the standard protocol.
 
-\paragraph{Organisation.} After notation and protocol (Section~\ref{sec:prelim}), Sections~\ref{sec:logit}--\ref{sec:reliability}
-cover the method families and Sections~\ref{sec:moo}--\ref{sec:kd_moo} multi-objective optimisation and its
-use in KD. Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
-challenges and settings beyond image classification, and Section~\ref{sec:conclusion} concludes. The appendix
-lists all included methods.
+Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
+challenges, and the appendix lists all included methods.
 
 % --- Table I / Fig. 1 (T4) --- (per-cell evidence: docs/survey/table1-evidence.md)
 % Every cell is justified by a section number of the compared survey in docs/survey/table1-evidence.md.

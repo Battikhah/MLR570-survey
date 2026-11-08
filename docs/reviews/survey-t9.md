@@ -24,3 +24,8 @@ The phrases “the proposed method,” “the proposal,” and comparisons again
 ## Added inventory methods
 
 The section also covers reliability-related inventory methods TGeo-KD (`hu2024tgeokd`), EA-KD (`su2025eakd`), LTKD (`kim2026ltkd`), AGRE-KD (`kenfack2025agrekd`), CaRE-KD (`sengupta2026casd`), and TPKD (`yuan2026tpkd`). TPKD is qualified as a preprint and its benchmark limitation is stated. These additions are separate from the 100% preservation mapping above.
+
+**Condense pass 2 (2026-11-08):** the §V reliability table (formerly Table III) was removed to meet the
+page target. Every claim the rows above attribute to "Table III" is still carried by the §V prose at the
+cited `05_reliability.tex` paragraphs (CTSL, CCKD, Hard Gate KD, CA-MKD, LR-DS, RLD, CHAD), and every
+method in that table remains cited in §V and in the appendix (Table `tab:app-methods`).

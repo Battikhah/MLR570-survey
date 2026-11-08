@@ -6,9 +6,7 @@
 \section{Benchmarks and Reported Results}
 \label{sec:benchmarks}
 
-This section collects the reported results of the 112 included methods. The numbers are each paper's own
-claim, not a controlled comparison. The main tables keep the top rows on each dataset and the baselines
-this survey compares against; Table~\ref{tab:app-methods} in the appendix lists every method.
+This section collects each included paper's own reported results, not a controlled comparison; Table~\ref{tab:app-methods} lists every method.
 
 \subsection{Protocol and comparability}
 \label{sec:bench-protocol}
@@ -47,8 +45,7 @@ configurations among the rest are DeepKD at 79.25\% \citep{huang2025deepkd}, VRM
 row is EA-MLD with label smoothing (EA-KD alone gives 75.46\%), and LSKD's is MLKD with logit
 standardisation. Among single methods with an official repository, the best are SimKD at 78.08\%
 \citep{chen2022simkd}, GDKD at 77.76\% \citep{zheng2025gdkd} and LumiNet at 77.50\% \citep{hossain2025luminet}.
-The WRN-40-2$\to$WRN-16-2 column is sparse, because the search files recorded it only where no
-ResNet32$\times$4 number existed; DistPro \citep{deng2022distpro} reports 76.36\% there and DeepKD 78.42\%.
+The sparse WRN-40-2$\to$WRN-16-2 column has DistPro at 76.36\% \citep{deng2022distpro} and DeepKD at 78.42\%.
 
 On ImageNet ResNet34$\to$ResNet18 (79 methods, Table~\ref{tab:bench-imagenet}) the spread is narrow: all but
 seven rows fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
@@ -136,10 +133,8 @@ SKD~\citep{jeong2026skd} & H & CVPR'26 & 71.13 & no &  \\
 \subsection{Data-free and untabulated methods}
 \label{sec:bench-datafree}
 
-Ten data-free methods train the student on synthetic or collected images only, so their
-WRN-40-2$\to$WRN-16-2 results, from 61.44\% (SSD-KD, \citealp{liu2024ssdkd}) to 74.52\% (DFND with KDCI,
-\citealp{wang2024kdci}), are listed separately in the appendix and not ranked; HiDFD \citep{tang2025hidfd}
-mixes collected and generated data and reports only ResNet32$\times$4$\to$ShuffleNet. Four more methods
+Ten data-free methods (\S\ref{sec:schemes}; WRN-40-2$\to$WRN-16-2 from 61.44\% for SSD-KD, \citealp{liu2024ssdkd}, to 74.52\% for DFND with KDCI,
+\citealp{wang2024kdci}) are listed in the appendix and not ranked. Four more methods
 meet the criteria on a pair not tabulated here: VkD \citep{miles2024vkd}, SoTeacher \citep{dong2024soteacher},
 the Bayesian-teacher study \citep{morad2026bayesteacher} and ABKD \citep{wang2025abkd}
 (Table~\ref{tab:app-methods}).
@@ -147,37 +142,19 @@ the Bayesian-teacher study \citep{morad2026bayesteacher} and ABKD \citep{wang202
 \subsection{Comparison across families}
 \label{sec:bench-families}
 
-\paragraph{Logit methods.} They are the most numerous and the cheapest to run: most add one loss on the teacher's
-outputs and need no projector. Most single logit methods fall between 76.0\% (WTTM) and 77.8\% (GDKD), and
-the stacked rows above 78\% mostly combine two of them. Their gains shrink on ImageNet, where they sit within
-about one point of DKD. They apply to any pair with a shared label space, including heterogeneous ones.
+\paragraph{Logit methods.} The most numerous and cheapest group: most single logit methods fall between 76.0\% (WTTM) and 77.8\% (GDKD), the stacked rows above 78\% mostly combine two of them, and on ImageNet they sit within about one point of DKD.
 
 \paragraph{Feature and relation methods.} VRM, NCKD and SimKD give the highest single-method CIFAR numbers, but
 SimKD reuses the teacher's classifier, so the deployed student is larger than ResNet8$\times$4 alone
-\citep{chen2022simkd}, and VRM has no public code. Feature methods need a projector or alignment module per
-pair and access to intermediate layers, which makes them harder to move to new architectures. Several recent
-ones (OFA-KD, HCD, UHKD, CoCaRS) target heterogeneous pairs and report only on ImageNet.
+\citep{chen2022simkd}, and VRM has no public code. Feature methods need a projector per pair and intermediate-layer access; several recent ones (OFA-KD, HCD, UHKD, CoCaRS) report only on ImageNet.
 
 \paragraph{Training schemes and reliability.} Online and multi-student schemes (ORC, ADM, SwitOKD, MC-Distil)
-score lower on ResNet8$\times$4 than offline methods, but they avoid or reduce the cost of a fixed pre-trained
-teacher. Searched distillers (KD-Zero, Auto-KD, UniADS) reach 76.6--77.9\% at the price of a search per pair.
-Methods that decide which teacher outputs to trust (RLD, IPWD, TLLM) or retrain the teacher (DJIP, MCMI,
-SoTeacher) give 75.5--76.6\% as single methods on ResNet8$\times$4 where they report it; the teacher-side
-ones are hard to compare because each changes the teacher.
+score lower than offline methods but avoid a fixed pre-trained teacher; searched distillers (KD-Zero, Auto-KD, UniADS) reach 76.6--77.9\% at the price of a search per pair. Reliability methods (RLD, IPWD, TLLM) and teacher-retraining ones (DJIP, MCMI,
+SoTeacher) give 75.5--76.6\% as single methods where they report it.
 
-\paragraph{Optimizer-side methods.} Four included methods change how the task and distillation gradients are
-combined rather than what is distilled. DOT keeps separate momentum for the two gradients and reports KD+DOT
-at 75.12\%, a 1.8-point gain over KD \citep{zhao2023dot}. DeepKD adds per-component momentum and top-$k$
-denoising and reaches 79.25\% when stacked on CRLD \citep{huang2025deepkd}. DTO-KD sets the trade-off from a
-min-norm combination of the two gradients and reports 76.40\% \citep{hayder2026dtokd}. DistPro meta-learns
-weights over distillation pathways \citep{deng2022distpro}. None of them gates the distillation term per
-sample; reliability methods do that on the loss side. Priority-constrained descent (PCD) \citep{varam2026pcd}
-belongs to the same family of gradient rules but has no reported number on these pairs, so it is not in the
-tables. These results also show that an optimizer change can be stacked on a loss change, so a fair test of an
+\paragraph{Optimizer-side methods.} DOT (KD+DOT 75.12\%, \citealp{zhao2023dot}), DeepKD (79.25\% stacked on CRLD, \citealp{huang2025deepkd}), DTO-KD (76.40\%, \citealp{hayder2026dtokd}) and DistPro \citep{deng2022distpro} change how the task and distillation gradients are
+combined (\S\ref{sec:kd_moo}); none gates the distillation term per sample. PCD \citep{varam2026pcd} has no reported number on these pairs. Since an optimizer change stacks on a loss change, a fair test of an
 optimiser should report it on top of both KD and a strong logit loss.
 
-\paragraph{Applicability.} For a new pair with no intermediate-layer access, a logit method with public code
-(DKD, MLKD, LSKD, WKD, LumiNet) is the safe starting point. When the student's layers are accessible and the
-pair is homogeneous, SimKD or a projector-based feature method is the stronger choice on the reported CIFAR-100
-numbers. When the teacher may be wrong on part of the data, the reliability methods are the relevant group, and
-when the cost of a pre-trained teacher is the constraint, the online schemes or the data-free methods are.
+\paragraph{Applicability.} Without intermediate-layer access, a logit method with public code
+(DKD, MLKD, LSKD, WKD, LumiNet) is the safe start; for accessible homogeneous pairs, SimKD or a projector-based feature method is stronger on the reported numbers; reliability methods fit a partly wrong teacher, and online or data-free schemes fit when a pre-trained teacher is the constraint.

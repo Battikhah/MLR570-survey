@@ -6,10 +6,9 @@
 \section{Multi-Objective Optimization: A Primer}
 \label{sec:moo}
 
-A distillation loss is almost always a sum of a supervised task loss and one or more terms that
-pull the student towards the teacher. This section sets out the multi-objective optimisation (MOO)
-vocabulary that \S\ref{sec:kd_moo} needs, restricted to first-order rules that pick one update
-direction from per-objective gradients; \citet{chen2026gradmoo} survey the wider field.
+A distillation loss is a sum of a task loss and terms that
+pull the student towards the teacher. This section gives the multi-objective optimisation (MOO)
+vocabulary \S\ref{sec:kd_moo} needs, restricted to first-order rules over per-objective gradients; \citet{chen2026gradmoo} survey the wider field.
 
 \paragraph{Pareto optimality and stationarity.}
 Consider $K$ differentiable losses $L_1,\dots,L_K$ of shared parameters $\theta$, with
@@ -17,9 +16,7 @@ gradients $g_i=\nabla_\theta L_i(\theta)$. A point $\theta^\star$ is Pareto opti
 point lowers one loss without raising another; gradient methods target the local notion of
 \emph{Pareto stationarity}, where some convex combination of the gradients vanishes, $\sum_i\alpha_i g_i=0$ with $\alpha_i\ge0$ and
 $\sum_i\alpha_i=1$. Every Pareto optimal point is Pareto stationary but not conversely
-\citep{sener2018mgda}. Away from such points a direction $d$ exists with $g_i^\top d>0$ for every
-$i$, so a small step along $-d$ lowers all losses; the rules below differ in which such direction they
-pick and what they do when none exists.
+\citep{sener2018mgda}. Away from such points some step lowers all losses; the rules below differ in which direction they pick.
 % sener2018mgda Sec. 3.1, KKT conditions and the remark that Pareto optimal => Pareto stationary.
 
 \paragraph{Linear scalarisation.}
@@ -33,20 +30,17 @@ contested (\S\ref{sec:kd_moo_critical}).
 \subsection{Symmetric rules}
 \label{sec:moo_symmetric}
 
-The first family, designed for multi-task learning, treats all objectives alike: permuting the
-losses does not change the update.
+The first family, from multi-task learning, treats all objectives alike.
 
 \paragraph{MGDA.}
 \citet{sener2018mgda} cast multi-task learning as MOO with the multiple-gradient descent
 algorithm (MGDA), which picks the minimum-norm point of the convex hull of the gradients,
-$\min_{\alpha\in\Delta}\|\sum_i\alpha_ig_i\|_2^2$. The result is either zero, which certifies
-Pareto stationarity, or a direction that decreases every loss. For two objectives the weight
+$\min_{\alpha\in\Delta}\|\sum_i\alpha_ig_i\|_2^2$. For two objectives the weight
 has a closed form, $\hat\alpha=\big[(g_2-g_1)^\top g_2/\|g_1-g_2\|^2\big]_{[0,1]}$; for more
 objectives, Frank--Wolfe; MGDA-UB takes gradients at a shared representation to need one backward
 pass. Two-objective MGDA favours the \emph{smaller} gradient (an interior minimiser has equal inner
 products with both), so with a large task and a small distillation gradient it moves mostly along
-distillation (Fig.~\ref{fig:moo_geometry}). It suits problems where no objective may be sacrificed,
-not ones where one matters more.
+distillation (Fig.~\ref{fig:moo_geometry}).
 % sener2018mgda Eq. (3) (min-norm problem), Eq. (4) (two-task closed form, clipped to [0,1]),
 % Sec. 3.2 / Alg. 2 (Frank-Wolfe), Sec. 3.3 (MGDA-UB, gradients w.r.t. the shared representation Z).
 
@@ -64,21 +58,13 @@ two objectives the task gradient loses its distillation component as much as the
 most improves the worst-off objective:
 $\max_d\min_i\langle g_i,d\rangle$ subject to $\|d-g_0\|\le c\|g_0\|$. The dual is a problem over
 the simplex, $\min_{w\in\Delta}g_w^\top g_0+\sqrt{\phi}\|g_w\|$ with $\phi=c^2\|g_0\|^2$, and the
-update is $d=g_0+\frac{\sqrt\phi}{\|g_w\|}g_w$. With $c=0$ CAGrad is plain gradient descent on the
-average loss. As $c$ grows the authors show it approaches MGDA. The radius $c$ interpolates
-between the weighted sum and MGDA, and CAGrad
-inherits MGDA's symmetry and per-objective backward passes, and adds one hyperparameter.
+update is $d=g_0+\frac{\sqrt\phi}{\|g_w\|}g_w$. The radius $c$ interpolates between gradient descent on the average loss ($c=0$) and MGDA (large $c$); CAGrad
+inherits MGDA's symmetry and per-objective backward passes and adds one hyperparameter.
 % liu2021cagrad Eq. (3) (primal), Alg. 1 (dual over the simplex and the update), Sec. 4 Q2
 % (recovers GD at c = 0 and MGDA as c grows).
 
 \paragraph{Other symmetric rules.}
-Nash-MTL solves a bargaining game, $G^\top G\alpha=1/\alpha$, whose solution is invariant to
-rescaling any one loss but needs an iterative solver on top of $K$ backward passes
-\citep{navon2022nashmtl}; FAMO applies the MGDA problem to log-loss gradients but amortises the
-weights from observed loss changes, reaching MGDA-like balancing at one backward pass with weights
-that lag a step \citep{liu2023famo}; and GradNorm and uncertainty weighting only retune scalar
-weights, from gradient-norm targets and learned task noise respectively, so they address scale
-imbalance but not conflict \citep{chen2018gradnorm,kendall2018uncertainty}.
+Nash-MTL solves a scale-invariant bargaining game \citep{navon2022nashmtl}, FAMO amortises MGDA on log-loss gradients to one backward pass \citep{liu2023famo}, and GradNorm and uncertainty weighting retune scalar weights, addressing scale but not conflict \citep{chen2018gradnorm,kendall2018uncertainty}.
 % navon2022nashmtl Claim 3.1 (G^T G alpha = 1/alpha), Sec. 3 (scale-invariance axiom).
 % liu2023famo Prop. 3.1 / Eq. (6) (dual = min-norm on grad log losses), Sec. 3.2 (amortised O(1) update).
 % chen2018gradnorm Eq. (1)-(2); kendall2018uncertainty Eq. (7).
@@ -86,14 +72,10 @@ imbalance but not conflict \citep{chen2018gradnorm,kendall2018uncertainty}.
 \subsection{Priority, lexicographic and constrained rules}
 \label{sec:moo_priority}
 
-The second family drops symmetry: one objective is primary and the others are constraints, which
-matches the usual reading of distillation, where the student must fit the labels and the teacher
-is useful but fallible. Each rule finds the direction closest to a reference gradient subject to
-linear inequalities on the others; they differ in the reference, the required progress, and the
-scaling.
+The second family makes one objective primary and the others constraints, matching the usual reading of distillation: the labels must be fit and the teacher is useful but fallible. Each rule finds the direction closest to a reference gradient subject to
+linear inequalities on the others.
 DBGD minimises $\|\nabla f-v\|^2$ subject to $\nabla g^\top v\ge\phi(\theta)$, with closed form
-$v=\nabla f+\lambda\nabla g$ and a barrier that forces progress on $g$ until its target is met; it
-has continuous-time non-convex convergence results, and the authors argue a tuned weighted sum
+$v=\nabla f+\lambda\nabla g$ and a barrier that forces progress on $g$ until its target is met; the authors argue a tuned weighted sum
 cannot solve the constrained problem when the duality gap is non-zero \citep{gong2021dbgd}.
 GEM and A-GEM, from continual learning, project the new-task gradient so that earlier-task
 gradients do not get worse, i.e.\ with zero required progress \citep{lopezpaz2017gem,chaudhry2019agem}.
@@ -121,7 +103,7 @@ rather than learned. Its evidence comes from pruning and low-rank compression, n
 
 \begin{figure}[t]
 \centering
-\resizebox{0.6\linewidth}{!}{\input{figures/moo_geometry}}
+\resizebox{0.45\linewidth}{!}{\input{figures/moo_geometry}}
 \caption{Directions chosen by five rules for one pair of conflicting gradients,
 $g_1=(2,0.5)$ (task) and $g_2=(-0.5,0.8)$ (distillation), $g_1^\top g_2=-0.6$. Weighted sum with
 equal weights; MGDA two-vector min-norm point \citep{sener2018mgda}; PCGrad
@@ -133,14 +115,9 @@ recomputes each direction.}
 \label{fig:moo_geometry}
 \end{figure}
 
-In Fig.~\ref{fig:moo_geometry} the task gradient is about two and a half times longer than the
-distillation gradient and they conflict. MGDA's direction ($83^\circ$) leans to the shorter
-gradient and has almost no task component; CAGrad sits between the average and MGDA ($66^\circ$);
-PCGrad returns the longest vector ($53^\circ$); PCD adds the smallest multiple of the distillation
-gradient that meets its constraint ($46^\circ$), the closest to the task among the conflict-aware
-rules; the equal-weight sum is closest overall ($41^\circ$) only because the task gradient is the
-longer one. This does not say which rule is better: symmetric rules suit settings where every
-objective must improve, priority rules settings where one objective is the reason for training.
-Most conflict-aware rules need one backward pass per objective, and whether any beats a tuned
-weighted sum is the empirical question of \S\ref{sec:kd_moo_critical}.
+In Fig.~\ref{fig:moo_geometry}, MGDA ($83^\circ$) leans to the shorter distillation gradient; CAGrad sits between the average and MGDA ($66^\circ$);
+PCGrad returns the longest vector ($53^\circ$); PCD ($46^\circ$) is the closest to the task among the conflict-aware
+rules; the equal-weight sum ($41^\circ$) is closest only because the task gradient is longer. Symmetric rules suit settings where every
+objective must improve, priority rules settings where one objective is the reason for training;
+whether any beats a tuned weighted sum is the empirical question of \S\ref{sec:kd_moo_critical}.
 % Angles from moo_geometry.py output: WS 40.9, MGDA 83.2, PCGrad 52.9, CAGrad 65.5, PCD 45.5 degrees.

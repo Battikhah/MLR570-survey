@@ -4,37 +4,20 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This survey reviewed knowledge distillation for image classification from 2022 to 2026. Its method set was
-not chosen by hand. Three searches and a gap pass over the main vision and machine-learning venues, two
-journals and recent arXiv preprints produced 112 methods that meet fixed inclusion criteria, and the
-exclusion of every assessed paper is recorded with a code.
+This survey reviewed knowledge distillation for image classification from 2022 to 2026, with a method set of 112 methods produced by documented searches under fixed inclusion criteria.
 
-The methods fall into five families. Logit methods are the largest group and the cheapest to run: they need
-no projector and apply to any pair with a shared label space. Feature and relation methods give some of the
-highest single-method CIFAR-100 numbers, but they need access to intermediate layers and a module per pair,
-and the best of them can enlarge the deployed student \citep{chen2022simkd}. Training schemes trade accuracy
-on the standard pairs for removing or reducing the cost of a fixed pre-trained teacher. Reliability methods
-decide which teacher outputs to trust, or retrain the teacher for the student. A smaller group changes how the
+The methods fall into five families. Logit methods are the largest and cheapest group; feature and relation methods give some of the
+highest single-method CIFAR-100 numbers but need intermediate layers, and the best can enlarge the deployed student \citep{chen2022simkd}; training schemes trade accuracy for removing a fixed teacher; reliability methods
+decide which teacher outputs to trust. A smaller group changes how the
 task and distillation gradients are combined \citep{zhao2023dot,huang2025deepkd,hayder2026dtokd}. We
-reviewed it next to the general multi-objective rules it borrows from, and placed priority-based rules such as
-PCD \citep{varam2026pcd} among them as one option, without reported numbers on the standard pairs.
+placed it next to the general multi-objective rules, with priority-based rules such as
+PCD \citep{varam2026pcd} as one option without reported numbers on the standard pairs.
 
 The compiled results support a cautious reading. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 the best
 reported configurations are about six points above classical KD, yet most single methods lie within two
-points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack
-one method on another, change the teacher, or add data, and the papers differ in how many runs they average.
-Gaps of a few tenths of a point therefore say little. A second reading is that optimizer-side changes stack on
+points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack methods, change the teacher, or add data, so gaps of a few tenths of a point say little. Optimizer-side changes stack on
 loss-side ones, so they should be tested on top of both plain KD and a strong logit loss.
 
-Section~\ref{sec:future} turns these caveats into five open problems. The first concerns the evidence
-itself: the field lacks a leaderboard re-run in one code base with fixed teachers and several seeds, and a
-stacked row shows that two ideas combine without showing whether their gains add up. The next two concern
-method design. Reliability methods use different signals of teacher trust, and nobody has tested whether
-those signals pick the same samples. The objective-combination methods split into label-first,
-teacher-first and symmetric rules that have never been compared under one protocol or against a tuned
-weighted sum \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization}. Their shared premise, that the
-task and distillation gradients conflict, has been measured directly only outside the standard protocol
-\citep{kang2025dho}, so part of the reported gains may come from rescaling the losses. The last two concern
-coverage: data-free methods share no pair with the main ranking and CIFAR-100 gains mostly shrink on
-ImageNet, and almost every result is judged by top-1 accuracy alone, with calibration, robustness and
-training cost rarely reported. Each of these can be tested with the public code of the included methods.
+Section~\ref{sec:future} turns these caveats into five testable problems: a controlled re-run of the leaderboard, the overlap of teacher-trust signals, combination rules against a tuned
+weighted sum \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization} given that conflict has been measured only outside the standard protocol
+\citep{kang2025dho}, the data-free and ImageNet gaps, and metrics beyond top-1.

@@ -7,9 +7,9 @@
 \section{Logit-Based Distillation}
 \label{sec:logit}
 
-Logit-based methods supervise the student through the teacher's output layer. In their usual output-only form they need no projector, cost little more than training the student alone, and fit any pair of classifiers with the same label space; SDD and WKD-L are exceptions that read final or intermediate features while keeping a logit-level loss. Until 2022 they trailed feature methods: on ResNet32$\times$4$\to$ResNet8$\times$4, classical KD \citep{hinton2015kd} reaches 73.33\% against 75.51\% for CRD and 75.63\% for ReviewKD \citep[Table~6]{zhao2022dkd}.
+Logit-based methods supervise the student through the teacher's output layer; in their output-only form they need no projector and fit any pair of classifiers with the same label space. Until 2022 they trailed feature methods: on ResNet32$\times$4$\to$ResNet8$\times$4, classical KD \citep{hinton2015kd} reaches 73.33\% against 75.51\% for CRD and 75.63\% for ReviewKD \citep[Table~6]{zhao2022dkd}.
 % src: DKD Table 6 (KD 73.33, CRD 75.51, ReviewKD 75.63)
-Later work closed the gap by changing what the KL term of Eq.~\eqref{eq:kd-objective} measures. We group methods by how they decompose the loss (\S\ref{sec:logit-decouple}), rescale the logits (\S\ref{sec:logit-scale}), or replace the divergence (\S\ref{sec:logit-div}); Table~\ref{tab:logit-sota} gives each method's own number on the common pair.
+Later work closed the gap by changing what the KL term of Eq.~\eqref{eq:kd-objective} measures. We group methods by how they decompose the loss (\S\ref{sec:logit-decouple}), rescale the logits (\S\ref{sec:logit-scale}), or replace the divergence (\S\ref{sec:logit-div}); each method's own number on the common pair is in \S\ref{sec:benchmarks} and Table~\ref{tab:app-methods}.
 
 \subsection{Decoupling the KD loss}
 \label{sec:logit-decouple}
@@ -24,9 +24,9 @@ GDKD \citep{zheng2025gdkd} generalises the target/non-target split into a partit
 \subsection{Rescaling the logits: temperature and standardisation}
 \label{sec:logit-scale}
 
-CTKD \citep{li2023ctkd} learns the temperature adversarially through a gradient-reversal layer on a curriculum; gains are modest but consistent (ImageNet KD 70.83\%$\to$71.32\%, DKD 71.13\%$\to$71.51\%, \citealp[Table~4]{li2023ctkd}), and LSKD's reproduction gives KD+CTKD 73.39\% on our pair \citep[Table~2]{sun2024lskd}. CTKD still shares one $T$ between teacher and student. LSKD \citep{sun2024lskd} argues that a small student need not reach the teacher's logit range, since only relations between logits matter, and z-score standardises each logit vector before the softmax, a per-sample temperature. As a plug-in it lifts KD from 73.33\% to 76.62\%, DKD to 77.01\% and MLKD from 77.08\% to 78.28\% \citep[Table~2]{sun2024lskd}, so standardisation and decoupling combine; gains shrink on other pairs (0.13 points for DKD on VGG13$\to$VGG8) and LDRLD reproduces KD+LS at 76.16\% \citep[Table~1]{xu2025ldrld}.
+CTKD \citep{li2023ctkd} learns the temperature adversarially through a gradient-reversal layer on a curriculum; gains are modest but consistent (ImageNet KD 70.83\%$\to$71.32\%, DKD 71.13\%$\to$71.51\%, \citealp[Table~4]{li2023ctkd}), and LSKD's reproduction gives KD+CTKD 73.39\% on our pair \citep[Table~2]{sun2024lskd}. LSKD \citep{sun2024lskd} argues that a small student need not reach the teacher's logit range, since only relations between logits matter, and z-score standardises each logit vector before the softmax, a per-sample temperature. As a plug-in it lifts KD from 73.33\% to 76.62\%, DKD to 77.01\% and MLKD from 77.08\% to 78.28\% \citep[Table~2]{sun2024lskd}, so standardisation and decoupling combine; gains shrink on other pairs (0.13 points for DKD on VGG13$\to$VGG8) and LDRLD reproduces KD+LS at 76.16\% \citep[Table~1]{xu2025ldrld}.
 % src: CTKD Table 4; LSKD Table 2 (73.39, 76.62, 77.01, 78.28, +0.13); LDRLD Table 1 (76.16)
-LumiNet \citep{hossain2025luminet} normalises each class logit with batch statistics instead, reporting 77.50\% over five runs and an expected calibration error of 0.06 against 0.11 for KD \citep[Tables~1 and~5]{hossain2025luminet}; its targets therefore depend on batch composition (INTERPRETATION). WTTM \citep{zheng2024wttm} applies the temperature to the teacher only, which equals KD plus a R\'enyi-entropy regulariser, and weights samples by the teacher's power sum (76.06\%, ImageNet 72.19\%, \citealp[Tables~2 and~5]{zheng2024wttm}). DTS \citep{islam2025dts} schedules $T$ from the teacher--student loss gap, but its MLKD baseline sits about two points below MLKD's own figure, so its gain is hard to place.
+LumiNet \citep{hossain2025luminet} normalises each class logit with batch statistics instead, reporting 77.50\% over five runs and an expected calibration error of 0.06 against 0.11 for KD \citep[Tables~1 and~5]{hossain2025luminet}; its targets therefore depend on batch composition (INTERPRETATION). WTTM \citep{zheng2024wttm} applies the temperature to the teacher only, which equals KD plus a R\'enyi-entropy regulariser, and weights samples by the teacher's power sum (76.06\%, ImageNet 72.19\%, \citealp[Tables~2 and~5]{zheng2024wttm}). DTS \citep{islam2025dts} schedules $T$ from the loss gap, against an MLKD baseline about two points below MLKD's own figure.
 % src: LumiNet T1/T5; WTTM T2/T5; DTS T II. DTS: CORE-P.
 
 \subsection{Replacing or enriching the KL divergence}
@@ -35,7 +35,7 @@ LumiNet \citep{hossain2025luminet} normalises each class logit with batch statis
 DIST \citep{huang2022dist} targets the capacity gap by replacing KL with inter- and intra-class Pearson correlation, which keeps the ranking of predictions while ignoring shift and scale (76.31\%, ImageNet 72.07\%, \citealp[Tables~5 and~2]{huang2022dist}); it is weaker for binary tasks. MLKD \citep{jin2023mlkd} aligns predictions at instance, batch and class level and augments them over several temperatures, reporting 77.08\% \citep[Table~2]{jin2023mlkd}; part of its gain may come from the temperature augmentation (HYPOTHESIS). WKD-L \citep{lv2024wkd} uses a discrete Wasserstein distance whose cost encodes category relations (76.53\%, 77.28\% with WKD-F, ImageNet 72.49\%, \citealp[Tables~11 and~4]{lv2024wkd}) at higher training cost, and EKD \citep{xiang2025ekd} distils a Dirichlet over class probabilities (77.21\%; 72.54\% on ImageNet ResNet50$\to$MobileNet), apparently needing an evidentially trained teacher.
 % src: DIST T5/T2; MLKD T2; WKD T11/T4; EKD T1/T3
 Other papers keep a KL-type loss but change its parts: DKL and its journal form GKL \citep{cui2024dkl,cui2026gkl} decompose and symmetrise KL (76.59\% and 76.83\%), BDD \citep{qi2025bdd} adds reverse KL on low-probability classes, ABKD \citep{wang2025abkd} uses an $\alpha$-$\beta$-divergence, RCKD \citep{wang2026rckd} a cosine-type loss, and GenDD \citep{cui2025gendd} a conditional generative target (77.47\%). Ranking losses form a related group: PLD \citep{bassam2025pld} folds label and teacher into one Plackett--Luce target and so needs no KD weight (authors' claim; no number extracted), the Kendall-$\tau$ term \citep{guan2025rankingkd} adds an order constraint to KL, and AR-KD \citep{jiang2026arkd} learns class correlations reciprocally.
-% src: DKL T13; GKL T17; GenDD T5. Other values in tab:logit-sota or the appendix.
+% src: DKL T13; GKL T17; GenDD T5. Other values in the appendix.
 
 Batch and sample structure is the last axis. SKD \citep{jeong2026skd} adds batch Gram-matrix alignment to instance KL and reports 78.33\%, the highest single-method logit number we found, though its KD baseline of 74.75\% is about 1.4 points above the usual 73.33\% \citep[Table~1]{jeong2026skd}; IKD \citep{wang2025ikd} is a debiased batch-consistency plug-in. EA-KD \citep{su2025eakd} weights samples by entropy, 75.46\% alone and 78.38\% stacked as EA-MLD+LS \citep[Table~2]{su2025eakd}; IPWD \citep{niu2022ipwd}, TGeo-KD \citep{hu2024tgeokd} and ADG-KD \citep{li2025adgkd} weight samples by propensity, geometry or learned factors, and e$^2$KD \citep{parchami2024e2kd} adds explanation-map similarity, matching KD at full ImageNet data. RLD \citep{sun2025rld} uses the label to mask every class the teacher ranks at or above the true class, so a wrong teacher ranking is not transferred (76.64\%, 0.32 above DKD, \citealp[Table~1]{sun2025rld}); it and TGeo-KD and EA-KD are analysed further in \S\ref{sec:reliability}.
 % src: SKD T1 (78.33; KD 74.75); EA-KD T2 (75.46; 78.38); RLD T1 (76.64; DKD 76.32)
@@ -44,44 +44,5 @@ Batch and sample structure is the last axis. SKD \citep{jeong2026skd} adds batch
 \label{sec:logit-compare}
 
 % INTERPRETATION below unless cited.
-Because LSKD improves KD, DKD and MLKD \citep[Table~2]{sun2024lskd} and SDD wraps KD, DKD and NKD \citep{wei2024sdd}, decomposition, rescaling and divergence behave as separable axes. The 2024--2025 methods report 76.0--77.5\%, a range comparable to cross-paper reproduction spread (\S\ref{sec:prelim-benchmarks}), so Table~\ref{tab:logit-sota} names no single best method; only the step of about three points from KD to the 2022 methods is consistent across sources. DKD and KD+LSKD are cheap baselines with public code that other papers re-report \citep[Table~1]{xiang2025ekd,xu2025ldrld}; MLKD+LSKD, SKD and EA-MLD+LS report the highest values, but with extra terms, a stronger baseline, or stacking, and most 2024--2026 plug-ins report their best numbers on top of MLKD or NKD. Recent work shifts to which teacher signal to trust (RLD; \S\ref{sec:reliability}), class imbalance (LTKD), and balancing the KD term against the task loss (PLD; \S\ref{sec:kd_moo}). \S\ref{sec:benchmarks} and the appendix list the full included set.
+Since LSKD and SDD wrap several bases \citep[Table~2]{sun2024lskd,wei2024sdd}, decomposition, rescaling and divergence behave as separable axes. The 2024--2025 methods report 76.0--77.5\%, a range comparable to cross-paper reproduction spread (\S\ref{sec:prelim-benchmarks}), so we name no single best method; only the step of about three points from KD to the 2022 methods is consistent across sources. DKD and KD+LSKD are cheap re-reported baselines with public code \citep[Table~1]{xiang2025ekd,xu2025ldrld}; the highest values (MLKD+LSKD, SKD, EA-MLD+LS) come with extra terms, a stronger baseline, or stacking. Recent work shifts to which teacher signal to trust (RLD; \S\ref{sec:reliability}), class imbalance (LTKD), and balancing the KD term against the task loss (PLD; \S\ref{sec:kd_moo}). \S\ref{sec:benchmarks} and the appendix list the full included set.
 
-\begin{table}[t]
-\centering
-\caption{Logit-based distillation methods (NIPS-W: NIPS 2014 Deep Learning Workshop; arXiv 2015). Accuracy is CIFAR-100 top-1 (\%) for
-ResNet32$\times$4$\to$ResNet8$\times$4 as given in the source table named in each cell (the method's own paper unless another paper is named, which marks a reproduction); teacher 79.42, student 72.50. Numbers come from different papers and are not a leaderboard
-(\S\ref{sec:prelim-benchmarks}). n/r: not reported by the paper.}
-\label{tab:logit-sota}
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}l l p{4.0cm} p{2.5cm} p{3.3cm}@{}}
-\toprule
-Method & Venue & Key idea & R32$\times$4$\to$R8$\times$4 & Code \\
-\midrule
-KD \citep{hinton2015kd} & NIPS-W 2014 & Temperature-softened teacher targets & 73.33 (DKD T6) & -- \\
-DKD \citep{zhao2022dkd} & CVPR 2022 & Target / non-target terms with separate weights & 76.32 (T6) & megvii-research/mdistiller \\
-DIST \citep{huang2022dist} & NeurIPS 2022 & Inter- and intra-class Pearson correlation instead of KL & 76.31 (T5) & hunto/DIST\_KD \\
-CTKD \citep{li2023ctkd} & AAAI 2023 & Adversarially learned temperature on a curriculum & n/r; KD+CTKD 73.39 (LSKD T2) & zhengli97/CTKD \\
-MLKD \citep{jin2023mlkd} & CVPR 2023 & Instance-, batch- and class-level alignment; multi-temperature & 77.08 (T2) & Jin-Ying/Multi-Level-Logit-Distillation \\
-NKD \citep{yang2023nkd} & ICCV 2023 & Normalised non-target distributions & 76.35 (T1) & yzd-v/cls\_KD \\
-WTTM \citep{zheng2024wttm} & ICLR 2024 & Teacher-only temperature; sample weights from power sum & 76.06 (T2) & zkxufo/TTM \\
-LSKD \citep{sun2024lskd} & CVPR 2024 & Z-score standardised logits (plug-in) & KD+LS 76.62; MLKD+LS 78.28 (T2) & sunshangquan/logit-standardization-KD \\
-SDD \citep{wei2024sdd} & CVPR 2024 & Multi-scale local logits, consistent vs complementary & SD-KD 76.63 (T6, ablation) & shicaiwei123/SDD-CVPR2024 \\
-WKD \citep{lv2024wkd} & NeurIPS 2024 & Discrete Wasserstein distance over class relations & WKD-L 76.53 (T11) & JiamingLv/WKD \\
-LumiNet \citep{hossain2025luminet} & TMLR 2025 & Logits normalised by intra-batch class statistics & 77.50 (T1) & ismail31416/LumiNet \\
-RLD \citep{sun2025rld} & ICCV 2025 & Label-refined sample confidence and masked correlation & 76.64 (T1) & zju-SWJ/RLD \\
-LDRLD \citep{xu2025ldrld} & ICCV 2025 & Dense pairwise relations between local class pairs & 77.20 (T1) & yema-web/LDRLD \\
-EKD \citep{xiang2025ekd} & ICCV 2025 & Distils a Dirichlet (second-order) distribution & 77.21 (T1) & Liangyu-Xiang/EKD \\
-LTKD \citep{kim2026ltkd} & CVPR 2026 & Cross-group and within-group KL, rebalanced for long-tailed data & n/r (long-tailed only; CIFAR-100-LT $\gamma{=}100$: 51.08, T1) & none found \\
-DKL \citep{cui2024dkl} & NeurIPS 2024 & KL as weighted MSE + soft-label CE, symmetrised & 76.59 (T13) & jiequancui/DKL \\
-Kendall-$\tau$ \citep{guan2025rankingkd} & ICML 2025 & Plug-in logit-order ranking loss & MLKD+rank 77.25 (T2) & OvernighTea/ RankingLoss-KD \\
-ADG-KD \citep{li2025adgkd} & AAAI 2025 & Teacher and instance guidance fused by learned factors & 77.44; MLKD+ADG 77.51 (T1) & none found \\
-SKD \citep{jeong2026skd} & CVPR 2026 & Instance KL + batch Gram-matrix alignment & 78.33 (T1; its KD 74.75) & none found \\
-PLD \citep{bassam2025pld} & NeurIPS 2025 & Plackett--Luce list-wise ranking loss, no KD weight & not extracted & none found \\
-\bottomrule
-\end{tabular}
-% src (each row checked against the primary PDF, 2026-11-07): DKD T6; DIST T5; LSKD T2 (CTKD row);
-% MLKD T2; NKD T1; WTTM T2; LSKD T2; SDD T6 (Fusion); WKD T11 (appendix); LumiNet T1; RLD T1;
-% LDRLD T1; EKD T1. CTKD Tables 1/3 contain no ResNet32x4->ResNet8x4 column. PLD: abstract page only.
-% Code: GitHub owner/repo from sources.yaml urls.code (EKD repo moved from lyxiang-casia/EKD).
-\end{table}
