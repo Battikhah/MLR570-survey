@@ -56,8 +56,8 @@ SCKD, SCOPE, TPKD, MEMA and PCD let the label gradient win; DOT and DeepKD let d
 DTO-KD and AE-KD balance the two. All report gains, and no paper compares a label-first rule with a
 teacher-first rule under one protocol. Only DOT, among the distillation papers we read, compares with
 a sweep of fixed task weights \citep{zhao2023dot}, while three multi-task studies found that tuned
-scalarisation is hard to beat \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization}. The
-project's PCD optimiser \citep{varam2026pcd} has no reported distillation result, so it is an open
+scalarisation is hard to beat \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization}. PCD
+\citep{varam2026pcd} has no reported distillation result, so it is an open
 case of the same question, not an answer to it. \emph{Direction:} implement one label-first rule,
 one teacher-first rule and one symmetric rule in the same code base, run each on top of KD and of a
 strong logit loss, and compare them with a weighted sum whose weight is tuned on held-out data.
