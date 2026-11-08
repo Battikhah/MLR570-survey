@@ -17,7 +17,7 @@ problem is clear from the baselines alone. On ResNet32$\times$4$\to$ResNet8$\tim
 73.33\% in DKD's table \citep{zhao2022dkd}, 74.75\% in SKD's \citep{jeong2026skd} and 76.25\% in
 DiSK's \citep{kag2023disk}, a spread wider than the gaps between most single logit methods in
 Tables~\ref{tab:bench-cifar-a} and~\ref{tab:bench-cifar-b}. Section~\ref{sec:prelim-benchmarks}
-already notes that gaps of 0.3--0.5 points sit inside the seed spread. The coverage is also thin.
+already notes that gaps of 0.3--0.5 points sit inside the seed spread. Recipe choices also move results: \citet{beyer2022patientkd} identify training length and consistent teacher and student views as consequential, so a comparison of direction rules must hold the recipe fixed. The coverage is also thin.
 The WRN-40-2$\to$WRN-16-2 column is nearly empty outside data-free work, and only three included
 papers were read for ResNet50$\to$MobileNetV1 on ImageNet \citep{mishra2026mcd,huang2025distplus,lin2026lb}.
 \emph{Direction:} re-run the methods with public code from Section~\ref{sec:benchmarks} in one code
@@ -45,7 +45,7 @@ were evaluated on speech, generation or summarisation rather than on the image c
 protocol, and the classification ones that do report on ResNet8$\times$4 land between 75.5\% and
 76.6\% (Section~\ref{sec:bench-families}). A teacher-side group (MCMI, DJIP, SoTeacher) changes the
 teacher instead, which makes it hard to place on the same table \citep{ye2024mcmi,chen2026djip,dong2024soteacher}.
-We found no paper that tests whether these signals pick the same samples. \emph{Direction:} on one fixed CIFAR-100
+Two older results argue against equating teacher accuracy with usefulness: \citet{yuan2020labelkd} report gains from poorly trained and reversed teachers, and \citet{stanton2021kdwork} show that teacher--student fidelity and student generalisation need not improve together, so a lower KD loss is not itself evidence of a better student. We found no paper that tests whether these signals pick the same samples. \emph{Direction:} on one fixed CIFAR-100
 teacher, compute each signal per training sample, measure how much the selected or down-weighted
 sets overlap, and check which signal best predicts the samples whose removal from the distillation
 term improves the student.
