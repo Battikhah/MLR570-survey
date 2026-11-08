@@ -849,7 +849,7 @@
   urls: {official: null, arxiv: "https://arxiv.org/abs/2505.08170", code: null}
   identifiers: {doi: null, arxiv: "2505.08170"}
   license: null
-  verified_by: "arXiv abs page 2026-11-03: v2 (2025-08-02) is a WITHDRAWAL ('Major changes to the paper and the authorship'); no PDF available. Cite only as withdrawn prior art."
+  verified_by: "arXiv abs page 2026-11-03: v2 (2025-08-02) is a WITHDRAWAL ('Major changes to the paper and the authorship'); no PDF available. Cite only as withdrawn prior art. T12b-G gap pass 2026-11-08: v1 PDF (arXiv 2505.08170v1) reports CIFAR-100 R32x4->R8x4 76.34 (supplementary Table 1), but the paper is withdrawn (v2), so it is excluded E7; the published successor is hayder2026dtokd (ICLR 2026)."
   relevance: "Framed KD as multi-objective optimisation against gradient conflict and dominance; withdrawn. INTERPRETATION: likely superseded by DTO-KD (hayder2026dtokd; same first four authors plus Richard Hartley, matching the withdrawal note 'major changes to the paper and the authorship'). Cite DTO-KD, not MoKD."
   topics: [kd, gradient-conflict, mtl]
   local_pdf: false
@@ -1093,7 +1093,7 @@
   urls: {official: "https://doi.org/10.1609/aaai.v37i2.25236", arxiv: "https://arxiv.org/abs/2211.16231", code: "https://github.com/zhengli97/CTKD"}
   identifiers: {doi: "10.1609/aaai.v37i2.25236", arxiv: "2211.16231"}
   license: "Apache-2.0 (GitHub API)"
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'AAAI 2023'; Crossref DOI 10.1609/aaai.v37i2.25236 (Proceedings of the AAAI Conference on Artificial Intelligence, 2023-06-26); full text read (pdftotext) for the headline table: Table 4 ImageNet ResNet34->ResNet18 KD 70.83 vs KD+CTKD 71.32; Table 3 plug-in gains +0.1 to +0.6 on CIFAR-100."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'AAAI 2023'; Crossref DOI 10.1609/aaai.v37i2.25236 (Proceedings of the AAAI Conference on Artificial Intelligence, 2023-06-26); full text read (pdftotext) for the headline table: Table 4 ImageNet ResNet34->ResNet18 KD 70.83 vs KD+CTKD 71.32; Table 3 plug-in gains +0.1 to +0.6 on CIFAR-100. T12b-G gap pass 2026-11-08 (arXiv 2211.16231 PDF, pdftotext): CORE; Table 3 CIFAR-100 CRD pairs R56->R20, R110->R32/R20, WRN-40-2->WRN-16-2/40-1, R32x4->ShuffleV1/V2 (e.g. DKD+CTKD R32x4->ShuffleV2 76.94); R32x4->R8x4 not reported in the paper; Table 4 ImageNet R34->R18 KD+CTKD 71.32, DKD+CTKD 71.51."
   relevance: "CTKD: learnable, adversarially scheduled (easy-to-hard curriculum) temperature; plug-in for KD/DKD/CRD; small but consistent gains."
   topics: [kd, logit-kd, temperature, sota]
   local_pdf: false
@@ -1334,7 +1334,7 @@
   urls: {official: "https://doi.org/10.1609/aaai.v38i5.28219", arxiv: "https://arxiv.org/abs/2303.11098", code: "https://github.com/roymiles/Simple-Recipe-Distillation"}
   identifiers: {doi: "10.1609/aaai.v38i5.28219", arxiv: "2303.11098"}
   license: "none stated (no LICENSE file per GitHub API, 2026-11-03)"
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'AAAI 2024. Code available at ...'; Crossref DOI 10.1609/aaai.v38i5.28219 (AAAI proceedings, 2024-03-24); full text read (pdftotext) for the headline table: Table 6 ImageNet ResNet34->ResNet18 top-1 error 28.37% (KD 29.34%, ReviewKD 28.39%)."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'AAAI 2024. Code available at ...'; Crossref DOI 10.1609/aaai.v38i5.28219 (AAAI proceedings, 2024-03-24); full text read (pdftotext) for the headline table: Table 6 ImageNet ResNet34->ResNet18 top-1 error 28.37% (KD 29.34%, ReviewKD 28.39%). T12b-G gap pass 2026-11-08 (arXiv 2303.11098 PDF, pdftotext): CORE; Table 5 CIFAR-100 (SSKD teacher weights, R32x4 teacher 79.63; augmented image pairs) R32x4->R8x4 76.44 (RandAugment) and 78.37 (SSKD rotations); Table 6 ImageNet R34->R18 top-1 error 28.37 (top-1 71.63)."
   relevance: "Shows that a projector, normalisation and a simple LogSum feature loss suffice; analyses the projector as encoding relational gradients."
   topics: [kd, feature-kd, projector, sota]
   local_pdf: false
