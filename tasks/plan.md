@@ -22,6 +22,39 @@
 | X | Conclusion | recap of contributions and outlook | — |
 | — | References | IEEE style, generated from `literature/sources.yaml` | — |
 
+## Scope decision (2026-11-08, user-approved; supersedes the KD-wide framing)
+
+**Why:** advisor D's guidance is that completeness within a doable scope matters, not page or paper counts. Separately,
+the survey must identify the state-of-the-art methods the PCD project will be compared against (gated and ungated
+PCD vs the best in the field). That best need not be a MOO method: on CIFAR-100 R32x4→R8x4, the top reported
+numbers in our verified tables are VRM 78.76 (relation), MLKD+LS 78.28 (logit) and SimKD 78.08 (feature).
+
+**Scope:** *state-of-the-art knowledge distillation for image classification, 2022–2026.* The survey is
+complete against the inclusion criteria below and representative beyond them. §III–§VI stay as the method families.
+§VII shrinks to one "beyond classification" paragraph. §VIII becomes the central leaderboard. The title is finalised in
+T15 (working title: *State-of-the-Art Knowledge Distillation for Image Classification: A Survey of Methods,
+Training Schemes and Objective Combination, 2022–2026*).
+
+**Inclusion criteria (frozen before the search; changes need a dated note here):**
+- **I1. Contribution:** proposes a knowledge-distillation method in which a student is trained with a teacher signal for
+  image classification. Families: logit/target/loss, feature/relation, training scheme, teacher reliability, or
+  objective-combination/optimizer rule. Analysis-only papers become SUPPORT (cited where relevant, not on the
+  leaderboard).
+- **I2. Venue and date:** published 2022-01-01 to 2026-11-08 at CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR, AAAI, TMLR,
+  TPAMI or IJCV; or an arXiv preprint first posted from 2025-01-01 with no such venue (tag CORE-P).
+- **I3. Protocol:** reports top-1 accuracy on CIFAR-100 with at least one standard CRD/mdistiller teacher→student pair
+  (ResNet32x4→ResNet8x4 preferred; also WRN-40-2→WRN-16-2, ResNet56→ResNet20, VGG13→VGG8,
+  ResNet32x4→ShuffleNetV1/V2, ResNet50→MobileNetV2), or on ImageNet-1K with ResNet34→ResNet18 or
+  ResNet50→MobileNet(V1).
+- **Exclusion codes:** E1 not KD / KD only as a tool for another task; E2 not image classification (detection,
+  segmentation, LLM, VLM-only, diffusion, speech, graphs); E3 venue or date outside I2; E4 no standard-protocol
+  result (I3); E5 survey or position paper; E6 dataset distillation or compression without a teacher;
+  E7 withdrawn or duplicate version.
+- **Search:** per-venue proceedings listings (CVF open access, OpenReview, PMLR, NeurIPS proceedings, AAAI OJS, IEEE
+  Xplore TOC for TPAMI/IJCV-Springer) by title/abstract keyword "distill*", plus arXiv API queries for 2025–2026
+  preprints. Snowballing from the comparison tables of the most recent included papers. Every query, date and
+  hit count is logged in `docs/survey/search/`.
+
 ## Architecture decisions
 - **Format: LaTeX, TMLR template** (user decision, 2026-11-03).
   - The official `JmlrOrg/tmlr-style-file` (Apache-2.0, upstream commit `7bf90ef`) is vendored in `paper/survey/tmlr/`.
@@ -68,10 +101,16 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 
 ### Checkpoint C: full body draft compiles; draft-preservation map complete
 
-### Phase 2: Synthesis and polish
-- [ ] T13 §VIII Benchmarks and reported results (Tables V–VI)
+### Phase 2: Synthesis and polish (revised 2026-11-08 for the new scope)
+- [ ] T12b Systematic search against I1–I3 (three parallel Claude searches by venue group, then a Codex spot-check
+  of 20% of inclusions and exclusions). Output: `docs/survey/search/*.md` with a PRISMA-style count, new registry
+  records, and per-method leaderboard data (CIFAR-100 / ImageNet top-1 with source table, code URL, licence)
+- [ ] T12c Integrate newly included methods into §III–§VI (at least one sentence each in its family section); trim §VII
+  to a "beyond classification" paragraph
+- [ ] T13 §VIII Leaderboard and reported results: every included method on the standard pairs, with protocol and
+  comparability caveats and an official-code column; recommends the comparison set for the PCD project
 - [ ] T14 §IX Challenges and future directions
-- [ ] T15 Title, Abstract, §I Introduction, §X Conclusion (written last)
+- [ ] T15 Title, Abstract, §I Introduction (scope plus inclusion criteria plus search summary), §X Conclusion
 - [ ] T16 Final audit: citations, guideline G1–G11, draft preservation, clean build
 
 ### Checkpoint D (human / team): full manuscript review
