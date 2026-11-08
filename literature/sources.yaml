@@ -2385,3 +2385,309 @@
   relevance: "CLASSIC: sequential same-architecture student training from a previous model's soft outputs."
   topics: [kd, self-distillation, classic]
   local_pdf: false
+- id: wang2022checkpointkd
+  type: paper
+  title: "Efficient Knowledge Distillation from Model Checkpoints"
+  authors: ["Chaofei Wang", "Qisen Yang", "Rui Huang", "Shiji Song", "Gao Huang"]
+  date: 2022-10-12
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/03e0712bf85ebe7cec4f1a7fc53216c9-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.06458", code: "https://github.com/LeapLabTHU/CheckpointKD"}
+  identifiers: {doi: null, arxiv: "2210.06458"}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/03e0712bf85ebe7cec4f1a7fc53216c9-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2210.06458 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 70.98 (T1, optimal intermediate teacher T*). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "CheckpointKD: Distil from an intermediate teacher checkpoint (chosen by an information-bottleneck criterion) instead of the converged teacher. T12b-S2 leaderboard entry (I1-I3 met). ImageNet teacher R34 73.86 (own); CIFAR pairs non-standard"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: li2022shake
+  type: paper
+  title: "Shadow Knowledge Distillation: Bridging Offline and Online Knowledge Transfer"
+  authors: ["Lujun Li", "Zhe Jin"]
+  date: 2022-12-06
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/040d3b6af368bf71f952c18da5713b48-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/040d3b6af368bf71f952c18da5713b48-Abstract-Conference.html (title, venue, authors) and full-text PDF https://papers.nips.cc/paper_files/paper/2022/file/040d3b6af368bf71f952c18da5713b48-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.35 (T2); ImageNet R34->R18 72.07 (T3); SHAKE† (multi-teacher) 72.53. No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "SHAKE: Shadow head on the frozen teacher trained online with the student; bridges offline and online KD with reversed distillation. T12b-S2 leaderboard entry (I1-I3 met). 240 epochs; CRD teachers"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: chen2022pefd
+  type: paper
+  title: "Improved Feature Distillation via Projector Ensemble"
+  authors: ["Yudong Chen", "Sen Wang", "Jiajun Liu", "Xuwei Xu", "Frank de Hoog", "Zi Huang"]
+  date: 2022-10-27
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/4ec0b6648bdf487a2f1c815924339022-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.15274", code: "https://github.com/chenyd7/PEFD"}
+  identifiers: {doi: null, arxiv: "2210.15274"}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/4ec0b6648bdf487a2f1c815924339022-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2210.15274 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 76.08 (T5); ImageNet R34->R18 71.94 (T7). Code URL as cited in the paper; licence MIT (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "PEFD: Feature distillation through an ensemble of randomly initialised projectors on the student feature. T12b-S2 leaderboard entry (I1-I3 met). CRD teachers (79.42)"
+  topics: [kd, sota, feature]
+  local_pdf: false
+- id: wang2022cutmixpick
+  type: paper
+  title: "What Makes a \"Good\" Data Augmentation in Knowledge Distillation - A Statistical Perspective"
+  authors: ["Huan Wang", "Suhas Lohit", "Michael N. Jones", "Yun Fu"]
+  date: 2020-12-05
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/57b53238ff22bc0dc62de08f53eb5de2-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2012.02909", code: "https://github.com/MingSun-Tse/Good-DA-in-KD"}
+  identifiers: {doi: null, arxiv: "2012.02909"}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/57b53238ff22bc0dc62de08f53eb5de2-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2012.02909 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 76.11 (T1, CRD+CutMixPick, 240 ep); 75.96 at 960 ep; ImageNet R34->R18 n/r (ImageNet used only for loss/stddev analysis, T7–T8). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "CutMixPick: Statistical criterion for good KD augmentation (low teacher–student cross-entropy variance); picks high-entropy CutMix samples. T12b-S2 leaderboard entry (I1-I3 met). arXiv first posted 2020-12 (2012.02909)"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: niu2022ipwd
+  type: paper
+  title: "Respecting Transfer Gap in Knowledge Distillation"
+  authors: ["Yulei Niu", "Long Chen", "Chang Zhou", "Hanwang Zhang"]
+  date: 2022-10-23
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/89b0e466b46292ce0bfe53618aadd3de-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.12787", code: null}
+  identifiers: {doi: null, arxiv: "2210.12787"}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/89b0e466b46292ce0bfe53618aadd3de-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2210.12787 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 76.03 (T2); ImageNet R34->R18 71.88 (T4). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "IPWD: Inverse-probability weighting of the distillation loss to correct the teacher–student transfer gap (under-represented samples). T12b-S2 leaderboard entry (I1-I3 met). CRD teachers; student R8×4 72.50"
+  topics: [kd, sota, logit]
+  local_pdf: false
+- id: zhu2022tllm
+  type: paper
+  title: "Teach Less, Learn More: On the Undistillable Classes in Knowledge Distillation"
+  authors: ["Yichen Zhu", "Ning Liu", "Zhiyuan Xu", "Xin Liu", "Weibin Meng", "Louis Wang", "Zhicai Ou", "Jian Tang"]
+  date: 2022-12-06
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/cf5c369c1bc070361477008e3f5210ed-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/cf5c369c1bc070361477008e3f5210ed-Abstract-Conference.html (title, venue, authors) and full-text PDF https://papers.nips.cc/paper_files/paper/2022/file/cf5c369c1bc070361477008e3f5210ed-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.83 (T2, SFTN+TLLM); KD+TLLM 75.53; ImageNet R34->R18 72.6 (T3; teacher printed as 'ResNet32', acc 73.3 = torchvision R34). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "TLLM: Identifies 'undistillable classes' and drops their distillation signal (teach less, learn more). T12b-S2 leaderboard entry (I1-I3 met). plug-in on other KD methods"
+  topics: [kd, sota, reliability]
+  local_pdf: false
+- id: li2023kdzero
+  type: paper
+  title: "KD-Zero: Evolving Knowledge Distiller for Any Teacher-Student Pairs"
+  authors: ["Lujun Li", "Peijie Dong", "Anggeng Li", "Zimian Wei", "Ya Yang"]
+  date: 2023-12-15
+  venue: "NeurIPS 2023"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2023/hash/dbc8ce0fdfcd55172d73fb05dbae07fc-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2023/hash/dbc8ce0fdfcd55172d73fb05dbae07fc-Abstract-Conference.html (title, venue, authors) and full-text PDF https://papers.nips.cc/paper_files/paper/2023/file/dbc8ce0fdfcd55172d73fb05dbae07fc-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.85 (T3); ImageNet R34->R18 72.17 (T4). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "KD-Zero: Evolutionary search over distiller design (knowledge transform, distance, loss) per teacher–student pair. T12b-S2 leaderboard entry (I1-I3 met). 240 epochs after an evolutionary search per pair"
+  topics: [kd, sota, hybrid]
+  local_pdf: false
+- id: saidutta2024cifd
+  type: paper
+  title: "CIFD: Controlled Information Flow to Enhance Knowledge Distillation"
+  authors: ["Yashas M. Saidutta", "Rakshith S. Srinivasa", "Jaejin Cho", "Ching-Hua Lee", "Chouchang Yang", "Yilin Shen", "Hongxia Jin"]
+  date: 2024-12-16
+  venue: "NeurIPS 2024"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2024/hash/ba63f9aaba08f39c70ffe19693ef470f-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2024/hash/ba63f9aaba08f39c70ffe19693ef470f-Abstract-Conference.html (title, venue, authors) and full-text PDF https://papers.nips.cc/paper_files/paper/2024/file/ba63f9aaba08f39c70ffe19693ef470f-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 76.0 (T2/T10); ImageNet R34->R18 72.32 (T3, 3 RDMs). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "CIFD: Rate-distortion modules act as cheap teacher assistants that control the information flow from teacher to student. T12b-S2 leaderboard entry (I1-I3 met). CIFAR result given to one decimal"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: yu2025angularkd
+  type: paper
+  title: "Single-Teacher View Augmentation: Boosting Knowledge Distillation via Angular Diversity"
+  authors: ["Seonghoon Yu", "Dongjun Nam", "Dina Katabi", "Jeany Son"]
+  date: 2025-10-26
+  year: 2025
+  venue: "NeurIPS 2025"
+  status: published
+  urls: {official: "https://neurips.cc/virtual/2025/poster/118239", arxiv: "https://arxiv.org/abs/2510.22480", code: "https://github.com/june6423/Angular-KD"}
+  identifiers: {doi: null, arxiv: "2510.22480"}
+  license: null
+  verified_by: "Official listing https://neurips.cc/virtual/2025/poster/118239 (title, venue) and full-text PDF https://arxiv.org/pdf/2510.22480 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.28 (T2, MLKD+Angular-KD); KD+Angular-KD 76.08 (T1); ImageNet R34->R18 71.07 (T3, KD+Angular-KD). Authors from arXiv API record 2510.22480. Code URL as cited in the paper; licence MIT (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "Angular-KD: Single-teacher view augmentation: angularly diverse teacher views (feature/logit level) used as multiple teachers. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: huang2023maskd
+  type: paper
+  title: "Masked Distillation with Receptive Tokens"
+  authors: ["Tao Huang", "Yuan Zhang", "Shan You", "Fei Wang", "Chen Qian", "Jian Cao", "Chang Xu"]
+  date: 2022-05-29
+  year: 2023
+  venue: "ICLR 2023"
+  status: published
+  urls: {official: "https://iclr.cc/virtual/2023/poster/10787", arxiv: "https://arxiv.org/abs/2205.14589", code: "https://github.com/hunto/MasKD"}
+  identifiers: {doi: null, arxiv: "2205.14589"}
+  license: null
+  verified_by: "Official listing https://iclr.cc/virtual/2023/poster/10787 (title, venue) and full-text PDF https://arxiv.org/pdf/2205.14589 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 71.26 (T6, appendix). Authors from arXiv API record 2205.14589. Code URL as cited in the paper; licence Apache-2.0 (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "MasKD: Learnable receptive tokens produce masks that select the pixels used for feature distillation. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: method targets detection/segmentation; image classification only in appendix T6"
+  topics: [kd, sota, feature]
+  local_pdf: false
+- id: dong2024soteacher
+  type: paper
+  title: "Toward Student-oriented Teacher Network Training for Knowledge Distillation"
+  authors: ["Chengyu Dong", "Liyuan Liu", "Jingbo Shang"]
+  date: 2022-06-14
+  year: 2024
+  venue: "ICLR 2024"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2024/hash/a1263ffa557506ea29c54481788d518f-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2206.06661", code: null}
+  identifiers: {doi: null, arxiv: "2206.06661"}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2024/hash/a1263ffa557506ea29c54481788d518f-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2206.06661 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 n/r (R34→R18 only on Tiny-ImageNet). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "SoTeacher: Student-oriented teacher training (Lipschitz and consistency regularisation) so the teacher better approximates the true label distribution. T12b-S2 leaderboard entry (I1-I3 met). teacher trained by SoTeacher (lower teacher acc.)"
+  topics: [kd, sota, reliability]
+  local_pdf: false
+- id: ye2024mcmi
+  type: paper
+  title: "Bayes Conditional Distribution Estimation for Knowledge Distillation Based on Conditional Mutual Information"
+  authors: ["Linfeng Ye", "Shayan Mohajer Hamidi", "Renhao Tan", "En-Hui Yang"]
+  date: 2024-01-16
+  year: 2024
+  venue: "ICLR 2024"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2024/hash/718a3c5cf135894db6e718725f52ef9a-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2401.08732", code: "https://github.com/iclr2024mcmi/ICLRMCMI"}
+  identifiers: {doi: null, arxiv: "2401.08732"}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2024/hash/718a3c5cf135894db6e718725f52ef9a-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2401.08732 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 72.06 (T2, DKD with MCMI teacher); KD 71.54. Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "MCMI teacher: Trains the teacher to maximise log-likelihood plus conditional mutual information, a better estimate of the Bayes conditional distribution. T12b-S2 leaderboard entry (I1-I3 met). teacher re-trained (R34 71.62)"
+  topics: [kd, sota, reliability]
+  local_pdf: false
+- id: guo2025gpd
+  type: paper
+  title: "Gap Preserving Distillation by Building Bidirectional Mappings with A Dynamic Teacher"
+  authors: ["Yong Guo", "Shulian Zhang", "Haolin Pan", "Jing Liu", "Yulun Zhang", "Jian Chen"]
+  date: 2024-10-05
+  year: 2025
+  venue: "ICLR 2025"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2025/hash/9a379c1b05793d1c42dc832269834515-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2410.04140", code: null}
+  identifiers: {doi: null, arxiv: "2410.04140"}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2025/hash/9a379c1b05793d1c42dc832269834515-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2410.04140 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 72.71 (T1, DKD+GPD). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "GPD: Dynamic teacher trained alongside the student with bidirectional parameter mappings that preserve a fixed teacher–student gap. T12b-S2 leaderboard entry (I1-I3 met). ImageNet only"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: hossain2025tekap
+  type: paper
+  title: "Single Teacher, Multiple Perspectives: Teacher Knowledge Augmentation for Enhanced Knowledge Distillation"
+  authors: ["Md Imtiaz Hossain", "Sharmen Akhter", "Choong Seon Hong", "Eui-Nam Huh"]
+  date: 2025-05-01
+  venue: "ICLR 2025"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2025/hash/e496e0ce207ba9cdcc7d79bd499db67e-Abstract-Conference.html", arxiv: null, code: "https://github.com/mdimtiazh/TeKAP"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2025/hash/e496e0ce207ba9cdcc7d79bd499db67e-Abstract-Conference.html (title, venue, authors) and full-text PDF https://proceedings.iclr.cc/paper_files/paper/2025/file/e496e0ce207ba9cdcc7d79bd499db67e-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.36 (T2, MLKD+TeKAP); TeKAP(F+L) 75.98 (T1); ImageNet R34->R18 70.67 (T3, KD+TeKAP(L); table gives top-1 error 29.33). Code URL as cited in the paper; licence BSD-2-Clause (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "TeKAP: Teacher knowledge augmentation: perturbed copies of one teacher's features/logits act as multiple teachers. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: chen2026djip
+  type: paper
+  title: "Differentiable JPEG-based Input Perturbation for Knowledge Distillation Amplification via Conditional Mutual Information Maximization"
+  authors: ["Siyu Chen", "Kaixiang Zheng", "Ahmed Hussien Salamah", "En-Hui Yang"]
+  date: 2026-04-20
+  venue: "ICLR 2026"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/f7d3cef7ff579f2f903c8f458e730cae-Abstract-Conference.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2026/hash/f7d3cef7ff579f2f903c8f458e730cae-Abstract-Conference.html (title, venue, authors) and full-text PDF https://proceedings.iclr.cc/paper_files/paper/2026/file/f7d3cef7ff579f2f903c8f458e730cae-Paper-Conference.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 76.61 (T1, WTTM+DJIP teacher); ImageNet R34->R18 72.08 (T3, DKD+DJIP). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "DJIP: Differentiable JPEG input perturbation during teacher training raises the teacher's conditional mutual information. T12b-S2 leaderboard entry (I1-I3 met). teacher retrained with DJIP; R32×4 79.41"
+  topics: [kd, sota, reliability]
+  local_pdf: false
+- id: morad2026bayesteacher
+  type: paper
+  title: "SGD-Based Knowledge Distillation with Bayesian Teachers: Theory and Guidelines"
+  authors: ["Itai Morad", "Nir Shlezinger", "Yonina Eldar"]
+  date: 2026-01-04
+  year: 2026
+  venue: "ICLR 2026"
+  status: published
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/0bdbfac7d9df70021d694e5ac795bf9d-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2601.01484", code: null}
+  identifiers: {doi: null, arxiv: "2601.01484"}
+  license: null
+  verified_by: "Official listing https://proceedings.iclr.cc/paper_files/paper/2026/hash/0bdbfac7d9df70021d694e5ac795bf9d-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2601.01484 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 n/r (R34→R18 only on Tiny-ImageNet). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "Bayesian teachers: SGD analysis showing Bayes-class-probability teachers reduce student variance; uses Bayesian (VI/Laplace) teachers. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: own protocol (WRN-16-2 no-KD 67.70, teachers retrained, 5 seeds), not mdistiller"
+  topics: [kd, sota, reliability]
+  local_pdf: false
+- id: kim2024topkd
+  type: paper
+  title: "Do Topological Characteristics Help in Knowledge Distillation?"
+  authors: ["Jungeun Kim", "Junwon You", "Dongjin Lee", "Ha Young Kim", "Jae-Hun Jung"]
+  date: 2024-07-08
+  venue: "ICML 2024"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v235/kim24aj.html", arxiv: null, code: "https://github.com/jekim5418/TopKD"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://proceedings.mlr.press/v235/kim24aj.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v235/main/assets/kim24aj/kim24aj.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 75.40 (T1); ImageNet R34->R18 73.60 (T3; above the 73.31 teacher). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "TopKD: Distils global topology of the feature space via persistence diagrams (topological features). T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol."
+  topics: [kd, sota, feature]
+  local_pdf: false
+- id: peng2024kdav
+  type: paper
+  title: "Knowledge Distillation with Auxiliary Variable"
+  authors: ["Bo Peng", "Zhen Fang", "Guangquan Zhang", "Jie Lu"]
+  date: 2024-07-08
+  venue: "ICML 2024"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v235/peng24a.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://proceedings.mlr.press/v235/peng24a.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v235/main/assets/peng24a/peng24a.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.47 (T1); ImageNet R34->R18 73.04 (T4). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "KD with auxiliary variable: Probabilistic KD with an auxiliary variable (nonparametric) that aligns teacher and student representations and logits. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol."
+  topics: [kd, sota, hybrid]
+  local_pdf: false
+- id: chen2025adm
+  type: paper
+  title: "Asymmetric Decision-Making in Online Knowledge Distillation: Unifying Consensus and Divergence"
+  authors: ["Zhaowei Chen", "Borui Zhao", "Yuchen Ge", "Yuhao Chen", "Renjie Song", "Jiajun Liang"]
+  date: 2025-10-06
+  venue: "ICML 2025"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v267/chen25cn.html", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Official listing https://proceedings.mlr.press/v267/chen25cn.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v267/main/assets/chen25cn/chen25cn.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 74.63 (T1, SwitOKD+ADM; online KD, both trained); ImageNet R34->R18 71.69 (T9, offline KD, best α/β). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "ADM: Asymmetric decision-making in online KD: consensus on foreground features, divergence elsewhere. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: online KD — the R8×4 number is not the offline mdistiller protocol"
+  topics: [kd, sota, scheme]
+  local_pdf: false
+- id: guan2025rankingkd
+  type: paper
+  title: "Enhancing Logits Distillation with Plug&Play Kendall’s $τ$ Ranking Loss"
+  authors: ["Yuchen Guan", "Runxi Cheng", "Kang Liu", "Chun Yuan"]
+  date: 2024-09-26
+  year: 2025
+  venue: "ICML 2025"
+  status: published
+  urls: {official: "https://proceedings.mlr.press/v267/guan25a.html", arxiv: "https://arxiv.org/abs/2409.17823", code: "https://github.com/OvernighTea/RankingLoss-KD"}
+  identifiers: {doi: null, arxiv: "2409.17823"}
+  license: null
+  verified_by: "Official listing https://proceedings.mlr.press/v267/guan25a.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v267/main/assets/guan25a/guan25a.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 77.25 (T2, MLKD+ranking); ImageNet R34->R18 72.06 (T13, NKD+ranking). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  relevance: "Kendall-τ ranking loss: Plug-and-play Kendall's τ ranking loss that aligns the order of teacher and student logits. T12b-S2 leaderboard entry (I1-I3 met). plug-in loss"
+  topics: [kd, sota, logit]
+  local_pdf: false
+- id: do2022mad
+  type: paper
+  title: "Momentum Adversarial Distillation: Handling Large Distribution Shifts in Data-Free Knowledge Distillation"
+  authors: ["Kien Do", "Thai Hung Le", "Dung Nguyen", "Dang Nguyen", "Haripriya Harikumar", "Truyen Tran", "Santu Rana", "Svetha Venkatesh"]
+  date: 2022-09-21
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://papers.nips.cc/paper_files/paper/2022/hash/41128e5b3a7622da5b17588757599077-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2209.10359", code: null}
+  identifiers: {doi: null, arxiv: "2209.10359"}
+  license: null
+  verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/41128e5b3a7622da5b17588757599077-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2209.10359 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 n/r (R34→R18 only on CIFAR/TinyImageNet; ImageNet uses other pairs). No code repository found in the paper. Found by T12b-S2 systematic search."
+  relevance: "MAD: Data-free KD with an EMA copy of the generator (momentum adversarial distillation) to handle generator distribution shift. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: data-free KD (no training data); CIFAR-100 W40-2→W16-2 64.05 (T1), not comparable to data-based KD"
+  topics: [kd, sota, scheme]
+  local_pdf: false
