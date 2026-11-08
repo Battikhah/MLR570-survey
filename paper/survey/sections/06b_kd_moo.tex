@@ -193,11 +193,16 @@ EWAD+CPDP, not CHAD.
 % src: sumit2026chad abstract (+0.0003, 51.3%, CHAD +0.0173 ROUGE-L over standard KD); Sec. 3.1
 % (probe subset of 5,000, alignment with mean validation gradient); Table 9 (Confidence Only R-L .1169).
 
+\paragraph{Learned weighting and distiller search.}
+DistPro \citep{deng2022distpro} meta-learns a time-varying weight schedule over a set of KD pathways. Its weights are learned in an outer loop rather than computed from the current gradients as in AE-KD, DTO-KD or the priority rules, so it can follow trends over training but cannot react to conflict at a single step. It reports 77.54 on ResNet32$\times$4$\to$ShuffleNetV2 and 71.89 on ImageNet ResNet-34$\to$ResNet-18.
+KDAS \citep{chae2025kdas} combines adaptive sampling with loss weighting and reports about 10--30\% less training time, with 71.81 for DKD+KDAS on ImageNet. Auto-KD \citep{li2023autokd} goes one level up and uses Monte-Carlo tree search over distiller designs (77.61 on ResNet32$\times$4$\to$ResNet8$\times$4 with logit KD, 77.35 without; 72.45 on ImageNet), and UniADS \citep{lu2024uniads} searches the student architecture and the distiller jointly (76.65; 72.25 with a 73.40 teacher). These methods choose the combination by learning or search, which places them nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules above. They suit settings where a search budget is available; their cost is the outer loop.
+% src: deng2022distpro T1, T4; chae2025kdas T3; li2023autokd T3, T4; lu2024uniads T3, T4.
+
 Two further 2025--2026 works use MOO elsewhere in the pipeline. \citet{dong2025mooadv} use
 Tchebycheff scalarisation to generate diverse adversarial examples for robust distillation from
 vision-language models, and UP-MOPD \citep{zhu2026upmopd} (preprint) applies PCGrad-style
-projection to per-teacher updates in multi-teacher on-policy LLM distillation. Both are covered
-in Section~\ref{sec:emerging}.
+projection to per-teacher updates in multi-teacher on-policy LLM distillation. Both settings lie outside
+this survey's scope; Section~\ref{sec:emerging} points to them.
 
 \begin{table}[t]
 \centering
@@ -220,6 +225,9 @@ DTO-KD & 2026 & task; distill (log) & S (min-norm) & +1 (ideal); 0 (amortised) &
 SCOPE & 2026 & CE; relational KD & P(task), projection & -- & medical image classification \\
 TPKD$^\dagger$ & 2026 & label; conditional KD & P(task), output cone & none ($O(K\log K)$) & 88.05 vs KD 87.58 [C100, VOLO-D2$\to$PiT-B]; no projection 87.83 \\
 MEMA$^\dagger$ & 2026 & task; KD per sample & P(task), damping & none (logit-space) & 80.54$\to$81.80 [C100 Swin-T$\to$R18] \\
+DistPro & 2022 & KD pathways & learned (meta) & outer loop & 71.89 [IN R34$\to$R18]; 77.54 [C100 R32$\times$4$\to$SNv2] \\
+Auto-KD & 2023 & searched distiller & search (MCTS) & search phase & 77.61 [C100 R32$\times$4$\to$R8$\times$4] \\
+KDAS & 2025 & task; KD & learned weights + sampling & reported 10--30\% less time & DKD+KDAS 71.81 [IN R34$\to$R18] \\
 CHAD$^\dagger$ & 2026 & KD per sample & usefulness gate & probe-set gradients & +0.0173 ROUGE-L over KD [BanSum] \\
 PCD & 2026 & primary; secondaries & P(prim.), QP & +1 per secondary & no KD results (pruning) \\
 \bottomrule
@@ -255,7 +263,7 @@ revisit the question at larger scale and propose population-based search over th
 weights instead of new optimisers.
 None of these studies covers distillation. Of the distillation papers above, DOT is the one we
 found that compares with a sweep of fixed task weights, and every weight in its sweep stays
-below DOT. The others we read compare with published baselines at their default weights.
+below DOT. The others we read compare with published baselines at their default weights; we did not check whether DistPro, KDAS, Auto-KD or UniADS report such a sweep.
 % xin2022mtohelp abstract (quoted); kurin2022unitary abstract; royer2023scalarization abstract.
 % DOT Table 4 (alpha sweep 73.19-73.56 vs DOT 75.12).
 
