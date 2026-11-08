@@ -45,9 +45,9 @@ Check was string presence in the extracted text, not a re-read of each table row
 | G3 problem/importance/trends | PASS | §I opening and "Motivation and gap" (`01_intro.tex:17`) |
 | G4 motivation and gaps | PASS | `01_intro.tex:17` |
 | G5 scope, categories, outline | PASS | "Scope and inclusion criteria" :28, "Taxonomy" :51, "Organisation" :67 |
-| G6 method comparisons | PASS | comparison paragraphs per section, e.g. "Comparing reliability signals" `05_reliability.tex:39`; comparison tables |
+| G6 method comparisons | PASS | comparison paragraphs per section, e.g. "Comparing reliability signals" `05_reliability.tex:22`; comparison tables |
 | G7 visual aids | PASS | 3 figures (taxonomy, gradient-rule diagrams) and 11 tables |
-| G8 strengths/weaknesses/applicability | PASS | per-method limitations in §III–VI; applicability paragraph `05_reliability.tex:42` |
+| G8 strengths/weaknesses/applicability | PASS | per-method limitations in §III–VI; applicability paragraph `05_reliability.tex:24` |
 | G9 future directions from gaps | PASS | §IX, 7 paragraphs each ending in a "Direction:" tied to a cited gap |
 | G10 conclusion | PASS | §X |
 | G11 references | PASS | natbib author-year with `tmlr.bst` throughout (per `tasks/plan.md:62`); 187 verified registry records |
@@ -61,7 +61,7 @@ Claim maps cover the draft (`Project Files/Current_Survey.md`) as follows: L12�
 | L1, L3 | Title, authors | Title replaced by a more specific one (G1); author block is a human decision |
 | L7 | "The abstract goes here." | Placeholder; replaced by the T15 abstract |
 | L8 | Keywords | Topics are covered in the abstract and §I; TMLR template has no keyword field |
-| L191 | Rejection may discard useful info; RLD and label revision repair instead | §V, `05_reliability.tex:23,25` |
+| L191 | Rejection may discard useful info; RLD and label revision repair instead | §V, `05_reliability.tex:13` |
 | L192 | Teacher accuracy is not transfer utility (Yuan et al. CVPR 2020) | **was missing**; restored in §IX "Which teacher signal to trust", `\citet{yuan2020labelkd}` |
 | L193 | Imitation and generalisation differ (Stanton et al. NeurIPS 2021) | **was missing**; restored in the same paragraph, `\citet{stanton2021kdwork}` |
 | L194 | Recipe choices change conclusions (Beyer et al. CVPR 2022) | **was missing**; restored in §IX "A comparable leaderboard", `\citet{beyer2022patientkd}` |

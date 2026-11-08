@@ -5,10 +5,6 @@
 \section{Preliminaries}
 \label{sec:prelim}
 
-This section fixes the notation that the rest of the survey uses, states the classical distillation
-objective and the role of its temperature, and describes the benchmarks on which the methods of
-\S\ref{sec:logit} onwards are compared.
-
 \subsection{Notation and the classical objective}
 \label{sec:prelim-notation}
 
@@ -21,17 +17,17 @@ learns \citep{hinton2015kd}. For a temperature $T>0$ the softened class distribu
   \label{eq:softmax-T}
   p^{T}_{c}(\mathbf{z}) = \frac{\exp(z_c/T)}{\sum_{j=1}^{C}\exp(z_j/T)}, \qquad c=1,\dots,C,
 \end{equation}
-so $\mathbf{p}^{1}(\mathbf{z}_s)$ is the ordinary softmax prediction of the student.
-\citet{hinton2015kd} train the student on the ground-truth label and on the teacher's softened
-distribution at the same time. Following the original draft of this survey, we write the objective as
+so $\mathbf{p}^{1}(\mathbf{z}_s)$ is the ordinary softmax. \citet{hinton2015kd} train the student on the
+label and on the teacher's softened distribution at once; following the original draft we write
 \begin{equation}
   \label{eq:kd-objective}
   \mathcal{L}(\theta) = \underbrace{\mathcal{L}_{\mathrm{CE}}\big(y,\mathbf{p}^{1}(\mathbf{z}_s)\big)}_{\text{task loss}}
   + \lambda\,\underbrace{T^{2}\,\mathrm{KL}\big(\mathbf{p}^{T}(\mathbf{z}_t)\,\big\|\,\mathbf{p}^{T}(\mathbf{z}_s)\big)}_{\mathcal{L}_{\mathrm{KD}}},
 \end{equation}
 where $\mathcal{L}_{\mathrm{CE}}(y,\mathbf{p}) = -\log p_y$ and $\lambda \ge 0$ sets how much the
-distillation term contributes. Other papers write the same objective as a convex combination
-$(1-\alpha)\mathcal{L}_{\mathrm{CE}} + \alpha\mathcal{L}_{\mathrm{KD}}$, which for plain SGD differs only by a global rescaling of the loss, equivalent to rescaling the learning rate; with adaptive optimisers such as Adam, weight decay or gradient clipping the two forms are not exactly equivalent. Throughout the survey, ``KD'' with no qualifier means
+distillation term contributes. The convex form
+$(1-\alpha)\mathcal{L}_{\mathrm{CE}} + \alpha\mathcal{L}_{\mathrm{KD}}$ differs only by a global rescaling under plain SGD,
+but not exactly under Adam, weight decay or gradient clipping. ``KD'' with no qualifier means
 Eq.~\eqref{eq:kd-objective}, and the methods of \S\ref{sec:logit} are described by what they change
 in $\mathcal{L}_{\mathrm{KD}}$, in $\mathbf{p}^{T}$, or in the weight $\lambda$.
 Figure~\ref{fig:kd-pipeline} shows the resulting pipeline.
@@ -47,8 +43,8 @@ Figure~\ref{fig:kd-pipeline} shows the resulting pipeline.
 \end{figure}
 
 \paragraph{Per-objective gradients.}
-Section~\ref{sec:moo} treats Eq.~\eqref{eq:kd-objective} as a two-objective problem, so we name the
-two gradients here. With respect to the student logits, the cross-entropy gives the usual
+Section~\ref{sec:moo} treats Eq.~\eqref{eq:kd-objective} as a two-objective problem. With respect to
+the student logits, the cross-entropy gives
 $\partial\mathcal{L}_{\mathrm{CE}}/\partial\mathbf{z}_s = \mathbf{p}^{1}(\mathbf{z}_s) - \mathbf{e}_y$,
 where $\mathbf{e}_y$ is the one-hot label, and \citet{hinton2015kd} show that the softened KL term has
 per-logit gradient $(1/T)\big(p^{T}_{c}(\mathbf{z}_s) - p^{T}_{c}(\mathbf{z}_t)\big)$. After the $T^2$
@@ -68,41 +64,31 @@ per-objective parameter gradients are
 and plain gradient descent on Eq.~\eqref{eq:kd-objective} follows $\mathbf{g}_{\mathrm{CE}}+\lambda\mathbf{g}_{\mathrm{KD}}$
 (in practice averaged over a mini-batch). We say the two objectives \emph{conflict} on a batch when
 $\langle\mathbf{g}_{\mathrm{CE}},\mathbf{g}_{\mathrm{KD}}\rangle < 0$, that is, when their cosine
-similarity is negative. Equation~\eqref{eq:logit-grads} already shows why this can happen even with a
-correct teacher: $\mathbf{g}_{\mathrm{CE}}$ pushes the student towards the one-hot vector, while
-$\mathbf{g}_{\mathrm{KD}}$ pulls it towards a softened teacher distribution that keeps mass on the
-non-target classes. Whether such conflicts matter in practice is an empirical question that
-\S\ref{sec:moo} and \S\ref{sec:kd_moo} take up.
+similarity is negative. This can happen even with a correct teacher: $\mathbf{g}_{\mathrm{CE}}$ pushes
+towards the one-hot vector, $\mathbf{g}_{\mathrm{KD}}$ towards a softened distribution with mass on
+non-target classes. Whether it matters in practice is the empirical question of \S\ref{sec:kd_moo}.
 
 \subsection{The role of temperature}
 \label{sec:prelim-temperature}
 
-The temperature controls how soft the teacher and student distributions are. At $T=1$ a confident
-teacher puts almost all of its mass on one class, and $\mathcal{L}_{\mathrm{KD}}$ carries little more
-information than the label. Raising $T$ exposes the relative probabilities that the teacher assigns
-to the wrong classes, which \citet{hinton2015kd} call the knowledge the teacher has about which
-classes resemble one another. The $T^2$ factor in Eq.~\eqref{eq:kd-objective} has a purpose. Because, in the high-temperature approximation, the soft-target gradients scale as $1/T^2$ \citep{hinton2015kd}, multiplying by $T^2$ keeps the relative contribution of the
-two terms roughly unchanged when $T$ is tuned \citep{hinton2015kd}. In the high-temperature limit, and
-with zero-mean logits, the KD term reduces to matching logits under a squared error
-\citep{hinton2015kd}. KD therefore sits between two extremes: label-like targets at low $T$ and raw
-logit regression at high $T$.
+At $T=1$ a confident teacher puts almost all its mass on one class and $\mathcal{L}_{\mathrm{KD}}$ adds
+little to the label. Raising $T$ exposes the probabilities the teacher gives to wrong classes, which
+\citet{hinton2015kd} call its knowledge of which classes resemble one another. Since soft-target
+gradients scale as $1/T^2$ at high temperature, the $T^2$ factor keeps the two terms' relative
+contribution roughly fixed as $T$ is tuned; in the high-$T$ limit with zero-mean logits, KD reduces
+to squared-error logit matching \citep{hinton2015kd}.
 
-Three properties of the classical recipe drive much of the work reviewed in \S\ref{sec:logit}.
-First, $T$ is a single global hyper-parameter shared by teacher and student and by all samples, and
-it is usually chosen by grid search \citep{li2023ctkd}. Second, sharing $T$ between the two networks
-implicitly asks the student to reproduce the teacher's logit \emph{range} as well as its ranking of
-classes, which a smaller network may not be able to do \citep{sun2024lskd}. Third, the KD term mixes
-what the teacher says about the target class with what it says about the other classes, and the
-confidence of the teacher on the target class scales the second part down \citep{zhao2022dkd}.
+Three properties drive much of \S\ref{sec:logit}: $T$ is one global hyper-parameter, usually grid-searched
+\citep{li2023ctkd}; sharing it asks the student to copy the teacher's logit \emph{range}, not just its
+ranking \citep{sun2024lskd}; and the KD term mixes target and non-target knowledge, with target
+confidence scaling the latter down \citep{zhao2022dkd}.
 CTKD learns $T$, LSKD standardises the logits before the softmax, and DKD separates the two parts of
 the KL term; \S\ref{sec:logit} compares them.
 
 The KD temperature should not be confused with the temperature used for calibration.
-\citet{guo2017calibration} show that the softmax confidence of modern networks is often miscalibrated
-and fit a single temperature on held-out data after training to correct it. That calibration
-temperature is chosen so that confidence matches accuracy; the KD temperature is chosen so that the
-student learns better. A teacher distilled at a large $T$ is not therefore a calibrated teacher, and
-a calibrated teacher is not necessarily a good one to distil from.
+\citet{guo2017calibration} fit one temperature post hoc so that confidence matches accuracy; the KD
+temperature is chosen so the student learns better. A teacher distilled at large $T$ is not thereby
+calibrated, and a calibrated teacher is not necessarily a good one to distil from.
 
 \subsection{Benchmarks, teacher--student pairs and metrics}
 \label{sec:prelim-benchmarks}
@@ -117,28 +103,24 @@ classes with about 1.28M training and 50k validation images; and \emph{MS-COCO}
 5k-image \texttt{val2017} splits (split sizes as reported by \citet{zhao2022dkd}, Sec.~4).
 % src: DKD Sec. 4 (CIFAR-100 50k/10k; ImageNet 1.28M/50k; COCO train2017 118k, val2017 5k)
 
-On CIFAR-100, papers distinguish homogeneous pairs, in which teacher and student come from the same
-family (ResNet56$\to$ResNet20, ResNet110$\to$ResNet32, ResNet32$\times$4$\to$ResNet8$\times$4,
-WRN-40-2$\to$WRN-16-2, WRN-40-2$\to$WRN-40-1, VGG13$\to$VGG8), from heterogeneous pairs
-(ResNet32$\times$4$\to$ShuffleNet-V1/V2, ResNet50$\to$MobileNetV2, VGG13$\to$MobileNetV2,
-WRN-40-2$\to$ShuffleNet-V1). On ImageNet the standard pairs are ResNet34$\to$ResNet18 and
+CIFAR-100 papers use homogeneous pairs (e.g.\ ResNet56$\to$ResNet20, ResNet32$\times$4$\to$ResNet8$\times$4,
+WRN-40-2$\to$WRN-16-2, VGG13$\to$VGG8) and heterogeneous ones (e.g.\ ResNet32$\times$4$\to$ShuffleNet-V1/V2,
+ResNet50$\to$MobileNetV2). On ImageNet the standard pairs are ResNet34$\to$ResNet18 and
 ResNet50$\to$MobileNet \citep{zhao2022dkd,yang2023nkd}. ResNet32$\times$4$\to$ResNet8$\times$4 has
 become the most quoted single number: in this protocol the teacher reaches 79.42\%, the student trained
 alone 72.50\%, and classical KD 73.33\% top-1 \citep[Table~6]{zhao2022dkd}. We use this pair for
 Table~\ref{tab:logit-sota}.
 % src: DKD Table 6 (teacher 79.42, student 72.50, KD 73.33; average of 5 trials)
 
-The headline metric is top-1 accuracy on the validation set, on CIFAR-100 usually averaged over a few
-runs (five in DKD, \citealp{zhao2022dkd}); ImageNet papers add top-5 accuracy, and detection papers
-report COCO mAP together with AP$_{50}$ and AP$_{75}$ \citep{li2023ctkd}. Newer papers also report
-expected calibration error \citep{hossain2025luminet} and training cost, such as per-batch latency and
-extra parameters \citep{hossain2025luminet}, because a gain in accuracy that triples training time is
-a different trade-off from a free one.
+The headline metric is top-1 accuracy (on CIFAR-100 averaged over runs, five in DKD,
+\citealp{zhao2022dkd}); ImageNet adds top-5 and detection reports COCO mAP, AP$_{50}$ and AP$_{75}$
+\citep{li2023ctkd}. Newer papers add expected calibration error and training cost such as latency and
+extra parameters \citep{hossain2025luminet}.
 
 Two cautions apply to every table in this survey. First, papers do not reuse each other's numbers
 consistently. On ResNet32$\times$4$\to$ResNet8$\times$4, CTKD is listed at 73.39\% by
 \citet{sun2024lskd} but at 73.70\% by \citet{xu2025ldrld}, and LSKD reports 76.62\% for itself while
-\citet{xu2025ldrld} list it at 76.16\%. Gaps of 0.3--0.5 points are larger than several of the differences between the 2023--2025 methods in Table~\ref{tab:logit-sota}. Second, \citet{miles2024vkd} argue that CIFAR-100 is increasingly saturated as a KD
+\citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:logit-sota}. Second, \citet{miles2024vkd} argue that CIFAR-100 is increasingly saturated as a KD
 benchmark, so some of the reported gains may come from regularisation rather than from better
 transfer of knowledge (\textbf{VERIFIED} as their claim; whether it holds for a given method is open).
 We therefore report each method's own number with its source table and do not rank methods whose
