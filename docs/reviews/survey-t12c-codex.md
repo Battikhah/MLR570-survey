@@ -23,3 +23,10 @@ The sampled source checks found no other mechanism, number, venue, or protocol-f
 - `UV_CACHE_DIR=/private/tmp/uv-cache uv run --frozen --offline pytest -q` — exit 0; 220 passed, 1 skipped (`MPS unavailable`).
 
 The bibliography check left the worktree clean. The LaTeX success is only an up-to-date check, not a fresh compilation of this diff.
+
+## Coordinator resolution (2026-11-08)
+
+- **C1: withdrawn and gap fixed.** The flagged sentence is about `yang2024srd` (IJCV 2024, "SRD"), which reports only non-standard CIFAR pairs (s3 row). The CIFAR numbers in the finding belong to `miles2024projector`, a different method also abbreviated SRD. I added its 76.44 (RandAugment) and 78.37 (SSKD teachers, flagged as non-standard) to §III-B.
+- **C2: fixed.** The §IV label is now a LaTeX comment, followed by ordinary hedged prose.
+- **C3: accepted as the planned scope cut** (tasks/plan.md, scope decision of 2026-11-08). The dropped §VII clauses were Phase 1 text, not original-draft claims: none of them appears in `survey-t8-preservation.md`, `survey-t9.md` or `survey-t11.md`. Their sources stay in the registry.
+- **C4: fixed.** KD-Zero is added to §VI-B next to Auto-KD (the other distiller-search methods, DistPro, KDAS, Auto-KD and UniADS, already sit there), with its numbers and its per-pair search cost.

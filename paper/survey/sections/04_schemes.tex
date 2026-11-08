@@ -2,7 +2,8 @@
 \section{Distillation Schemes}
 \label{sec:schemes}
 
-\textit{INTERPRETATION: the scheme-selection advice and cost/failure-mode comparisons are our synthesis; cited method descriptions and reported results are source-grounded.}
+% INTERPRETATION: the scheme-selection advice and cost/failure-mode comparisons are our synthesis.
+The advice on choosing a scheme and the comparisons of cost and failure modes below are our synthesis; the method descriptions and reported results come from the cited papers.
 
 A training scheme specifies when the teacher exists, how many sources supervise the student, and what data the trainer can see. These choices affect compute and failure modes as much as the loss itself. A fixed offline teacher is convenient when it is already available; peer training removes the need for a privileged teacher but raises joint-training cost; teacher-free self-distillation avoids a second network but cannot add independent knowledge. Multi-teacher and assistant schemes trade compute for broader or better-matched guidance, while data-free methods trade access to original examples for synthetic-data quality and teacher-internal access.
 
