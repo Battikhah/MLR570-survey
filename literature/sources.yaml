@@ -3495,3 +3495,94 @@
   relevance: "DKL/IKL: KL decomposed into weighted MSE + soft-label CE, made symmetric and given class-wise global information. Leaderboard: Table 13 CIFAR-100 ResNet32x4->ResNet8x4 IKL-KD 76.59; Table 4 ImageNet ResNet34->ResNet18 71.91."
   topics: [kd, sota, logit-kd]
   local_pdf: false
+
+# --- T13: 6 methods from manually retrieved full texts (docs/survey/search/manual-pdfs.md) ---
+- id: mishra2026mcd
+  type: paper
+  title: "Correctness-Aware Knowledge Distillation for Enhanced Student Learning"
+  authors: ["Ishan Mishra", "Deepak Mishra", "Jinjun Xiong"]
+  date: 2026
+  venue: "TMLR (02/2026)"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=XpRXmzd2sF", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Full text read from a manually downloaded PDF (literature/pdfs/access/, git-ignored), 2026-11-08: header 'Published in Transactions on Machine Learning Research (02/2026)', OpenReview forum id on page 1, authors from page 1. Table 2 CIFAR-100 ResNet32x4->ResNet8x4 MCD 76.81 (+MLLD 77.45, +LS 77.11); Table 4 (page 11, rendered with pdftoppm and read) ImageNet ResNet34->ResNet18 72.08, ResNet50->MobileNetV1 73.65, 3 trials. Author list beyond page 1 and code availability not checked."
+  relevance: "MCD: weights the KD term when the teacher is correct and the CE term when it is wrong (correctness-aware weighting). On the §VIII leaderboard."
+  topics: [kd, sota, logit-kd, reliability]
+  local_pdf: false
+
+- id: tambat2025mcdistil
+  type: paper
+  title: "Unified Wisdom: Harnessing Collaborative Learning to Improve Efficacy of Knowledge Distillation"
+  authors: ["Atharva Abhijit Tambat", "Durga Sivasubramanian", "Ganesh Ramakrishnan", "Pradeep Shenoy"]
+  date: 2025
+  venue: "TMLR (08/2025)"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=Zj9bb8aQNg", arxiv: null, code: "https://github.com/AtharvaTambat/MC-Distil"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Full text read from a manually downloaded PDF, 2026-11-08: header 'Published in Transactions on Machine Learning Research (08/2025)', OpenReview forum id and authors on page 1, code URL in the paper text. Table 1 CIFAR-100 ResNet32x4->ResNet8x4 75.38 (own teacher 80.10, multi-student, not the mdistiller protocol). Licence not checked."
+  relevance: "MC-Distil: students of different capacities learn together under a meta-learned coordinator network. On the §VIII leaderboard (flag: multi-student)."
+  topics: [kd, sota, capacity-gap]
+  local_pdf: false
+
+- id: kag2023disk
+  type: paper
+  title: "Scaffolding a Student to Instill Knowledge"
+  authors: ["Anil Kag", "Durmus Alp Emre Acar", "Aditya Gangrade", "Venkatesh Saligrama"]
+  date: 2023
+  venue: "ICLR 2023"
+  status: published
+  urls: {official: null, arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "Full text read from a manually downloaded PDF, 2026-11-08: header 'Published as a conference paper at ICLR 2023', authors on page 1. Table 4 CIFAR-100 ResNet32x4->ResNet8x4 76.92 (own KD baseline 76.25), ResNet32x4->ShuffleNetV2 80.23; Table 7 ImageNet ResNet50->ResNet18 72.35 (not a standard pair). OpenReview URL and code not checked."
+  relevance: "DiSK: the teacher also censors hard-to-learn examples so a low-capacity student is not pushed to fit them. On the §VIII leaderboard."
+  topics: [kd, sota, capacity-gap]
+  local_pdf: false
+
+- id: huang2025distplus
+  type: paper
+  title: "DIST+: Knowledge Distillation From a Stronger Adaptive Teacher"
+  authors: ["Tao Huang", "Shan You", "Fei Wang", "Chen Qian", "Chang Xu"]
+  date: 2025-07
+  venue: "IEEE TPAMI 47(7), 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1109/TPAMI.2025.3554235", arxiv: null, code: "https://github.com/hunto/DIST_KD"}
+  identifiers: {doi: "10.1109/TPAMI.2025.3554235", arxiv: null}
+  license: "Apache-2.0 (GitHub API, see huang2022dist)"
+  verified_by: "Full text read from a manually downloaded IEEE Xplore PDF (AUS access), 2026-11-08: header 'IEEE TPAMI, Vol. 47, No. 7, July 2025', DOI and code URL on page 1. Table 6 CIFAR-100 ResNet32x4->ResNet8x4 76.19; Table 3 ImageNet ResNet34->ResNet18 72.39, ResNet50->MobileNetV1 73.47 (tables read from rendered pages)."
+  relevance: "Journal extension of DIST (huang2022dist): adds teacher acclimation and a feature-level correlation loss. Separate leaderboard row from DIST."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: lin2026lb
+  type: paper
+  title: "Looking Broader for Knowledge Distillation via Receptive-Field Alignment"
+  authors: ["Sihao Lin", "Junfei Yi", "Mingzhe Yang", "Yameng Peng", "Zhihui Li", "Andy Song", "Xiaojun Chang", "Yuhui Zheng"]
+  date: 2026-10
+  venue: "IEEE TPAMI 48(10), 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1109/TPAMI.2026.3704741", arxiv: null, code: null}
+  identifiers: {doi: "10.1109/TPAMI.2026.3704741", arxiv: null}
+  license: null
+  verified_by: "Full text read from a manually downloaded IEEE Xplore PDF, 2026-11-08: header 'IEEE TPAMI, Vol. 48, No. 10, October 2026', DOI and authors on page 1; no code URL found in the text. Table 1 ImageNet ResNet34->ResNet18 72.30, ResNet50->MobileNet 73.25; no CIFAR-100 standard pair."
+  relevance: "LB: journal extension of TaT (lin2022tat); one-to-all spatial feature matching plus a 'looking broader' rearrangement. ImageNet rows of the §VIII leaderboard."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: wang2024gapssg
+  type: paper
+  title: "Unpacking the Gap Box Against Data-Free Knowledge Distillation"
+  authors: ["Yang Wang", "Biao Qian", "Haipeng Liu", "Yong Rui", "Meng Wang"]
+  date: 2024-09
+  venue: "IEEE TPAMI 46(9), 2024"
+  status: published
+  urls: {official: "https://doi.org/10.1109/TPAMI.2024.3379505", arxiv: null, code: "https://github.com/hfutqian/GapSSG"}
+  identifiers: {doi: "10.1109/TPAMI.2024.3379505", arxiv: null}
+  license: null
+  verified_by: "Full text read from a manually downloaded IEEE Xplore PDF, 2026-11-08: header 'IEEE TPAMI, Vol. 46, No. 9, September 2024', DOI, authors and code URL in the text. Table 1 data-free CIFAR-100 WRN-40-2->WRN-16-2 68.88. Licence not checked."
+  relevance: "GapSSG: data-free KD that generates samples according to the teacher-student probability gap. Data-free sub-table of §VIII."
+  topics: [kd, data-free]
+  local_pdf: false
