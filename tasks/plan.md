@@ -107,11 +107,11 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
   records, and per-method leaderboard data (CIFAR-100 / ImageNet top-1 with source table, code URL, licence)
 - [ ] T12c Integrate newly included methods into §III–§VI (at least one sentence each in its family section); trim §VII
   to a "beyond classification" paragraph
-- [ ] T13 §VIII Leaderboard and reported results: every included method on the standard pairs, with protocol and
+- [x] T13 §VIII Leaderboard and reported results: every included method on the standard pairs, with protocol and
   comparability caveats and an official-code column; recommends the comparison set for the PCD project
-- [ ] T14 §IX Challenges and future directions
-- [ ] T15 Title, Abstract, §I Introduction (scope plus inclusion criteria plus search summary), §X Conclusion
-- [ ] T16 Final audit: citations, guideline G1–G11, draft preservation, clean build
+- [x] T14 §IX Challenges and future directions
+- [x] T15 Title, Abstract, §I Introduction (scope plus inclusion criteria plus search summary), §X Conclusion
+- [x] T16 Final audit: citations, guideline G1–G11, draft preservation, clean build
 
 ### Checkpoint D (human / team): full manuscript review
 
