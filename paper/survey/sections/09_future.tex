@@ -9,25 +9,23 @@ Each paragraph names an open question, its evidence, and a testable direction (a
 
 \paragraph{A comparable leaderboard.}
 The tables are not a controlled comparison (Section~\ref{sec:bench-protocol}). On ResNet32$\times$4$\to$ResNet8$\times$4,
-classical KD is 73.33\% in DKD's table \citep{zhao2022dkd}, 74.75\% in SKD's \citep{jeong2026skd} and 76.25\%
-in DiSK's \citep{kag2023disk}, a spread wider than the gaps between most single logit methods in
-Table~\ref{tab:app-methods}, while gaps of 0.3--0.5 points sit inside the seed spread
+classical KD is 73.33\% in DKD's table \citep{zhao2022dkd}, and 74.75\% in SKD's \citep{jeong2026skd}, a spread wider than the gaps between most single logit methods in
+Table~\ref{tab:bench-cifar}, while gaps of 0.3--0.5 points sit inside the seed spread
 (Section~\ref{sec:prelim-benchmarks}). Recipe choices also move results: \citet{beyer2022patientkd} identify
 training length and consistent teacher and student views as consequential, so a comparison of direction rules
 must hold the recipe fixed. Stacking adds a second problem. Three of the five highest CIFAR-100 rows are stacked
 (DeepKD on CRLD, EA-MLD with label smoothing, MLKD with logit standardisation;
 \citealp{huang2025deepkd,su2025eakd,sun2024lskd}), and several plug-ins lose much of their gain alone: EA-KD gives
-75.46\% against 78.38\% stacked, and NCKD 77.23\% against 78.18\% on SimKD \citep{zhang2025nckd}. We found no
+75.46\% against 78.38\% stacked. We found no
 included paper with a full grid of plug-ins against bases. \emph{Direction:} re-run the methods
 with public code in one code base, with fixed teachers and five seeds; check by rank correlation whether
 the published order survives, and train every pairing of a few bases (KD, DKD, MLKD) and plug-ins (logit standardisation, DOT, a reliability
 weight).
 
 \paragraph{Which teacher signal to trust.}
-The reliability methods disagree about what reliability means: label agreement, label probability, entropy, three-way geometry or validation-gradient alignment
-\citep{meng2019conditionalts,mishra2021cckd,su2025eakd,hu2024tgeokd,sumit2026chad}. Those that report on ResNet8$\times$4
-land between 75.5\% and 76.6\% (Section~\ref{sec:bench-families}). A teacher-side group (MCMI, DJIP, SoTeacher) changes the teacher
-instead \citep{ye2024mcmi,chen2026djip,dong2024soteacher}. Two older results argue against equating teacher
+The reliability methods disagree about what reliability means: label agreement, label probability, entropy or validation-gradient alignment
+\citep{meng2019conditionalts,mishra2021cckd,su2025eakd,sumit2026chad}. Those that report on ResNet8$\times$4
+land between 75.5\% and 76.6\% (Section~\ref{sec:bench-families}). A teacher-side group changes the teacher instead. Two older results argue against equating teacher
 accuracy with usefulness: \citet{yuan2020labelkd} report gains from poorly trained and reversed teachers, and
 \citet{stanton2021kdwork} show that teacher--student fidelity and student generalisation need not improve
 together, so a lower KD loss is not itself evidence of a better student. We found no paper that tests whether
@@ -44,22 +42,16 @@ the full-label protocol with a trained CNN teacher we found none. Scale rather t
 logging the CE--KD cosine and norm ratio, and compare each rule with its implied rescaling alone.
 
 \paragraph{Data-free distillation and the ImageNet gap.}
-The data-free methods report on WRN-40-2$\to$WRN-16-2 only (61.44--74.52\%,
-\citealp{liu2024ssdkd,wang2024kdci}), with differing budgets and one row mixing collected and generated
-data \citep{tang2025hidfd}, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 rows fall between 71.0\% and 73.0\%,
+The data-free methods report on WRN-40-2$\to$WRN-16-2 only, with differing budgets and some rows mixing collected and generated
+data, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 rows fall between 71.0\% and 73.0\%,
 close to DKD's 71.70\% \citep{zhao2023dot}, so CIFAR-100 gains of two or more points mostly shrink to under one.
 \emph{Direction:} report data-free and data-based methods on the same pairs and teacher, and the ratio of ImageNet to CIFAR-100 gain over KD for the top methods.
 
 \paragraph{Metrics and settings beyond top-1 accuracy.}
 Almost every table here ranks by top-1 accuracy, and the KD temperature is distinct from calibration (Section~\ref{sec:prelim-temperature}, \citealp{guo2017calibration}), yet the only expected calibration error quoted in
 Section~\ref{sec:logit} is LumiNet's, 0.06 against 0.11 for KD \citep{hossain2025luminet}. Reliability methods are judged by accuracy, not by whether teacher errors transfer. Training cost is rarely reported, though DOT needs two backward passes per step and searched
-distillers a search per pair \citep{zhao2023dot,li2023kdzero}.
-\label{sec:emerging}Neighbouring settings are outside this survey's scope but raise the same questions: in LLM
-distillation the student's own samples become training data, and UP-MOPD applies PCGrad-style projection to
-per-teacher updates \citep{gu2024minillm,zhu2026upmopd}; with vision--language teachers, CLIP-KD finds feature
-mimicry a strong baseline and DHO removes CE--KD conflict with separate heads \citep{yang2024clipkd,kang2025dho};
-a more robust teacher need not give a more robust student \citep{lee2026robustteachers}, and CA-AT (an
-unverified preprint) projects adversarial gradients in the priority style \citep{xue2024caat}; federated
-distillation transfers knowledge without a shared training set \citep{luo2023dfrd,jang2025fedgo}.
+distillers a search per pair \citep{zhao2023dot}.
+\label{sec:emerging}Neighbouring settings are outside this survey's scope but raise the same questions: LLM, vision--language,
+adversarially robust and federated distillation; with a zero-shot CLIP teacher, DHO removes CE--KD conflict with separate heads \citep{kang2025dho}.
 \emph{Direction:} in the re-run, also report calibration error, corrupted-test accuracy, agreement with
 the teacher's errors and time per epoch.

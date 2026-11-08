@@ -27,7 +27,7 @@ optimiser-side rules.
 AE-KD \citep{du2020aekd} framed ensemble distillation in gradient space: it solves a soft-margin
 MGDA over the per-teacher KD losses (dual box constraints $0\le\alpha_m\le C$, $C\in[1/M,1]$; $C=1$
 is MGDA), on student-logit gradients, so it is cheap. CE sits outside the MOO step, so it
-weighs teachers against each other, not task against teacher \citep{kenfack2025agrekd}.
+weighs teachers against each other, not task against teacher.
 % du2020aekd Eq. (7) (CE + weighted KD), Eq. (9) (primal with slack), Eq. (10) (dual, 0 <= alpha_m <= C),
 % Eq. (11) (direction); Fig. 1 right (gradients w.r.t. student logits); Sec. 3.2 "C in [1/M, 1]".
 
@@ -45,14 +45,12 @@ handles by clipping. The deployed algorithm amortises
 $\pi$ with a gradient step and softmax renormalisation and adds a feature projection and separate
 heads, so it is not the closed form, and a plain-logit adaptation would need its own specification. On CIFAR-100,
 ResNet32$\times$4$\to$ResNet8$\times$4, DTO-KD reports 76.40\% against 75.44\% for DKD and
-73.33\% for KD in the same table. It also reports COCO gains with ViDT students. Its convergence claim is borrowed from FAMO, and no code is linked. MoKD \citep{hayder2025mokd}, an earlier preprint by the same first four authors, has
-been withdrawn and is superseded by DTO-KD.
+73.33\% for KD in the same table. It also reports COCO gains with ViDT students. Its convergence claim is borrowed from FAMO, and no code is linked..
 % src: hayder2026dtokd Eq. (7) (max-min of relative rates), Eq. (8)-(9) (dual), Thm. 3.1 Eq. (10)-(12)
 % (closed form, sum-to-one only), Cor. 3.3 (equal inner products), Alg. 1 (projection P, DistillHead,
 % TaskHead), Eq. (18) + text ("renormalize it via a softmax"), Sec. 3 "two backpropagation per iteration".
 % src: hayder2026dtokd Table 2, column ResNet-32x4 -> ResNet-8x4: KD 73.33, DKD 75.44, DTO-KD 76.40.
 % Negative-weight case: pi_1 < 0 iff g12 > g22 (INTERPRETATION, from Eq. (11)).
-% MoKD: arXiv 2505.08170 v2 is a withdrawal notice (registry hayder2025mokd).
 
 \paragraph{SCKD: gradient-similarity gating (lineage).}
 SCKD \citep{zhu2021sckd} keeps the supervised loss ungated and switches each
@@ -138,14 +136,9 @@ are estimated to raise validation loss.
 
 \paragraph{Learned weighting and distiller search.}
 DistPro \citep{deng2022distpro} meta-learns a time-varying weight schedule over a set of KD pathways. Its outer-loop weights cannot react to conflict at a single step; it reports 77.54 on ResNet32$\times$4$\to$ShuffleNetV2 and 71.89 on ImageNet ResNet-34$\to$ResNet-18.
-KDAS \citep{chae2025kdas} adds adaptive sampling (about 10--30\% less training time; 71.81 for DKD+KDAS on ImageNet). Auto-KD \citep{li2023autokd} searches distiller designs by Monte-Carlo tree search (77.61 on ResNet32$\times$4$\to$ResNet8$\times$4 with logit KD, 77.35 without; 72.45 on ImageNet), UniADS \citep{lu2024uniads} searches student and distiller jointly (76.65; 72.25 with a 73.40 teacher). These sit nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules. KD-Zero \citep{li2023kdzero}, the evolutionary counterpart of Auto-KD, searches transforms, distances and loss terms per pair and trains 240 epochs, reaching 77.85\% on ResNet32$\times$4$\to$ResNet8$\times$4 and 72.17\% on ImageNet ResNet34$\to$ResNet18, excluding search cost.
-% src: li2023kdzero T3, T4 (s2-ml.md row)
-% src: deng2022distpro T1, T4; chae2025kdas T3; li2023autokd T3, T4; lu2024uniads T3, T4.
+Distiller-search methods search the loss design per pair by tree search or evolution, excluding search cost from their reported numbers; they sit nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules.
+% src: deng2022distpro T1, T4.
 
-Two further works, outside our scope, use MOO elsewhere in the pipeline: \citet{dong2025mooadv} use
-Tchebycheff scalarisation to generate adversarial examples for robust VLM distillation, and UP-MOPD
-\citep{zhu2026upmopd} (preprint) applies PCGrad-style projection to per-teacher updates in on-policy
-LLM distillation.
 
 
 \subsection{A critical view}
@@ -168,7 +161,7 @@ and they interpret several of those optimisers as forms of regularisation. \cite
 revisit it at larger scale and propose population-based search over the weights instead of new
 optimisers. None of these covers distillation. Among the KD papers above, only DOT compares with a
 sweep of fixed task weights (all below DOT); the others we read use published baselines at default
-weights, and we did not check DistPro, KDAS, Auto-KD or UniADS for such a sweep.
+weights, and we did not check DistPro or the distiller-search methods for such a sweep.
 % xin2022mtohelp abstract (quoted); kurin2022unitary abstract; royer2023scalarization abstract.
 % DOT Table 4 (alpha sweep 73.19-73.56 vs DOT 75.12).
 

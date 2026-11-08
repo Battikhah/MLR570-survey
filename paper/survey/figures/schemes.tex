@@ -2,12 +2,12 @@
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[box/.style={draw,rounded corners,align=center,text width=3.0cm,minimum height=1.45cm,inner sep=4pt}, arr/.style={->,thick}]
-\node[box,fill=blue!8] (offline) at (0,0) {Offline\\fixed pretrained teacher\\KD, FitNets};
-\node[box,fill=green!8] (online) at (3.7,0) {Online / mutual\\co-trained peers\\DML, SwitOKD};
-\node[box,fill=orange!10] (self) at (7.4,0) {Self-distillation\\same model or history\\BYOT, DLB};
-\node[box,fill=purple!8] (multi) at (0,-2.3) {Multi-teacher\\weighted teacher set\\MTKD-RL, AGRE-KD};
-\node[box,fill=yellow!18] (gap) at (3.7,-2.3) {Capacity gap\\assistant or adapted teacher\\TAKD, AID};
-\node[box,fill=red!8] (free) at (7.4,-2.3) {Data-free\\synthetic inputs\\NAYER, SSD-KD};
+\node[box,fill=blue!8] (offline) at (0,0) {Offline\\fixed pretrained teacher\\KD, FitNets, SimKD};
+\node[box,fill=green!8] (online) at (3.7,0) {Online / mutual\\co-trained peers\\mutual learning};
+\node[box,fill=orange!10] (self) at (7.4,0) {Self-distillation\\same model or history\\branches, generations};
+\node[box,fill=purple!8] (multi) at (0,-2.3) {Multi-teacher\\weighted teacher set\\AE-KD};
+\node[box,fill=yellow!18] (gap) at (3.7,-2.3) {Capacity gap\\assistant or adapted teacher\\Cho et al., DIST};
+\node[box,fill=red!8] (free) at (7.4,-2.3) {Data-free\\synthetic inputs\\BN-statistics inversion};
 \draw[arr] (offline) -- (online);
 \draw[arr] (offline) -- (self);
 \draw[arr] (multi) -- (gap);

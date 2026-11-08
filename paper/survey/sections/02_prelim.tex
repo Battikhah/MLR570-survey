@@ -96,16 +96,15 @@ calibrated, and a calibrated teacher is not necessarily a good one to distil fro
 Most logit-distillation papers since 2022 report results on the same three datasets, using the
 protocol and code base that CRD \citep{tian2020crd} introduced for CIFAR-100 and that DKD's
 \texttt{mdistiller} repository \citep{zhao2022dkd} extended to ImageNet and COCO.
-\emph{CIFAR-100} \citep{krizhevsky2009cifar} has 100 classes of $32\times32$ images, with 50k
-training and 10k validation images; \emph{ImageNet-1K} \citep{russakovsky2015imagenet} has 1{,}000
-classes with about 1.28M training and 50k validation images; and \emph{MS-COCO}
-\citep{lin2014coco} is used for 80-class detection with the 118k-image \texttt{train2017} and
+\emph{CIFAR-100} has 100 classes of $32\times32$ images, with 50k
+training and 10k validation images; \emph{ImageNet-1K} has 1{,}000
+classes with about 1.28M training and 50k validation images; and \emph{MS-COCO} is used for 80-class detection with the 118k-image \texttt{train2017} and
 5k-image \texttt{val2017} splits (split sizes as reported by \citet{zhao2022dkd}, Sec.~4).
 % src: DKD Sec. 4 (CIFAR-100 50k/10k; ImageNet 1.28M/50k; COCO train2017 118k, val2017 5k)
 
 CIFAR-100 papers use homogeneous pairs (e.g.\ ResNet32$\times$4$\to$ResNet8$\times$4,
 WRN-40-2$\to$WRN-16-2) and heterogeneous ones (e.g.\ ResNet32$\times$4$\to$ShuffleNet-V1/V2); on ImageNet the standard pairs are ResNet34$\to$ResNet18 and
-ResNet50$\to$MobileNet \citep{zhao2022dkd,yang2023nkd}. ResNet32$\times$4$\to$ResNet8$\times$4 is the most quoted: in this protocol the teacher reaches 79.42\%, the student trained
+ResNet50$\to$MobileNet \citep{zhao2022dkd}. ResNet32$\times$4$\to$ResNet8$\times$4 is the most quoted: in this protocol the teacher reaches 79.42\%, the student trained
 alone 72.50\%, and classical KD 73.33\% top-1 \citep[Table~6]{zhao2022dkd}. We use this pair for
 Table~\ref{tab:bench-cifar}.
 % src: DKD Table 6 (teacher 79.42, student 72.50, KD 73.33; average of 5 trials)
@@ -117,10 +116,8 @@ The headline metric is top-1 accuracy (on CIFAR-100 averaged over runs, five in 
 Two cautions apply to every table in this survey. First, papers do not reuse each other's numbers
 consistently. On ResNet32$\times$4$\to$ResNet8$\times$4, CTKD is listed at 73.39\% by
 \citet{sun2024lskd} but at 73.70\% by \citet{xu2025ldrld}, and LSKD reports 76.62\% for itself while
-\citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:bench-cifar}. Second, \citet{miles2024vkd} argue that CIFAR-100 is increasingly saturated as a KD
-benchmark, so some of the reported gains may come from regularisation rather than from better
-transfer of knowledge (\textbf{VERIFIED} as their claim; whether it holds for a given method is open).
+\citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:bench-cifar}. Second, CIFAR-100 is close to saturated as a KD benchmark, so part of a
+reported gain may come from regularisation rather than better transfer (\textbf{INTERPRETATION}).
 We therefore report each method's own number with its source table and do not rank methods whose
 gaps are within this spread.
 % src: LSKD Table 2 (KD+CTKD 73.39; KD+Ours 76.62); LDRLD Table 1 (CTKD 73.70; LSKD 76.16)
-% src: VkD (arXiv 2403.06213) appendix: CRD benchmark results 'have become increasingly saturated'

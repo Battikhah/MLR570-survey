@@ -6,7 +6,7 @@
 \section{Benchmarks and Reported Results}
 \label{sec:benchmarks}
 
-This section collects each included paper's own reported results, not a controlled comparison; Table~\ref{tab:app-methods} lists every method.
+This section collects each included paper's own reported results, not a controlled comparison. The complete list of 112 included methods, with each one's results, is in the supplementary material (\texttt{included-methods.md}); the tables here keep the top results and the baselines discussed in the text.
 
 \subsection{Protocol and comparability}
 \label{sec:bench-protocol}
@@ -19,18 +19,15 @@ WRN-40-2$\to$WRN-16-2 is the second homogeneous pair and the only one most data-
 ImageNet-1K the standard pairs are ResNet34$\to$ResNet18 and ResNet50$\to$MobileNetV1.
 
 Three things limit cross-paper comparison even under this protocol. First, papers report different
-statistics: the mean of three or five runs, the best run, or a single run (RDD, \citealp{mugisha2026rdd}).
+statistics: the mean of three or five runs, the best run, or a single run.
 Gaps under about 0.3 points on CIFAR-100 are within the usual seed spread and should not be read as a
 ranking. Second, many top numbers are \emph{stacked}: a plug-in is added to an already strong method such
 as MLKD \citep{jin2023mlkd}, CRLD or SimKD \citep{chen2022simkd}, so the row measures the combination. The
 Flags column names the base and, where given, the stand-alone number. Third, some rows change the setting:
-a retrained or updated teacher (KD-AIF, \citealp{wu2025kdaif}; DJIP, \citealp{chen2026djip}; BTKD,
-\citealp{zhang2025btkd}), extra data or augmentation (KD$^3$, \citealp{tang2023kd3}; SRD,
+a retrained or updated teacher (KD-AIF, \citealp{wu2025kdaif}), extra data or augmentation (SRD,
 \citealp{miles2024projector}), label smoothing on the student (LSKD and EA-KD rows), online or
-multi-student training (ORC, \citealp{choi2023orc}; ADM, \citealp{chen2025adm}; MC-Distil,
-\citealp{tambat2025mcdistil}), a searched distiller (KD-Zero, \citealp{li2023kdzero}; Auto-KD,
-\citealp{li2023autokd}), or a stronger KD baseline than \texttt{mdistiller}'s, as in SKD
-\citep{jeong2026skd} (KD 74.75) and DiSK \citep{kag2023disk} (KD 76.25). Following the search rulings,
+multi-student training, a searched distiller, or a stronger KD baseline than \texttt{mdistiller}'s, as in SKD
+\citep{jeong2026skd} (KD 74.75). Following the search rulings,
 these rows are flagged rather than dropped.
 
 \subsection{CIFAR-100 and ImageNet-1K}
@@ -49,17 +46,14 @@ The sparse WRN-40-2$\to$WRN-16-2 column has DistPro at 76.36\% \citep{deng2022di
 
 On ImageNet ResNet34$\to$ResNet18 (79 methods, Table~\ref{tab:bench-imagenet}) the spread is narrow: all but
 seven rows fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
-reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and BTKD and its journal version
-report 73.38\% with their own teachers and optimiser \citep{zhang2025btkd,zhang2026btkdpp}. The MSE-teacher
-study trains for 120 epochs \citep{hamidi2024mseteacher}, and CheckpointKD uses its own 73.86\% teacher
-\citep{wang2022checkpointkd}. Only three included papers (plus DeepKD, re-read from the camera-ready version)
-were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
-\citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb}. DeepKD stacked on CRLD reports 73.34\% and
+reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and several other high rows use their own teachers, optimiser or a shorter schedule (see the supplementary list). Only three included papers (plus DeepKD, re-read from the camera-ready version)
+were read for ResNet50$\to$MobileNetV1, among them MCD 73.65\% \citep{mishra2026mcd} and DIST+ 73.47\%
+\citep{huang2025distplus}. DeepKD stacked on CRLD reports 73.34\% and
 74.85\% on the two ImageNet pairs.
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the twelve highest reported rows and the baselines discussed in the text. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in Table~\ref{tab:app-methods}.}\label{tab:bench-cifar}
+\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in the supplementary list of included methods.}\label{tab:bench-cifar}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & Code & Flags \\
@@ -70,12 +64,7 @@ VRM~\citep{zhang2025vrm} & F & ICCV'25 & 78.76 & no &  \\
 EA-KD~\citep{su2025eakd} & L & ICCV'25 & 78.38 & yes & EA-MLD+LS (stacked, LS); EA-KD 75.46 \\
 SKD~\citep{jeong2026skd} & H & CVPR'26 & 78.33 & no & own KD baseline 74.75 \\
 LSKD~\citep{sun2024lskd} & L & CVPR'24 & 78.28 & yes & MLKD+LS (stacked) \\
-UniKD~\citep{huang2024unikd} & H & ECCV'24 & 78.18 & no &  \\
-NCKD~\citep{zhang2025nckd} & F & AAAI'25 & 78.18 & no & SimKD+NCKD; NCKD 77.23 \\
-TopKD (top-scaled)~\citep{wang2025topkd} & L & arXiv'25 & 78.18 & no & preprint \\
 SimKD~\citep{chen2022simkd} & F & CVPR'22 & 78.08 & yes & reuses teacher classifier \\
-FiGKD~\citep{kim2025figkd} & F & arXiv'25 & 78.05 & no & preprint (ESWA) \\
-KD-Zero~\citep{li2023kdzero} & H & NeurIPS'23 & 77.85 & no & distiller searched per pair \\
 GDKD~\citep{zheng2025gdkd} & L & arXiv'25 & 77.76 & yes & preprint (TNNLS); own DKD 76.64 \\
 LumiNet~\citep{hossain2025luminet} & L & TMLR'25 & 77.50 & yes &  \\
 MLKD~\citep{jin2023mlkd} & L & CVPR'23 & 77.08 & yes &  \\
@@ -86,7 +75,6 @@ DTO-KD~\citep{hayder2026dtokd} & O & ICLR'26 & 76.40 & no &  \\
 DKD~\citep{zhao2022dkd} & L & CVPR'22 & 76.32 & yes &  \\
 DIST~\citep{huang2022dist} & L & NeurIPS'22 & 76.31 & yes &  \\
 DIST+~\citep{huang2025distplus} & L & TPAMI'25 & 76.19 & yes & adds feature loss to DIST \\
-WTTM~\citep{zheng2024wttm} & L & ICLR'24 & 76.06 & yes &  \\
 TopoKD~\citep{kim2024topkd} & F & ICML'24 & 75.40 & no & repo unreachable \\
 DOT~\citep{zhao2023dot} & O & ICCV'23 & 75.12 & yes & KD+DOT (mdistiller) \\
 \bottomrule
@@ -95,26 +83,14 @@ DOT~\citep{zhao2023dot} & O & ICCV'23 & 75.12 & yes & KD+DOT (mdistiller) \\
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the twelve highest reported rows and the baselines discussed in the text. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. All 79 rows, and the ResNet50$\to$MobileNetV1 values, are in Table~\ref{tab:app-methods}.}\label{tab:bench-imagenet}
+\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. All 79 rows, and the ResNet50$\to$MobileNetV1 values, are in the supplementary list.}\label{tab:bench-imagenet}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 Method & Fam. & Venue & R34$\to$R18 & Code & Flags \\
 \midrule
 TopoKD~\citep{kim2024topkd} & F & ICML'24 & 73.60 & no & above its 73.31 teacher \\
-BTKD~\citep{zhang2025btkd} & R & AAAI'25 & 73.38 & no & own teachers; Adam \\
-BTKD++~\citep{zhang2026btkdpp} & R & IJCV'26 & 73.38 & yes & extends BTKD \\
 DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 73.34 & no & CRLD+DeepKD \\
-KD-AV~\citep{peng2024kdav} & H & ICML'24 & 73.04 & no &  \\
-TGeo-KD~\citep{hu2024tgeokd} & L & ICLR'24 & 72.89 & no &  \\
-UniKD~\citep{huang2024unikd} & H & ECCV'24 & 72.83 & no &  \\
-GPD~\citep{guo2025gpd} & S & ICLR'25 & 72.71 & no & DKD+GPD; dynamic teacher \\
-UHKD~\citep{yu2025uhkd} & F & arXiv'25 & 72.71 & no & preprint \\
-TLLM~\citep{zhu2022tllm} & R & NeurIPS'22 & 72.6 & no & teacher printed as ResNet32 \\
-CoCaRS~\citep{yu2026cocars} & F & arXiv'26 & 72.58 & no & preprint \\
-DPK~\citep{qiu2023dpk} & F & ICLR'23 & 72.51 & no &  \\
-WKD~\citep{lv2024wkd} & L & NeurIPS'24 & 72.49 & yes & WKD-L \\
 DIST+~\citep{huang2025distplus} & L & TPAMI'25 & 72.39 & yes &  \\
-LB~\citep{lin2026lb} & F & TPAMI'26 & 72.30 & no &  \\
 GDKD~\citep{zheng2025gdkd} & L & arXiv'25 & 72.26 & yes & preprint \\
 LumiNet~\citep{hossain2025luminet} & L & TMLR'25 & 72.16 & yes &  \\
 MCD~\citep{mishra2026mcd} & L & TMLR'26 & 72.08 & no & 3 trials \\
@@ -133,28 +109,23 @@ SKD~\citep{jeong2026skd} & H & CVPR'26 & 71.13 & no &  \\
 \subsection{Data-free and untabulated methods}
 \label{sec:bench-datafree}
 
-Ten data-free methods (\S\ref{sec:schemes}; WRN-40-2$\to$WRN-16-2 from 61.44\% for SSD-KD, \citealp{liu2024ssdkd}, to 74.52\% for DFND with KDCI,
-\citealp{wang2024kdci}) are listed in the appendix and not ranked. Four more methods
-meet the criteria on a pair not tabulated here: VkD \citep{miles2024vkd}, SoTeacher \citep{dong2024soteacher},
-the Bayesian-teacher study \citep{morad2026bayesteacher} and ABKD \citep{wang2025abkd}
-(Table~\ref{tab:app-methods}).
+Ten data-free methods (\S\ref{sec:schemes}) report WRN-40-2$\to$WRN-16-2 values under their own synthesis budgets, and four more methods meet the criteria only on a pair not tabulated here; all are in the supplementary list and not ranked.
 
 \subsection{Comparison across families}
 \label{sec:bench-families}
 
-\paragraph{Logit methods.} The most numerous and cheapest group: most single logit methods fall between 76.0\% (WTTM) and 77.8\% (GDKD), the stacked rows above 78\% mostly combine two of them, and on ImageNet they sit within about one point of DKD.
+\paragraph{Logit methods.} The most numerous and cheapest group: most single logit methods fall between 76.0\% and 77.8\% (GDKD), the stacked rows above 78\% mostly combine two of them, and on ImageNet they sit within about one point of DKD.
 
-\paragraph{Feature and relation methods.} VRM, NCKD and SimKD give the highest single-method CIFAR numbers, but
+\paragraph{Feature and relation methods.} VRM and SimKD give the highest single-method CIFAR numbers, but
 SimKD reuses the teacher's classifier, so the deployed student is larger than ResNet8$\times$4 alone
-\citep{chen2022simkd}, and VRM has no public code. Feature methods need a projector per pair and intermediate-layer access; several recent ones (OFA-KD, HCD, UHKD, CoCaRS) report only on ImageNet.
+\citep{chen2022simkd}, and VRM has no public code. Feature methods need a projector per pair and intermediate-layer access; several recent ones report only on ImageNet.
 
-\paragraph{Training schemes and reliability.} Online and multi-student schemes (ORC, ADM, SwitOKD, MC-Distil)
-score lower than offline methods but avoid a fixed pre-trained teacher; searched distillers (KD-Zero, Auto-KD, UniADS) reach 76.6--77.9\% at the price of a search per pair. Reliability methods (RLD, IPWD, TLLM) and teacher-retraining ones (DJIP, MCMI,
-SoTeacher) give 75.5--76.6\% as single methods where they report it.
+\paragraph{Training schemes and reliability.} Online and multi-student schemes
+score lower than offline methods but avoid a fixed pre-trained teacher; searched distillers reach 76.6--77.9\% at the price of a search per pair. Reliability methods such as RLD and the teacher-retraining ones give 75.5--76.6\% as single methods where they report it.
 
 \paragraph{Optimizer-side methods.} DOT (KD+DOT 75.12\%, \citealp{zhao2023dot}), DeepKD (79.25\% stacked on CRLD, \citealp{huang2025deepkd}), DTO-KD (76.40\%, \citealp{hayder2026dtokd}) and DistPro \citep{deng2022distpro} change how the task and distillation gradients are
 combined (\S\ref{sec:kd_moo}); none gates the distillation term per sample. PCD \citep{varam2026pcd} has no reported number on these pairs. Since an optimizer change stacks on a loss change, a fair test of an
 optimiser should report it on top of both KD and a strong logit loss.
 
 \paragraph{Applicability.} Without intermediate-layer access, a logit method with public code
-(DKD, MLKD, LSKD, WKD, LumiNet) is the safe start; for accessible homogeneous pairs, SimKD or a projector-based feature method is stronger on the reported numbers; reliability methods fit a partly wrong teacher, and online or data-free schemes fit when a pre-trained teacher is the constraint.
+(DKD, MLKD, LSKD, LumiNet) is the safe start; for accessible homogeneous pairs, SimKD or a projector-based feature method is stronger on the reported numbers; reliability methods fit a partly wrong teacher, and online or data-free schemes fit when a pre-trained teacher is the constraint.

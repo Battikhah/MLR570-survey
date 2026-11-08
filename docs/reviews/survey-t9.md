@@ -29,3 +29,9 @@ The section also covers reliability-related inventory methods TGeo-KD (`hu2024tg
 page target. Every claim the rows above attribute to "Table III" is still carried by the §V prose at the
 cited `05_reliability.tex` paragraphs (CTSL, CCKD, Hard Gate KD, CA-MKD, LR-DS, RLD, CHAD), and every
 method in that table remains cited in §V and in the appendix (Table `tab:app-methods`).
+
+**Reference cut (2026-11-08):** the appendix table moved to the supplementary file
+`docs/survey/included-methods.md`; Table III (`tab:reliability`) is restored in §V with only cited
+methods. All mapped draft claims above keep their citations. The added inventory methods TGeo-KD,
+LTKD, AGRE-KD and CaRE-KD are no longer cited in the main text (uncited summary sentences only) and
+remain in the supplementary list.

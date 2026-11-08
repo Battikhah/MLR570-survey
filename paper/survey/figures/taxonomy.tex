@@ -39,22 +39,22 @@
     \node[leaf] (L#1) at (3.95,#1) {#2};
     \node[meth] at (8.45,#1) {#3};}
   \leaf{0}{Logit: decoupling, calibration}{DKD, CTKD, LSKD, LumiNet}
-  \leaf{1}{Logit: divergences, relations}{DIST, WKD, PLD, LDRLD, EKD}
-  \leaf{2}{Feature: same architecture}{SimKD, FCFD, VkD}
-  \leaf{3}{Relational / cross-architecture}{VRM, OFA-KD, TCS, RSD, RPKD}
-  \leaf{4}{Online / mutual}{SwitOKD, L-MCL}
-  \leaf{5}{Self-distillation}{DLB, USKD, label-averaging view}
-  \leaf{6}{Multi-teacher}{MTKD-RL, AGRE-KD}
-  \leaf{7}{Capacity gap}{ATS, DPK, AID}
-  \leaf{8}{Data-free}{NAYER, SSD-KD}
-  \leaf{9}{Refined teacher targets}{RLD, TGeo-KD, LTKD}
-  \leaf{10}{Sample weighting / selection}{EA-KD, AGRE-KD, CaRE-Div}
+  \leaf{1}{Logit: divergences, relations}{DIST, MLKD, LDRLD, SKD}
+  \leaf{2}{Feature: same architecture}{FitNets, ReviewKD, SimKD, SRD}
+  \leaf{3}{Relational / cross-architecture}{RKD, CRD, VRM, TopKD}
+  \leaf{4}{Online / mutual}{co-trained peers}
+  \leaf{5}{Self-distillation}{same model or its history}
+  \leaf{6}{Multi-teacher}{AE-KD}
+  \leaf{7}{Capacity gap}{Cho et al., DIST}
+  \leaf{8}{Data-free}{synthetic transfer inputs}
+  \leaf{9}{Refined teacher targets}{RLD, LR-DS, MCD}
+  \leaf{10}{Sample weighting / selection}{CTSL, CCKD, EA-KD, CHAD}
   \leaf{11}{Task--KD trade-off}{DOT, DeepKD, DTO-KD, TPKD*, SPOFA*}
-  \leaf{12}{MOO elsewhere in KD}{UP-MOPD*, DHO, MOO adversaries}
-  \leaf{13}{LLM distillation}{MiniLLM, GKD, DistiLLM-2, TAID}
-  \leaf{14}{VLM $\rightarrow$ small models}{TinyCLIP, CLIP-KD, PromptKD, VL2Lite}
-  \leaf{15}{Adversarially robust KD}{AdaAD, PeerAiD, IGDM, SAAD}
-  \leaf{16}{Federated KD}{DFRD, HYDRA-FL, FedGO}
+  \leaf{12}{MOO elsewhere in KD}{DHO}
+  \leaf{13}{LLM distillation}{student-generated data}
+  \leaf{14}{VLM $\rightarrow$ small models}{CLIP-type teachers}
+  \leaf{15}{Adversarially robust KD}{robust teachers}
+  \leaf{16}{Federated KD}{no shared training set}
   \leaf{17}{CIFAR-100 (R32$\times$4$\rightarrow$R8$\times$4)}{DKD, LDRLD, VRM}
   \leaf{18}{ImageNet-1K (R34$\rightarrow$R18)}{DIST, WKD, DPK}
   % --- sections (first row, last row, label) ----------------------------------------
