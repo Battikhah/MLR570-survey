@@ -109,10 +109,10 @@ C = combination/optimiser, H = hybrid.
 | `niu2022ipwd` | IPWD | Respecting Transfer Gap in Knowledge Distillation | NeurIPS 2022 | 2210.12787 | CORE | R | 8 CRD pairs / R34-R18, R50-MV1 | 76.03 (T2; SSKD+IPWD 76.74, own teacher, T3) | 71.88 (T4) | none found | inverse-propensity sample weighting | `found via: HCD T3` |
 | `cui2024dkl` | DKL / IKL-KD | Decoupled Kullback-Leibler Divergence Loss | NeurIPS 2024 | 2305.13948 | CORE | L | 11 CRD pairs / R34-R18, R50-MV1 | 76.59 (T13) | 71.91 (T4) | jiequancui/DKL (none) | KL = weighted MSE + soft-label CE, symmetrised | `found via: GenDD T5` |
 | `yu2025angularkd` | Angular-KD | Single-Teacher View Augmentation: Boosting Knowledge Distillation via Angular Diversity | NeurIPS 2025 (author-stated) | 2510.22480 | CORE | S | R32x4/8x4, VGG13/8, W40-2/40-1 (+ cross) / R34-R18 | 77.28, MLKD+Angular (T2; KD+ 76.08) | 71.07 (T3) | june6423/Angular-KD (NOASSERTION) | angular-diversity teacher-view augmentation | `found via: SAKD T IV` |
-| `wang2022gooddakd` | CutMixPick | What Makes a "Good" Data Augmentation in Knowledge Distillation - A Statistical Perspective | NeurIPS 2022 | 2012.02909 | CORE | S | 7 CRD pairs / — | 76.11, CRD+CutMixPick (T1) | n/r | MingSun-Tse/Good-DA-in-KD (none) | entropy-picked CutMix samples for KD | `found via: KD-AIF T2` |
-| `wang2022ckptkd` | CkptKD | Efficient Knowledge Distillation from Model Checkpoints | NeurIPS 2022 | 2210.06458 | CORE | S | non-standard CIFAR pairs / R34-R18 | n/r | 70.98 (T1; teacher 73.86) | LeapLabTHU/CheckpointKD (none) | intermediate-checkpoint teachers | `found via: ASD T1` |
+| `wang2022cutmixpick` | CutMixPick | What Makes a "Good" Data Augmentation in Knowledge Distillation - A Statistical Perspective | NeurIPS 2022 | 2012.02909 | CORE | S | 7 CRD pairs / — | 76.11, CRD+CutMixPick (T1) | n/r | MingSun-Tse/Good-DA-in-KD (none) | entropy-picked CutMix samples for KD | `found via: KD-AIF T2` |
+| `wang2022checkpointkd` | CkptKD | Efficient Knowledge Distillation from Model Checkpoints | NeurIPS 2022 | 2210.06458 | CORE | S | non-standard CIFAR pairs / R34-R18 | n/r | 70.98 (T1; teacher 73.86) | LeapLabTHU/CheckpointKD (none) | intermediate-checkpoint teachers | `found via: ASD T1` |
 | `hossain2025tekap` | TeKAP | Single Teacher, Multiple Perspectives: Teacher Knowledge Augmentation for Enhanced Knowledge Distillation | ICLR 2025 | OpenReview DmEHmZ89iB | **AMBIGUOUS** | S | (secondary: R32x4/8x4) | 74.79 *secondary* (LDRLD T1) | 70.67 *secondary* (Angular-KD T3) | none checked | noise-perturbed teacher views | `found via: LDRLD T1` |
-| `kim2024topokd` | TopKD (topology) | Do Topological Characteristics Help in Knowledge Distillation? | ICML 2024 | OpenReview 2dEH0u8w0b | **AMBIGUOUS** | F | (secondary: R32x4/8x4) | 75.40 *secondary* (EKD T1) | n/r | none checked | topological (persistent-homology) feature relations | `found via: EKD T1` |
+| `kim2024topkd` | TopKD (topology) | Do Topological Characteristics Help in Knowledge Distillation? | ICML 2024 | OpenReview 2dEH0u8w0b | **AMBIGUOUS** | F | (secondary: R32x4/8x4) | 75.40 *secondary* (EKD T1) | n/r | none checked | topological (persistent-homology) feature relations | `found via: EKD T1` |
 
 **AMBIGUOUS cases (the coordinator decides):**
 1. **Published at a venue outside I2, arXiv v1 ≥ 2025: `yan2025era` (TNNLS), `zheng2025gdkd` (TNNLS), `jiang2026arkd`
@@ -124,7 +124,7 @@ C = combination/optimiser, H = hybrid.
    the standard fixed-teacher protocol, so it should not go on the leaderboard as is.
 3. **`tang2025hidfd`**: data-free; the student is "ShuffleNet" with no version given, and its baseline accuracy (72.60)
    matches neither ShuffleNetV1 (70.50) nor V2 (71.82), so whether the pair is standard is unclear.
-4. **`hossain2025tekap`, `kim2024topokd`**: the venue is verified (OpenReview metadata), but the full text is blocked.
+4. **`hossain2025tekap`, `kim2024topkd`**: the venue is verified (OpenReview metadata), but the full text is blocked.
    I3 is supported only by other papers' tables. These are ICLR/ICML papers, so S1/S2 may already hold the full text.
 5. **Seven TPAMI papers with no full text** (§5): left unassessed for I3.
 
@@ -231,10 +231,10 @@ DiffKD, DIST, OFA, RLD, LDRLD, EKD, RSD, WKD and the CLASSIC entries.
 | IPWD (NeurIPS 2022) | HCD T3 | NeurIPS 2022 listing + arXiv 2210.12787 | **included** `niu2022ipwd` |
 | DKL / IKL-KD (NeurIPS 2024) | GenDD T5, GKL T5 | NeurIPS 2024 listing + arXiv 2305.13948 | **included** `cui2024dkl` |
 | Angular-KD (NeurIPS 2025) | SAKD T III/IV | arXiv 2510.22480 (author-stated NeurIPS 2025) | **included** `yu2025angularkd` |
-| CutMixPick (NeurIPS 2022) | KD-AIF T2 | NeurIPS 2022 listing + arXiv 2012.02909 | **included** `wang2022gooddakd` |
-| CkptKD (NeurIPS 2022) | ASD T1 | NeurIPS 2022 listing + arXiv 2210.06458 | **included** `wang2022ckptkd` |
+| CutMixPick (NeurIPS 2022) | KD-AIF T2 | NeurIPS 2022 listing + arXiv 2012.02909 | **included** `wang2022cutmixpick` |
+| CkptKD (NeurIPS 2022) | ASD T1 | NeurIPS 2022 listing + arXiv 2210.06458 | **included** `wang2022checkpointkd` |
 | TeKAP (ICLR 2025) | LDRLD T1, FiGKD T1, AR-KD T1, HCD T3 | OpenReview metadata; PDF blocked | **AMBIGUOUS** `hossain2025tekap` |
-| TopKD (topology, ICML 2024) | EKD T1, NCKD T1 | OpenReview metadata; PDF blocked | **AMBIGUOUS** `kim2024topokd` |
+| TopKD (topology, ICML 2024) | EKD T1, NCKD T1 | OpenReview metadata; PDF blocked | **AMBIGUOUS** `kim2024topkd` |
 | CRLD | DeepKD T1 | ref: ACM MM 2024 | E3 |
 | BDCKD | LumiNet T1 | ref: ICASSP 2025 | E3 |
 | LA | RLD, REDistill | ref: Neurocomputing 2021 | E3 |
@@ -252,3 +252,8 @@ DiffKD, DIST, OFA, RLD, LDRLD, EKD, RSD, WKD and the CLASSIC entries.
 | InDistill (Sarridis et al. 2022) | BTKD T1 | venue not checked | **unresolved** |
 
 The six unresolved competitors are left for the coordinator or S1/S2, where their venues may already be listed.
+
+
+## Coordinator de-duplication (2026-11-08)
+
+During the merge, the snowball records `wang2022ckptkd`, `wang2022gooddakd` and `kim2024topokd` turned out to duplicate the S2 records `wang2022checkpointkd`, `wang2022cutmixpick` and `kim2024topkd` (same paper). The S2 records are kept and the references above now point to them. `niu2022ipwd`, `yu2025angularkd` and `hossain2025tekap` were created by both S2 and S3 under the same id; the S2 version is kept.
