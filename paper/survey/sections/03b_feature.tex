@@ -1,6 +1,86 @@
 % Owner: Hasan  |  Task: T7  |  Drafted by ORCA agents, finalised by the owner.
-% Rules: prose only; every claim cited with \citet/\citep to a literature/sources.yaml record id;
-% compare methods (G6); strengths/weaknesses/applicability (G8). See tasks/todo.md.
 \section{Feature- and Relation-Based Distillation}
 \label{sec:feature}
-\textit{[To be written: State-of-the-art feature and relation methods; Fig. 3 knowledge types.]}
+
+\textit{INTERPRETATION: the suitability judgments and cross-method comparisons in this section are our synthesis; method descriptions and reported values are tied to the cited records.}
+
+Logit distillation transfers class responses, feature methods expose intermediate representations, and relation methods transfer structure among examples. These labels identify the dominant supervision signal; a method may combine them. Their main design question is whether the student should reproduce teacher coordinates, a transformation of those coordinates, or only selected invariants. Direct matching makes supervision concrete but presumes correspondence. Relaxing that presumption can accommodate heterogeneous architectures, though it changes which information the student can recover.
+
+\subsection{Feature alignment and projector design}
+
+FitNets introduced intermediate ``hints'' from a deep teacher to guide a thin student before its final classifier. A learned regressor reconciles the hint and student dimensions, making intermediate supervision possible where output-only KD would give no signal to early student layers. It improves on final-logit matching when deeper student features remain undertrained, but its chosen teacher/student layers and projection determine what is transferred; a poorly matched hint can constrain rather than help the student\citep{romero2015fitnets}. Attention Transfer (AT) reduces feature maps to spatial attention. This avoids equal channel-count requirements and can work across different activation widths, while discarding channel-specific content\citep{zagoruyko2017at}.
+
+ReviewKD aggregates teacher features from multiple stages into review representations for corresponding student stages, providing hierarchical guidance with added feature paths and stage matching during training\citep{chen2021reviewkd}. SimKD instead projects the student's penultimate representation into the teacher classifier's feature space and reuses the frozen teacher classifier. This avoids a separately trained head and preserves the teacher's decision boundary; the teacher classifier also constrains the student representation and must be retained for inference\citep{chen2022simkd}. Function-Consistent Feature Distillation (FCFD) maps student features through a convolution-plus-BatchNorm bridge and the teacher's later layers, enforcing consistency of the resulting function. The bridge accommodates feature dimensions before the teacher tail evaluates downstream compatibility, at the cost of an extra learned mapping\citep{liu2023fcfd}. NORM expands student features into multiple slices, matches them against teacher representations, and merges the expansion into the following classifier after training, adding no inference parameters\citep{liu2023norm}. VkD uses an orthogonal projector and task-specific normalization to control projection geometry; these choices may need retuning for a new task\citep{miles2024vkd}. The 2024 projector study cautions that a projector's contribution can be entangled with normalization and loss design: a simple projection plus LogSum loss can yield strong transfer, and a gradient-based analysis interprets the projector as enabling relational transformations. The analysis supports checking projector and normalization ablations before attributing gains to the loss\citep{miles2024projector}.
+
+Class Attention Transfer KD (CAT-KD) emphasizes class-specific attention maps rather than matching every intermediate activation. Its class-conditioned cue is more selective than AT's aggregate spatial attention and can focus transfer on evidence used for a class, but this specificity relies on meaningful class attention and does not convey all channel-level representation content\citep{guo2023catkd}. DiffKD learns to denoise student features before teacher matching, adding a learned feature-refinement route where direct alignment may be difficult. It differs from fixed projectors such as VkD by learning the refinement process, which can improve the match but adds a diffusion-style training component and computational overhead. Diffusion-model distillation as a broader application remains outside this survey's scope\citep{huang2023diffkd}.
+
+\subsection{Cross-architecture transfer}
+
+OFA-KD projects intermediate student features toward logit space and reinforces the target-class signal, allowing heterogeneous teacher-student pairs without FitNets' same-stage target; its mapping determines what transfers\citep{hao2023ofakd}. TCS computes a teacher-derived principal-component coordinate system in a forward pass and aligns student representations within that basis. The shared coordinate system avoids hand-selected feature correspondence, and it is cheap: for ConvNeXt-T$\to$ResNet-18 on CIFAR-100, TCS reports 5.8 GB and 32.71 s per epoch against 7.7 GB and 61.07 s for OFA-KD\citep{zhou2025tcs}. % src: TCS (arXiv 2412.09388) Table 1, ConvNeXt-T rows; re-read by the coordinator 2026-11-07
+% INTERPRETATION
+The PCA basis may, however, favour high-variance directions that matter little for the task.
+
+RSD recasts cross-architecture KD as redundancy suppression, combining invariance with feature decorrelation instead of aligning individual channels. It is simpler in alignment assumptions than OFA-KD's designed feature-to-logit bridge, but the two constraints must be balanced and can suppress useful information if decorrelation is too strong\citep{zhang2025rsd}. RPKD removes representation alignment more directly: teacher and student match similarity distributions measured over a shared random-prototype space. Unlike TCS's teacher-derived axes, random prototypes provide an architecture-neutral reference, though the method then depends on whether the sampled prototypes adequately represent the data geometry\citep{etcibasi2026rpkd}.
+
+SPOFA is a 2026 preprint under review on cross-architecture distillation. It combines projected feature transfer with momentum-aware gradient regulation, discussed in Section VI-B; architecture bridging and objective conflict are separate design axes\citep{yang2026spofa}. % src: SPOFA Tables 1-3
+
+\subsection{Relational and contrastive transfer}
+
+Relational Knowledge Distillation (RKD) matches pairwise distances and angles between examples rather than individual feature vectors. This releases the channel correspondence required by FitNets and can preserve geometry across differently parameterized networks, but relation targets are batch-dependent and do not identify which feature coordinates or semantic factors matter\citep{park2019rkd}. Contrastive Representation Distillation (CRD) maximizes agreement between teacher and student representations for the same example against negatives. Its positive-negative objective emphasizes instance discrimination, at the cost of memory or negative-sampling machinery and sensitivity to the sampling protocol\citep{tian2020crd}.
+
+VRM extends relational matching with virtual samples. It constructs affinity graphs over observed and virtually augmented examples, then prunes unreliable edges before matching the relations. This gives relation transfer access to local neighborhoods not present in the original batch, unlike RKD's distances and angles among observed examples. Its gains therefore depend on the quality of virtual augmentations and edge selection; incorrect virtual relations can misdirect the student\citep{zhang2025vrm}.
+
+WKD-F applies a Gaussian Wasserstein distance to feature distributions, pairing a feature-space transport loss with the logit variant of WKD. It models distributional discrepancy rather than enforcing pointwise coordinates and is useful when feature distributions are the target; this comes with a distributional assumption and should be distinguished from the discrete Wasserstein treatment of class relations\citep{lv2024wkd}. Together, RKD, CRD, VRM, and WKD-F span geometric, contrastive, graph-based, and distributional objectives. They reduce dependence on exact coordinates in different ways, but none makes architecture compatibility irrelevant: batch construction, virtual-sample quality, prototype coverage, and feature distribution estimation all remain method-specific sources of error.
+
+\subsection{Comparison of feature and relation methods}
+
+The practical comparison should separate three questions that accuracy alone conflates. First, where is supervision attached: a selected stage, the classifier input, all corresponding stages, or a teacher-tail computation? The answer determines how much the method depends on access to intermediate teacher features. Second, what invariance is requested: matching coordinates, retaining spatial attention, preserving pairwise geometry, or suppressing redundant directions? A relaxed coordinate constraint can support a wider range of backbones, but it also leaves the method responsible for defining useful neighborhoods or a shared projection space. Third, what extra work is introduced during training? A fixed linear projector differs in cost and failure mode from negative sampling, virtual-neighbor construction, or learned feature denoising. These distinctions matter when the teacher is an API, intermediate activations are unavailable, or the training budget is tight.
+
+For same-family compression, FitNets, ReviewKD, NORM, or SimKD are candidates when teacher and student expose usable stages or a compatible classifier. AT and CAT-KD retain spatial or class-specific emphasis when exact channels are a poor match. Cross-family transfer favors FCFD when the teacher tail can process bridged student features, and OFA-KD when a feature-to-logit bridge suits the task. TCS, RSD, and RPKD reduce hand-matched coordinates through different common spaces; VRM, RKD, CRD, and WKD-F supervise relations or distributions. These are selection heuristics, not a universal ordering. A practical evaluation should hold teacher, student, data, and schedule fixed while comparing the method with a projector-only baseline and a relation-focused baseline. It should also report whether teacher activations are cached, which examples form pairs or negatives, and whether synthetic points are used; those choices determine memory and runtime independently of the loss name.
+
+Table~\ref{tab:feature-methods} records the matched object, projector use, and architecture scope. Values come from cited primary tables and reflect different pairs and protocols. FitNets, AT, RKD, CRD, and ReviewKD provide lineage; recent methods include SimKD through RPKD.
+
+The choice between coordinate, functional, and relational targets should follow the expected correspondence between teacher and student. When both networks expose comparable stages, a projected hint or reviewed feature can preserve spatial and channel detail that a final output cannot express. This can be useful in compression within a model family, but matching every coordinate gives equal authority to dimensions that may differ in scale, redundancy, or semantic role. The projector study therefore makes the adapter part of the hypothesis being tested: compare the full loss with a projector and normalization baseline before attributing improvement to the feature objective itself\citep{miles2024projector}. SimKD, VkD, and NORM differ in this bridge: classifier reuse, orthogonal projection with normalization, and expanded-slice alignment. Their choices address different constraints and should not be collapsed into a generic claim that projectors always help.
+
+When architectures do not share meaningful stages, a functional test or shared relational space is often a better fit. FCFD tests student representations through teacher computation; OFA-KD designs a feature-to-logit bridge; TCS chooses shared coordinates; RSD suppresses redundancy; RPKD compares similarities through common prototypes. These approaches reduce direct channel matching in different degrees, and their assumptions remain testable: teacher tails need compatible inputs, PCA bases need useful variance directions, and random prototypes need coverage. Evidence on a heterogeneous pair applies to that tested pair; architecture-neutral performance requires testing other pairs. The methods should be compared on matched protocols, target network families, and costs before selecting one for deployment.
+
+Relational objectives avoid pointwise identity by comparing examples to one another. RKD's distance and angle constraints preserve relative geometry; CRD's positive-negative objective emphasizes instance discrimination; VRM adds virtual examples and filters edges; WKD-F compares feature distributions. These targets are valuable when the embedding coordinate systems differ, yet the batch or distribution becomes the unit of supervision. Small or unrepresentative batches can distort pair statistics, negative sampling can change contrastive difficulty, and virtual examples may create edges unsupported by real data. Consequently, relation-based methods exchange a channel-matching assumption for assumptions about neighborhoods and sample coverage. The right evaluation should report not only student accuracy but also the cost and sensitivity of constructing those relations.
+
+
+
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{p{1.5cm}p{2.6cm}p{1.65cm}p{2.25cm}p{4.35cm}}
+\toprule
+Method & Matched object & Projector? & Heterogeneous support & Reported result \\
+\midrule
+SimKD & Penultimate feature + frozen head & Yes & Limited; head compatibility required & CIFAR-100 R32$\times$4$\to$R8$\times$4: 78.08 (T1) % src: SimKD Table 1
+\\
+FCFD & Feature through teacher tail & Conv+BN bridge & Yes, via function consistency & CIFAR-100 R32$\times$4$\to$R8$\times$4: 76.62 (T1) % src: FCFD Table 1
+\\
+NORM & Expanded feature slices & Merged into classifier; no inference parameters & Dimension mismatch supported & CIFAR-100 R32$\times$4$\to$R8$\times$4: 76.49; +KD 76.98 (T1) % src: NORM Table 1
+\\
+CAT-KD & Class attention maps & No coordinate projector & Partial; attention correspondence & CIFAR-100 R32$\times$4$\to$R8$\times$4: 76.91 (T6) % src: CAT-KD Table 6
+\\
+DiffKD & Denoised student features & Learned refiner & Reported on CIFAR heterogeneous pairs & CIFAR-100 R32$\times$4$\to$R8$\times$4: 76.72 (T9, appendix) % src: DiffKD Table 9 (appendix)
+\\
+OFA-KD & Intermediate features in logit space & Yes & Explicit heterogeneous design & ImageNet Swin-T$\to$ResNet-18: 71.85 (KD 71.14, T1) % src: OFA-KD Table 1
+\\
+VkD & Projected, normalized features & Orthogonal & Task-specific normalization & CIFAR-100 R32$\times$4$\to$ShuffleNetV2: 77.51 (T7) % src: VkD Table 7
+\\
+Projector study & Projected + normalized features & Yes & Demonstrated on standard pairs & ImageNet R34$\to$R18 error: 28.37\% (KD 29.34\%) % src: Projector study Table 6
+\\
+TCS & PCA-coordinate features & Teacher PCA basis & Yes, shared coordinate frame & CIFAR-100 ConvNeXt-T$\to$ResNet-18: 81.60 (OFA 80.91, T1) % src: TCS Table 1
+\\
+VRM & Real/virtual-sample affinities & No feature projector & Yes, relation graph & CIFAR-100 R32$\times$4$\to$R8$\times$4: 78.76 (T1) % src: VRM Table 1
+\\
+RSD & Invariance + decorrelation & No coordinate matching & Explicit cross-architecture & ImageNet DeiT-T$\to$MobileNetV2: 72.18 (T2) % src: RSD Table 2
+\\
+RPKD & Similarities over random prototypes & Fixed random teacher + learned student maps & Explicitly no alignment & ImageNet DeiT-T$\to$MobileNetV2: 72.67 (OFA 71.39, T3) % src: RPKD Table 3
+\\
+\bottomrule
+\end{tabular}
+\caption{Feature and relation methods; table values come from the cited paper tables. SimKD uses its own student and KD baselines, so its score is reported under a distinct protocol.}\label{tab:feature-methods}
+\end{table*}
+
+\input{figures/knowledge_types}
