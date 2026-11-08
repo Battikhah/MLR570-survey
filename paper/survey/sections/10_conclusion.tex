@@ -26,12 +26,15 @@ one method on another, change the teacher, or add data, and the papers differ in
 Gaps of a few tenths of a point therefore say little. A second reading is that optimizer-side changes stack on
 loss-side ones, so they should be tested on top of both plain KD and a strong logit loss.
 
-Several questions stay open. Cross-paper comparison would improve if papers reported seed statistics and
-stand-alone numbers for stacked methods. Results depend on the training recipe, as patient and consistent
-teaching shows \citep{beyer2022patientkd}, and a student can generalise well while matching the teacher
-poorly \citep{stanton2021kdwork}. For the objective-combination methods, the main untested point is how
-often the task and distillation gradients conflict on the standard benchmarks at all, and whether the
-extra gradient computations pay off when they do. The debate on whether a tuned weighted sum is enough in
-multi-task learning \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization} suggests that strong
-weighted-sum baselines belong in every such comparison. Section~\ref{sec:future} discusses these
-directions in more detail.
+Section~\ref{sec:future} turns these caveats into seven open problems. The first two concern the evidence
+itself: the field lacks a leaderboard re-run in one code base with fixed teachers and several seeds, and a
+stacked row shows that two ideas combine without showing whether their gains add up. The next three concern
+method design. Reliability methods use different signals of teacher trust, and nobody has tested whether
+those signals pick the same samples. The objective-combination methods split into label-first,
+teacher-first and symmetric rules that have never been compared under one protocol or against a tuned
+weighted sum \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization}. Their shared premise, that the
+task and distillation gradients conflict, has been measured directly only outside the standard protocol
+\citep{kang2025dho}, so part of the reported gains may come from rescaling the losses. The last two concern
+coverage: data-free methods share no pair with the main ranking and CIFAR-100 gains mostly shrink on
+ImageNet, and almost every result is judged by top-1 accuracy alone, with calibration, robustness and
+training cost rarely reported. Each of these can be tested with the public code of the included methods.
