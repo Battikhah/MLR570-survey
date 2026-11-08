@@ -54,17 +54,17 @@ The tasks are in `tasks/todo.md`, with acceptance criteria, verification, depend
 ### Checkpoint A (human): scope, taxonomy, Table I, state-of-the-art inventory confirmed
 
 ### Phase 1: Core sections (parallel: Claude / Codex, each cross-reviewed)
-- [ ] T5 §II Preliminaries + Fig. 2
-- [ ] T6 §III-A Logit-based state of the art + Table II
-- [ ] T7 §III-B Feature- and relation-based + Fig. 3
-- [ ] T8 §IV Training schemes + Fig. 4
+- [x] T5 §II Preliminaries + Fig. 2
+- [x] T6 §III-A Logit-based state of the art + Table II
+- [x] T7 §III-B Feature- and relation-based + Fig. 3
+- [x] T8 §IV Training schemes + Fig. 4
 
 ### Checkpoint B: sections compile, cross-reviews filed, citations resolve
 
-- [ ] T9 §V Teacher reliability (carried over from the draft) + Table III
-- [ ] T10 §VI-A MOO primer + Fig. 5
-- [ ] T11 §VI-B/C How state-of-the-art KD uses MOO + Table IV (carried over from the draft)
-- [ ] T12 §VII Emerging settings
+- [x] T9 §V Teacher reliability (carried over from the draft) + Table III
+- [x] T10 §VI-A MOO primer + Fig. 5
+- [x] T11 §VI-B/C How state-of-the-art KD uses MOO + Table IV (carried over from the draft)
+- [x] T12 §VII Emerging settings
 
 ### Checkpoint C: full body draft compiles; draft-preservation map complete
 
