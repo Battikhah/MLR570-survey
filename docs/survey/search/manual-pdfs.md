@@ -36,3 +36,9 @@ SDPGO (NeurIPS 2025) was not among the downloaded files.
 
 MCD's ImageNet column order was read from flattened text (15 methods, MCD 12th = 72.08); recheck against the PDF before
 it enters the leaderboard.
+
+## Second batch (2026-11-08): SCOPE, DeepKD, FAMO
+
+- **SCOPE** (J. Imaging 2026): full text confirms every §VI-B claim (SRA with entropy-confidence relations and auxiliary priors; GCR keeps the classification gradient and removes conflicting KD components; nine medical datasets). Stays SUPPORT (venue outside I2).
+- **DeepKD** (NeurIPS 2025 camera-ready): CIFAR R32x4→R8x4 79.25 confirmed (T1). **Correction:** ImageNet R34→R18 is 73.34, not the arXiv v1 value 74.23 (T3); R50→MBV1 74.85; WRN-40-2→WRN-16-2 78.42. §VIII updated.
+- **FAMO** (NeurIPS 2023): PDF header confirms the venue; no change.

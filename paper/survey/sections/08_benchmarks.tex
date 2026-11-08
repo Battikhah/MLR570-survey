@@ -60,7 +60,7 @@ DistPro \citep{deng2022distpro} reports 76.36\% there.
 Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & W40-2$\to$W16-2 & Src. & Code & Flags \\
 \midrule
 KD-AIF~\citep{wu2025kdaif} & R & arXiv'25 & 82.20 & -- & T2 & no & teacher retrained to 86.56; not ranked \\
-DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 79.25 & -- & T1 & no & CRLD+DeepKD (stacked) \\
+DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 79.25 & 78.42 & T1 & no & CRLD+DeepKD (stacked) \\
 VRM~\citep{zhang2025vrm} & F & ICCV'25 & 78.76 & -- & T1 & no &  \\
 EA-KD~\citep{su2025eakd} & L & ICCV'25 & 78.38 & -- & T2 & yes & EA-MLD+LS (stacked, LS); EA-KD 75.46 \\
 SKD~\citep{jeong2026skd} & H & CVPR'26 & 78.33 & -- & T1 & no & own KD baseline 74.75 \\
@@ -150,13 +150,12 @@ DistPro~\citep{deng2022distpro} & O & ECCV'22 & -- & 76.36 & T1 & yes & WRN pair
 
 Tables~\ref{tab:bench-imagenet-a} and~\ref{tab:bench-imagenet-b} list 79 methods on
 ResNet34$\to$ResNet18. The spread is narrow: all but seven rows fall between 71.0\% and 73.0\%, against
-71.70\% for DKD. The highest values come with a caveat. DeepKD's 74.23\% is again stacked on CRLD.
-The topology method TopoKD reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and
+71.70\% for DKD. The highest values come with a caveat. The topology method TopoKD reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and
 BTKD and its journal version report 73.38\% with their own teachers and optimiser
 \citep{zhang2025btkd,zhang2026btkdpp}. Some ImageNet rows also differ in setting: the MSE-teacher study trains for 120 epochs \citep{hamidi2024mseteacher}, and
 CheckpointKD uses its own 73.86\% teacher \citep{wang2022checkpointkd}. Only three included papers
-were read for ResNet50$\to$MobileNetV1 in this pass: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
-\citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb}.
+(plus DeepKD, re-read from the camera-ready version) were read for ResNet50$\to$MobileNetV1 in this pass: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
+\citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb}. DeepKD stacked on CRLD reports 73.34\% and 74.85\% on the two ImageNet pairs.
 
 \begin{table}[p]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
@@ -165,10 +164,10 @@ were read for ResNet50$\to$MobileNetV1 in this pass: MCD 73.65\% \citep{mishra20
 \toprule
 Method & Fam. & Venue & R34$\to$R18 & R50$\to$MBV1 & Src. & Code & Flags \\
 \midrule
-DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 74.23 & -- & T3 & no & CRLD+DeepKD \\
 TopoKD~\citep{kim2024topkd} & F & ICML'24 & 73.60 & -- & T3 & no & above its 73.31 teacher \\
 BTKD~\citep{zhang2025btkd} & R & AAAI'25 & 73.38 & -- & T2 & no & own teachers; Adam \\
 BTKD++~\citep{zhang2026btkdpp} & R & IJCV'26 & 73.38 & -- & T3 & yes & extends BTKD \\
+DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 73.34 & 74.85 & T3 & no & CRLD+DeepKD \\
 KD-AV~\citep{peng2024kdav} & H & ICML'24 & 73.04 & -- & T4 & no &  \\
 TGeo-KD~\citep{hu2024tgeokd} & L & ICLR'24 & 72.89 & -- & T2 & no &  \\
 UniKD~\citep{huang2024unikd} & H & ECCV'24 & 72.83 & -- & T3 & no &  \\
