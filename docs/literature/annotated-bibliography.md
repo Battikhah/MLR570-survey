@@ -100,15 +100,25 @@
 
 - [chen2022simkd] Defang Chen et al., ‘Knowledge Distillation with the Reused Teacher Classifier,’ CVPR 2022, 2022-03-26. Status: published. SimKD: aligns the penultimate feature through a projector and reuses the frozen teacher classifier at inference; strong feature baseline but adds projector cost.
 
+- [chen2026pefd] Yudong Chen et al., ‘Understanding the Effects of Projectors in Knowledge Distillation,’ IEEE TPAMI 2026, 2023-10-26. Status: published. Projector-ensemble feature distillation; TPAMI extension of NeurIPS 2022 'Improved Feature Distillation via Projector Ensemble' (arXiv 2210.15274, not in registry). Leaderboard: Table 8 CIFAR-100 ResNet32x4->ResNet8x4 76.08; Table 9 ImageNet ResNet34->ResNet18 71.94.
+
 - [chen2026scope] Tao Chen et al., ‘Selective Confidence-Guided Projection-Based Encoding for Medical Image Classification,’ Journal of Imaging, 2026-09-11. Status: published. Classification-priority gradient-conflict removal for KD plus confidence-weighted relations: very close to the KD proposal.
 
 - [cho2019efficacy] Jang Hyun Cho et al., ‘On the Efficacy of Knowledge Distillation,’ ICCV 2019, 2019. Status: published. Classic empirical analysis showing teacher accuracy alone does not predict distillation utility and that teacher-student capacity mismatch can limit transfer. It anchors discussion of teacher-student compatibility.
+
+- [cui2024dkl] Jiequan Cui et al., ‘Decoupled Kullback-Leibler Divergence Loss,’ NeurIPS 2024, 2023-05-23. Status: published. DKL/IKL: KL decomposed into weighted MSE + soft-label CE, made symmetric and given class-wise global information. Leaderboard: Table 13 CIFAR-100 ResNet32x4->ResNet8x4 IKL-KD 76.59; Table 4 ImageNet ResNet34->ResNet18 71.91.
+
+- [cui2025gendd] Jiequan Cui et al., ‘Generative Distribution Distillation,’ arXiv preprint (technique report), 2025-07-19. Status: preprint. GenDD: casts KD as conditional generative (diffusion-style) distribution matching. Leaderboard: Table 5 CIFAR-100 ResNet32x4->ResNet8x4 77.47; Table 2 ImageNet ResNet34->ResNet18 72.38.
+
+- [cui2026gkl] Jiequan Cui et al., ‘Generalized Kullback-Leibler Divergence Loss,’ IEEE TPAMI 2026, 2025-03-11. Status: published. GKL: decouples KL into weighted MSE + cross-entropy on soft labels with class-wise global information; TPAMI extension of DKL (cui2024dkl). Leaderboard: Table 17 CIFAR-100 ResNet32x4->ResNet8x4 GKL-KD 76.83; Table 5 ImageNet ResNet34->ResNet18 71.91.
 
 - [dong2025mooadv] Junhao Dong et al., ‘Confound from All Sides, Distill with Resilience: Multi-Objective Adversarial Paths to Zero-Shot Robustness,’ ICCV 2025, 2025. Status: published. Uses multi-objective optimisation to generate diverse targeted adversaries (one per preference vector) for robust distillation from VLMs to small models; MOO used for data generation, not loss balancing.
 
 - [du2020aekd] Shangchen Du et al., ‘Agree to Disagree: Adaptive Ensemble Knowledge Distillation in Gradient Space,’ NeurIPS 2020, 2020. Status: published. Multi-teacher KD as MGDA with a disagreement tolerance: the earliest symmetric MOO formulation of KD (CLASSIC lineage for the KD x MOO section).
 
 - [etcibasi2026rpkd] Hamza Etcibasi et al., ‘You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces,’ NeurIPS 2026, 2026-10-27. Status: accepted. RPKD: distils by matching teacher and student similarity distributions over a shared set of random prototypes, so representations need not be aligned; newest cross-architecture method found.
+
+- [fang2022fastdfkd] Gongfan Fang et al., ‘Up to 100x Faster Data-Free Knowledge Distillation,’ AAAI 2022, 2022-06-28. Status: published. FastDFKD: meta-learned common features make data-free synthesis up to 100x faster. Leaderboard: Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 Fast10 65.12 (teacher 75.83, own); ResNet32x4->ResNet8x4 n/r; ImageNet ResNet34->ResNet18 n/r.
 
 - [furlanello2018bornagain] Tommaso Furlanello et al., ‘Born Again Neural Networks,’ ICML 2018, 2018. Status: published. CLASSIC: sequential same-architecture student training from a previous model's soft outputs.
 
@@ -130,6 +140,8 @@
 
 - [hossain2025luminet] Md. Ismail Hossain et al., ‘LumiNet: Perception-Driven Knowledge Distillation via Statistical Logit Calibration,’ TMLR (August 2025), 2023-10-05. Status: published. LumiNet: recalibrates each logit against intra-batch class statistics ('perception') before distillation; logit-only method competitive with feature KD.
 
+- [hossain2025tekap] Md Imtiaz Hossain et al., ‘Single Teacher, Multiple Perspectives: Teacher Knowledge Augmentation for Enhanced Knowledge Distillation,’ ICLR 2025, 2025. Status: published. Snowballed competitor; AMBIGUOUS until its own CIFAR-100 table is read.
+
 - [hu2023tsasurvey] Chengming Hu et al., ‘Teacher-Student Architecture for Knowledge Distillation: A Survey,’ arXiv, 2023-08-08. Status: preprint. 2023 KD survey organised by teacher-student architecture and purpose (compression, expansion, adaptation, enhancement); extra row of Table I.
 
 - [hu2024tgeokd] Chengming Hu et al., ‘Less or More From Teacher: Exploiting Trilateral Geometry For Knowledge Distillation,’ ICLR 2024, 2023-12-22. Status: published. TGeo-KD: learns a per-sample fusion ratio between teacher and ground-truth supervision from the student-teacher-label geometry; principled 'how much to trust the teacher'.
@@ -142,11 +154,15 @@
 
 - [huang2025deepkd] Haiduo Huang et al., ‘DeepKD: A Deeply Decoupled and Denoised Knowledge Distillation Trainer,’ NeurIPS 2025, 2025. Status: published. Optimizer-side KD trainer: separate momentum updaters for the task, target-class and non-target-class gradients (extending DOT) with GSNR-guided momentum, plus a dynamic top-k denoising mask. Belongs in the KD x MOO section next to DOT and DTO-KD.
 
+- [islam2025dts] Sibgat Ul Islam et al., ‘Dynamic Temperature Scheduler for Knowledge Distillation,’ arXiv preprint, 2025-11-14. Status: preprint. DTS: temperature scheduled by the teacher-student loss gap. Leaderboard: Table II CIFAR-100 ResNet32x4->ResNet8x4 MLKD+DTS 75.25 (MLKD baseline here 75.03); ImageNet n/r.
+
 - [jang2025fedgo] Won-Jun Jang et al., ‘Provably Near-Optimal Federated Ensemble Distillation with Negligible Overhead,’ ICML 2025, 2025-02-10. Status: published. FedGO: weights client logits with GAN-discriminator-based per-sample estimates, with a near-optimality guarantee for federated ensemble distillation.
 
 - [jang2025vl2lite] Jinseong Jang et al., ‘VL2Lite: Task-Specific Knowledge Distillation from Large Vision-Language Models to Lightweight Networks,’ CVPR 2025, 2025. Status: published. VL2Lite: distils VLM (CLIP-like) visual and text-aligned knowledge into lightweight CNN classifiers during training only.
 
 - [jeong2025selfdistill] Hyeonsu Jeong et al., ‘Rethinking Self-Distillation: Label Averaging and Enhanced Soft Label Refinement with Partial Labels,’ ICLR 2025, 2024-02-16. Status: published. Theory of why self-distillation helps: multi-round SD acts as label averaging among correlated samples; proposes one-round partial-label refinement. Use for the 'why' of self-KD, not as a benchmark method.
+
+- [jiang2026arkd] Dawen Jiang et al., ‘Discovering and Preserving Category Correlation Knowledge via Adaptive Reciprocal Knowledge Distillation,’ arXiv preprint (author-stated: ACM CIKM 2026), 2026-08-14. Status: preprint. AR-KD: adaptive reciprocal learning that preserves category-correlation knowledge. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 77.29; Table 2 ImageNet ResNet34->ResNet18 72.13.
 
 - [jin2023mlkd] Ying Jin et al., ‘Multi-Level Logit Distillation,’ CVPR 2023, 2023. Status: published. MLKD: aligns predictions at instance, batch and class level with multiple temperatures and strong augmentation; frequent strong logit baseline (LSKD builds on it).
 
@@ -157,6 +173,10 @@
 - [kenfack2025agrekd] Patrik Kenfack et al., ‘Adaptive Group Robust Ensemble Knowledge Distillation,’ TMLR (11/2025), 2024-11-22. Status: published. AGRE-KD: selects/weights ensemble teachers by gradient direction relative to a biased model so the student inherits worst-group robustness; teacher selection under spurious correlation.
 
 - [khan2024hydrafl] Momin Ahmad Khan et al., ‘HYDRA-FL: Hybrid Knowledge Distillation for Robust and Accurate Federated Learning,’ NeurIPS 2024, 2024-09-30. Status: published. Shows KD-based FL amplifies poisoning; adds shallow-layer distillation to keep KD benefits without amplifying attacks. Robust x federated KD.
+
+- [kim2024topokd] Jungeun Kim et al., ‘Do Topological Characteristics Help in Knowledge Distillation?,’ ICML 2024, 2024. Status: published. Snowballed competitor; AMBIGUOUS until its own CIFAR-100 table is read.
+
+- [kim2025figkd] Seonghak Kim, ‘FiGKD: Fine-Grained Knowledge Distillation via High-Frequency Detail Transfer,’ arXiv preprint (journal_ref: Expert Systems with Applications 319, 2026), 2025-05-17. Status: preprint. FiGKD: wavelet split; distils only high-frequency teacher detail. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 78.05; ImageNet n/r.
 
 - [kim2026ltkd] Seonghak Kim, ‘Distilling Balanced Knowledge from a Biased Teacher,’ CVPR 2026, 2026. Status: published. Long-tailed KD (LTKD): decomposes the KL objective into cross-group and within-group terms, rebalancing the first and reweighting the second so tail classes are not dominated by a head-biased teacher; reliability under class imbalance.
 
@@ -180,6 +200,14 @@
 
 - [li2024promptkd] Zheng Li et al., ‘PromptKD: Unsupervised Prompt Distillation for Vision-Language Models,’ CVPR 2024, 2024-03-05. Status: published. PromptKD: a large CLIP teacher with learned prompts distils into a lightweight student via unlabeled images; the teacher's text features are pre-stored and shared.
 
+- [li2025adgkd] Tong Li et al., ‘Adaptive Dual Guidance Knowledge Distillation,’ AAAI 2025, 2025-04-11. Status: published. ADG-KD: fuses teacher and instance-level guidance with two automatically learned factors. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 ADG-KD 77.44, best variant MLKD+ADG (MKD-dagger) 77.51; Table 2 ImageNet ResNet34->ResNet18 72.22.
+
+- [liang2024rgal] Yingping Liang et al., ‘Relation-Guided Adversarial Learning for Data-Free Knowledge Transfer,’ IJCV 2024, 2024-12-16. Status: published. RGAL: relation-guided adversarial sample synthesis for data-free KD. Leaderboard: Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 69.71; ResNet32x4->ResNet8x4 n/r.
+
+- [liao2026dskd] Yongkai Liao et al., ‘Direction Sensitivity–Based Knowledge Distillation: Optimization-Aware Low-Rank Knowledge Transfer,’ AAAI 2026, 2026-03-14. Status: published. DSKD: optimisation-aware low-rank feature transfer weighted by direction sensitivity; evaluated on GLUE and CIFAR-100. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 best ReviewKD+DSKD (channel-wise) 75.9 (one decimal; teacher 79.4); ImageNet n/r.
+
+- [limantoro2025sortkd] Stephen Ekaputra Limantoro, ‘Parameter-Free Logit Distillation via Sorting Mechanism,’ arXiv preprint (author-stated: IEEE Signal Processing Letters 2025), 2025-08-22. Status: preprint. Parameter-free logit pre-processing that sorts logits to fix teacher mispredictions. Leaderboard: Table I CIFAR-100 standard pairs (e.g. ResNet32x4->ShuffleNetV2 Sort-DKD 77.04); ResNet32x4->ResNet8x4 n/r; Table II ImageNet ResNet34->ResNet18 Sort-DKD 71.84.
+
 - [lin2020feddf] Tao Lin et al., ‘Ensemble Distillation for Robust Model Fusion in Federated Learning,’ NeurIPS 2020, 2020. Status: published. CLASSIC: FedDF, server-side ensemble distillation in FL.
 
 - [liu2023fcfd] Dongyang Liu et al., ‘Function-Consistent Feature Distillation,’ ICLR 2023, 2023-04-24. Status: published. FCFD: makes student features functionally consistent with the teacher by passing them through the teacher's later layers (and vice versa).
@@ -187,6 +215,8 @@
 - [liu2023norm] Xiaolong Liu et al., ‘NORM: Knowledge Distillation via N-to-One Representation Matching,’ ICLR 2023, 2023-05-23. Status: published. NORM: expands the student feature N-fold with a linear transform and matches each slice to the teacher feature (N-to-one); no inference overhead after merging.
 
 - [liu2024ssdkd] He Liu et al., ‘Small Scale Data-Free Knowledge Distillation,’ CVPR 2024, 2024-06-12. Status: published. SSD-KD: data-free KD with a small synthetic set chosen by difficulty/diversity-aware priority sampling; targets training efficiency.
+
+- [lu2024uniads] Liming Lu et al., ‘UniADS: Universal Architecture-Distiller Search for Distillation Gap,’ AAAI 2024, 2024-03-24. Status: published. Jointly searches the student architecture and the distiller design (multi-objective search) to close the distillation gap. Leaderboard: Table 3 CIFAR-100 ResNet32x4->ResNet8x4 76.65; Table 4 ImageNet ResNet34->ResNet18 72.25 (teacher 73.40).
 
 - [lu2025ciard] Liming Lu et al., ‘CIARD: Cyclic Iterative Adversarial Robustness Distillation,’ ICCV 2025, 2025-09-16. Status: published. Attributes clean-accuracy loss in robust distillation to divergent clean/robust teacher objectives; robust-KD comparator for idea I2.
 
@@ -208,13 +238,23 @@
 
 - [moslemi2024kdsurvey] Amir Moslemi et al., ‘A survey on knowledge distillation: Recent advancements,’ Machine Learning with Applications, 18:100605, 2024-12. Status: published. 2024 general KD survey (response/feature/relation KD, self-/cross-modal/adversarial distillation, limited-data and privacy-preserving KD); row of Table I.
 
+- [mugisha2026rdd] Abdulkarim Mugisha et al., ‘Representational Difference Distillation,’ arXiv preprint, 2026-10-11. Status: preprint. RDD: uses representational differences to set the student's sampling/curriculum/supervision. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 RDD-supervision 75.58 (single run, final epoch); ImageNet n/r.
+
+- [niu2022ipwd] Yulei Niu et al., ‘Respecting Transfer Gap in Knowledge Distillation,’ NeurIPS 2022, 2022-10-23. Status: published. IPWD: inverse-propensity sample weighting to respect the human/machine transfer gap. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 76.03 (SSKD+IPWD 76.74 with own teacher 79.63, Table 3); Table 4 ImageNet ResNet34->ResNet18 71.88.
+
 - [park2019rkd] Wonpyo Park et al., ‘Relational Knowledge Distillation,’ CVPR 2019, 2019. Status: published. CLASSIC: transfers distance and angle relations among samples; origin of relation-based KD.
+
+- [qi2025bdd] Yafei Qi et al., ‘Balance Divergence for Knowledge Distillation,’ arXiv preprint, 2025-01-14. Status: preprint. Balance divergence: adds reverse-KL to compensate small teacher probabilities. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 BDD 76.21, best MLD+BDD 77.22; Table 3 ImageNet ResNet34->ResNet18 MLD+BDD 71.97.
 
 - [qian2022switokd] Biao Qian et al., ‘Switchable Online Knowledge Distillation,’ ECCV 2022, 2022-09-12. Status: published. SwitOKD: switches the teacher between 'expert' (paused) and 'learning' modes via an adaptive gap threshold so the online teacher does not outrun the student.
 
 - [qian2025aid] Chengyao Qian et al., ‘A Good Teacher Adapts Their Knowledge for Distillation,’ ICCV 2025, 2025. Status: published. AID: attributes the capacity gap to mismatched intra-class output distributions and fine-tunes the teacher to adapt them before distillation.
 
 - [qiu2023dpk] Zengyu Qiu et al., ‘Better Teacher Better Student: Dynamic Prior Knowledge for Knowledge Distillation,’ ICLR 2023, 2022-06-13. Status: published. DPK: feeds part of the teacher's features to the student as dynamic prior knowledge (masked feature mixing) so larger teachers yield better students.
+
+- [qu2026rekd] Zheng Qu et al., ‘Relaxed Knowledge Distillation,’ IJCV 2026, 2026-02-04. Status: published. ReKD: VAE-based relaxed feature matching that adapts to the capacity gap. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.94; Table 3 ImageNet ResNet34->ResNet18 71.72.
+
+- [raza2026asd] Syed Muhammad Raza et al., ‘Anti-Shortcut Distillation via Temporal Negative Knowledge Transfer,’ arXiv preprint, 2026-08-12. Status: preprint. ASD: temporal negative knowledge transfer to suppress shortcut features. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 73.13 (own teacher 79.72, student 71.90); ImageNet n/r.
 
 - [romero2015fitnets] Adriana Romero et al., ‘FitNets: Hints for Thin Deep Nets,’ ICLR 2015, 2014-12-19. Status: published. CLASSIC: origin of feature-based KD (intermediate 'hints' with a learned regressor).
 
@@ -236,17 +276,33 @@
 
 - [sun2025rld] Wujie Sun et al., ‘Knowledge Distillation with Refined Logits,’ ICCV 2025, 2024-08-14. Status: published. Refines teacher logits with label information so wrong teacher predictions do not make KD and CE inconsistent while class correlations are kept; state-of-the-art logit and reliability method.
 
+- [tang2025hidfd] Jialiang Tang et al., ‘Hybrid Data-Free Knowledge Distillation,’ AAAI 2025, 2024-12-18. Status: published. HiDFD: hybrid data-free KD combining a few collected images with GAN-generated samples. Leaderboard: CIFAR-100 table (hybrid data) ResNet32x4->'ShuffleNet' 75.03 (version unstated; student baseline 72.60 is neither the CRD V1 nor V2 value); ImageNet n/r.
+
 - [tian2020crd] Yonglong Tian et al., ‘Contrastive Representation Distillation,’ ICLR 2020 (per arXiv comment), 2019-10-23. Status: accepted. CLASSIC: contrastive feature distillation; its RepDistiller codebase defines the CIFAR-100 protocol most later papers use.
 
 - [tran2024nayer] Minh-Tuan Tran et al., ‘NAYER: Noisy Layer Data Generation for Efficient and Effective Data-free Knowledge Distillation,’ CVPR 2024, 2023-09-30. Status: published. NAYER: moves randomness from the generator input to a noisy layer and uses label-text embeddings as input, speeding up data-free KD while improving accuracy.
+
+- [tybl2026redistill] Ondrej Tybl et al., ‘REDistill: Robust Estimator Distillation for Balancing Robustness and Efficiency,’ arXiv preprint, 2026-02-04. Status: preprint. REDistill: power-divergence (robust estimator) distillation loss that down-weights unreliable teacher samples. Leaderboard: Table I/II CIFAR-100 ResNet32x4->ShuffleNetV2 and ResNet50->MobileNetV2 (best REDistill+MLKD in Table IV); ResNet32x4->ResNet8x4 n/r; Table III ImageNet ResNet34->ResNet18 72.00.
+
+- [wang2022ckptkd] Chaofei Wang et al., ‘Efficient Knowledge Distillation from Model Checkpoints,’ NeurIPS 2022, 2022-10-12. Status: published. Distils from intermediate teacher checkpoints, which can beat the fully trained teacher. Leaderboard: CIFAR-100 non-standard pairs; Table 1 ImageNet ResNet34->ResNet18 70.98 (optimal intermediate teacher; own teacher 73.86).
+
+- [wang2022gooddakd] Huan Wang et al., ‘What Makes a "Good" Data Augmentation in Knowledge Distillation -- A Statistical Perspective,’ NeurIPS 2022, 2020-12-05. Status: published. Statistical view of good augmentation for KD; proposes CutMixPick (entropy-based picking of CutMix samples). Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 CRD+CutMixPick 76.11 (240 ep; KD+CutMixPick 74.78); ImageNet n/r.
 
 - [wang2022kdreview] Lin Wang et al., ‘Knowledge Distillation and Student-Teacher Learning for Visual Intelligence: A Review and New Outlooks,’ IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 44(6):3048-3068, 2022-06-01. Status: published. TPAMI review of KD / student-teacher learning for vision, organised by number of teachers, data format and learning setting; row of Table I.
 
 - [wang2025abkd] Guanghui Wang et al., ‘ABKD: Pursuing a Proper Allocation of the Probability Mass in Knowledge Distillation via α-β-Divergence,’ ICML 2025 (Spotlight per arXiv comment), 2025-05-07. Status: published. ABKD: alpha-beta divergence family that interpolates forward and reverse KL to balance 'hardness concentration' and 'confidence concentration'; applies to LLM and vision KD.
 
+- [wang2025ikd] Lu Wang et al., ‘Debiased Distillation for Consistency Regularization,’ AAAI 2025, 2025-04-11. Status: published. IKD: debiases batch-level consistency regularisation in logit KD (plug-in on KD/DKD/NKD/WTTM). Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 NKD+IKD 77.10 (KD+IKD 76.56); Table 3 ImageNet ResNet34->ResNet18 NKD+IKD 72.20.
+
+- [wang2025topkd] Qi Wang et al., ‘TopKD: Top-scaled Knowledge Distillation,’ arXiv preprint, 2025-08-06. Status: preprint. TopKD: scales and decouples the teacher's top-K logits. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 78.18; Table 3 ImageNet ResNet34->ResNet18 71.52.
+
+- [wang2026rckd] Yingchao Wang et al., ‘Rethinking the Dark Knowledge and Kullback-Leibler Divergence Loss in Knowledge Distillation Under Capacity Mismatching,’ AAAI 2026, 2026-03-14. Status: published. RCKD: replaces KL with a cosine-type loss to handle dark knowledge under teacher-student capacity mismatch. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.89; Table 3 ImageNet ResNet34->ResNet18 72.02.
+
 - [wei2024sdd] Shicai Wei et al., ‘Scale Decoupled Distillation,’ CVPR 2024, 2024-03-20. Status: published. SDD: multi-scale pooling of logits decouples global logits into local, scale-specific ones (consistent vs complementary terms); plug-in for KD/DKD/NKD.
 
 - [wu2023tinyclip] Kan Wu et al., ‘TinyCLIP: CLIP Distillation via Affinity Mimicking and Weight Inheritance,’ ICCV 2023, 2023-09-21. Status: published. TinyCLIP: cross-modal affinity mimicking plus weight inheritance from the teacher for compact CLIP models.
+
+- [wu2025kdaif] Sirong Wu et al., ‘Knowledge Distillation with Adapted Weight,’ arXiv preprint, 2025-01-06. Status: preprint. KD-AIF: influence-function sample weights, with teacher updated during training. Leaderboard: Table 2/3 CIFAR-100 ResNet32x4->ResNet8x4 82.20 with the teacher also updated to 86.56 (not the standard fixed teacher); ImageNet n/r.
 
 - [xiang2025ekd] Liangyu Xiang et al., ‘Evidential Knowledge Distillation,’ ICCV 2025, 2025. Status: published. EKD: models the categorical prediction as a random variable (evidential second-order Dirichlet) and distils both its expectation and the distribution; claims a risk upper bound.
 
@@ -254,11 +310,17 @@
 
 - [xu2025ldrld] Liuchi Xu et al., ‘Local Dense Logit Relations for Enhanced Knowledge Distillation,’ ICCV 2025, 2025-07-21. Status: published. LDRLD: recursively decouples logits into local class pairs and distils their dense relations, with adaptive decay weights for key pairs; 2025 logit state of the art.
 
+- [xu2026hcd] Liuchi Xu et al., ‘Heterogeneous Complementary Distillation,’ AAAI 2026, 2025-11-14. Status: published. HCD: complementary-feature mapper for heterogeneous (ViT->CNN) distillation. Leaderboard: CIFAR-100 only with ViT/Swin/Mixer teachers (Table 1); Table 3 ImageNet ResNet34->ResNet18 72.18; ResNet32x4->ResNet8x4 n/r.
+
+- [yan2025era] Zhaoyi Yan et al., ‘Expandable Residual Approximation for Knowledge Distillation,’ arXiv preprint (author-stated: IEEE TNNLS 2025), 2025-08-22. Status: preprint. ERA: multi-branch residual approximation splits the teacher's features into easier residual targets. Leaderboard: CIFAR-100 ResNet32x4->ResNet8x4 Ours-ST 76.89; Table III ImageNet ResNet34->ResNet18 Ours-ST 72.49.
+
 - [yang2023lmcl] Chuanguang Yang et al., ‘Online Knowledge Distillation via Mutual Contrastive Learning for Visual Recognition,’ IEEE TPAMI 2023, 2022-07-23. Status: published. L-MCL: online/mutual KD with mutual contrastive learning between peers' embeddings plus layer-wise meta-optimised transfer.
 
 - [yang2023nkd] Zhendong Yang et al., ‘From Knowledge Distillation to Self-Knowledge Distillation: A Unified Approach with Normalized Loss and Customized Soft Labels,’ ICCV 2023, 2023-03-23. Status: published. NKD normalises the non-target logit distribution; USKD builds customised soft labels for teacher-free self-KD. Bridges logit KD and self-distillation.
 
 - [yang2024clipkd] Chuanguang Yang et al., ‘CLIP-KD: An Empirical Study of CLIP Model Distillation,’ CVPR 2024, 2023-07-24. Status: published. Systematic study of CLIP-to-CLIP distillation objectives; finds simple feature mimicry (MSE) works surprisingly well.
+
+- [yang2024srd] Jing Yang et al., ‘Knowledge Distillation Meets Open-Set Semi-supervised Learning,’ IJCV 2024, 2022-05-13. Status: published. SRD: student-receives-teacher-classifier representation matching that also uses unlabeled/open-set data. Leaderboard: CIFAR-100 uses non-standard pairs; Table 8 ImageNet ResNet34->ResNet18 71.73.
 
 - [yang2025llmkdsurvey] Chuanpeng Yang et al., ‘Survey on Knowledge Distillation for Large Language Models: Methods, Evaluation, and Application,’ ACM Transactions on Intelligent Systems and Technology (TIST), 16(6):1-27, 2025-11-24. Status: published. LLM-KD survey with its own evaluation of white-box and black-box KD on GPT-2/OPT/LLaMA; extra row of Table I.
 
@@ -267,6 +329,14 @@
 - [yang2026spofa] Wuming Yang et al., ‘Heterogeneous Knowledge Distillation via Geometry Decoupling and Momentum-Aware Gradient Regulation,’ , 2026-06-23. Status: under-review. MEMA: EMA-baseline test of task-vs-distillation gradient conflict that penalises harmful distillation signals (task-first, opposite of PCD's guaranteed KD progress); closest 2026 optimizer-side neighbour.
 
 - [yin2020deepinversion] Hongxu Yin et al., ‘Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion,’ CVPR 2020, 2020. Status: published. CLASSIC: data-free KD by inverting BatchNorm statistics.
+
+- [yu2025angularkd] Seonghoon Yu et al., ‘Single-Teacher View Augmentation: Boosting Knowledge Distillation via Angular Diversity,’ NeurIPS 2025 (author-stated), 2025-10-26. Status: accepted. Angular-KD: single-teacher view augmentation with angular-diversity objectives. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 MLKD+Angular-KD 77.28 (KD+Angular-KD 76.08, Table 1); Table 3 ImageNet ResNet34->ResNet18 71.07.
+
+- [yu2025uhkd] Fengming Yu et al., ‘UHKD: A Unified Framework for Heterogeneous Knowledge Distillation via Frequency-Domain Representations,’ arXiv preprint, 2025-10-28. Status: preprint. UHKD: frequency-domain intermediate representations for heterogeneous KD. Leaderboard: CIFAR-100 heterogeneous pairs only; Table 3 ImageNet ResNet34->ResNet18 72.71.
+
+- [yu2026cocars] Fengming Yu et al., ‘CoCaRS: Correlation Calibration-Based Redundancy Suppression for Heterogeneous Knowledge Distillation,’ arXiv preprint, 2026-07-29. Status: preprint. CoCaRS: correlation-calibrated redundancy suppression for heterogeneous KD. Leaderboard: Table 7 ImageNet ResNet34->ResNet18 72.58; CIFAR-100 standard pairs n/r.
+
+- [yu2026sakd] Xuyi Yu et al., ‘Single-Teacher View Augmentation: Enhancing Knowledge Distillation with Student-Guided Perturbations,’ arXiv preprint, 2026-07-13. Status: preprint. SAKD: single-stage learnable teacher-view augmentation driven by the student. Leaderboard: Table IV CIFAR-100 ResNet32x4->ResNet8x4 MLKD+SAKD 77.31 (KD+SAKD 75.54, Table III); Table V ImageNet ResNet34->ResNet18 71.12.
 
 - [yuan2020labelkd] Li Yuan et al., ‘Revisiting Knowledge Distillation via Label Smoothing Regularization,’ CVPR 2020, 2020. Status: published. Shows that weak teachers can still help and analyzes KD as learned label smoothing, including teacher-free KD. It provides a counterexample to equating teacher weakness with useless supervision.
 
@@ -280,15 +350,23 @@
 
 - [zhang2022camkd] Hailin Zhang et al., ‘Confidence-Aware Multi-Teacher Knowledge Distillation,’ ICASSP 2022, 2021-12-30. Status: accepted. Assigns sample-wise reliability to multiple teachers using ground-truth labels and intermediate features. It extends reliability-aware selection to multi-teacher KD.
 
+- [zhang2025btkd] Jianhua Zhang et al., ‘Can Students Beyond the Teacher? Distilling Knowledge from Teacher’s Bias,’ AAAI 2025, 2024-12-13. Status: published. BTKD: splits teacher knowledge into correct and biased parts and distils a corrected target. Leaderboard: Table 1 CIFAR-100 VGG13->VGG8 78.03 and ResNet50->MobileNetV2 80.45 (students exceed teachers; teacher WRN-40-2 73.57 differs from CRD protocol); ResNet32x4->ResNet8x4 n/r; Table 2 ImageNet ResNet34->ResNet18 73.38.
+
+- [zhang2025nckd] Shuoxi Zhang et al., ‘Neural Collapse Inspired Knowledge Distillation,’ AAAI 2025, 2024-12-16. Status: published. NCKD: aligns student features with the teacher's neural-collapse (simplex ETF) structure. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 NCKD 77.23, best variant SimKD+NCKD 78.18; Table 2 ImageNet ResNet34->ResNet18 72.44.
+
 - [zhang2025rsd] Weijia Zhang et al., ‘Cross-Architecture Distillation Made Simple with Redundancy Suppression,’ ICCV 2025, 2025. Status: published. RSD: cross-architecture KD as redundancy suppression (invariance maximisation + feature decorrelation) with a lightweight decoupling module; simpler alternative to OFA.
 
 - [zhang2025vrm] Weijia Zhang et al., ‘VRM: Knowledge Distillation via Virtual Relation Matching,’ ICCV 2025 (Highlight per arXiv comment), 2025-02-28. Status: published. VRM: builds affinity graphs over real and virtually augmented samples and matches inter-sample/inter-class relations, pruning unreliable edges; strongest CIFAR-100 relation result found.
+
+- [zhang2026btkdpp] Jianhua Zhang et al., ‘BTKD++: Beyond Teachers by Critically Distilling Knowledge from Teacher’s Bias,’ IJCV 2026, 2026-07. Status: published. BTKD++: journal extension of BTKD (zhang2025btkd) with bias-correction theory. Leaderboard: Table 2 CIFAR-100 VGG13->VGG8 78.03, ResNet50->MobileNetV2 80.45 (same values as zhang2025btkd); Table 3 ImageNet ResNet34->ResNet18 73.38; ResNet32x4->ResNet8x4 n/r.
 
 - [zhao2022dkd] Borui Zhao et al., ‘Decoupled Knowledge Distillation,’ CVPR 2022, 2022. Status: published. Splits KD into TCKD and NCKD with hand-set weights alpha/beta; natural K=3 test case for PCD (CE | TCKD, NCKD) and a loss-side state-of-the-art baseline.
 
 - [zhao2023dot] Borui Zhao et al., ‘DOT: A Distillation-Oriented Trainer,’ ICCV 2023, 2023-07-17. Status: published. Closest optimizer-side state of the art for the task-vs-distillation trade-off (separate, larger momentum for the KD gradient); mandatory baseline for PCD-in-KD.
 
 - [zheng2024wttm] Kaixiang Zheng et al., ‘Knowledge Distillation Based on Transformed Teacher Matching,’ ICLR 2024, 2024-02-17. Status: published. TTM drops temperature from the student side (power-transformed teacher only), interpreted as an extra Renyi-entropy regulariser; WTTM adds sample-adaptive weights.
+
+- [zheng2025gdkd] Bowen Zheng et al., ‘Rethinking Decoupled Knowledge Distillation: A Predictive Distribution Perspective,’ arXiv preprint (author-stated: IEEE TNNLS), 2025-12-04. Status: preprint. GDKD: generalises DKD by partitioning the predictive distribution into top/other groups. Leaderboard: Table I CIFAR-100 ResNet32x4->ResNet8x4 77.76 (own DKD baseline 76.64); Table III ImageNet ResNet34->ResNet18 72.26.
 
 - [zhou2025tcs] Junjie Zhou et al., ‘All You Need in Knowledge Distillation Is a Tailored Coordinate System,’ AAAI 2025, 2024-12-12. Status: published. TCS: extracts a PCA coordinate system from a (possibly self-supervised) teacher in one forward pass and aligns student features to it; teacher-agnostic, cheap, few-shot capable.
 
