@@ -34,7 +34,7 @@ Figure~\ref{fig:kd-pipeline} shows the resulting pipeline.
 
 \begin{figure}[t]
   \centering
-  \resizebox{0.75\linewidth}{!}{\input{figures/kd_pipeline}}
+  \resizebox{0.9\linewidth}{!}{\input{figures/kd_pipeline}}
   \caption{The classical teacher--student pipeline of Eq.~\eqref{eq:kd-objective}. The frozen teacher and
   the student see the same input. The student's logits feed two losses: a cross-entropy against the
   label at $T=1$ and a temperature-scaled KL divergence against the teacher. Only the student receives
@@ -116,8 +116,9 @@ The headline metric is top-1 accuracy (on CIFAR-100 averaged over runs, five in 
 Two cautions apply to every table in this survey. First, papers do not reuse each other's numbers
 consistently. On ResNet32$\times$4$\to$ResNet8$\times$4, CTKD is listed at 73.39\% by
 \citet{sun2024lskd} but at 73.70\% by \citet{xu2025ldrld}, and LSKD reports 76.62\% for itself while
-\citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:bench-cifar}. Second, CIFAR-100 is close to saturated as a KD benchmark, so part of a
-reported gain may come from regularisation rather than better transfer (\textbf{INTERPRETATION}).
+\citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:bench-cifar}. Second, \citet{miles2024vkd} argue that CIFAR-100 is increasingly saturated as a KD
+benchmark, so some reported gains may come from regularisation rather than better transfer
+(\textbf{VERIFIED} as their claim; whether it holds for a given method is open).
 We therefore report each method's own number with its source table and do not rank methods whose
 gaps are within this spread.
 % src: LSKD Table 2 (KD+CTKD 73.39; KD+Ours 76.62); LDRLD Table 1 (CTKD 73.70; LSKD 76.16)

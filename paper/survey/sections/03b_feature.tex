@@ -16,7 +16,7 @@ Later alignment methods mostly change the target geometry rather than the matchi
 
 \subsection{Cross-architecture transfer}
 
-For heterogeneous pairs, recent methods project intermediate student features into logit space, align students in a teacher-derived PCA basis, suppress redundancy through invariance plus decorrelation, or match similarity distributions over shared random prototypes. Several of them report only cross-architecture CIFAR pairs, so their standard evidence is ImageNet ResNet34$\to$ResNet18 (see the supplementary list). One method of this kind that adds momentum-aware gradient regulation is discussed with the optimizer-side methods in \S\ref{sec:kd_moo}.
+For heterogeneous pairs, the common strategy is to relax direct channel matching: supervision moves to a shared space or to invariants that do not assume stage-wise correspondence. Such methods often lack results on the standard homogeneous pairs (see the supplementary list).
 
 \subsection{Relational and contrastive transfer}
 
@@ -25,7 +25,7 @@ RKD matches pairwise distances and angles between examples rather than coordinat
 
 \subsection{Comparison of feature and relation methods}
 
-Three questions separate these methods: where supervision is attached (one stage, the classifier input, all stages, or a teacher tail), which sets the need for teacher activations; what invariance is requested (coordinates, attention, pairwise geometry, or low redundancy), where looser constraints cover more backbones; and what training work is added (a projector, negatives, virtual neighbours, or denoising). For same-family compression, FitNets, ReviewKD or SimKD fit when stages or the classifier are compatible. For cross-family pairs, teacher-tail, logit-space, PCA, decorrelation or prototype methods trade direct channel matching for their own assumptions. RKD, CRD and VRM make the batch or distribution the unit of supervision, so batch size, negatives and virtual samples become error sources. These are heuristics, not a ranking. Standard-pair results are in \S\ref{sec:benchmarks} and the supplementary list.
+Three questions separate these methods: where supervision is attached (one stage, the classifier input, all stages, or a teacher tail), which sets the need for teacher activations; what invariance is requested (coordinates, attention, pairwise geometry, or low redundancy), where looser constraints cover more backbones; and what training work is added (a projector, negatives, virtual neighbours, or denoising). For same-family compression, FitNets, ReviewKD or SimKD fit when stages or the classifier are compatible. For cross-family pairs, methods that relax channel matching trade it for assumptions about the shared space. RKD, CRD and VRM make the batch or distribution the unit of supervision, so batch size, negatives and virtual samples become error sources. These are heuristics, not a ranking. Standard-pair results are in \S\ref{sec:benchmarks} and the supplementary list.
 
 
 \input{figures/knowledge_types}
