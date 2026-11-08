@@ -48,8 +48,10 @@ derives USKD, a teacher-free variant with customised soft labels (\S\ref{sec:sch
 % src: NKD Table 1 (NKD 76.35 / 71.96; DKD 76.32 / 71.70)
 Compared with DKD, NKD replaces a tuned weight $\beta$ with a fixed normalisation, so it has fewer
 hyper-parameters to search; the price is that it cannot up-weight the non-target term when a pair
-would benefit from it. The 0.03-point difference on CIFAR-100 is far smaller than the cross-paper spread
-noted in \S\ref{sec:prelim-benchmarks} (\textbf{INTERPRETATION}).
+would benefit from it.
+% INTERPRETATION
+The 0.03-point difference on CIFAR-100 is probably far smaller than the cross-paper spread
+noted in \S\ref{sec:prelim-benchmarks}.
 
 \paragraph{SDD.} \citet{wei2024sdd} decouple along space instead of along classes. They pool the
 teacher's and student's final feature maps at several scales, pass each pooled region through the
@@ -76,6 +78,20 @@ DKD and NKD treat the non-target classes as one block; LDRLD argues that the ord
 between the non-target classes carry information that this blocking discards. The cost is a number
 of pairwise terms that grows with the number of classes considered, which the decay weights limit
 but do not remove.
+
+\paragraph{Generalised partitions.} Three preprints from 2025 revisit where DKD draws its line.
+GDKD \citep{zheng2025gdkd} generalises the target/non-target split into a partition between the
+teacher's top classes and the rest, and reports 77.76\% on our reference pair against 76.64\% for its own DKD run
+\citep[Table~I]{zheng2025gdkd}. TopKD \citep{wang2025topkd} scales and decouples the teacher's top-$K$
+logits and reports 78.18\% \citep[Table~2]{wang2025topkd}. Sort-KD \citep{limantoro2025sortkd} takes a
+parameter-free route: it sorts the logits so that the teacher's mispredictions are corrected before
+transfer. It reports no ResNet32$\times$4$\to$ResNet8$\times$4 result; on ImageNet
+ResNet34$\to$ResNet18, Sort-DKD reaches 71.84\% \citep[Table~II]{limantoro2025sortkd}.
+% src: GDKD T I (77.76; own DKD 76.64); TopKD T2 (78.18); Sort-KD T II (Sort-DKD 71.84). All three CORE-P preprints.
+DKD fixes the head of the split at the true class. GDKD and TopKD turn the size of that head into a
+design choice, while Sort-KD edits the teacher's ordering itself, which puts it closer to RLD's
+label-based masking than to DKD. GDKD and Sort-KD state acceptance at TNNLS and IEEE SPL, outside the
+venues of our inclusion criteria, and GDKD's DKD baseline sits 0.32 points above DKD's own figure.
 
 \paragraph{LTKD.} \citet{kim2026ltkd} apply decoupling to long-tailed training data, where the
 teacher is biased towards head classes and gives weak supervision on tail classes. LTKD rewrites the
@@ -149,9 +165,19 @@ compares with the other samples in the batch. LumiNet reports 77.50\% on our ref
 over five runs \citep[Table~1]{hossain2025luminet}, and an expected calibration error of 0.06 against 0.11 for KD on the same pair
 \citep[Table~5]{hossain2025luminet}.
 % src: LumiNet Table 1 (77.50, 5 trials); Table 5 (ACC/ECE: KD 73.33/0.11, Ours 77.50/0.06)
-LSKD normalises within a sample and LumiNet across samples. A consequence (\textbf{INTERPRETATION}) is
+LSKD normalises within a sample and LumiNet across samples.
+% INTERPRETATION
+One likely consequence is
 that LumiNet's targets depend on batch composition, so batch size and class balance within a batch
 become hyper-parameters of the distillation signal.
+
+\paragraph{Temperature schedules.} DTS \citep{islam2025dts} schedules the temperature from the gap
+between the teacher's and the student's losses. CTKD learns $T$ adversarially; DTS instead ties it
+to a measured quantity during training. Its reported gain is small: MLKD+DTS reaches
+75.25\% against 75.03\% for MLKD in the same table \citep[Table~II]{islam2025dts}, and that MLKD row
+is about two points below MLKD's own 77.08\%, so the result is hard to place against
+Table~\ref{tab:logit-sota}.
+% src: DTS T II (MLKD+DTS 75.25; MLKD 75.03). CORE-P preprint.
 
 \subsection{Replacing or enriching the KL divergence}
 \label{sec:logit-div}
@@ -165,8 +191,9 @@ shift and scale. DIST reports 76.31\% on our reference pair \citep[Table~5]{huan
 72.07\% on ImageNet ResNet34$\to$ResNet18 \citep[Table~2]{huang2022dist}, and its largest gains are
 with strong teachers and strong training recipes.
 % src: DIST Table 5 (76.31); DIST Table 2 (72.07)
-DIST and LSKD reach shift- and scale-invariance by different routes, DIST by its loss and LSKD by
-pre-processing before an unchanged KL (\textbf{INTERPRETATION}). The authors note that DIST is less
+% INTERPRETATION
+DIST and LSKD appear to reach shift- and scale-invariance by different routes, DIST by its loss and LSKD by
+pre-processing before an unchanged KL. The authors note that DIST is less
 effective for binary classification, where there is little inter-class relation to transfer
 \citep{huang2022dist}.
 
@@ -181,7 +208,8 @@ Table~\ref{tab:logit-sota}.
 MLKD's batch- and class-level terms are close in spirit to DIST's intra-class relation. Part of its
 gain over DKD may come from the multi-temperature prediction augmentation rather than from the
 multi-level alignment itself; we did not find a comparison against DKD with the same set of
-temperatures (\textbf{HYPOTHESIS}).
+temperatures.
+% HYPOTHESIS: the multi-temperature augmentation explains part of MLKD's gain.
 
 \paragraph{WKD.} \citet{lv2024wkd} point out that KL compares the probability of each class only with
 the probability of the same class, so it cannot use the fact that, say, ``dog'' is close to other
@@ -201,18 +229,84 @@ class probabilities, a second-order distribution in the sense of evidential deep
 both the expectation of the teacher's Dirichlet (a first-order term close to KD) and the Dirichlet
 itself, so the student also inherits how certain the teacher is. It reports 77.21\% on our reference
 pair \citep[Table~1]{xiang2025ekd} and 72.54\% on ImageNet ResNet50$\to$MobileNet
-\citep[Table~3]{xiang2025ekd}. EKD needs a teacher trained or adapted with the evidential loss, which
-is extra work compared with reusing a standard pretrained teacher (\textbf{INTERPRETATION} from the
-``EDL'' teacher rows in their Table~1).
+\citep[Table~3]{xiang2025ekd}.
+% INTERPRETATION from the ``EDL'' teacher rows in EKD Table 1.
+Judging from the evidential teacher rows of their Table~1, EKD appears to need a teacher trained or adapted with the evidential loss, which
+is extra work compared with reusing a standard pretrained teacher.
 % src: EKD Table 1 (77.21; EDL teacher 79.53 vs softmax 79.42); EKD Table 3 (72.54)
+
+\paragraph{Reformulated KL losses.} Several papers keep a KL-type objective but change its parts.
+DKL \citep{cui2024dkl} shows that KL equals a weighted mean-squared error between logits plus a
+cross-entropy with soft labels, and uses the decomposition to symmetrise the loss; it reports 76.59\%
+on our reference pair \citep[Table~13]{cui2024dkl}. Its journal extension, GKL \citep{cui2026gkl},
+reports 76.83\% \citep[Table~17]{cui2026gkl}, and both reach 71.91\% on ImageNet
+ResNet34$\to$ResNet18. BDD \citep{qi2025bdd} adds a reverse-KL term for the classes to which the
+teacher gives small probability, which forward KL largely ignores; plain BDD reports 76.21\% and
+MLD+BDD 77.22\% \citep[Table~1]{qi2025bdd}. ABKD \citep{wang2025abkd} replaces KL with an
+$\alpha$-$\beta$-divergence whose two parameters control how the student allocates probability
+mass; it reports our pair only in a figure, so we quote no
+number. RCKD \citep{wang2026rckd} targets the capacity mismatch that also motivates DIST and replaces
+KL with a cosine-type loss, reporting 76.89\% \citep[Table~1]{wang2026rckd}. GenDD
+\citep{cui2025gendd} goes furthest from KL: it treats distillation as matching a conditional
+generative distribution and reports 77.47\% on our pair and 72.38\% on ImageNet
+\citep[Tables~5 and~2]{cui2025gendd}.
+% src: DKL T13 (76.59), T4 (IN 71.91); GKL T17 (76.83), T5 (IN 71.91); BDD T1 (76.21; MLD+BDD 77.22);
+% ABKD Fig. 5 only; RCKD T1 (76.89), T3 (IN 72.02); GenDD T5 (77.47), T2 (IN 72.38). BDD, GenDD: CORE-P.
+DIST and WKD change what is matched; DKL/GKL, BDD and ABKD keep per-class matching and change
+how the mismatch on each class is penalised. DKL/GKL and BDD stay closest to KD and are the easiest to
+swap into an existing pipeline; ABKD adds two divergence parameters to tune, and GenDD changes the
+training target more deeply.
+% INTERPRETATION: "easiest to swap" and "more deeply" are our reading of the mechanisms above.
 
 \paragraph{PLD.} \citet{bassam2025pld} recast logit distillation as list-wise ranking. Their loss is a
 Plackett--Luce likelihood over a class ordering that puts the true label first and orders the other
 classes by the teacher; the authors state that it is convex and translation-invariant and that it
 subsumes weighted cross-entropy, so it needs no separate distillation weight $\lambda$. We read only
-the NeurIPS abstract page, so these properties are \textbf{VERIFIED} as the authors' claims and we do
-not quote a number. PLD is relevant to \S\ref{sec:kd_moo}: by folding the label and the teacher into
+the NeurIPS abstract page, so these properties are the authors' claims and we do
+not quote a number.
+% VERIFIED: as the authors' claims on the abstract page only. PLD is relevant to \S\ref{sec:kd_moo}: by folding the label and the teacher into
 one target it removes the CE--KD trade-off of Eq.~\eqref{eq:kd-objective} instead of balancing it.
+
+\paragraph{Ranking and class-correlation losses.} PLD is not the only ranking objective. The Kendall-$\tau$
+loss of \citet{guan2025rankingkd} is a plug-in term that aligns the order of the teacher's and
+the student's logits; stacked on MLKD it reports 77.25\% on our pair \citep[Table~2]{guan2025rankingkd}
+and on NKD 72.06\% on ImageNet \citep[Table~13]{guan2025rankingkd}. Where PLD replaces the loss with a
+list-wise likelihood, the Kendall-$\tau$ term keeps KL and adds a pairwise order constraint next to it.
+AR-KD \citep{jiang2026arkd} learns class correlations through adaptive reciprocal learning between
+teacher and student, reporting 77.29\% on our pair and 72.13\% on ImageNet
+\citep[Tables~1 and~2]{jiang2026arkd}; its target is the class-to-class structure that WKD encodes in a
+transport cost and MLKD in a class-level correlation.
+% src: Ranking loss T2 (MLKD+ranking 77.25), T13 (IN NKD+ranking 72.06); AR-KD T1 (77.29), T2 (IN 72.13).
+% AR-KD: CORE-P preprint (author-stated CIKM 2026).
+
+\paragraph{Batch-level consistency.} Two methods add batch structure to instance-level KL, as MLKD's
+batch term does. SKD \citep{jeong2026skd} pairs an instance KL with alignment of the batch Gram matrix
+and reports 78.33\% on our pair \citep[Table~1]{jeong2026skd}, the highest single-method logit number
+we found. Its own KD baseline, however, is 74.75\%, about 1.4 points above the 73.33\% of
+Table~\ref{tab:logit-sota}, so part of the margin may be protocol; on ImageNet it reports 71.13\%
+\citep[Table~3]{jeong2026skd}. IKD \citep{wang2025ikd} is a debiased batch-level consistency
+regulariser used as a plug-in; NKD+IKD reports 77.10\% on our pair and 72.20\% on ImageNet
+\citep[Tables~2 and~3]{wang2025ikd}.
+% src: SKD T1 (78.33; KD row 74.75, DKD row 76.51), T3 (IN 71.13); IKD T2 (NKD+IKD 77.10), T3 (IN 72.20).
+% HYPOTHESIS: SKD's margin over MLKD is partly due to its stronger baseline protocol; untested.
+
+\paragraph{Per-sample weighting.} Other methods keep the loss and change how much each sample
+contributes. IPWD \citep{niu2022ipwd} weights the distillation loss by inverse propensity, so that
+samples under-represented in the transfer set count more; it reports 76.03\% on our pair and 71.88\%
+on ImageNet \citep[Tables~2 and~4]{niu2022ipwd}. TGeo-KD \citep{hu2024tgeokd} sets the weight of each
+sample from a trilateral geometry between the student, the teacher and the label (77.27\% on our
+pair, \citealp[Table~1]{hu2024tgeokd}; 72.89\% on ImageNet, \citealp[Table~2]{hu2024tgeokd}). EA-KD
+\citep{su2025eakd} weights samples by entropy; alone it reports 75.46\%, and stacked as EA-MLD+LS it
+reaches 78.38\% \citep[Table~2]{su2025eakd}. ADG-KD \citep{li2025adgkd} fuses teacher guidance with
+instance guidance through learned factors and reports 77.44\% alone and 77.51\% on MLKD
+\citep[Table~1]{li2025adgkd}. These differ from WTTM's power-sum weights in what defines a hard sample:
+a propensity, a geometric relation to the label, an entropy or a learned factor. TGeo-KD and EA-KD are
+analysed with the reliability methods in \S\ref{sec:reliability}. e$^2$KD \citep{parchami2024e2kd} adds
+a different signal, the similarity of the two networks' explanation maps, to logit KD; at full ImageNet
+data it matches KD at 71.8\%, and its reported gains come in the few-shot setting
+\citep[Table~1]{parchami2024e2kd}.
+% src: IPWD T2 (76.03), T4 (71.88); TGeo-KD T1 (77.27, per registry), T2 (72.89); EA-KD T2 (EA-KD 75.46;
+% EA-MLD+LS 78.38); ADG-KD T1 (77.44; MLKD+ADG 77.51), T2 (IN 72.22); e2KD T1 (71.8 = KD at full data).
 
 \paragraph{RLD.} \citet{sun2025rld} address a problem that all methods above inherit: when the teacher
 is wrong, its distribution contradicts the label, and the student receives conflicting targets. RLD
@@ -227,7 +321,8 @@ with other reliability methods in \S\ref{sec:reliability}.
 \subsection{Comparison and outlook}
 \label{sec:logit-compare}
 
-Table~\ref{tab:logit-sota} summarises the methods (\textbf{INTERPRETATION} below unless cited).
+% INTERPRETATION below unless cited.
+Table~\ref{tab:logit-sota} summarises the methods.
 Across these papers, LSKD's standardisation improves KD, DKD and MLKD \citep[Table~2]{sun2024lskd},
 and SDD wraps KD, DKD and NKD \citep{wei2024sdd}, so decomposition, rescaling and the choice of
 divergence behave as separable design axes. The 2024--2025 methods report 76.0--77.5\% on
@@ -239,6 +334,11 @@ to trust (RLD here; \S\ref{sec:reliability}), to class imbalance in the teacher 
 distillation term is balanced against the task loss (PLD; \S\ref{sec:kd_moo}). DKD and KD+LSKD are
 low-overhead baselines with public code, and both are re-reported by other
 papers (EKD and LDRLD list both, \citealp[Table~1]{xiang2025ekd,xu2025ldrld}); MLKD+LSKD reports the highest value in the table but adds loss terms and temperatures.
+Among the methods added by the systematic search, SKD (78.33\%, \citealp[Table~1]{jeong2026skd}) and
+EA-MLD+LS (78.38\%, \citealp[Table~2]{su2025eakd}) report slightly higher values, the first with a stronger KD
+baseline and the second stacked on two other methods; most plug-ins of 2024--2026 (ranking, IKD, ADG-KD,
+BDD, EA-KD) report their best numbers on top of MLKD or NKD rather than alone. The table keeps
+representative rows; \S\ref{sec:benchmarks} lists the full included set.
 
 \begin{table}[t]
 \centering
@@ -267,6 +367,10 @@ RLD \citep{sun2025rld} & ICCV 2025 & Label-refined sample confidence and masked 
 LDRLD \citep{xu2025ldrld} & ICCV 2025 & Dense pairwise relations between local class pairs & 77.20 (T1) & yema-web/LDRLD \\
 EKD \citep{xiang2025ekd} & ICCV 2025 & Distils a Dirichlet (second-order) distribution & 77.21 (T1) & Liangyu-Xiang/EKD \\
 LTKD \citep{kim2026ltkd} & CVPR 2026 & Cross-group and within-group KL, rebalanced for long-tailed data & n/r (long-tailed only; CIFAR-100-LT $\gamma{=}100$: 51.08, T1) & none found \\
+DKL \citep{cui2024dkl} & NeurIPS 2024 & KL as weighted MSE + soft-label CE, symmetrised & 76.59 (T13) & jiequancui/DKL \\
+Kendall-$\tau$ \citep{guan2025rankingkd} & ICML 2025 & Plug-in logit-order ranking loss & MLKD+rank 77.25 (T2) & OvernighTea/ RankingLoss-KD \\
+ADG-KD \citep{li2025adgkd} & AAAI 2025 & Teacher and instance guidance fused by learned factors & 77.44; MLKD+ADG 77.51 (T1) & none found \\
+SKD \citep{jeong2026skd} & CVPR 2026 & Instance KL + batch Gram-matrix alignment & 78.33 (T1; its KD 74.75) & none found \\
 PLD \citep{bassam2025pld} & NeurIPS 2025 & Plackett--Luce list-wise ranking loss, no KD weight & not extracted & none found \\
 \bottomrule
 \end{tabular}
