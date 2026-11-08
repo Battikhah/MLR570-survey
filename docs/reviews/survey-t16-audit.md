@@ -8,7 +8,7 @@ Scope: `paper/survey/main.tex` and `sections/01`–`10`. Auditor: Claude (Orca t
 |---|---|---|---|
 | 1a | Every `\cite` key exists in `literature/sources.yaml` | PASS | 187 cited keys, 0 missing; `uv run python scripts/build_bib.py --check` prints "citation check OK", exit 0 |
 | 1b | Every cited record has `verified_by` | PASS | 0 cited records lack it |
-| 1c | No unverified record carries a number | PASS | Only cited unverified record is `xue2024caat` (CA-AT). Its single use, `07_emerging.tex:10`, carries no number and says "its record remains an unverified preprint" |
+| 1c | No unverified record carries a number | PASS | Only cited unverified record is `xue2024caat` (CA-AT). Its single use, `09_future.tex` (last paragraph; §VII removed in condense C), carries no number and says "its record remains an unverified preprint" |
 | 1d | Unused registry records (not deleted) | INFO | 47 before the fix, 44 after (see below) |
 | 2 | Accuracies match §VIII or primary source | PASS | Automatic check of all 277 two-decimal numbers in main.tex and §I–VII, IX, X: 248 appear in `08_benchmarks.tex` or `docs/survey/*.md`. The other 29 were each checked against the primary PDF or an earlier review (table below) |
 | 3 | Guidelines G1–G11 | PASS (11/11) | see G table |
@@ -48,7 +48,7 @@ Check was string presence in the extracted text, not a re-read of each table row
 | G6 method comparisons | PASS | comparison paragraphs per section, e.g. "Comparing reliability signals" `05_reliability.tex:22`; comparison tables |
 | G7 visual aids | PASS | 3 figures (taxonomy, gradient-rule diagrams) and 11 tables |
 | G8 strengths/weaknesses/applicability | PASS | per-method limitations in §III–VI; applicability paragraph `05_reliability.tex:24` |
-| G9 future directions from gaps | PASS | §IX, 7 paragraphs each ending in a "Direction:" tied to a cited gap |
+| G9 future directions from gaps | PASS | §IX, 5 paragraphs (7 before condense C merged them) each ending in a "Direction:" tied to a cited gap |
 | G10 conclusion | PASS | §X |
 | G11 references | PASS | natbib author-year with `tmlr.bst` throughout (per `tasks/plan.md:62`); 187 verified registry records |
 

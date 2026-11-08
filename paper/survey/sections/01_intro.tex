@@ -6,8 +6,7 @@
 
 Knowledge distillation (KD) trains a small student network to match the outputs of a larger teacher, so that
 the student keeps much of the teacher's accuracy at a fraction of its inference cost \citep{hinton2015kd}. The
-original recipe adds a temperature-softened Kullback--Leibler term to the cross-entropy loss. Since then the
-field has grown in several directions at once. Logit methods split the KD loss into parts and reweight them
+original recipe adds a temperature-softened Kullback--Leibler term to the cross-entropy loss. Logit methods split the KD loss into parts and reweight them
 \citep{zhao2022dkd}, standardise or rescale logits \citep{sun2024lskd} or learn the temperature
 \citep{li2023ctkd}. Feature and relation methods align intermediate representations or the structure between
 samples \citep{tian2020crd,chen2022simkd,zhang2025vrm}. Other work changes the training scheme, asks when the
@@ -16,9 +15,8 @@ teacher should be trusted at all, or changes how the task gradient and the disti
 
 \paragraph{Motivation and gap.} Most of this work reports results on one shared protocol: CIFAR-100 with the
 teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
-from different papers are rarely put side by side with their caveats, and the gains of recent methods are
-often within a point of each other. Table~\ref{tab:surveys} compares this survey with existing ones. The
-broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most of the methods covered here. The most
+from different papers are rarely put side by side with their caveats, and recent gains are often within a
+point of each other. Table~\ref{tab:surveys} compares this survey with existing ones. The broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most of the methods covered here. The most
 recent general survey \citep{mansourian2025kdsurvey} covers newer work, and the LLM-oriented surveys
 \citep{xu2024llmkdsurvey,yang2025llmkdsurvey} focus on language models. None of them builds its method set
 from a stated search, and none treats the combination of task and distillation objectives as a
@@ -37,11 +35,10 @@ ImageNet-1K with ResNet34$\to$ResNet18 or ResNet50$\to$MobileNet. Excluded paper
 E1 not KD, or KD only as a tool for another task; E2 not image classification; E3 venue or date outside I2;
 E4 no standard-protocol result; E5 survey or position paper; E6 dataset distillation or compression without a
 teacher; E7 withdrawn or duplicate version. Distillation for language models, vision--language models,
-detection and other tasks is outside the scope and gets only pointers in Section~\ref{sec:emerging}.
+detection and other tasks is outside the scope; Section~\ref{sec:future} gives pointers.
 
-\paragraph{Search.} Three searches covered the proceedings listings of the computer-vision venues, the
-machine-learning venues and TMLR, and AAAI, the two journals and arXiv, with snowballing from the comparison
-tables of recent papers. They identified 2,193 records (656, 985 and 552), and 310 were read in full. A
+\paragraph{Search.} Three searches covered the computer-vision venues, the machine-learning venues and
+TMLR, and AAAI, the two journals and arXiv, with snowballing from recent comparison tables. They identified 2,193 records (656, 985 and 552), and 310 were read in full. A
 second pass with broader title terms (``teach'', ``student'', ``mimic'', ``logit'' and others) screened 445
 further records, re-checked 29 cited works that no search had included, and added two methods. Fifteen
 papers that were first inaccessible were later retrieved by hand and added six more. The final set has
@@ -51,8 +48,8 @@ papers that were first inaccessible were later retrieved by hand and added six m
 \paragraph{Taxonomy.} Figure~\ref{fig:taxonomy} shows how the methods are organised. The first axis is what
 knowledge is transferred: logits (Section~\ref{sec:logit}) or features and relations
 (Section~\ref{sec:feature}). The second is how training is arranged: offline, online, self-distillation,
-multi-teacher or data-free (Section~\ref{sec:schemes}). Two further branches are less common in earlier
-surveys: methods that decide how far to trust the teacher (Section~\ref{sec:reliability}), and methods that
+multi-teacher or data-free (Section~\ref{sec:schemes}). Two further branches are rarer in earlier surveys:
+methods that decide how far to trust the teacher (Section~\ref{sec:reliability}), and methods that
 treat the task and distillation losses as separate objectives and combine their gradients with a rule
 (Sections~\ref{sec:moo} and~\ref{sec:kd_moo}).
 
@@ -64,13 +61,11 @@ the priority-based PCD \citep{varam2026pcd}, among the general gradient-combinat
 collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the rows
 whose setting differs from the standard protocol.
 
-\paragraph{Organisation.} Section~\ref{sec:prelim} sets out notation and the benchmark protocol.
-Sections~\ref{sec:logit} and~\ref{sec:feature} cover what knowledge is transferred,
-Section~\ref{sec:schemes} the training schemes and Section~\ref{sec:reliability} teacher reliability.
-Section~\ref{sec:moo} introduces multi-objective optimisation and Section~\ref{sec:kd_moo} reviews how KD
-methods use it. Section~\ref{sec:emerging} points to settings beyond image classification.
-Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
-challenges and Section~\ref{sec:conclusion} concludes.
+\paragraph{Organisation.} After notation and protocol (Section~\ref{sec:prelim}), Sections~\ref{sec:logit}--\ref{sec:reliability}
+cover the method families and Sections~\ref{sec:moo}--\ref{sec:kd_moo} multi-objective optimisation and its
+use in KD. Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
+challenges and settings beyond image classification, and Section~\ref{sec:conclusion} concludes. The appendix
+lists all included methods.
 
 % --- Table I / Fig. 1 (T4) --- (per-cell evidence: docs/survey/table1-evidence.md)
 % Every cell is justified by a section number of the compared survey in docs/survey/table1-evidence.md.

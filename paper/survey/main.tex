@@ -38,10 +38,10 @@ where classical KD reaches 73.33\%, the highest reported configurations are 79.2
 another method) and 78.76\% (VRM, a single method), and most single logit methods sit between 76.0\% and
 77.8\%. On ImageNet ResNet34$\to$ResNet18 the spread is narrow: all but seven of 79 rows lie between 71.0\%
 and 73.0\%, against 71.70\% for DKD. Many top rows stack methods, change the teacher or report a single run,
-so small gaps do not support a ranking. We close with seven open problems: a leaderboard re-run
-under one protocol, what stacked results measure, which teacher signal to trust, how to combine the task
-and distillation objectives, whether their gradients conflict at all or only differ in scale, the gap
-between data-free, CIFAR-100 and ImageNet results, and metrics beyond top-1 accuracy.
+so small gaps do not support a ranking. We close with five open problems: a leaderboard re-run
+under one protocol that also tests what stacked results measure, which teacher signal to trust, how to combine
+the task and distillation objectives and whether their gradients conflict at all or only differ in scale, the
+gap between data-free, CIFAR-100 and ImageNet results, and metrics beyond top-1 accuracy.
 \end{abstract}
 
 \input{sections/01_intro}
@@ -52,7 +52,6 @@ between data-free, CIFAR-100 and ImageNet results, and metrics beyond top-1 accu
 \input{sections/05_reliability}
 \input{sections/06a_moo}
 \input{sections/06b_kd_moo}
-\input{sections/07_emerging}
 \input{sections/08_benchmarks}
 \input{sections/09_future}
 \input{sections/10_conclusion}
