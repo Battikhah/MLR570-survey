@@ -62,7 +62,7 @@ were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+
 \caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the twelve highest reported rows and the baselines discussed in the text. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in Table~\ref{tab:app-methods}.}\label{tab:bench-cifar}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
-Method & Fam. & Venue & R32$	imes$4$	o$R8$	imes$4 & Code & Flags \\
+Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & Code & Flags \\
 \midrule
 KD-AIF~\citep{wu2025kdaif} & R & arXiv'25 & 82.20 & no & teacher retrained to 86.56; not ranked \\
 DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 79.25 & no & CRLD+DeepKD (stacked) \\
@@ -98,7 +98,7 @@ DOT~\citep{zhao2023dot} & O & ICCV'23 & 75.12 & yes & KD+DOT (mdistiller) \\
 \caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the twelve highest reported rows and the baselines discussed in the text. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. All 79 rows, and the ResNet50$\to$MobileNetV1 values, are in Table~\ref{tab:app-methods}.}\label{tab:bench-imagenet}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
-Method & Fam. & Venue & R34$	o$R18 & Code & Flags \\
+Method & Fam. & Venue & R34$\to$R18 & Code & Flags \\
 \midrule
 TopoKD~\citep{kim2024topkd} & F & ICML'24 & 73.60 & no & above its 73.31 teacher \\
 BTKD~\citep{zhang2025btkd} & R & AAAI'25 & 73.38 & no & own teachers; Adam \\
