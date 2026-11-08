@@ -22,13 +22,13 @@ Scope: `paper/survey/main.tex` and `sections/01`–`10`. Auditor: Claude (Orca t
 
 | Location | Numbers | Source checked |
 |---|---|---|
-| 02_prelim:140, 03a:66 | 73.70, 75.09 | LDRLD arXiv 2507.15911 text |
-| 03a:11 | 75.51, 75.63 | DKD arXiv 2203.08679 text |
-| 03a:60,66,363 | 76.63, 75.92 | `survey-t5t6-codex.md`; 75.92 also in EKD CVF PDF |
-| 03a:102–103,369 | 51.08, 27.21, 46.11, 13.25 | `survey-t5t6-codex.md` (LTKD Table 1) |
-| 03a:150 | 77.01 | `phase7-codex-reviews-claude.md` |
-| 03a:231 | 72.54 | EKD ICCV 2025 CVF PDF |
-| 03b:32 | 32.71, 61.07 | `survey-t7t8-claude.md` |
+| 02_prelim:140, 03a §3.1 (condensed) | 73.70, 75.09 | LDRLD arXiv 2507.15911 text |
+| 03a intro (condensed) | 75.51, 75.63 | DKD arXiv 2203.08679 text |
+| 03a §3.1 (condensed; 363 row merged) | 76.63, 75.92 | `survey-t5t6-codex.md`; 75.92 also in EKD CVF PDF |
+| 03a §3.1 + Table 2 (condensed) | 51.08, 27.21, 46.11, 13.25 | `survey-t5t6-codex.md` (LTKD Table 1) |
+| 03a §3.2 (condensed) | 77.01 | `phase7-codex-reviews-claude.md` |
+| 03a §3.3 (condensed) | 72.54 | EKD ICCV 2025 CVF PDF |
+| 03b §4.2 (condensed) | 32.71, 61.07 | `survey-t7t8-claude.md` |
 | 06b:128–130,228 | 87.58, 87.81, 87.83, 93.83, 93.81 | TPKD arXiv 2609.39338 text |
 | 06b:158–159 | 73.66, 73.56 | DOT arXiv 2307.08436 text |
 | 06b:162,225 | 77.03 | DeepKD arXiv 2505.15133 text (v1; camera-ready not compared, as already noted in `survey-t11.md`) |
