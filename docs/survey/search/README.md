@@ -49,3 +49,24 @@ methods by their abstracts and could meet I3: Maximum Divergence KD (NeurIPS 202
    Temperature Scaling Makes Larger Networks Teach Well Again*, NeurIPS 2022), which the survey already cites, was not identified by S2.
 3. 2022+ classification works already cited in §III–§VI that no search included need an explicit decision (e.g. `li2022ats`,
    `sengupta2026casd`).
+
+## Gap pass outcome and final rulings (2026-11-08)
+
+The gap pass (`g-gap.md`, merge of commit d483a59) assessed:
+- S3's 15 dropped registry matches;
+- 445 new titles found with the broader terms (teach / student / mimic / soft label / dark knowledge / logit / temperature scaling) across all listings;
+- the 29 cited-but-unincluded works;
+- one more round of snowballing from the 2026 inclusions.
+
+It added **2 methods**:
+- **CTKD** (AAAI 2023; ImageNet R34→R18 only);
+- **SRD / projector study** (`miles2024projector`, AAAI 2024; 76.44 with RandAugment, 78.37 with SSKD teachers, the latter flagged as not protocol-comparable).
+
+ATS (NeurIPS 2022) is E4: its CIFAR teachers (ResNet110, WRN28-8, ResNeXt29) are not CRD pairs. It stays cited in §III.
+
+Coordinator rulings on the residual items:
+- **InherNet (ICLR 2026): SUPPORT.** It builds the student by decomposing the teacher's weights, which is weight inheritance rather than training a given student with a teacher signal (I1). It is cited in §VIII/§IX as a related alternative, not ranked.
+- **CVPR 2023 listing residual: closed by the coordinator.** I re-fetched the CVF CVPR 2023 listing (2,353 papers) and found 80 titles matching S1's regex. Title-screening them leaves 4 possibly eligible: OKDPH, DisWOT and Learning-to-Retain (all assessed and excluded in `s1-cvf.md`), plus "Data-Free KD via Feature Exchange and Activation Region Constraint", which is SpaceshipNet (`yu2023spaceshipnet`), already included. No new inclusions.
+- *Scaffolding a Student to Instill Knowledge* (ICLR 2023) joins the not-assessable list (18 papers in total).
+
+**Final included set: 106 methods.** That is the 106-method union, plus CTKD and SRD, minus LTKD (E4 by ruling; cited in §V) and PE-BKD (SUPPORT). The Codex spot-check (`spotcheck-codex.md`) found 0/20 inclusion errors and 0/20 exclusion errors on accessible papers after adjudication.
