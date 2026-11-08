@@ -96,23 +96,23 @@
 
 - [beyer2022patientkd] Lucas Beyer et al., ‘Knowledge Distillation: A Good Teacher Is Patient and Consistent,’ CVPR 2022, 2022. Status: published. Demonstrates that distillation outcomes depend strongly on long training and consistent teacher/student image views. It underscores the need to hold recipes fixed when comparing optimization rules.
 
-- [chae2025kdas] Byungchul Chae et al., ‘What to Distill? Fast Knowledge Distillation with Adaptive Sampling,’ ICCV 2025, 2025. Status: published. Adaptive sample selection and loss weighting to cut KD training time ~10-30% while matching accuracy.
-
 - [chen2021reviewkd] Pengguang Chen et al., ‘Distilling Knowledge via Knowledge Review,’ CVPR 2021, 2021. Status: published. CLASSIC/lineage: cross-stage feature review; the reference feature baseline in 2022-2025 tables.
+
+- [chen2022pefd] Yudong Chen et al., ‘Improved Feature Distillation via Projector Ensemble,’ NeurIPS 2022, 2022-10-27. Status: published. PEFD: Feature distillation through an ensemble of randomly initialised projectors on the student feature. T12b-S2 leaderboard entry (I1-I3 met). CRD teachers (79.42)
 
 - [chen2022simkd] Defang Chen et al., ‘Knowledge Distillation with the Reused Teacher Classifier,’ CVPR 2022, 2022-03-26. Status: published. SimKD: aligns the penultimate feature through a projector and reuses the frozen teacher classifier at inference; strong feature baseline but adds projector cost.
 
-- [chen2025cpnet] Xu Chen et al., ‘Coupling the Generator with Teacher for Effective Data-Free Knowledge Distillation,’ ICCV 2025, 2025. Status: published. CPNet couples the synthetic-data generator to the teacher for data-free KD.
+- [chen2025adm] Zhaowei Chen et al., ‘Asymmetric Decision-Making in Online Knowledge Distillation: Unifying Consensus and Divergence,’ ICML 2025, 2025-10-06. Status: published. ADM: Asymmetric decision-making in online KD: consensus on foreground features, divergence elsewhere. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: online KD — the R8×4 number is not the offline mdistiller protocol
+
+- [chen2026djip] Siyu Chen et al., ‘Differentiable JPEG-based Input Perturbation for Knowledge Distillation Amplification via Conditional Mutual Information Maximization,’ ICLR 2026, 2026-04-20. Status: published. DJIP: Differentiable JPEG input perturbation during teacher training raises the teacher's conditional mutual information. T12b-S2 leaderboard entry (I1-I3 met). teacher retrained with DJIP; R32×4 79.41
 
 - [chen2026scope] Tao Chen et al., ‘Selective Confidence-Guided Projection-Based Encoding for Medical Image Classification,’ Journal of Imaging, 2026-09-11. Status: published. Classification-priority gradient-conflict removal for KD plus confidence-weighted relations: very close to the KD proposal.
 
 - [cho2019efficacy] Jang Hyun Cho et al., ‘On the Efficacy of Knowledge Distillation,’ ICCV 2019, 2019. Status: published. Classic empirical analysis showing teacher accuracy alone does not predict distillation utility and that teacher-student capacity mismatch can limit transfer. It anchors discussion of teacher-student compatibility.
 
-- [choi2023orc] Junyong Choi et al., ‘ORC: Network Group-based Knowledge Distillation using Online Role Change,’ ICCV 2023, 2023. Status: published. Group of networks that swap teacher/student roles online; online-KD scheme baseline.
+- [do2022mad] Kien Do et al., ‘Momentum Adversarial Distillation: Handling Large Distribution Shifts in Data-Free Knowledge Distillation,’ NeurIPS 2022, 2022-09-21. Status: published. MAD: Data-free KD with an EMA copy of the generator (momentum adversarial distillation) to handle generator distribution shift. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: data-free KD (no training data); CIFAR-100 W40-2→W16-2 64.05 (T1), not comparable to data-based KD
 
-- [deng2022distpro] Xueqing Deng et al., ‘DistPro: Searching a Fast Knowledge Distillation Process via Meta Optimization,’ ECCV 2022, 2022. Status: published. Meta-learns a time-varying weight schedule over many teacher-student distillation pathways: a learned objective-combination rule, directly relevant to PCD.
-
-- [deng2022pebkd] Xiang Deng et al., ‘Personalized Education: Blind Knowledge Distillation,’ ECCV 2022, 2022. Status: published. Argues common CIFAR students can mimic the teacher fully (CST) and proposes PE-BKD for this case; leaderboard use doubtful (see AMBIGUOUS).
+- [dong2024soteacher] Chengyu Dong et al., ‘Toward Student-oriented Teacher Network Training for Knowledge Distillation,’ ICLR 2024, 2022-06-14. Status: published. SoTeacher: Student-oriented teacher training (Lipschitz and consistency regularisation) so the teacher better approximates the true label distribution. T12b-S2 leaderboard entry (I1-I3 met). teacher trained by SoTeacher (lower teacher acc.)
 
 - [dong2025mooadv] Junhao Dong et al., ‘Confound from All Sides, Distill with Resilience: Multi-Objective Adversarial Paths to Zero-Shot Robustness,’ ICCV 2025, 2025. Status: published. Uses multi-objective optimisation to generate diverse targeted adversaries (one per preference vector) for robust distillation from VLMs to small models; MOO used for data generation, not loss balancing.
 
@@ -128,9 +128,11 @@
 
 - [gu2024minillm] Yuxian Gu et al., ‘MiniLLM: On-Policy Distillation of Large Language Models,’ ICLR 2024, 2023-06-14. Status: published. MiniLLM: reverse-KL objective optimised with policy gradient on student-generated text (on-policy), avoiding the mode-covering of forward KL for generative LMs.
 
+- [guan2025rankingkd] Yuchen Guan et al., ‘Enhancing Logits Distillation with Plug&Play Kendall’s $τ$ Ranking Loss,’ ICML 2025, 2024-09-26. Status: published. Kendall-τ ranking loss: Plug-and-play Kendall's τ ranking loss that aligns the order of teacher and student logits. T12b-S2 leaderboard entry (I1-I3 met). plug-in loss
+
 - [guo2023catkd] Ziyao Guo et al., ‘Class Attention Transfer Based Knowledge Distillation,’ CVPR 2023, 2023-04-25. Status: published. CAT-KD: transfers class activation maps (class attention) rather than raw features; links interpretability and distillation.
 
-- [hamidi2024mseteacher] Shayan Mohajer Hamidi et al., ‘How to Train the Teacher Model for Effective Knowledge Distillation,’ ECCV 2024, 2024. Status: published. Trains the teacher with MSE to the one-hot label so its outputs approximate the Bayes conditional probabilities; any KD method then improves.
+- [guo2025gpd] Yong Guo et al., ‘Gap Preserving Distillation by Building Bidirectional Mappings with A Dynamic Teacher,’ ICLR 2025, 2024-10-05. Status: published. GPD: Dynamic teacher trained alongside the student with bidirectional parameter mappings that preserve a fixed teacher–student gap. T12b-S2 leaderboard entry (I1-I3 met). ImageNet only
 
 - [hao2023ofakd] Zhiwei Hao et al., ‘One-for-All: Bridge the Gap Between Heterogeneous Architectures in Knowledge Distillation,’ NeurIPS 2023, 2023-10-30. Status: published. OFA-KD: projects intermediate features of heterogeneous students into the logit space and adaptively enhances target-class information; reference method for cross-architecture KD.
 
@@ -142,6 +144,8 @@
 
 - [hossain2025luminet] Md. Ismail Hossain et al., ‘LumiNet: Perception-Driven Knowledge Distillation via Statistical Logit Calibration,’ TMLR (August 2025), 2023-10-05. Status: published. LumiNet: recalibrates each logit against intra-batch class statistics ('perception') before distillation; logit-only method competitive with feature KD.
 
+- [hossain2025tekap] Md Imtiaz Hossain et al., ‘Single Teacher, Multiple Perspectives: Teacher Knowledge Augmentation for Enhanced Knowledge Distillation,’ ICLR 2025, 2025-05-01. Status: published. TeKAP: Teacher knowledge augmentation: perturbed copies of one teacher's features/logits act as multiple teachers. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol.
+
 - [hu2023tsasurvey] Chengming Hu et al., ‘Teacher-Student Architecture for Knowledge Distillation: A Survey,’ arXiv, 2023-08-08. Status: preprint. 2023 KD survey organised by teacher-student architecture and purpose (compression, expansion, adaptation, enhancement); extra row of Table I.
 
 - [hu2024tgeokd] Chengming Hu et al., ‘Less or More From Teacher: Exploiting Trilateral Geometry For Knowledge Distillation,’ ICLR 2024, 2023-12-22. Status: published. TGeo-KD: learns a per-sample fusion ratio between teacher and ground-truth supervision from the student-teacher-label geometry; principled 'how much to trust the teacher'.
@@ -152,7 +156,7 @@
 
 - [huang2023diffkd] Tao Huang et al., ‘Knowledge Diffusion for Distillation,’ NeurIPS 2023, 2023-05-25. Status: published. DiffKD: treats student features as noisy teacher features and denoises them with a lightweight diffusion model before matching; also detection/segmentation.
 
-- [huang2024unikd] Yaomin Huang et al., ‘Harmonizing knowledge Transfer in Neural Network with Unified Distillation,’ ECCV 2024, 2024. Status: published. UniKD: fuses multi-layer features (AFF) and predicts them as a Gaussian distribution so features and logits are distilled in one unified space.
+- [huang2023maskd] Tao Huang et al., ‘Masked Distillation with Receptive Tokens,’ ICLR 2023, 2022-05-29. Status: published. MasKD: Learnable receptive tokens produce masks that select the pixels used for feature distillation. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: method targets detection/segmentation; image classification only in appendix T6
 
 - [huang2025deepkd] Haiduo Huang et al., ‘DeepKD: A Deeply Decoupled and Denoised Knowledge Distillation Trainer,’ NeurIPS 2025, 2025. Status: published. Optimizer-side KD trainer: separate momentum updaters for the task, target-class and non-target-class gradients (extending DOT) with GSNR-guided momentum, plus a dynamic top-k denoising mask. Belongs in the KD x MOO section next to DOT and DTO-KD.
 
@@ -161,8 +165,6 @@
 - [jang2025vl2lite] Jinseong Jang et al., ‘VL2Lite: Task-Specific Knowledge Distillation from Large Vision-Language Models to Lightweight Networks,’ CVPR 2025, 2025. Status: published. VL2Lite: distils VLM (CLIP-like) visual and text-aligned knowledge into lightweight CNN classifiers during training only.
 
 - [jeong2025selfdistill] Hyeonsu Jeong et al., ‘Rethinking Self-Distillation: Label Averaging and Enhanced Soft Label Refinement with Partial Labels,’ ICLR 2025, 2024-02-16. Status: published. Theory of why self-distillation helps: multi-round SD acts as label averaging among correlated samples; proposes one-round partial-label refinement. Use for the 'why' of self-KD, not as a benchmark method.
-
-- [jeong2026skd] Hyeon-Jin Jeong et al., ‘Streamlined Knowledge Distillation,’ CVPR 2026, 2026. Status: published. Instance KL plus batch Gram-matrix (relation) alignment; one of the top CVF-reported R32x4->R8x4 results (78.33).
 
 - [jin2023mlkd] Ying Jin et al., ‘Multi-Level Logit Distillation,’ CVPR 2023, 2023. Status: published. MLKD: aligns predictions at instance, batch and class level with multiple temperatures and strong augmentation; frequent strong logit baseline (LSKD builds on it).
 
@@ -173,6 +175,8 @@
 - [kenfack2025agrekd] Patrik Kenfack et al., ‘Adaptive Group Robust Ensemble Knowledge Distillation,’ TMLR (11/2025), 2024-11-22. Status: published. AGRE-KD: selects/weights ensemble teachers by gradient direction relative to a biased model so the student inherits worst-group robustness; teacher selection under spurious correlation.
 
 - [khan2024hydrafl] Momin Ahmad Khan et al., ‘HYDRA-FL: Hybrid Knowledge Distillation for Robust and Accurate Federated Learning,’ NeurIPS 2024, 2024-09-30. Status: published. Shows KD-based FL amplifies poisoning; adds shallow-layer distillation to keep KD benefits without amplifying attacks. Robust x federated KD.
+
+- [kim2024topkd] Jungeun Kim et al., ‘Do Topological Characteristics Help in Knowledge Distillation?,’ ICML 2024, 2024-07-08. Status: published. TopKD: Distils global topology of the feature space via persistence diagrams (topological features). T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol.
 
 - [kim2026ltkd] Seonghak Kim, ‘Distilling Balanced Knowledge from a Biased Teacher,’ CVPR 2026, 2026. Status: published. Long-tailed KD (LTKD): decomposes the KL objective into cross-group and within-group terms, rebalancing the first and reweighting the second so tail classes are not dominated by a head-biased teacher; reliability under class imbalance.
 
@@ -192,19 +196,15 @@
 
 - [li2022ats] Xin-Chun Li et al., ‘Asymmetric Temperature Scaling Makes Larger Networks Teach Well Again,’ NeurIPS 2022, 2022-10-10. Status: published. ATS: different temperatures for the target and non-target classes restore the discriminability of a large teacher's wrong-class logits; explains the capacity gap.
 
-- [li2022kcd] Chenxin Li et al., ‘Knowledge Condensation Distillation,’ ECCV 2022, 2022. Status: published. Condenses the transfer set by scoring each sample's knowledge value, so the student trains on a shrinking condensed set at lower cost.
-
-- [li2023autokd] Lujun Li et al., ‘Automated Knowledge Distillation via Monte Carlo Tree Search,’ ICCV 2023, 2023. Status: published. MCTS searches the distiller design (transforms, distance, location); automated design of the KD objective.
+- [li2022shake] Lujun Li et al., ‘Shadow Knowledge Distillation: Bridging Offline and Online Knowledge Transfer,’ NeurIPS 2022, 2022-12-06. Status: published. SHAKE: Shadow head on the frozen teacher trained online with the student; bridges offline and online KD with reversed distillation. T12b-S2 leaderboard entry (I1-I3 met). 240 epochs; CRD teachers
 
 - [li2023ctkd] Zheng Li et al., ‘Curriculum Temperature for Knowledge Distillation,’ AAAI 2023, 2022-11-29. Status: published. CTKD: learnable, adversarially scheduled (easy-to-hard curriculum) temperature; plug-in for KD/DKD/CRD; small but consistent gains.
 
+- [li2023kdzero] Lujun Li et al., ‘KD-Zero: Evolving Knowledge Distiller for Any Teacher-Student Pairs,’ NeurIPS 2023, 2023-12-15. Status: published. KD-Zero: Evolutionary search over distiller design (knowledge transform, distance, loss) per teacher–student pair. T12b-S2 leaderboard entry (I1-I3 met). 240 epochs after an evolutionary search per pair
+
 - [li2024promptkd] Zheng Li et al., ‘PromptKD: Unsupervised Prompt Distillation for Vision-Language Models,’ CVPR 2024, 2024-03-05. Status: published. PromptKD: a large CLIP teacher with learned prompts distils into a lightweight student via unlabeled images; the teacher's text features are pre-stored and shared.
 
-- [li2025fbt] Guopeng Li et al., ‘Fuse Before Transfer: Knowledge Fusion for Heterogeneous Distillation,’ ICCV 2025, 2025. Status: published. Fuses teacher and student inductive biases in an assistant before transfer; heterogeneous KD that also reports the homogeneous ImageNet pair.
-
 - [lin2020feddf] Tao Lin et al., ‘Ensemble Distillation for Robust Model Fusion in Federated Learning,’ NeurIPS 2020, 2020. Status: published. CLASSIC: FedDF, server-side ensemble distillation in FL.
-
-- [lin2022tat] Sihao Lin et al., ‘Knowledge Distillation via the Target-Aware Transformer,’ CVPR 2022, 2022. Status: published. Target-aware transformer distils teacher features to each student pixel; feature-family CIFAR-100/ImageNet baseline.
 
 - [liu2023fcfd] Dongyang Liu et al., ‘Function-Consistent Feature Distillation,’ ICLR 2023, 2023-04-24. Status: published. FCFD: makes student features functionally consistent with the teacher by passing them through the teacher's later layers (and vice versa).
 
@@ -230,11 +230,15 @@
 
 - [mishra2021cckd] Sourav Mishra et al., ‘Confidence Conditioned Knowledge Distillation,’ arXiv, 2021-07-06. Status: preprint. Uses teacher probability assigned to the ground-truth class to condition sample-specific distillation, distinguishing correctness-aware confidence from maximum softmax confidence.
 
+- [morad2026bayesteacher] Itai Morad et al., ‘SGD-Based Knowledge Distillation with Bayesian Teachers: Theory and Guidelines,’ ICLR 2026, 2026-01-04. Status: published. Bayesian teachers: SGD analysis showing Bayes-class-probability teachers reduce student variance; uses Bayesian (VI/Laplace) teachers. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: own protocol (WRN-16-2 no-KD 67.70, teachers retrained, 5 seeds), not mdistiller
+
 - [moslemi2024kdsurvey] Amir Moslemi et al., ‘A survey on knowledge distillation: Recent advancements,’ Machine Learning with Applications, 18:100605, 2024-12. Status: published. 2024 general KD survey (response/feature/relation KD, self-/cross-modal/adversarial distillation, limited-data and privacy-preserving KD); row of Table I.
 
-- [parchami2024e2kd] Amin Parchami-Araghi et al., ‘Good Teachers Explain: Explanation-Enhanced Knowledge Distillation,’ ECCV 2024, 2024. Status: published. Adds an explanation-similarity term (GradCAM/B-cos) to logit KD so the student matches why the teacher predicts, not only what.
+- [niu2022ipwd] Yulei Niu et al., ‘Respecting Transfer Gap in Knowledge Distillation,’ NeurIPS 2022, 2022-10-23. Status: published. IPWD: Inverse-probability weighting of the distillation loss to correct the teacher–student transfer gap (under-represented samples). T12b-S2 leaderboard entry (I1-I3 met). CRD teachers; student R8×4 72.50
 
 - [park2019rkd] Wonpyo Park et al., ‘Relational Knowledge Distillation,’ CVPR 2019, 2019. Status: published. CLASSIC: transfers distance and angle relations among samples; origin of relation-based KD.
+
+- [peng2024kdav] Bo Peng et al., ‘Knowledge Distillation with Auxiliary Variable,’ ICML 2024, 2024-07-08. Status: published. KD with auxiliary variable: Probabilistic KD with an auxiliary variable (nonparametric) that aligns teacher and student representations and logits. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol.
 
 - [qian2022switokd] Biao Qian et al., ‘Switchable Online Knowledge Distillation,’ ECCV 2022, 2022-09-12. Status: published. SwitOKD: switches the teacher between 'expert' (paused) and 'learning' modes via an adaptive gap threshold so the online teacher does not outrun the student.
 
@@ -243,6 +247,8 @@
 - [qiu2023dpk] Zengyu Qiu et al., ‘Better Teacher Better Student: Dynamic Prior Knowledge for Knowledge Distillation,’ ICLR 2023, 2022-06-13. Status: published. DPK: feeds part of the teacher's features to the student as dynamic prior knowledge (masked feature mixing) so larger teachers yield better students.
 
 - [romero2015fitnets] Adriana Romero et al., ‘FitNets: Hints for Thin Deep Nets,’ ICLR 2015, 2014-12-19. Status: published. CLASSIC: origin of feature-based KD (intermediate 'hints' with a learned regressor).
+
+- [saidutta2024cifd] Yashas M. Saidutta et al., ‘CIFD: Controlled Information Flow to Enhance Knowledge Distillation,’ NeurIPS 2024, 2024-12-16. Status: published. CIFD: Rate-distortion modules act as cheap teacher assistants that control the information flow from teacher to student. T12b-S2 leaderboard entry (I1-I3 met). CIFAR result given to one decimal
 
 - [sengupta2026casd] Ayan Sengupta et al., ‘Distilling What Matters: Confidence-Aware Selective Distillation for Large Language Models,’ NeurIPS 2026, 2026-09-29. Status: accepted. Confidence-aware selective distillation for LLMs (CaRE-Divergence plus a 'Revival' step): distil where the teacher is confident and correct; recent selective-transfer method beyond vision.
 
@@ -262,17 +268,15 @@
 
 - [sun2025rld] Wujie Sun et al., ‘Knowledge Distillation with Refined Logits,’ ICCV 2025, 2024-08-14. Status: published. Refines teacher logits with label information so wrong teacher predictions do not make KD and CE inconsistent while class correlations are kept; state-of-the-art logit and reliability method.
 
-- [tang2023kd3] Jialiang Tang et al., ‘Distribution Shift Matters for Knowledge Distillation with Webly Collected Images,’ ICCV 2023, 2023. Status: published. KD3: distils with web-collected data and corrects the distribution shift (data selection, feature alignment, MixDistribution contrastive loss).
-
 - [tian2020crd] Yonglong Tian et al., ‘Contrastive Representation Distillation,’ ICLR 2020 (per arXiv comment), 2019-10-23. Status: accepted. CLASSIC: contrastive feature distillation; its RepDistiller codebase defines the CIFAR-100 protocol most later papers use.
 
 - [tran2024nayer] Minh-Tuan Tran et al., ‘NAYER: Noisy Layer Data Generation for Efficient and Effective Data-free Knowledge Distillation,’ CVPR 2024, 2023-09-30. Status: published. NAYER: moves randomness from the generator input to a noisy layer and uses label-text embeddings as input, speeding up data-free KD while improving accuracy.
 
+- [wang2022checkpointkd] Chaofei Wang et al., ‘Efficient Knowledge Distillation from Model Checkpoints,’ NeurIPS 2022, 2022-10-12. Status: published. CheckpointKD: Distil from an intermediate teacher checkpoint (chosen by an information-bottleneck criterion) instead of the converged teacher. T12b-S2 leaderboard entry (I1-I3 met). ImageNet teacher R34 73.86 (own); CIFAR pairs non-standard
+
+- [wang2022cutmixpick] Huan Wang et al., ‘What Makes a "Good" Data Augmentation in Knowledge Distillation - A Statistical Perspective,’ NeurIPS 2022, 2020-12-05. Status: published. CutMixPick: Statistical criterion for good KD augmentation (low teacher–student cross-entropy variance); picks high-entropy CutMix samples. T12b-S2 leaderboard entry (I1-I3 met). arXiv first posted 2020-12 (2012.02909)
+
 - [wang2022kdreview] Lin Wang et al., ‘Knowledge Distillation and Student-Teacher Learning for Visual Intelligence: A Review and New Outlooks,’ IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 44(6):3048-3068, 2022-06-01. Status: published. TPAMI review of KD / student-teacher learning for vision, organised by number of teachers, data format and learning setting; row of Table I.
-
-- [wang2024kdci] Yuzheng Wang et al., ‘De-confounded Data-free Knowledge Distillation for Handling Distribution Shifts,’ CVPR 2024, 2024. Status: published. KDCI: causal back-door adjustment that plugs into data-free KD methods to correct synthetic-data distribution shift.
-
-- [wang2024nd] Yuzhu Wang et al., ‘Improving Knowledge Distillation via Regularizing Feature Direction and Norm,’ ECCV 2024, 2024. Status: published. ND loss aligns student feature direction with teacher class means and enlarges feature norm; plugs onto KD/DKD/ReviewKD.
 
 - [wang2025abkd] Guanghui Wang et al., ‘ABKD: Pursuing a Proper Allocation of the Probability Mass in Knowledge Distillation via α-β-Divergence,’ ICML 2025 (Spotlight per arXiv comment), 2025-05-07. Status: published. ABKD: alpha-beta divergence family that interpolates forward and reverse KL to balance 'hardness concentration' and 'confidence concentration'; applies to LLM and vision KD.
 
@@ -286,8 +290,6 @@
 
 - [xu2025ldrld] Liuchi Xu et al., ‘Local Dense Logit Relations for Enhanced Knowledge Distillation,’ ICCV 2025, 2025-07-21. Status: published. LDRLD: recursively decouples logits into local class pairs and distils their dense relations, with adaptive decay weights for key pairs; 2025 logit state of the art.
 
-- [yang2022mgd] Zhendong Yang et al., ‘Masked Generative Distillation,’ ECCV 2022, 2022. Status: published. Masks student features and trains a generator to reconstruct the full teacher feature; feature KD for classification and dense tasks.
-
 - [yang2023lmcl] Chuanguang Yang et al., ‘Online Knowledge Distillation via Mutual Contrastive Learning for Visual Recognition,’ IEEE TPAMI 2023, 2022-07-23. Status: published. L-MCL: online/mutual KD with mutual contrastive learning between peers' embeddings plus layer-wise meta-optimised transfer.
 
 - [yang2023nkd] Zhendong Yang et al., ‘From Knowledge Distillation to Self-Knowledge Distillation: A Unified Approach with Normalized Loss and Customized Soft Labels,’ ICCV 2023, 2023-03-23. Status: published. NKD normalises the non-target logit distribution; USKD builds customised soft labels for teacher-free self-KD. Bridges logit KD and self-distillation.
@@ -300,9 +302,11 @@
 
 - [yang2026spofa] Wuming Yang et al., ‘Heterogeneous Knowledge Distillation via Geometry Decoupling and Momentum-Aware Gradient Regulation,’ , 2026-06-23. Status: under-review. MEMA: EMA-baseline test of task-vs-distillation gradient conflict that penalises harmful distillation signals (task-first, opposite of PCD's guaranteed KD progress); closest 2026 optimizer-side neighbour.
 
+- [ye2024mcmi] Linfeng Ye et al., ‘Bayes Conditional Distribution Estimation for Knowledge Distillation Based on Conditional Mutual Information,’ ICLR 2024, 2024-01-16. Status: published. MCMI teacher: Trains the teacher to maximise log-likelihood plus conditional mutual information, a better estimate of the Bayes conditional distribution. T12b-S2 leaderboard entry (I1-I3 met). teacher re-trained (R34 71.62)
+
 - [yin2020deepinversion] Hongxu Yin et al., ‘Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion,’ CVPR 2020, 2020. Status: published. CLASSIC: data-free KD by inverting BatchNorm statistics.
 
-- [yu2023spaceshipnet] Shikang Yu et al., ‘Data-Free Knowledge Distillation via Feature Exchange and Activation Region Constraint,’ CVPR 2023, 2023. Status: published. Data-free KD (SpaceshipNet): feature-exchange augmentation of synthetic data plus activation-region constraint; data-free setting, not the CRD protocol.
+- [yu2025angularkd] Seonghoon Yu et al., ‘Single-Teacher View Augmentation: Boosting Knowledge Distillation via Angular Diversity,’ NeurIPS 2025, 2025-10-26. Status: published. Angular-KD: Single-teacher view augmentation: angularly diverse teacher views (feature/logit level) used as multiple teachers. T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol.
 
 - [yuan2020labelkd] Li Yuan et al., ‘Revisiting Knowledge Distillation via Label Smoothing Regularization,’ CVPR 2020, 2020. Status: published. Shows that weak teachers can still help and analyzes KD as learned label smoothing, including teacher-free KD. It provides a counterexample to equating teacher weakness with useless supervision.
 
@@ -331,6 +335,8 @@
 - [zhu2021fedgen] Zhuangdi Zhu et al., ‘Data-Free Knowledge Distillation for Heterogeneous Federated Learning,’ ICML 2021 (PMLR 139), 2021-05-20. Status: published. CLASSIC: FedGen, data-free generator-based KD for heterogeneous FL.
 
 - [zhu2021sckd] Yichen Zhu et al., ‘Student Customized Knowledge Distillation: Bridging the Gap Between Student and Teacher,’ ICCV 2021, 2021-10. Status: published. Supervised-primary gradient-similarity gating of KD terms: closest KD precedent for asymmetric KD.
+
+- [zhu2022tllm] Yichen Zhu et al., ‘Teach Less, Learn More: On the Undistillable Classes in Knowledge Distillation,’ NeurIPS 2022, 2022-12-06. Status: published. TLLM: Identifies 'undistillable classes' and drops their distillation signal (teach less, learn more). T12b-S2 leaderboard entry (I1-I3 met). plug-in on other KD methods
 
 - [zhu2026upmopd] Taojie Zhu et al., ‘UP-MOPD: Update Projection in Multi-Teacher On-Policy Distillation,’ , 2026-10-06. Status: preprint. Projects per-teacher updates to remove conflicting directions in multi-teacher on-policy LLM distillation; PCGrad-style gradient projection applied to KD (2026 preprint).
 
