@@ -46,7 +46,7 @@ Crossref, the TMLR listing or bib, and the arXiv API, as recorded in each record
 | Mansourian et al. (`mansourian2025kdsurvey`) | TMLR | 2025 | ✓ | ✓ | ✓ | partial | partial | ✓ | ✓ | partial |
 | Yang et al. (`yang2025llmkdsurvey`) | ACM TIST | 2025 | partial | partial | ✗ | ✗ | ✗ | partial | ✓ | partial |
 | Chen et al. (`chen2026gradmoo`) | TMLR | 2026 (arXiv 2025) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| **This survey** | — | 2026 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **This survey** | — | 2026 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | partial | ✓ |
 
 **Gap shown (INTERPRETATION):** no existing survey is both
 1. a KD survey that reaches the 2025–2026 state of the art, and
@@ -273,3 +273,6 @@ row must be re-checked at Task 16 (final audit).
 - **Marking:** CORE-A and CORE-P methods carry an asterisk: RPKD, CaRE-Div, TPKD, SPOFA, UP-MOPD and DHO.
 - **Excluded:** classics (Hinton KD, FitNets, CRD, DML, AE-KD, SCKD …), SUPPORT entries (CHAD, PCD, SCOPE) and the
   withdrawn MoKD.
+
+**Update 2026-11-08 (T15, Codex review M1):** "This survey" LLM/VLM set to partial. After the scope change to image
+classification, §VII only points to LLM/VLM distillation work (E2 excludes it from the leaderboard).
