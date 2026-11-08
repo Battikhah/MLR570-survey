@@ -2712,6 +2712,494 @@
   relevance: "CutMixPick: Statistical criterion for good KD augmentation (low teacher–student cross-entropy variance); picks high-entropy CutMix samples. T12b-S2 leaderboard entry (I1-I3 met). arXiv first posted 2020-12 (2012.02909)"
   topics: [kd, sota, scheme]
   local_pdf: false
+# --- T12b-S3 systematic search (AAAI, TPAMI, IJCV, arXiv 2025+, snowballing), 2026-11-08 ---
+- id: lu2024uniads
+  type: paper
+  title: "UniADS: Universal Architecture-Distiller Search for Distillation Gap"
+  authors: ["Liming Lu", "Zhenghan Chen", "Xiaoyu Lu", "Yihang Rao", "Lujun Li", "Shuchao Pang"]
+  date: 2024-03-24
+  venue: "AAAI 2024"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v38i13.29327", arxiv: null, code: null}
+  identifiers: {doi: "10.1609/aaai.v38i13.29327", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI record 10.1609/aaai.v38i13.29327 (Proceedings of the AAAI Conference on Artificial Intelligence, 2024-3-24: title, authors); full text read (pdftotext): Table 3 CIFAR-100 ResNet32x4->ResNet8x4 76.65; Table 4 ImageNet ResNet34->ResNet18 72.25 (teacher 73.40). No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Jointly searches the student architecture and the distiller design (multi-objective search) to close the distillation gap. Leaderboard: Table 3 CIFAR-100 ResNet32x4->ResNet8x4 76.65; Table 4 ImageNet ResNet34->ResNet18 72.25 (teacher 73.40)."
+  topics: [kd, sota, combination]
+  local_pdf: false
+
+- id: wang2025ikd
+  type: paper
+  title: "Debiased Distillation for Consistency Regularization"
+  authors: ["Lu Wang", "Liuchi Xu", "Xiong Yang", "Zhenhua Huang", "Jun Cheng"]
+  date: 2025-04-11
+  venue: "AAAI 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v39i8.32840", arxiv: null, code: "https://github.com/yema-web/IKD"}
+  identifiers: {doi: "10.1609/aaai.v39i8.32840", arxiv: null}
+  license: "BSD-2-Clause (GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v39i8.32840 (Proceedings of the AAAI Conference on Artificial Intelligence, 2025-4-11: title, authors); full text read (pdftotext): Table 2 CIFAR-100 ResNet32x4->ResNet8x4 NKD+IKD 77.10 (KD+IKD 76.56); Table 3 ImageNet ResNet34->ResNet18 NKD+IKD 72.20. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "IKD: debiases batch-level consistency regularisation in logit KD (plug-in on KD/DKD/NKD/WTTM). Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 NKD+IKD 77.10 (KD+IKD 76.56); Table 3 ImageNet ResNet34->ResNet18 NKD+IKD 72.20."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: li2025adgkd
+  type: paper
+  title: "Adaptive Dual Guidance Knowledge Distillation"
+  authors: ["Tong Li", "Long Liu", "Kang Liu", "Xin Wang", "Bo Zhou", "Hongguang Yang", "Kai Lu"]
+  date: 2025-04-11
+  venue: "AAAI 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v39i17.34031", arxiv: null, code: null}
+  identifiers: {doi: "10.1609/aaai.v39i17.34031", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI record 10.1609/aaai.v39i17.34031 (Proceedings of the AAAI Conference on Artificial Intelligence, 2025-4-11: title, authors); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 ADG-KD 77.44, best variant MLKD+ADG (MKD-dagger) 77.51; Table 2 ImageNet ResNet34->ResNet18 72.22. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "ADG-KD: fuses teacher and instance-level guidance with two automatically learned factors. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 ADG-KD 77.44, best variant MLKD+ADG (MKD-dagger) 77.51; Table 2 ImageNet ResNet34->ResNet18 72.22."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: zhang2025nckd
+  type: paper
+  title: "Neural Collapse Inspired Knowledge Distillation"
+  authors: ["Shuoxi Zhang", "Zijian Song", "Kun He"]
+  date: 2024-12-16
+  year: 2025
+  venue: "AAAI 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v39i21.34412", arxiv: "https://arxiv.org/abs/2412.11788", code: null}
+  identifiers: {doi: "10.1609/aaai.v39i21.34412", arxiv: "2412.11788"}
+  license: null
+  verified_by: "Crossref DOI record 10.1609/aaai.v39i21.34412 (Proceedings of the AAAI Conference on Artificial Intelligence, 2025-4-11: title, authors); arXiv API 2412.11788 (title, authors, v1 2024-12-16, comment '13 pages, 7 figures. Accepted by AAAI 2025'); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 NCKD 77.23, best variant SimKD+NCKD 78.18; Table 2 ImageNet ResNet34->ResNet18 72.44. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "NCKD: aligns student features with the teacher's neural-collapse (simplex ETF) structure. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 NCKD 77.23, best variant SimKD+NCKD 78.18; Table 2 ImageNet ResNet34->ResNet18 72.44."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: liao2026dskd
+  type: paper
+  title: "Direction Sensitivity–Based Knowledge Distillation: Optimization-Aware Low-Rank Knowledge Transfer"
+  authors: ["Yongkai Liao", "Xinxing Chen", "Zhongzheng Fu", "Haoyuan Wang", "Jian Huang"]
+  date: 2026-03-14
+  venue: "AAAI 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v40i28.39520", arxiv: null, code: "https://github.com/theChoseno/DSKD"}
+  identifiers: {doi: "10.1609/aaai.v40i28.39520", arxiv: null}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v40i28.39520 (Proceedings of the AAAI Conference on Artificial Intelligence, 2026-3-14: title, authors); full text read (pdftotext): Table 2 CIFAR-100 ResNet32x4->ResNet8x4 best ReviewKD+DSKD (channel-wise) 75.9 (one decimal; teacher 79.4); ImageNet n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "DSKD: optimisation-aware low-rank feature transfer weighted by direction sensitivity; evaluated on GLUE and CIFAR-100. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 best ReviewKD+DSKD (channel-wise) 75.9 (one decimal; teacher 79.4); ImageNet n/r."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: wang2026rckd
+  type: paper
+  title: "Rethinking the Dark Knowledge and Kullback-Leibler Divergence Loss in Knowledge Distillation Under Capacity Mismatching"
+  authors: ["Yingchao Wang", "Wenqi Niu", "Xingshan Yao", "Li You", "Weilun Fei"]
+  date: 2026-03-14
+  venue: "AAAI 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v40i31.39878", arxiv: null, code: "https://github.com/yingchao-wang/RCKD"}
+  identifiers: {doi: "10.1609/aaai.v40i31.39878", arxiv: null}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v40i31.39878 (Proceedings of the AAAI Conference on Artificial Intelligence, 2026-3-14: title, authors); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.89; Table 3 ImageNet ResNet34->ResNet18 72.02. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "RCKD: replaces KL with a cosine-type loss to handle dark knowledge under teacher-student capacity mismatch. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.89; Table 3 ImageNet ResNet34->ResNet18 72.02."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: fang2022fastdfkd
+  type: paper
+  title: "Up to 100x Faster Data-Free Knowledge Distillation"
+  authors: ["Gongfan Fang", "Kanya Mo", "Xinchao Wang", "Jie Song", "Shitao Bei", "Haofei Zhang", "Mingli Song"]
+  date: 2022-06-28
+  venue: "AAAI 2022"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v36i6.20613", arxiv: null, code: "https://github.com/zju-vipa/Fast-Datafree"}
+  identifiers: {doi: "10.1609/aaai.v36i6.20613", arxiv: null}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v36i6.20613 (Proceedings of the AAAI Conference on Artificial Intelligence, 2022-6-28: title, authors); full text read (pdftotext): Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 Fast10 65.12 (teacher 75.83, own); ResNet32x4->ResNet8x4 n/r; ImageNet ResNet34->ResNet18 n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "FastDFKD: meta-learned common features make data-free synthesis up to 100x faster. Leaderboard: Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 Fast10 65.12 (teacher 75.83, own); ResNet32x4->ResNet8x4 n/r; ImageNet ResNet34->ResNet18 n/r."
+  topics: [kd, sota, data-free]
+  local_pdf: false
+
+- id: tang2025hidfd
+  type: paper
+  title: "Hybrid Data-Free Knowledge Distillation"
+  authors: ["Jialiang Tang", "Shuo Chen", "Chen Gong"]
+  date: 2024-12-18
+  year: 2025
+  venue: "AAAI 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v39i19.34293", arxiv: "https://arxiv.org/abs/2412.13525", code: "https://github.com/tangjialiang97/HiDFD"}
+  identifiers: {doi: "10.1609/aaai.v39i19.34293", arxiv: "2412.13525"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v39i19.34293 (Proceedings of the AAAI Conference on Artificial Intelligence, 2025-4-11: title, authors); arXiv API 2412.13525 (title, authors, v1 2024-12-18); full text read (pdftotext): CIFAR-100 table (hybrid data) ResNet32x4->'ShuffleNet' 75.03 (version unstated; student baseline 72.60 is neither the CRD V1 nor V2 value); ImageNet n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "HiDFD: hybrid data-free KD combining a few collected images with GAN-generated samples. Leaderboard: CIFAR-100 table (hybrid data) ResNet32x4->'ShuffleNet' 75.03 (version unstated; student baseline 72.60 is neither the CRD V1 nor V2 value); ImageNet n/r."
+  topics: [kd, sota, data-free]
+  local_pdf: false
+
+- id: xu2026hcd
+  type: paper
+  title: "Heterogeneous Complementary Distillation"
+  authors: ["Liuchi Xu", "Hao Zheng", "Lu Wang", "Lisheng Xu", "Jun Cheng"]
+  date: 2025-11-14
+  year: 2026
+  venue: "AAAI 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v40i13.38112", arxiv: "https://arxiv.org/abs/2511.10942", code: "https://github.com/yema-web/HCD"}
+  identifiers: {doi: "10.1609/aaai.v40i13.38112", arxiv: "2511.10942"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1609/aaai.v40i13.38112 (Proceedings of the AAAI Conference on Artificial Intelligence, 2026-3-14: title, authors); arXiv API 2511.10942 (title, authors, v1 2025-11-14, comment 'Accepted by AAAI2026'); full text read (pdftotext): CIFAR-100 only with ViT/Swin/Mixer teachers (Table 1); Table 3 ImageNet ResNet34->ResNet18 72.18; ResNet32x4->ResNet8x4 n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "HCD: complementary-feature mapper for heterogeneous (ViT->CNN) distillation. Leaderboard: CIFAR-100 only with ViT/Swin/Mixer teachers (Table 1); Table 3 ImageNet ResNet34->ResNet18 72.18; ResNet32x4->ResNet8x4 n/r."
+  topics: [kd, sota, heterogeneous-kd]
+  local_pdf: false
+
+- id: zhang2025btkd
+  type: paper
+  title: "Can Students Beyond the Teacher? Distilling Knowledge from Teacher’s Bias"
+  authors: ["Jianhua Zhang", "Yi Gao", "Ruyu Liu", "Xu Cheng", "Houxiang Zhang", "Shengyong Chen"]
+  date: 2024-12-13
+  year: 2025
+  venue: "AAAI 2025"
+  status: published
+  urls: {official: "https://doi.org/10.1609/aaai.v39i21.34400", arxiv: "https://arxiv.org/abs/2412.09874", code: null}
+  identifiers: {doi: "10.1609/aaai.v39i21.34400", arxiv: "2412.09874"}
+  license: null
+  verified_by: "Crossref DOI record 10.1609/aaai.v39i21.34400 (Proceedings of the AAAI Conference on Artificial Intelligence, 2025-4-11: title, authors); arXiv API 2412.09874 (title, authors, v1 2024-12-13); full text read (pdftotext): Table 1 CIFAR-100 VGG13->VGG8 78.03 and ResNet50->MobileNetV2 80.45 (students exceed teachers; teacher WRN-40-2 73.57 differs from CRD protocol); ResNet32x4->ResNet8x4 n/r; Table 2 ImageNet ResNet34->ResNet18 73.38. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "BTKD: splits teacher knowledge into correct and biased parts and distils a corrected target. Leaderboard: Table 1 CIFAR-100 VGG13->VGG8 78.03 and ResNet50->MobileNetV2 80.45 (students exceed teachers; teacher WRN-40-2 73.57 differs from CRD protocol); ResNet32x4->ResNet8x4 n/r; Table 2 ImageNet ResNet34->ResNet18 73.38."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: chen2026pefd
+  type: paper
+  title: "Understanding the Effects of Projectors in Knowledge Distillation"
+  authors: ["Yudong Chen", "Sen Wang", "Jiajun Liu", "Xuwei Xu", "Frank de Hoog", "Brano Kusy", "Zi Huang"]
+  date: 2023-10-26
+  year: 2026
+  venue: "IEEE TPAMI 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1109/tpami.2026.3677028", arxiv: "https://arxiv.org/abs/2310.17183", code: "https://github.com/chenyd7/PEFD"}
+  identifiers: {doi: "10.1109/tpami.2026.3677028", arxiv: "2310.17183"}
+  license: "MIT (GitHub API)"
+  verified_by: "Crossref DOI record 10.1109/tpami.2026.3677028 (IEEE Transactions on Pattern Analysis and Machine Intelligence, 2026-8: title, authors); arXiv API 2310.17183 (title, authors, v1 2023-10-26, comment 'arXiv admin note: text overlap with arXiv:2210.15274'); full text read (pdftotext): Table 8 CIFAR-100 ResNet32x4->ResNet8x4 76.08; Table 9 ImageNet ResNet34->ResNet18 71.94. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Projector-ensemble feature distillation; TPAMI extension of NeurIPS 2022 'Improved Feature Distillation via Projector Ensemble' (arXiv 2210.15274, not in registry). Leaderboard: Table 8 CIFAR-100 ResNet32x4->ResNet8x4 76.08; Table 9 ImageNet ResNet34->ResNet18 71.94."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: cui2026gkl
+  type: paper
+  title: "Generalized Kullback-Leibler Divergence Loss"
+  authors: ["Jiequan Cui", "Beier Zhu", "Qingshan Xu", "Zhuotao Tian", "Xiaojuan Qi", "Bei Yu", "Hanwang Zhang", "Richang Hong"]
+  date: 2025-03-11
+  year: 2026
+  venue: "IEEE TPAMI 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1109/TPAMI.2026.3703828", arxiv: "https://arxiv.org/abs/2503.08038", code: "https://github.com/jiequancui/DKL"}
+  identifiers: {doi: "10.1109/TPAMI.2026.3703828", arxiv: "2503.08038"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref title query returned TPAMI DOI 10.1109/tpami.2026.3703828; arXiv API 2503.08038 (title, authors, v1 2025-03-11, comment 'TPAMI 2026, extension of our NeurIPS paper \"Decoupled Kullback-Leibler Divergence Loss\". a'); full text read (pdftotext): Table 17 CIFAR-100 ResNet32x4->ResNet8x4 GKL-KD 76.83; Table 5 ImageNet ResNet34->ResNet18 71.91. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "GKL: decouples KL into weighted MSE + cross-entropy on soft labels with class-wise global information; TPAMI extension of DKL (cui2024dkl). Leaderboard: Table 17 CIFAR-100 ResNet32x4->ResNet8x4 GKL-KD 76.83; Table 5 ImageNet ResNet34->ResNet18 71.91."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: yang2024srd
+  type: paper
+  title: "Knowledge Distillation Meets Open-Set Semi-supervised Learning"
+  authors: ["Jing Yang", "Xiatian Zhu", "Adrian Bulat", "Brais Martinez", "Georgios Tzimiropoulos"]
+  date: 2022-05-13
+  year: 2024
+  venue: "IJCV 2024"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-024-02192-7", arxiv: "https://arxiv.org/abs/2205.06701", code: "https://github.com/jingyang2017/SRD_ossl"}
+  identifiers: {doi: "10.1007/s11263-024-02192-7", arxiv: "2205.06701"}
+  license: "MIT (GitHub API)"
+  verified_by: "Crossref DOI record 10.1007/s11263-024-02192-7 (International Journal of Computer Vision, 2024-7-26: title, authors); arXiv API 2205.06701 (title, authors, v1 2022-05-13, comment 'Accepted by IJCV'); full text read (pdftotext): CIFAR-100 uses non-standard pairs; Table 8 ImageNet ResNet34->ResNet18 71.73. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "SRD: student-receives-teacher-classifier representation matching that also uses unlabeled/open-set data. Leaderboard: CIFAR-100 uses non-standard pairs; Table 8 ImageNet ResNet34->ResNet18 71.73."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: qu2026rekd
+  type: paper
+  title: "Relaxed Knowledge Distillation"
+  authors: ["Zheng Qu", "Xiwen Yao", "Xuguang Yang", "Jie Tang", "Lang Li", "Gong Cheng", "Junwei Han"]
+  date: 2026-02-04
+  venue: "IJCV 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-025-02705-y", arxiv: null, code: null}
+  identifiers: {doi: "10.1007/s11263-025-02705-y", arxiv: null}
+  license: null
+  verified_by: "Crossref DOI record 10.1007/s11263-025-02705-y (International Journal of Computer Vision, 2026-2-4: title, authors); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.94; Table 3 ImageNet ResNet34->ResNet18 71.72. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "ReKD: VAE-based relaxed feature matching that adapts to the capacity gap. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 76.94; Table 3 ImageNet ResNet34->ResNet18 71.72."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: zhang2026btkdpp
+  type: paper
+  title: "BTKD++: Beyond Teachers by Critically Distilling Knowledge from Teacher’s Bias"
+  authors: ["Jianhua Zhang", "Yi Gao", "Yu He", "Shuo Chen", "Xu Cheng", "Xiufeng Liu", "Shengyong Chen", "Houxiang Zhang", "Ruyu Liu"]
+  date: 2026-07
+  venue: "IJCV 2026"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-026-02924-x", arxiv: null, code: "https://github.com/smartyige/BTKD"}
+  identifiers: {doi: "10.1007/s11263-026-02924-x", arxiv: null}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "Crossref DOI record 10.1007/s11263-026-02924-x (International Journal of Computer Vision, 2026-7: title, authors); full text read (pdftotext): Table 2 CIFAR-100 VGG13->VGG8 78.03, ResNet50->MobileNetV2 80.45 (same values as zhang2025btkd); Table 3 ImageNet ResNet34->ResNet18 73.38; ResNet32x4->ResNet8x4 n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "BTKD++: journal extension of BTKD (zhang2025btkd) with bias-correction theory. Leaderboard: Table 2 CIFAR-100 VGG13->VGG8 78.03, ResNet50->MobileNetV2 80.45 (same values as zhang2025btkd); Table 3 ImageNet ResNet34->ResNet18 73.38; ResNet32x4->ResNet8x4 n/r."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: liang2024rgal
+  type: paper
+  title: "Relation-Guided Adversarial Learning for Data-Free Knowledge Transfer"
+  authors: ["Yingping Liang", "Ying Fu"]
+  date: 2024-12-16
+  venue: "IJCV 2024"
+  status: published
+  urls: {official: "https://doi.org/10.1007/s11263-024-02303-4", arxiv: "https://arxiv.org/abs/2412.11380", code: null}
+  identifiers: {doi: "10.1007/s11263-024-02303-4", arxiv: "2412.11380"}
+  license: null
+  verified_by: "Crossref DOI record 10.1007/s11263-024-02303-4 (International Journal of Computer Vision, 2024-12-13: title, authors); arXiv API 2412.11380 (title, authors, v1 2024-12-16); full text read (pdftotext): Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 69.71; ResNet32x4->ResNet8x4 n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "RGAL: relation-guided adversarial sample synthesis for data-free KD. Leaderboard: Table 1 CIFAR-100 data-free WRN-40-2->WRN-16-2 69.71; ResNet32x4->ResNet8x4 n/r."
+  topics: [kd, sota, data-free]
+  local_pdf: false
+
+- id: qi2025bdd
+  type: paper
+  title: "Balance Divergence for Knowledge Distillation"
+  authors: ["Yafei Qi", "Chen Wang", "Zhaoning Zhang", "Yaping Liu", "Yongmin Zhang"]
+  date: 2025-01-14
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2501.07804", arxiv: "https://arxiv.org/abs/2501.07804", code: null}
+  identifiers: {doi: null, arxiv: "2501.07804"}
+  license: null
+  verified_by: "arXiv API 2501.07804 (title, authors, v1 2025-01-14); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 BDD 76.21, best MLD+BDD 77.22; Table 3 ImageNet ResNet34->ResNet18 MLD+BDD 71.97. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Balance divergence: adds reverse-KL to compensate small teacher probabilities. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 BDD 76.21, best MLD+BDD 77.22; Table 3 ImageNet ResNet34->ResNet18 MLD+BDD 71.97."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: kim2025figkd
+  type: paper
+  title: "FiGKD: Fine-Grained Knowledge Distillation via High-Frequency Detail Transfer"
+  authors: ["Seonghak Kim"]
+  date: 2025-05-17
+  venue: "arXiv preprint (journal_ref: Expert Systems with Applications 319, 2026)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2505.11897", arxiv: "https://arxiv.org/abs/2505.11897", code: null}
+  identifiers: {doi: null, arxiv: "2505.11897"}
+  license: null
+  verified_by: "arXiv API 2505.11897 (title, authors, v1 2025-05-17, comment '18 pages, 6 figures', journal_ref 'Expert Syst. Appl. 319 (2026) 132071'); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 78.05; ImageNet n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "FiGKD: wavelet split; distils only high-frequency teacher detail. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 78.05; ImageNet n/r."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: cui2025gendd
+  type: paper
+  title: "Generative Distribution Distillation"
+  authors: ["Jiequan Cui", "Beier Zhu", "Qingshan Xu", "Xiaogang Xu", "Pengguang Chen", "Xiaojuan Qi", "Bei Yu", "Hanwang Zhang", "Richang Hong"]
+  date: 2025-07-19
+  venue: "arXiv preprint (technique report)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2507.14503", arxiv: "https://arxiv.org/abs/2507.14503", code: "https://github.com/jiequancui/Generative-Distribution-Distillation"}
+  identifiers: {doi: null, arxiv: "2507.14503"}
+  license: "MIT (GitHub API)"
+  verified_by: "arXiv API 2507.14503 (title, authors, v1 2025-07-19, comment 'Technique report'); full text read (pdftotext): Table 5 CIFAR-100 ResNet32x4->ResNet8x4 77.47; Table 2 ImageNet ResNet34->ResNet18 72.38. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "GenDD: casts KD as conditional generative (diffusion-style) distribution matching. Leaderboard: Table 5 CIFAR-100 ResNet32x4->ResNet8x4 77.47; Table 2 ImageNet ResNet34->ResNet18 72.38."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: wang2025topkd
+  type: paper
+  title: "TopKD: Top-scaled Knowledge Distillation"
+  authors: ["Qi Wang", "Jinjia Zhou"]
+  date: 2025-08-06
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2508.04539", arxiv: "https://arxiv.org/abs/2508.04539", code: null}
+  identifiers: {doi: null, arxiv: "2508.04539"}
+  license: null
+  verified_by: "arXiv API 2508.04539 (title, authors, v1 2025-08-06, comment '12 pages, 6 figures, conference, 8 Tables'); full text read (pdftotext): Table 2 CIFAR-100 ResNet32x4->ResNet8x4 78.18; Table 3 ImageNet ResNet34->ResNet18 71.52. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "TopKD: scales and decouples the teacher's top-K logits. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 78.18; Table 3 ImageNet ResNet34->ResNet18 71.52."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: tybl2026redistill
+  type: paper
+  title: "REDistill: Robust Estimator Distillation for Balancing Robustness and Efficiency"
+  authors: ["Ondrej Tybl", "Lukas Neumann"]
+  date: 2026-02-04
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2602.04677", arxiv: "https://arxiv.org/abs/2602.04677", code: null}
+  identifiers: {doi: null, arxiv: "2602.04677"}
+  license: null
+  verified_by: "arXiv API 2602.04677 (title, authors, v1 2026-02-04); full text read (pdftotext): Table I/II CIFAR-100 ResNet32x4->ShuffleNetV2 and ResNet50->MobileNetV2 (best REDistill+MLKD in Table IV); ResNet32x4->ResNet8x4 n/r; Table III ImageNet ResNet34->ResNet18 72.00. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "REDistill: power-divergence (robust estimator) distillation loss that down-weights unreliable teacher samples. Leaderboard: Table I/II CIFAR-100 ResNet32x4->ShuffleNetV2 and ResNet50->MobileNetV2 (best REDistill+MLKD in Table IV); ResNet32x4->ResNet8x4 n/r; Table III ImageNet ResNet34->ResNet18 72.00."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: yu2026sakd
+  type: paper
+  title: "Single-Teacher View Augmentation: Enhancing Knowledge Distillation with Student-Guided Perturbations"
+  authors: ["Xuyi Yu", "Yaohua Liu", "Chengjun Li", "Qiang Tang", "Shuzhe Tang", "Kuizhi Mei"]
+  date: 2026-07-13
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2607.11557", arxiv: "https://arxiv.org/abs/2607.11557", code: null}
+  identifiers: {doi: null, arxiv: "2607.11557"}
+  license: null
+  verified_by: "arXiv API 2607.11557 (title, authors, v1 2026-07-13); full text read (pdftotext): Table IV CIFAR-100 ResNet32x4->ResNet8x4 MLKD+SAKD 77.31 (KD+SAKD 75.54, Table III); Table V ImageNet ResNet34->ResNet18 71.12. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "SAKD: single-stage learnable teacher-view augmentation driven by the student. Leaderboard: Table IV CIFAR-100 ResNet32x4->ResNet8x4 MLKD+SAKD 77.31 (KD+SAKD 75.54, Table III); Table V ImageNet ResNet34->ResNet18 71.12."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
+- id: raza2026asd
+  type: paper
+  title: "Anti-Shortcut Distillation via Temporal Negative Knowledge Transfer"
+  authors: ["Syed Muhammad Raza", "Omer Tariq", "Jeongbae Son"]
+  date: 2026-08-12
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2608.11789", arxiv: "https://arxiv.org/abs/2608.11789", code: null}
+  identifiers: {doi: null, arxiv: "2608.11789"}
+  license: null
+  verified_by: "arXiv API 2608.11789 (title, authors, v1 2026-08-12, comment '17 pages, 3 figures, 21 pages supplementary material'); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 73.13 (own teacher 79.72, student 71.90); ImageNet n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "ASD: temporal negative knowledge transfer to suppress shortcut features. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 73.13 (own teacher 79.72, student 71.90); ImageNet n/r."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
+- id: mugisha2026rdd
+  type: paper
+  title: "Representational Difference Distillation"
+  authors: ["Abdulkarim Mugisha", "Divin Irakiza"]
+  date: 2026-10-11
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2610.15997", arxiv: "https://arxiv.org/abs/2610.15997", code: null}
+  identifiers: {doi: null, arxiv: "2610.15997"}
+  license: null
+  verified_by: "arXiv API 2610.15997 (title, authors, v1 2026-10-11, comment '9 pages, 7 figures, 1 table'); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 RDD-supervision 75.58 (single run, final epoch); ImageNet n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "RDD: uses representational differences to set the student's sampling/curriculum/supervision. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 RDD-supervision 75.58 (single run, final epoch); ImageNet n/r."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: islam2025dts
+  type: paper
+  title: "Dynamic Temperature Scheduler for Knowledge Distillation"
+  authors: ["Sibgat Ul Islam", "Jawad Ibn Ahad", "Fuad Rahman", "Mohammad Ruhul Amin", "Nabeel Mohammed", "Shafin Rahman"]
+  date: 2025-11-14
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2511.13767", arxiv: "https://arxiv.org/abs/2511.13767", code: "https://github.com/Sibgat-Ul/DTS"}
+  identifiers: {doi: null, arxiv: "2511.13767"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "arXiv API 2511.13767 (title, authors, v1 2025-11-14); full text read (pdftotext): Table II CIFAR-100 ResNet32x4->ResNet8x4 MLKD+DTS 75.25 (MLKD baseline here 75.03); ImageNet n/r. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "DTS: temperature scheduled by the teacher-student loss gap. Leaderboard: Table II CIFAR-100 ResNet32x4->ResNet8x4 MLKD+DTS 75.25 (MLKD baseline here 75.03); ImageNet n/r."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: yu2025uhkd
+  type: paper
+  title: "UHKD: A Unified Framework for Heterogeneous Knowledge Distillation via Frequency-Domain Representations"
+  authors: ["Fengming Yu", "Haiwei Pan", "Kejia Zhang", "Jian Guan", "Haiying Jiang"]
+  date: 2025-10-28
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2510.24116", arxiv: "https://arxiv.org/abs/2510.24116", code: null}
+  identifiers: {doi: null, arxiv: "2510.24116"}
+  license: null
+  verified_by: "arXiv API 2510.24116 (title, authors, v1 2025-10-28, comment '14 pages, 10 figures'); full text read (pdftotext): CIFAR-100 heterogeneous pairs only; Table 3 ImageNet ResNet34->ResNet18 72.71. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "UHKD: frequency-domain intermediate representations for heterogeneous KD. Leaderboard: CIFAR-100 heterogeneous pairs only; Table 3 ImageNet ResNet34->ResNet18 72.71."
+  topics: [kd, sota, heterogeneous-kd]
+  local_pdf: false
+
+- id: yu2026cocars
+  type: paper
+  title: "CoCaRS: Correlation Calibration-Based Redundancy Suppression for Heterogeneous Knowledge Distillation"
+  authors: ["Fengming Yu", "Haiwei Pan", "Kejia Zhang", "Chunling Chen", "Jian Guan", "Baoying Ma"]
+  date: 2026-07-29
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2607.27054", arxiv: "https://arxiv.org/abs/2607.27054", code: null}
+  identifiers: {doi: null, arxiv: "2607.27054"}
+  license: null
+  verified_by: "arXiv API 2607.27054 (title, authors, v1 2026-07-29); full text read (pdftotext): Table 7 ImageNet ResNet34->ResNet18 72.58; CIFAR-100 standard pairs n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "CoCaRS: correlation-calibrated redundancy suppression for heterogeneous KD. Leaderboard: Table 7 ImageNet ResNet34->ResNet18 72.58; CIFAR-100 standard pairs n/r."
+  topics: [kd, sota, heterogeneous-kd]
+  local_pdf: false
+
+- id: wu2025kdaif
+  type: paper
+  title: "Knowledge Distillation with Adapted Weight"
+  authors: ["Sirong Wu", "Xi Luo", "Junjie Liu", "Yuhui Deng"]
+  date: 2025-01-06
+  venue: "arXiv preprint"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2501.02705", arxiv: "https://arxiv.org/abs/2501.02705", code: null}
+  identifiers: {doi: null, arxiv: "2501.02705"}
+  license: null
+  verified_by: "arXiv API 2501.02705 (title, authors, v1 2025-01-06); full text read (pdftotext): Table 2/3 CIFAR-100 ResNet32x4->ResNet8x4 82.20 with the teacher also updated to 86.56 (not the standard fixed teacher); ImageNet n/r. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "KD-AIF: influence-function sample weights, with teacher updated during training. Leaderboard: Table 2/3 CIFAR-100 ResNet32x4->ResNet8x4 82.20 with the teacher also updated to 86.56 (not the standard fixed teacher); ImageNet n/r."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: yan2025era
+  type: paper
+  title: "Expandable Residual Approximation for Knowledge Distillation"
+  authors: ["Zhaoyi Yan", "Binghui Chen", "Yunfan Liu", "Qixiang Ye"]
+  date: 2025-08-22
+  venue: "arXiv preprint (author-stated: IEEE TNNLS 2025)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2508.16050", arxiv: "https://arxiv.org/abs/2508.16050", code: "https://github.com/Zhaoyi-Yan/ERA"}
+  identifiers: {doi: null, arxiv: "2508.16050"}
+  license: "MIT (GitHub API)"
+  verified_by: "arXiv API 2508.16050 (title, authors, v1 2025-08-22, comment 'TNNLS 2025'); full text read (pdftotext): CIFAR-100 ResNet32x4->ResNet8x4 Ours-ST 76.89; Table III ImageNet ResNet34->ResNet18 Ours-ST 72.49. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "ERA: multi-branch residual approximation splits the teacher's features into easier residual targets. Leaderboard: CIFAR-100 ResNet32x4->ResNet8x4 Ours-ST 76.89; Table III ImageNet ResNet34->ResNet18 Ours-ST 72.49."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: zheng2025gdkd
+  type: paper
+  title: "Rethinking Decoupled Knowledge Distillation: A Predictive Distribution Perspective"
+  authors: ["Bowen Zheng", "Ran Cheng"]
+  date: 2025-12-04
+  venue: "arXiv preprint (author-stated: IEEE TNNLS)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2512.04625", arxiv: "https://arxiv.org/abs/2512.04625", code: "https://github.com/ZaberKo/GDKD"}
+  identifiers: {doi: null, arxiv: "2512.04625"}
+  license: "NOASSERTION (GitHub API)"
+  verified_by: "arXiv API 2512.04625 (title, authors, v1 2025-12-04, comment 'Accepted to IEEE TNNLS'); full text read (pdftotext): Table I CIFAR-100 ResNet32x4->ResNet8x4 77.76 (own DKD baseline 76.64); Table III ImageNet ResNet34->ResNet18 72.26. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "GDKD: generalises DKD by partitioning the predictive distribution into top/other groups. Leaderboard: Table I CIFAR-100 ResNet32x4->ResNet8x4 77.76 (own DKD baseline 76.64); Table III ImageNet ResNet34->ResNet18 72.26."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: jiang2026arkd
+  type: paper
+  title: "Discovering and Preserving Category Correlation Knowledge via Adaptive Reciprocal Knowledge Distillation"
+  authors: ["Dawen Jiang", "Zhishu Shen", "Zeyu Liu", "Tiehua Zhang"]
+  date: 2026-08-14
+  venue: "arXiv preprint (author-stated: ACM CIKM 2026)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2609.13199", arxiv: "https://arxiv.org/abs/2609.13199", code: null}
+  identifiers: {doi: null, arxiv: "2609.13199"}
+  license: null
+  verified_by: "arXiv API 2609.13199 (title, authors, v1 2026-08-14, comment 'Accepted by 35th ACM International Conference on Information and Knowledge Management (CIK'); full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 77.29; Table 2 ImageNet ResNet34->ResNet18 72.13. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "AR-KD: adaptive reciprocal learning that preserves category-correlation knowledge. Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 77.29; Table 2 ImageNet ResNet34->ResNet18 72.13."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: limantoro2025sortkd
+  type: paper
+  title: "Parameter-Free Logit Distillation via Sorting Mechanism"
+  authors: ["Stephen Ekaputra Limantoro"]
+  date: 2025-08-22
+  venue: "arXiv preprint (author-stated: IEEE Signal Processing Letters 2025)"
+  status: preprint
+  urls: {official: "https://arxiv.org/abs/2508.16544", arxiv: "https://arxiv.org/abs/2508.16544", code: null}
+  identifiers: {doi: null, arxiv: "2508.16544"}
+  license: null
+  verified_by: "arXiv API 2508.16544 (title, authors, v1 2025-08-22, comment 'Accepted in IEEE Signal Processing Letters 2025'); full text read (pdftotext): Table I CIFAR-100 standard pairs (e.g. ResNet32x4->ShuffleNetV2 Sort-DKD 77.04); ResNet32x4->ResNet8x4 n/r; Table II ImageNet ResNet34->ResNet18 Sort-DKD 71.84. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Parameter-free logit pre-processing that sorts logits to fix teacher mispredictions. Leaderboard: Table I CIFAR-100 standard pairs (e.g. ResNet32x4->ShuffleNetV2 Sort-DKD 77.04); ResNet32x4->ResNet8x4 n/r; Table II ImageNet ResNet34->ResNet18 Sort-DKD 71.84."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
 - id: niu2022ipwd
   type: paper
   title: "Respecting Transfer Gap in Knowledge Distillation"
@@ -2769,6 +3257,32 @@
   relevance: "CIFD: Rate-distortion modules act as cheap teacher assistants that control the information flow from teacher to student. T12b-S2 leaderboard entry (I1-I3 met). CIFAR result given to one decimal"
   topics: [kd, sota, scheme]
   local_pdf: false
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/89b0e466b46292ce0bfe53618aadd3de-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.12787", code: null}
+  identifiers: {doi: null, arxiv: "2210.12787"}
+  license: null
+  verified_by: "arXiv API 2210.12787 (title, authors, v1 2022-10-23, comment 'Accepted by NeurIPS 2022'); title found in the official NeurIPS proceedings listing; full text read (pdftotext): Table 2 CIFAR-100 ResNet32x4->ResNet8x4 76.03 (SSKD+IPWD 76.74 with own teacher 79.63, Table 3); Table 4 ImageNet ResNet34->ResNet18 71.88. Found via HCD (xu2026hcd) Table 3. No code URL in the paper text. Checked 2026-11-08 (T12b-S3)."
+  relevance: "IPWD: inverse-propensity sample weighting to respect the human/machine transfer gap. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 76.03 (SSKD+IPWD 76.74 with own teacher 79.63, Table 3); Table 4 ImageNet ResNet34->ResNet18 71.88."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: cui2024dkl
+  type: paper
+  title: "Decoupled Kullback-Leibler Divergence Loss"
+  authors: ["Jiequan Cui", "Zhuotao Tian", "Zhisheng Zhong", "Xiaojuan Qi", "Bei Yu", "Hanwang Zhang"]
+  date: 2023-05-23
+  year: 2024
+  venue: "NeurIPS 2024"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/87ee1bbac4635e7c948f3eea83c1f262-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2305.13948", code: "https://github.com/jiequancui/DKL"}
+  identifiers: {doi: null, arxiv: "2305.13948"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "arXiv API 2305.13948 (title, authors, v1 2023-05-23, comment 'NeurIPS 2024'); title found in the official NeurIPS proceedings listing; full text read (pdftotext): Table 13 CIFAR-100 ResNet32x4->ResNet8x4 IKL-KD 76.59; Table 4 ImageNet ResNet34->ResNet18 71.91. Found via GenDD (cui2025gendd) Table 5. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "DKL/IKL: KL decomposed into weighted MSE + soft-label CE, made symmetric and given class-wise global information. Leaderboard: Table 13 CIFAR-100 ResNet32x4->ResNet8x4 IKL-KD 76.59; Table 4 ImageNet ResNet34->ResNet18 71.91."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
 - id: yu2025angularkd
   type: paper
   title: "Single-Teacher View Augmentation: Boosting Knowledge Distillation via Angular Diversity"
@@ -2844,6 +3358,47 @@
   relevance: "GPD: Dynamic teacher trained alongside the student with bidirectional parameter mappings that preserve a fixed teacher–student gap. T12b-S2 leaderboard entry (I1-I3 met). ImageNet only"
   topics: [kd, sota, scheme]
   local_pdf: false
+  venue: "NeurIPS 2025 (author-stated)"
+  status: accepted
+  urls: {official: "https://arxiv.org/abs/2510.22480", arxiv: "https://arxiv.org/abs/2510.22480", code: "https://github.com/june6423/Angular-KD"}
+  identifiers: {doi: null, arxiv: "2510.22480"}
+  license: "NOASSERTION (GitHub API)"
+  verified_by: "arXiv API 2510.22480 (title, authors, v1 2025-10-26, comment 'Accepted to NeurIPS 2025'); full text read (pdftotext): Table 2 CIFAR-100 ResNet32x4->ResNet8x4 MLKD+Angular-KD 77.28 (KD+Angular-KD 76.08, Table 1); Table 3 ImageNet ResNet34->ResNet18 71.07. Found via SAKD (yu2026sakd) Table IV. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Angular-KD: single-teacher view augmentation with angular-diversity objectives. Leaderboard: Table 2 CIFAR-100 ResNet32x4->ResNet8x4 MLKD+Angular-KD 77.28 (KD+Angular-KD 76.08, Table 1); Table 3 ImageNet ResNet34->ResNet18 71.07."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
+- id: wang2022gooddakd
+  type: paper
+  title: "What Makes a \"Good\" Data Augmentation in Knowledge Distillation -- A Statistical Perspective"
+  authors: ["Huan Wang", "Suhas Lohit", "Mike Jones", "Yun Fu"]
+  date: 2020-12-05
+  year: 2022
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/57b53238ff22bc0dc62de08f53eb5de2-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2012.02909", code: "https://github.com/MingSun-Tse/Good-DA-in-KD"}
+  identifiers: {doi: null, arxiv: "2012.02909"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "arXiv API 2012.02909 (title, authors, v1 2020-12-05, comment 'Camera Ready of NeurIPS'22. Code: https://github.com/MingSun-Tse/Good-DA-in-KD'); title found in the official NeurIPS proceedings listing; full text read (pdftotext): Table 1 CIFAR-100 ResNet32x4->ResNet8x4 CRD+CutMixPick 76.11 (240 ep; KD+CutMixPick 74.78); ImageNet n/r. Found via KD-AIF (wu2025kdaif) Table 2. arXiv v1 2020-12, venue year 2022. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Statistical view of good augmentation for KD; proposes CutMixPick (entropy-based picking of CutMix samples). Leaderboard: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 CRD+CutMixPick 76.11 (240 ep; KD+CutMixPick 74.78); ImageNet n/r."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
+- id: wang2022ckptkd
+  type: paper
+  title: "Efficient Knowledge Distillation from Model Checkpoints"
+  authors: ["Chaofei Wang", "Qisen Yang", "Rui Huang", "Shiji Song", "Gao Huang"]
+  date: 2022-10-12
+  venue: "NeurIPS 2022"
+  status: published
+  urls: {official: "https://proceedings.neurips.cc/paper_files/paper/2022/hash/03e0712bf85ebe7cec4f1a7fc53216c9-Abstract-Conference.html", arxiv: "https://arxiv.org/abs/2210.06458", code: "https://github.com/LeapLabTHU/CheckpointKD"}
+  identifiers: {doi: null, arxiv: "2210.06458"}
+  license: "none (no LICENSE file per GitHub API)"
+  verified_by: "arXiv API 2210.06458 (title, authors, v1 2022-10-12, comment 'Accepted by NeurIPS2022'); title found in the official NeurIPS proceedings listing; full text read (pdftotext): CIFAR-100 non-standard pairs; Table 1 ImageNet ResNet34->ResNet18 70.98 (optimal intermediate teacher; own teacher 73.86). Found via ASD (raza2026asd) Table 1. Code URL taken from the paper text; licence via GitHub API. Checked 2026-11-08 (T12b-S3)."
+  relevance: "Distils from intermediate teacher checkpoints, which can beat the fully trained teacher. Leaderboard: CIFAR-100 non-standard pairs; Table 1 ImageNet ResNet34->ResNet18 70.98 (optimal intermediate teacher; own teacher 73.86)."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
 - id: hossain2025tekap
   type: paper
   title: "Single Teacher, Multiple Perspectives: Teacher Knowledge Augmentation for Enhanced Knowledge Distillation"
@@ -2958,4 +3513,28 @@
   verified_by: "Official listing https://papers.nips.cc/paper_files/paper/2022/hash/41128e5b3a7622da5b17588757599077-Abstract-Conference.html (title, venue, authors) and full-text PDF https://arxiv.org/pdf/2209.10359 (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 n/r; ImageNet R34->R18 n/r (R34→R18 only on CIFAR/TinyImageNet; ImageNet uses other pairs). No code repository found in the paper. Found by T12b-S2 systematic search."
   relevance: "MAD: Data-free KD with an EMA copy of the generator (momentum adversarial distillation) to handle generator distribution shift. T12b-S2 leaderboard entry (I1-I3 met). AMBIGUOUS: data-free KD (no training data); CIFAR-100 W40-2→W16-2 64.05 (T1), not comparable to data-based KD"
   topics: [kd, sota, scheme]
+  date: 2025
+  venue: "ICLR 2025"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=DmEHmZ89iB", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "OpenReview API notes/search 2026-11-08: forum DmEHmZ89iB, venue string 'ICLR 2025 Poster', authors as listed. Full text NOT read: the OpenReview PDF endpoint returned 'ChallengeRequiredError' (403); no arXiv version found by title search. Found via LDRLD (xu2025ldrld) Table 1 and Angular-KD Table 1 (TeKAP R32x4->R8x4 74.79 as reported by those papers, secondary). I3 not verified against the primary PDF (T12b-S3)."
+  relevance: "Snowballed competitor; AMBIGUOUS until its own CIFAR-100 table is read."
+  topics: [kd, sota, kd-scheme]
+  local_pdf: false
+
+- id: kim2024topokd
+  type: paper
+  title: "Do Topological Characteristics Help in Knowledge Distillation?"
+  authors: ["Jungeun Kim", "Junwon You", "Dongjin Lee", "Ha Young Kim", "Jae-Hun Jung"]
+  date: 2024
+  venue: "ICML 2024"
+  status: published
+  urls: {official: "https://openreview.net/forum?id=2dEH0u8w0b", arxiv: null, code: null}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "OpenReview API notes/search 2026-11-08: forum 2dEH0u8w0b, venue string 'ICML 2024 Poster', authors as listed. Full text NOT read: the OpenReview PDF endpoint returned 'ChallengeRequiredError' (403); no arXiv version found by title search. Found via EKD (xiang2025ekd) Table 1 ('TopKD [ICML'24]' R32x4->R8x4 75.40 as reported by EKD, secondary). I3 not verified against the primary PDF (T12b-S3)."
+  relevance: "Snowballed competitor; AMBIGUOUS until its own CIFAR-100 table is read."
+  topics: [kd, sota, relation-kd]
   local_pdf: false
