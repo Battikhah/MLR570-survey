@@ -2385,3 +2385,273 @@
   relevance: "CLASSIC: sequential same-architecture student training from a previous model's soft outputs."
   topics: [kd, self-distillation, classic]
   local_pdf: false
+
+- id: lin2022tat
+  type: paper
+  title: "Knowledge Distillation via the Target-Aware Transformer"
+  authors: ["Sihao Lin", "Hongwei Xie", "Bing Wang", "Kaicheng Yu", "Xiaojun Chang", "Xiaodan Liang", "Gang Wang"]
+  date: 2022
+  venue: "CVPR 2022"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2022/html/Lin_Knowledge_Distillation_via_the_Target-Aware_Transformer_CVPR_2022_paper.html", arxiv: "https://arxiv.org/abs/2205.10793", code: "https://github.com/sihaoevery/TaT"}
+  identifiers: {doi: null, arxiv: "2205.10793"}
+  license: "BSD-2-Clause (GitHub API)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 1 CIFAR-100 R32x4->R8x4 75.89 (w/o L_KL); Table 2 ImageNet R34->R18 72.07. arXiv id from arXiv API exact-title query."
+  relevance: "Target-aware transformer distils teacher features to each student pixel; feature-family CIFAR-100/ImageNet baseline."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: jeong2026skd
+  type: paper
+  title: "Streamlined Knowledge Distillation"
+  authors: ["Hyeon-Jin Jeong", "Han-Jin Lee", "Seok-Hwan Choi"]
+  date: 2026
+  venue: "CVPR 2026"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2026/html/Jeong_Streamlined_Knowledge_Distillation_CVPR_2026_paper.html"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 1 CIFAR-100 R32x4->R8x4 SKD 78.33 (its KD baseline 74.75, student 72.48); Table 3 ImageNet R34->R18 71.13. No code URL or arXiv version found."
+  relevance: "Instance KL plus batch Gram-matrix (relation) alignment; one of the top CVF-reported R32x4->R8x4 results (78.33)."
+  topics: [kd, sota, hybrid]
+  local_pdf: false
+
+- id: li2023autokd
+  type: paper
+  title: "Automated Knowledge Distillation via Monte Carlo Tree Search"
+  authors: ["Lujun Li", "Peijie Dong", "Zimian Wei", "Ya Yang"]
+  date: 2023
+  venue: "ICCV 2023"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2023/html/Li_Automated_Knowledge_Distillation_via_Monte_Carlo_Tree_Search_ICCV_2023_paper.html", code: "https://github.com/lilujunai/Auto-KD"}
+  identifiers: {doi: null, arxiv: null}
+  license: "Apache-2.0 (GitHub API)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 3 CIFAR-100 R32x4->R8x4 Auto-KD 77.35 (w/o logits KD) and 77.61 (w/ logits KD); Table 4 ImageNet R34->R18 72.45. Author list from CVF citation meta (4 authors) not cross-checked. No arXiv version found by title query."
+  relevance: "MCTS searches the distiller design (transforms, distance, location); automated design of the KD objective."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: choi2023orc
+  type: paper
+  title: "ORC: Network Group-based Knowledge Distillation using Online Role Change"
+  authors: ["Junyong Choi", "Hyeon Cho", "Seokhwa Cheung", "Wonjun Hwang"]
+  date: 2023
+  venue: "ICCV 2023"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2023/html/Choi_ORC_Network_Group-based_Knowledge_Distillation_using_Online_Role_Change_ICCV_2023_paper.html", arxiv: "https://arxiv.org/abs/2206.01186", code: "https://github.com/choijunyong/ORCKD"}
+  identifiers: {doi: null, arxiv: "2206.01186"}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 2 CIFAR-100 R32x4->R8x4 75.00; Table 3 ImageNet R34 (pivot teacher)->R18 top-1 error 28.00 (= 72.00 top-1). arXiv id from arXiv API exact-title query."
+  relevance: "Group of networks that swap teacher/student roles online; online-KD scheme baseline."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: chae2025kdas
+  type: paper
+  title: "What to Distill? Fast Knowledge Distillation with Adaptive Sampling"
+  authors: ["Byungchul Chae", "Seonyeong Heo"]
+  date: 2025
+  venue: "ICCV 2025"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Chae_What_to_Distill_Fast_Knowledge_Distillation_with_Adaptive_Sampling_ICCV_2025_paper.html"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 2 CIFAR-100: header pairs R32x4->ShuffleV2 DKD+Ours 77.17, VGG13->VGG8, R56->R20; the column labelled ResNet8x4 has a WRN-40-2 teacher (no R32x4->R8x4); Table 3 ImageNet R34->R18 DKD+Ours 71.81. No code URL or arXiv found."
+  relevance: "Adaptive sample selection and loss weighting to cut KD training time ~10-30% while matching accuracy."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: li2025fbt
+  type: paper
+  title: "Fuse Before Transfer: Knowledge Fusion for Heterogeneous Distillation"
+  authors: ["Guopeng Li", "Qiang Wang", "Ke Yan", "Shouhong Ding", "Yuan Gao", "Gui-Song Xia"]
+  date: 2025
+  venue: "ICCV 2025"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Li_Fuse_Before_Transfer_Knowledge_Fusion_for_Heterogeneous_Distillation_ICCV_2025_paper.html", arxiv: "https://arxiv.org/abs/2410.12342", code: "https://github.com/liguopeng0923/FBT"}
+  identifiers: {doi: null, arxiv: "2410.12342"}
+  license: "code URL from the paper text returned HTTP 404 via GitHub API 2026-11-08"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 3 ImageNet R34->R18 72.29 (100 epochs) and R50->MobileNet 73.45; CIFAR-100 tables use cross-architecture pairs only (300 epochs). arXiv id from arXiv API exact-title query."
+  relevance: "Fuses teacher and student inductive biases in an assistant before transfer; heterogeneous KD that also reports the homogeneous ImageNet pair."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: yu2023spaceshipnet
+  type: paper
+  title: "Data-Free Knowledge Distillation via Feature Exchange and Activation Region Constraint"
+  authors: ["Shikang Yu", "Jiachen Chen", "Hu Han", "Shuqiang Jiang"]
+  date: 2023
+  venue: "CVPR 2023"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2023/html/Yu_Data-Free_Knowledge_Distillation_via_Feature_Exchange_and_Activation_Region_Constraint_CVPR_2023_paper.html", code: "https://github.com/skgyu/SpaceshipNet"}
+  identifiers: {doi: null, arxiv: null}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 1 CIFAR-100 (data-free) WRN-40-2->WRN-16-2 SpaceshipNet 69.95."
+  relevance: "Data-free KD (SpaceshipNet): feature-exchange augmentation of synthetic data plus activation-region constraint; data-free setting, not the CRD protocol."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: wang2024kdci
+  type: paper
+  title: "De-confounded Data-free Knowledge Distillation for Handling Distribution Shifts"
+  authors: ["Yuzheng Wang", "Dingkang Yang", "Zhaoyu Chen", "Yang Liu", "Siao Liu", "Wenqiang Zhang", "Lihua Zhang", "Lizhe Qi"]
+  date: 2024
+  venue: "CVPR 2024"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/CVPR2024/html/Wang_De-confounded_Data-free_Knowledge_Distillation_for_Handling_Distribution_Shifts_CVPR_2024_paper.html", arxiv: "https://arxiv.org/abs/2403.19539"}
+  identifiers: {doi: null, arxiv: "2403.19539"}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 1 CIFAR-100 (data-free) WRN-40-2->WRN-16-2 best DFND+KDCI 74.52. No code URL in the paper text. arXiv id from arXiv API exact-title query."
+  relevance: "KDCI: causal back-door adjustment that plugs into data-free KD methods to correct synthetic-data distribution shift."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: chen2025cpnet
+  type: paper
+  title: "Coupling the Generator with Teacher for Effective Data-Free Knowledge Distillation"
+  authors: ["Xu Chen", "Yang Li", "Yahong Han", "Guangquan Xu", "Jialie Shen"]
+  date: 2025
+  venue: "ICCV 2025"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Chen_Coupling_the_Generator_with_Teacher_for_Effective_Data-Free_Knowledge_Distillation_ICCV_2025_paper.html"}
+  identifiers: {doi: null, arxiv: null}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 1 CIFAR-100 (data-free) WRN-40-2->WRN-16-2 CPNet-300 71.90 (NAYER-300 71.72). No code URL or arXiv found."
+  relevance: "CPNet couples the synthetic-data generator to the teacher for data-free KD."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: tang2023kd3
+  type: paper
+  title: "Distribution Shift Matters for Knowledge Distillation with Webly Collected Images"
+  authors: ["Jialiang Tang", "Shuo Chen", "Gang Niu", "Masashi Sugiyama", "Chen Gong"]
+  date: 2023
+  venue: "ICCV 2023"
+  status: published
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2023/html/Tang_Distribution_Shift_Matters_for_Knowledge_Distillation_with_Webly_Collected_Images_ICCV_2023_paper.html", arxiv: "https://arxiv.org/abs/2307.11469"}
+  identifiers: {doi: null, arxiv: "2307.11469"}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the CVF open-access paper page; official PDF read with pdftotext: Table 3 CIFAR-100 R32x4->R8x4 KD3 73.17 trained on webly collected images (not original training data). arXiv id from arXiv API exact-title query."
+  relevance: "KD3: distils with web-collected data and corrects the distribution shift (data selection, feature alignment, MixDistribution contrastive loss)."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: wang2024nd
+  type: paper
+  title: "Improving Knowledge Distillation via Regularizing Feature Direction and Norm"
+  authors: ["Yuzhu Wang", "Lechao Cheng", "Manni Duan", "Yongheng Wang", "Zunlei Feng", "Shu Kong"]
+  date: 2024
+  venue: "ECCV 2024"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/3432_ECCV_2024_paper.php", code: "https://github.com/WangYZ1608/Knowledge-Distillation-via-ND"}
+  identifiers: {doi: "10.1007/978-3-031-72691-0_2", arxiv: null}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 CIFAR-100 R32x4->R8x4 DKD++ 76.28 (KD++ not reported for this pair); Table 2 ImageNet R34->R18 DKD++ 72.07, KD++ 71.98. No arXiv version found by exact-title query."
+  relevance: "ND loss aligns student feature direction with teacher class means and enlarges feature norm; plugs onto KD/DKD/ReviewKD."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: huang2024unikd
+  type: paper
+  title: "Harmonizing knowledge Transfer in Neural Network with Unified Distillation"
+  authors: ["Yaomin Huang", "Faming Fang", "Zaoming Yan", "Chaomin Shen", "Guixu Zhang"]
+  date: 2024
+  venue: "ECCV 2024"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/4805_ECCV_2024_paper.php", arxiv: "https://arxiv.org/abs/2409.18565"}
+  identifiers: {doi: "10.1007/978-3-031-73414-4_4", arxiv: "2409.18565"}
+  license: null
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 CIFAR-100 R32x4->R8x4 UniKD 78.18; Table 3 ImageNet R34->R18 72.83. Only github link in the text is detectron2 (a dependency), so no official code found. arXiv id from arXiv API exact-title query."
+  relevance: "UniKD: fuses multi-layer features (AFF) and predicts them as a Gaussian distribution so features and logits are distilled in one unified space."
+  topics: [kd, sota, hybrid]
+  local_pdf: false
+
+- id: li2022kcd
+  type: paper
+  title: "Knowledge Condensation Distillation"
+  authors: ["Chenxin Li", "Mingbao Lin", "Zhiyuan Ding", "Nie Lin", "Yihong Zhuang", "Yue Huang", "Xinghao Ding", "Liujuan Cao"]
+  date: 2022
+  venue: "ECCV 2022"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/75_ECCV_2022_paper.php", arxiv: "https://arxiv.org/abs/2207.05409", code: "https://github.com/dzy3/KCD"}
+  identifiers: {doi: "10.1007/978-3-031-20083-0_2", arxiv: "2207.05409"}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 CIFAR-100 R32x4->R8x4 best KC-SSKD 76.48 (KC-KD 74.05); Table 3 ImageNet R34->R18 KC-ReKD error 27.87 (= 72.13 top-1). arXiv id from arXiv API exact-title query."
+  relevance: "Condenses the transfer set by scoring each sample's knowledge value, so the student trains on a shrinking condensed set at lower cost."
+  topics: [kd, sota, scheme]
+  local_pdf: false
+
+- id: yang2022mgd
+  type: paper
+  title: "Masked Generative Distillation"
+  authors: ["Zhendong Yang", "Zhe Li", "Mingqi Shao", "Dachuan Shi", "Zehuan Yuan", "Chun Yuan"]
+  date: 2022
+  venue: "ECCV 2022"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/140_ECCV_2022_paper.php", arxiv: "https://arxiv.org/abs/2205.01529", code: "https://github.com/yzd-v/MGD"}
+  identifiers: {doi: "10.1007/978-3-031-20083-0_4", arxiv: "2205.01529"}
+  license: "Apache-2.0 (GitHub API)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 ImageNet R34->R18 MGD 71.58, MGD+WSLD 71.80; no CIFAR-100 results. arXiv id from arXiv API exact-title query."
+  relevance: "Masks student features and trains a generator to reconstruct the full teacher feature; feature KD for classification and dense tasks."
+  topics: [kd, sota, feature-kd]
+  local_pdf: false
+
+- id: deng2022distpro
+  type: paper
+  title: "DistPro: Searching a Fast Knowledge Distillation Process via Meta Optimization"
+  authors: ["Xueqing Deng", "Dawei Sun", "Shawn Newsam", "Peng Wang"]
+  date: 2022
+  venue: "ECCV 2022"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/6323_ECCV_2022_paper.php", arxiv: "https://arxiv.org/abs/2204.05547", code: "https://github.com/xdeng7/DistPro"}
+  identifiers: {doi: null, arxiv: "2204.05547"}
+  license: "MIT (GitHub API)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 CIFAR-100 WRN-40-2->WRN-16-2 76.36, R32x4->ShuffleV1 77.18, R32x4->ShuffleV2 77.54, R56->R20 72.03 (R32x4->R8x4 not reported); Table 4 ImageNet R34->R18 71.89. arXiv id from arXiv API exact-title query."
+  relevance: "Meta-learns a time-varying weight schedule over many teacher-student distillation pathways: a learned objective-combination rule, directly relevant to PCD."
+  topics: [kd, sota, combination]
+  local_pdf: false
+
+- id: parchami2024e2kd
+  type: paper
+  title: "Good Teachers Explain: Explanation-Enhanced Knowledge Distillation"
+  authors: ["Amin Parchami-Araghi", "Moritz Böhle", "Sukrut Rao", "Bernt Schiele"]
+  date: 2024
+  venue: "ECCV 2024"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/9286_ECCV_2024_paper.php", arxiv: "https://arxiv.org/abs/2402.03119", code: "https://github.com/m-parchami/GoodTeachersExplain"}
+  identifiers: {doi: "10.1007/978-3-031-73464-9_18", arxiv: "2402.03119"}
+  license: "Apache-2.0 (GitHub API)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 ImageNet R34->R18 full data KD 71.8, KD+e2KD 71.8 (gains appear in the 50/200-shot settings); no standard CIFAR-100 pair. arXiv id from arXiv API exact-title query."
+  relevance: "Adds an explanation-similarity term (GradCAM/B-cos) to logit KD so the student matches why the teacher predicts, not only what."
+  topics: [kd, sota, logit-kd]
+  local_pdf: false
+
+- id: hamidi2024mseteacher
+  type: paper
+  title: "How to Train the Teacher Model for Effective Knowledge Distillation"
+  authors: ["Shayan Mohajer Hamidi", "Xizhen Deng", "Renhao Tan", "Linfeng Ye", "Ahmed Hussein Salamah"]
+  date: 2024
+  venue: "ECCV 2024"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/12363_ECCV_2024_paper.php", arxiv: "https://arxiv.org/abs/2407.18041", code: "https://github.com/ECCV2024MSE/ECCV_MSE_Teacher"}
+  identifiers: {doi: "10.1007/978-3-031-73024-5_1", arxiv: "2407.18041"}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 1 CIFAR-100 standard pairs WRN-40-2->WRN-16-2, R56->R20, VGG13->VGG8 with CE vs MSE teachers (R32x4->R8x4 not reported); Table 3 ImageNet R34->R18 best ReviewKD+KD with MSE teacher 72.16 (120 epochs, not the usual 100). arXiv id from arXiv API exact-title query."
+  relevance: "Trains the teacher with MSE to the one-hot label so its outputs approximate the Bayes conditional probabilities; any KD method then improves."
+  topics: [kd, sota, reliability]
+  local_pdf: false
+
+- id: deng2022pebkd
+  type: paper
+  title: "Personalized Education: Blind Knowledge Distillation"
+  authors: ["Xiang Deng", "Jian Zheng", "Zhongfei Zhang"]
+  date: 2022
+  venue: "ECCV 2022"
+  status: published
+  urls: {official: "https://www.ecva.net/papers/eccv_2022/papers_ECCV/html/6615_ECCV_2022_paper.php", code: "https://github.com/Xiang-Deng-DL/PEBKD"}
+  identifiers: {doi: null, arxiv: null}
+  license: "none found (GitHub API reports no licence, 2026-11-08)"
+  verified_by: "T12b-S1 systematic search 2026-11-08: title/authors from the ECVA ECCV paper page; official PDF read with pdftotext: Table 2 CIFAR-100 R32x4->R8x4 'Simulation KD' 79.91 is an oracle simulation that samples from the vicinity of train+test data, not a deployable method; KD row 73.33."
+  relevance: "Argues common CIFAR students can mimic the teacher fully (CST) and proposes PE-BKD for this case; leaderboard use doubtful (see AMBIGUOUS)."
+  topics: [kd, sota, scheme]
+  local_pdf: false
