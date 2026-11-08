@@ -327,8 +327,8 @@ that idea with per-component momentum and top-$k$ denoising and reaches 79.25\% 
 \citep{huang2025deepkd}. DTO-KD sets the trade-off from a min-norm combination of the two gradients and
 reports 76.40\% \citep{hayder2026dtokd}. DistPro meta-learns weights over distillation pathways
 \citep{deng2022distpro}. None of them gates the distillation term per sample; reliability methods do
-that on the loss side. These methods are the direct rivals of the project's PCD optimiser
-\citep{varam2026pcd}, which has no reported number on these pairs and is therefore not in the tables.
+that on the loss side. Priority-constrained descent (PCD)
+\citep{varam2026pcd} belongs to the same family of gradient rules but has no reported number on these pairs, so it is not in the tables.
 Their numbers also show that an optimizer change can be stacked on a loss change, so a fair test
 of an optimiser should report it on top of both KD and a strong logit loss.
 
