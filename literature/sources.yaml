@@ -1716,7 +1716,7 @@
 
 - id: wang2025abkd
   type: paper
-  title: "ABKD: Pursuing a Proper Allocation of the Probability Mass in Knowledge Distillation via α-β-Divergence"
+  title: "ABKD: Pursuing a Proper Allocation of the Probability Mass in Knowledge Distillation via {\\ensuremath{\\alpha}}-{\\ensuremath{\\beta}}-Divergence"
   authors: ["Guanghui Wang", "Zhiyong Yang", "Zitai Wang", "Shi Wang", "Qianqian Xu", "Qingming Huang"]
   date: 2025-05-07
   venue: "ICML 2025 (Spotlight per arXiv comment)"
@@ -2963,7 +2963,7 @@
 
 - id: guan2025rankingkd
   type: paper
-  title: "Enhancing Logits Distillation with Plug&Play Kendall’s $τ$ Ranking Loss"
+  title: "Enhancing Logits Distillation with Plug&Play Kendall’s {\\ensuremath{\\tau}} Ranking Loss"
   authors: ["Yuchen Guan", "Runxi Cheng", "Kang Liu", "Chun Yuan"]
   date: 2024-09-26
   year: 2025
