@@ -11,9 +11,7 @@ Each paragraph names an open question, its evidence, and a testable direction (a
 The tables are not a controlled comparison (Section~\ref{sec:bench-protocol}). On ResNet32$\times$4$\to$ResNet8$\times$4,
 classical KD is 73.33\% in DKD's table \citep{zhao2022dkd}, and 74.75\% in SKD's \citep{jeong2026skd}, a spread wider than the gaps between most single logit methods in
 Table~\ref{tab:bench-cifar}, while gaps of 0.3--0.5 points sit inside the seed spread
-(Section~\ref{sec:prelim-benchmarks}). Recipe choices also move results: \citet{beyer2022patientkd} identify
-training length and consistent teacher and student views as consequential, so a comparison of direction rules
-must hold the recipe fixed. Stacking adds a second problem. Three of the five highest CIFAR-100 rows are stacked
+(Section~\ref{sec:prelim-benchmarks}). Stacking adds a second problem. Three of the five highest CIFAR-100 rows are stacked
 (DeepKD on CRLD, EA-MLD with label smoothing, MLKD with logit standardisation;
 \citealp{huang2025deepkd,su2025eakd,sun2024lskd}), and several plug-ins lose much of their gain alone: EA-KD gives
 75.46\% against 78.38\% stacked. We found no
@@ -25,10 +23,7 @@ weight).
 \paragraph{Which teacher signal to trust.}
 The reliability methods disagree about what reliability means: label agreement, label probability, entropy or validation-gradient alignment
 \citep{meng2019conditionalts,mishra2021cckd,su2025eakd,sumit2026chad}. Those that report on ResNet8$\times$4
-land between 75.5\% and 76.6\% (Section~\ref{sec:bench-families}). Two older results argue against equating teacher
-accuracy with usefulness: \citet{yuan2020labelkd} report gains from poorly trained and reversed teachers, and
-\citet{stanton2021kdwork} show that teacher--student fidelity and student generalisation need not improve
-together, so a lower KD loss is not itself evidence of a better student. We found no paper that tests whether
+land between 75.5\% and 76.6\% (Section~\ref{sec:bench-families}). We found no paper that tests whether
 these signals pick the same samples. \emph{Direction:} on one fixed teacher, measure the overlap of the samples each signal selects and which best predicts the samples whose removal helps the student.
 
 \paragraph{How to combine the objectives, and whether they conflict.}

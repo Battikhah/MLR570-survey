@@ -38,7 +38,7 @@ algorithm (MGDA), which picks the minimum-norm point of the convex hull of the g
 $\min_{\alpha\in\Delta}\|\sum_i\alpha_ig_i\|_2^2$. For two objectives the weight
 has a closed form, $\hat\alpha=\big[(g_2-g_1)^\top g_2/\|g_1-g_2\|^2\big]_{[0,1]}$; for more
 objectives, Frank--Wolfe; MGDA-UB takes gradients at a shared representation to need one backward
-pass. Two-objective MGDA favours the \emph{smaller} gradient (an interior minimiser has equal inner
+pass \citep{sener2018mgda}. Two-objective MGDA favours the \emph{smaller} gradient (an interior minimiser has equal inner
 products with both), so with a large task and a small distillation gradient it moves mostly along
 distillation (Fig.~\ref{fig:moo_geometry}).
 % sener2018mgda Eq. (3) (min-norm problem), Eq. (4) (two-task closed form, clipped to [0,1]),
@@ -77,7 +77,7 @@ cannot solve the constrained problem when the duality gap is non-zero \citep{gon
 Continual-learning methods project the new-task gradient so that earlier-task gradients do not get
 worse, i.e.\ with zero required progress.
 PNGD stays close to an external criterion $\nabla F$ with one scheduled margin on all losses
-\citep{ye2022pngd}, and AuxiNash learns a preference vector over Nash-MTL's bargaining solution, so
+\citep{ye2022pngd}, and AuxiNash learns a preference vector over a Nash bargaining solution, so
 its priority is learned and the main task's progress is not guaranteed \citep{shamsian2023auxinash}.
 % gong2021dbgd Eq. (6), Eq. (4)/Alg. 1, Eq. (8), Sec. 3.4. gradient-projection continual learning omitted (uncited).
 % ye2022pngd Eq. (7). shamsian2023auxinash Sec. 4.1, 4.2.
