@@ -35,13 +35,35 @@ def _esc(text):
     return "".join(_SPECIAL.get(ch, ch) for ch in str(text))
 
 
+FULL = {"TMLR": "Transactions on Machine Learning Research",
+        "IEEE TPAMI": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+        "IJCV": "International Journal of Computer Vision"}
+
+
+def clean_venue(venue):
+    """One style for every venue: no year, edition notes, volume/pages or acronym glosses."""
+    v = re.sub(r"\s*\([^)]*\)", "", venue)     # (TMLR), (Highlight), (PMLR 180), 44(6)
+    v = re.sub(r",.*$", "", v)                   # , PMLR 70 / , 18:100605
+    v = re.sub(r"\b(19|20)\d\d\b", "", v)
+    v = re.sub(r"\s+\d+$", "", v.strip())        # IEEE TPAMI 47
+    v = " ".join(v.split())
+    return FULL.get(v, v)
+
+
+def year(r, raw_venue):
+    """Citation year: explicit `year`, else the venue's year, else the first-posted date."""
+    m = re.search(r"\b(19|20)\d\d\b", raw_venue)
+    return str(r.get("year") or (m and m.group(0)) or r.get("date") or "")[:4] or "n.d."
+
+
 def entry(r):
     """One BibTeX entry for a registry record."""
     urls = r.get("urls") or {}
     ids = r.get("identifiers") or {}
-    venue = r.get("venue")
+    raw_venue = r.get("venue") or ""
+    venue = clean_venue(raw_venue)
     status = r.get("status")
-    if r.get("type") == "repository" or not venue or venue == "arXiv":
+    if r.get("type") == "repository" or not venue or venue.lower().startswith("arxiv"):
         kind, venue_field = "misc", None
     elif JOURNAL.search(venue):
         kind, venue_field = "article", ("journal", venue)
@@ -50,7 +72,7 @@ def entry(r):
     fields = [
         ("title", "{" + _esc(r["title"]) + "}"),  # double braces keep capitalisation
         ("author", " and ".join(_esc(a) for a in (r.get("authors") or ["Anonymous"]))),
-        ("year", str(r.get("year") or r.get("date") or "")[:4] or "n.d."),  # venue year
+        ("year", year(r, raw_venue)),
     ]
     if venue_field:
         fields.append((venue_field[0], _esc(venue_field[1])))

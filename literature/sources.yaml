@@ -643,6 +643,7 @@
   title: "Distilling the Knowledge in a Neural Network"
   authors: ["Geoffrey Hinton", "Oriol Vinyals", "Jeff Dean"]
   date: 2015-03-09
+  year: 2015  # cited by its arXiv year, as is conventional
   venue: "NIPS 2014 Deep Learning Workshop"
   status: published
   urls: {official: null, arxiv: "https://arxiv.org/abs/1503.02531", code: null}

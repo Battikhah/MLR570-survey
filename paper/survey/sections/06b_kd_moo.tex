@@ -32,7 +32,7 @@ weighs teachers against each other, not task against teacher.
 % Eq. (11) (direction); Fig. 1 right (gradients w.r.t. student logits); Sec. 3.2 "C in [1/M, 1]".
 
 \paragraph{DTO-KD: closed-form min-norm on log losses.}
-DTO-KD \citep{hayder2026dtokd} applies FAMO to distillation, maximising the worse of the two
+DTO-KD \citep{hayder2026dtokd} applies FAMO \citep{liu2023famo} to distillation, maximising the worse of the two
 relative improvement rates; the dual picks
 $\pi^\star=\arg\min_{\pi}\tfrac12\|J\pi\|^2$ with $J=[\nabla\log L_{\mathrm{distill}},\nabla\log
 L_{\mathrm{task}}]$, with closed form
@@ -45,7 +45,7 @@ handles by clipping. The deployed algorithm amortises
 $\pi$ with a gradient step and softmax renormalisation and adds a feature projection and separate
 heads, so it is not the closed form, and a plain-logit adaptation would need its own specification. On CIFAR-100,
 ResNet32$\times$4$\to$ResNet8$\times$4, DTO-KD reports 76.40\% against 75.44\% for DKD and
-73.33\% for KD in the same table. It also reports COCO gains with ViDT students. Its convergence claim is borrowed from FAMO, and no code is linked..
+73.33\% for KD in the same table. It also reports COCO gains with ViDT students. Its convergence claim is borrowed from FAMO, and no code is linked.
 % src: hayder2026dtokd Eq. (7) (max-min of relative rates), Eq. (8)-(9) (dual), Thm. 3.1 Eq. (10)-(12)
 % (closed form, sum-to-one only), Cor. 3.3 (equal inner products), Alg. 1 (projection P, DistillHead,
 % TaskHead), Eq. (18) + text ("renormalize it via a softmax"), Sec. 3 "two backpropagation per iteration".
@@ -73,7 +73,7 @@ SCOPE \citep{chen2026scope} combines two components. Selective Relation Alignmen
 Gradient Conflict Resolution removes the parts of the distillation gradient that conflict with
 the classification gradient. Classification is the unmodified reference, so SCOPE is a one-sided projection, the asymmetric counterpart of PCGrad; unlike SCKD it edits the conflicting component instead of dropping
 the whole term. Its full system adds auxiliary priors and relational losses; it appeared in the Journal of Imaging
-and is evaluated on medical image classification.
+and is evaluated on medical image classification, outside our benchmark scope, so we discuss only its update rule.
 % Provenance: every claim above re-checked against the full text (J. Imaging 12:436, abstract,
 % Sec. 1 contributions, Sec. 2, Fig. 1) on 2026-11-08; no numbers transcribed.
 
@@ -123,7 +123,7 @@ SPOFA \citep{yang2026spofa} (under review), for heterogeneous architectures, add
 EMA (MEMA) scaler that compares the per-sample logit-space cosine $S_{t,j}$ of task and
 distillation gradients with an EMA baseline $B_{t-1}$, weighting distillation by $\mathrm{clamp}(1-\kappa\max(0,B_{t-1}-S_{t,j}),\omega_{\min},
 \omega_{\max})$: a softer SCKD gate with no extra backward pass. On CIFAR-100 with a Swin-T teacher and
-ResNet18 student, MEMA alone raises the OFA baseline from 80.54\% to 81.80\%, and the full method
+ResNet18 student, MEMA alone raises the OFA-KD \citep{hao2023ofakd} baseline from 80.54\% to 81.80\%, and the full method
 reaches 82.39\%.
 % yang2026spofa Eq. (4) (S_{t,j}), Eq. (5) (B_t EMA), Eq. (6) (D_{t,j}), Eq. (7) (clamped weight).
 % src: yang2026spofa Table IV (ablation, Swin-T -> ResNet18): OFA 80.54, +MEMA 81.80, full 82.39.
@@ -136,7 +136,7 @@ are estimated to raise validation loss.
 
 \paragraph{Learned weighting and distiller search.}
 DistPro \citep{deng2022distpro} meta-learns a time-varying weight schedule over a set of KD pathways. Its outer-loop weights cannot react to conflict at a single step; it reports 77.54 on ResNet32$\times$4$\to$ShuffleNetV2 and 71.89 on ImageNet ResNet-34$\to$ResNet-18.
-Distiller-search methods search the loss design per pair by tree search or evolution, excluding search cost from their reported numbers; they sit nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules.
+Distiller-search methods search the loss design per pair, by Monte Carlo tree search in Auto-KD \citep{li2023autokd} and by evolution in KD-Zero \citep{li2023kdzero}, excluding search cost from their reported numbers; they sit nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules.
 % src: deng2022distpro T1, T4.
 
 
@@ -161,7 +161,7 @@ and they interpret several of those optimisers as forms of regularisation. \cite
 revisit it at larger scale and propose population-based search over the weights instead of new
 optimisers. None of these covers distillation. Among the KD papers above, only DOT compares with a
 sweep of fixed task weights (all below DOT); the others we read use published baselines at default
-weights, and we did not check DistPro or the distiller-search methods for such a sweep.
+weights.
 % xin2022mtohelp abstract (quoted); kurin2022unitary abstract; royer2023scalarization abstract.
 % DOT Table 4 (alpha sweep 73.19-73.56 vs DOT 75.12).
 
@@ -182,7 +182,7 @@ conflict handling can matter in heterogeneous distillation.
 \paragraph{Is there measured conflict in distillation?}
 We found one direct measurement of CE--KD conflict in parameter space. DHO \citep{kang2025dho}
 trains a ResNet-18 student from a zero-shot CLIP ResNet-50 teacher with 16 labelled examples
-per class. With a single head, the final-epoch cosine between the two gradients, averaged over
+per class, a few-shot setting outside our scope that we use as background. With a single head, the final-epoch cosine between the two gradients, averaged over
 eight datasets, is $-0.39$ at the first backbone stage, $-0.45$ at the last, and $-0.76$ at the
 classifier. We found no such measurement on the standard full-label CIFAR-100 or ImageNet benchmarks. Until
 one exists, claims that a distillation method works \emph{because} it resolves gradient conflict are

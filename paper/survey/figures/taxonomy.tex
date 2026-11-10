@@ -24,7 +24,7 @@
 %  bench-cifar:  zhao2022dkd xu2025ldrld zhang2025vrm   (CIFAR-100, R32x4->R8x4)
 %  bench-in1k:   huang2022dist lv2024wkd qiu2023dpk     (ImageNet-1K, R34->R18)
 \begin{tikzpicture}[x=1cm, y=-0.56cm, font=\footnotesize,
-  root/.style={draw, rounded corners=2pt, fill=blue!18, rotate=90, minimum width=10.5cm,
+  root/.style={draw, rounded corners=2pt, fill=blue!18, rotate=90, minimum width=9.4cm,
                minimum height=0.55cm, font=\footnotesize\bfseries},
   sec/.style={draw, rounded corners=2pt, fill=blue!7, align=center, text width=3.0cm,
               minimum height=0.42cm, inner sep=2pt},
@@ -32,40 +32,37 @@
                minimum height=0.40cm, inner sep=2pt, anchor=west},
   meth/.style={anchor=west, inner sep=2pt},
   ln/.style={draw, black!60, thin}]
-  % rows 0..18; root spans them all
-  \node[root] (R) at (0,9) {Knowledge distillation, 2022--2026};
+  % rows 0..16; root spans them all
+  \node[root] (R) at (0,8) {Knowledge distillation, 2022--2026};
   % --- leaves (row, label, methods) -------------------------------------------------
   \newcommand{\leaf}[3]{%
     \node[leaf] (L#1) at (3.95,#1) {#2};
     \node[meth] at (8.45,#1) {#3};}
-  \leaf{0}{Logit: decoupling, calibration}{DKD, CTKD, LSKD, LumiNet}
-  \leaf{1}{Logit: divergences, relations}{DIST, MLKD, LDRLD, SKD}
+  \leaf{0}{Logit: decoupling, calibration}{DKD, LDRLD, CTKD, LSKD, LumiNet}
+  \leaf{1}{Logit: divergences, relations}{DIST, MLKD, WKD, SKD}
   \leaf{2}{Feature: same architecture}{FitNets, ReviewKD, SimKD, SRD}
-  \leaf{3}{Relational / cross-architecture}{RKD, CRD, VRM, TopKD}
-  \leaf{4}{Online / mutual}{co-trained peers}
-  \leaf{5}{Self-distillation}{same model or its history}
-  \leaf{6}{Multi-teacher}{AE-KD}
-  \leaf{7}{Capacity gap}{Cho et al., DIST}
-  \leaf{8}{Data-free}{synthetic transfer inputs}
-  \leaf{9}{Refined teacher targets}{RLD, LR-DS, MCD}
-  \leaf{10}{Sample weighting / selection}{CTSL, CCKD, EA-KD, CHAD}
-  \leaf{11}{Task--KD trade-off}{DOT, DeepKD, DTO-KD, TPKD*, SPOFA*}
-  \leaf{12}{MOO elsewhere in KD}{DHO}
-  \leaf{13}{LLM distillation}{student-generated data}
-  \leaf{14}{VLM $\rightarrow$ small models}{CLIP-type teachers}
-  \leaf{15}{Adversarially robust KD}{robust teachers}
-  \leaf{16}{Federated KD}{no shared training set}
-  \leaf{17}{CIFAR-100 (R32$\times$4$\rightarrow$R8$\times$4)}{DKD, LDRLD, VRM}
-  \leaf{18}{ImageNet-1K (R34$\rightarrow$R18)}{DIST, WKD, DPK}
+  \leaf{3}{Relational / cross-architecture}{RKD, CRD, VRM, OFA-KD}
+  \leaf{4}{Online / mutual}{SwitOKD, SHAKE}
+  \leaf{5}{Self-distillation}{DLB, USKD}
+  \leaf{6}{Multi-teacher}{AE-KD, MTKD-RL}
+  \leaf{7}{Capacity gap}{DPK, AID}
+  \leaf{8}{Teacher views, transfer data}{TeKAP}
+  \leaf{9}{Searched distillers}{Auto-KD, KD-Zero}
+  \leaf{10}{Data-free}{NAYER, SSD-KD}
+  \leaf{11}{Refined teacher targets}{RLD, LR-DS, MCD, BTKD}
+  \leaf{12}{Sample weighting / selection}{CTSL, CCKD, EA-KD, CHAD*}
+  \leaf{13}{Task--KD trade-off}{DOT, DeepKD, DTO-KD, TPKD*, SPOFA*}
+  \leaf{14}{Learned weights, other MOO}{DistPro, DHO}
+  \leaf{15}{CIFAR-100 (R32$\times$4$\rightarrow$R8$\times$4)}{DeepKD, VRM, SKD, SimKD}
+  \leaf{16}{ImageNet-1K (R34$\rightarrow$R18)}{TopoKD, DeepKD, DIST+, MCD}
   % --- sections (first row, last row, label) ----------------------------------------
   \newcommand{\branch}[3]{%
     \node[sec] (S#1) at (2.05,{(#1+#2)/2}) {#3};
     \draw[ln] (0.3,{(#1+#2)/2}) -- (S#1.west);
     \foreach \r in {#1,...,#2} {\draw[ln] (S#1.east) -- ++(0.2,0) |- (L\r.west);}}
   \branch{0}{3}{What is transferred\\(Secs.~\ref{sec:logit}--\ref{sec:feature})}
-  \branch{4}{8}{Distillation schemes\\(Sec.~\ref{sec:schemes})}
-  \branch{9}{10}{Teacher reliability\\(Sec.~\ref{sec:reliability})}
-  \branch{11}{12}{KD as multi-objective opt.\\(Secs.~\ref{sec:moo}--\ref{sec:kd_moo})}
-  \branch{13}{16}{Emerging settings\\(Sec.~\ref{sec:emerging})}
-  \branch{17}{18}{Benchmarks, results\\(Sec.~\ref{sec:benchmarks})}
+  \branch{4}{10}{Distillation schemes\\(Sec.~\ref{sec:schemes})}
+  \branch{11}{12}{Teacher reliability\\(Sec.~\ref{sec:reliability})}
+  \branch{13}{14}{KD as multi-objective opt.\\(Secs.~\ref{sec:moo}--\ref{sec:kd_moo})}
+  \branch{15}{16}{Benchmarks, results\\(Sec.~\ref{sec:benchmarks})}
 \end{tikzpicture}

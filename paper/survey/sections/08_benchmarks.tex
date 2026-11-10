@@ -22,7 +22,7 @@ Three things limit cross-paper comparison even under this protocol. First, paper
 statistics: the mean of three or five runs, the best run, or a single run.
 Gaps under about 0.3 points on CIFAR-100 are within the usual seed spread and should not be read as a
 ranking. Second, many top numbers are \emph{stacked}: a plug-in is added to an already strong method such
-as MLKD \citep{jin2023mlkd}, CRLD or SimKD \citep{chen2022simkd}, so the row measures the combination. The
+as MLKD \citep{jin2023mlkd}, SimKD \citep{chen2022simkd} or CRLD, the base of DeepKD's best row \citep[Table~1]{huang2025deepkd}, so the row measures the combination. The
 Flags column names the base and, where given, the stand-alone number. Third, some rows change the setting:
 a retrained or updated teacher (KD-AIF, \citealp{wu2025kdaif}), extra data or augmentation (SRD,
 \citealp{miles2024projector}), label smoothing on the student (LSKD and EA-KD rows), online or
@@ -46,9 +46,9 @@ The sparse WRN-40-2$\to$WRN-16-2 column has DistPro at 76.36\% \citep{deng2022di
 
 On ImageNet ResNet34$\to$ResNet18 (79 methods, Table~\ref{tab:bench-imagenet}) the spread is narrow: all but
 seven rows fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
-reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and several other high rows use their own teachers, optimiser or a shorter schedule (see the supplementary list). Only three included papers (plus DeepKD, re-read from the camera-ready version)
-were read for ResNet50$\to$MobileNetV1, among them MCD 73.65\% \citep{mishra2026mcd} and DIST+ 73.47\%
-\citep{huang2025distplus}. DeepKD stacked on CRLD reports 73.34\% and
+reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher, and BTKD's 73.38\% uses its own teachers and the Adam optimiser \citep{zhang2025btkd}. Only three included papers (plus DeepKD, re-read from the camera-ready version)
+were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
+\citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb} (last column of Table~\ref{tab:bench-imagenet}). DeepKD stacked on CRLD reports 73.34\% and
 74.85\% on the two ImageNet pairs.
 
 \begin{table}[t]
@@ -58,50 +58,57 @@ were read for ResNet50$\to$MobileNetV1, among them MCD 73.65\% \citep{mishra2026
 \toprule
 Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & Code & Flags \\
 \midrule
-KD-AIF~\citep{wu2025kdaif} & R & arXiv'25 & 82.20 & no & teacher retrained to 86.56; not ranked \\
-DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 79.25 & no & CRLD+DeepKD (stacked) \\
+\multicolumn{6}{@{}l}{\emph{Single methods, standard setting}}\\
 VRM~\citep{zhang2025vrm} & F & ICCV'25 & 78.76 & no &  \\
-EA-KD~\citep{su2025eakd} & L & ICCV'25 & 78.38 & yes & EA-MLD+LS (stacked, LS); EA-KD 75.46 \\
-SKD~\citep{jeong2026skd} & H & CVPR'26 & 78.33 & no & own KD baseline 74.75 \\
-LSKD~\citep{sun2024lskd} & L & CVPR'24 & 78.28 & yes & MLKD+LS (stacked) \\
 SimKD~\citep{chen2022simkd} & F & CVPR'22 & 78.08 & yes & reuses teacher classifier \\
 GDKD~\citep{zheng2025gdkd} & L & arXiv'25 & 77.76 & yes & preprint (TNNLS); own DKD 76.64 \\
 LumiNet~\citep{hossain2025luminet} & L & TMLR'25 & 77.50 & yes &  \\
 MLKD~\citep{jin2023mlkd} & L & CVPR'23 & 77.08 & yes &  \\
 MCD~\citep{mishra2026mcd} & L & TMLR'26 & 76.81 & no & +MLLD 77.45, +LS 77.11; 3 trials \\
 RLD~\citep{sun2025rld} & R & ICCV'25 & 76.64 & yes &  \\
-SRD~\citep{miles2024projector} & F & AAAI'24 & 76.44 & yes & SSKD teachers, RandAugment; 78.37 with SSKD rotations \\
 DTO-KD~\citep{hayder2026dtokd} & O & ICLR'26 & 76.40 & no &  \\
 DKD~\citep{zhao2022dkd} & L & CVPR'22 & 76.32 & yes &  \\
 DIST~\citep{huang2022dist} & L & NeurIPS'22 & 76.31 & yes &  \\
 DIST+~\citep{huang2025distplus} & L & TPAMI'25 & 76.19 & yes & adds feature loss to DIST \\
 TopoKD~\citep{kim2024topkd} & F & ICML'24 & 75.40 & no & repo unreachable \\
 DOT~\citep{zhao2023dot} & O & ICCV'23 & 75.12 & yes & KD+DOT (mdistiller) \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Stacked, or setting changed (teacher, augmentation, baseline)}}\\
+KD-AIF~\citep{wu2025kdaif} & R & arXiv'25 & 82.20 & no & teacher retrained to 86.56; not ranked \\
+DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 79.25 & no & CRLD+DeepKD (stacked) \\
+EA-KD~\citep{su2025eakd} & L & ICCV'25 & 78.38 & yes & EA-MLD+LS (stacked, LS); EA-KD 75.46 \\
+SKD~\citep{jeong2026skd} & H & CVPR'26 & 78.33 & no & own KD baseline 74.75 \\
+LSKD~\citep{sun2024lskd} & L & CVPR'24 & 78.28 & yes & MLKD+LS (stacked) \\
+SRD~\citep{miles2024projector} & F & AAAI'24 & 76.44 & yes & SSKD teachers, RandAugment; 78.37 with SSKD rotations \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. All 79 rows, and the ResNet50$\to$MobileNetV1 values, are in the supplementary list.}\label{tab:bench-imagenet}
-\begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
+\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. R50$\to$MBV1: ResNet50$\to$MobileNetV1, where only four included papers were read. All 79 ResNet34$\to$ResNet18 rows are in the supplementary list.}\label{tab:bench-imagenet}
+\begin{tabular}{@{}llllll>{\raggedright\arraybackslash}p{3.9cm}@{}}
 \toprule
-Method & Fam. & Venue & R34$\to$R18 & Code & Flags \\
+Method & Fam. & Venue & R34$\to$R18 & R50$\to$MBV1 & Code & Flags \\
 \midrule
-TopoKD~\citep{kim2024topkd} & F & ICML'24 & 73.60 & no & above its 73.31 teacher \\
-DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 73.34 & no & CRLD+DeepKD \\
-DIST+~\citep{huang2025distplus} & L & TPAMI'25 & 72.39 & yes &  \\
-GDKD~\citep{zheng2025gdkd} & L & arXiv'25 & 72.26 & yes & preprint \\
-LumiNet~\citep{hossain2025luminet} & L & TMLR'25 & 72.16 & yes &  \\
-MCD~\citep{mishra2026mcd} & L & TMLR'26 & 72.08 & no & 3 trials \\
-DIST~\citep{huang2022dist} & L & NeurIPS'22 & 72.07 & yes &  \\
-EA-KD~\citep{su2025eakd} & L & ICCV'25 & 71.99 & yes & EA-DKD+LS; EA-KD 71.79 \\
-DistPro~\citep{deng2022distpro} & O & ECCV'22 & 71.89 & yes &  \\
-DOT~\citep{zhao2023dot} & O & ICCV'23 & 71.72 & yes & KD+DOT \\
-DKD~\citep{zhao2022dkd} & L & CVPR'22 & 71.70 & yes & mdistiller \\
-SRD~\citep{miles2024projector} & F & AAAI'24 & 71.63 & yes &  \\
-CTKD~\citep{li2023ctkd} & L & AAAI'23 & 71.51 & yes & DKD+CTKD; KD+CTKD 71.32 \\
-SKD~\citep{jeong2026skd} & H & CVPR'26 & 71.13 & no &  \\
+\multicolumn{7}{@{}l}{\emph{Single methods, standard setting}}\\
+DIST+~\citep{huang2025distplus} & L & TPAMI'25 & 72.39 & 73.47 & yes & \\
+LB~\citep{lin2026lb} & F & TPAMI'26 & 72.30 & 73.25 & no &  \\
+GDKD~\citep{zheng2025gdkd} & L & arXiv'25 & 72.26 & -- & yes & preprint \\
+LumiNet~\citep{hossain2025luminet} & L & TMLR'25 & 72.16 & -- & yes & \\
+MCD~\citep{mishra2026mcd} & L & TMLR'26 & 72.08 & 73.65 & no & 3 trials \\
+DIST~\citep{huang2022dist} & L & NeurIPS'22 & 72.07 & -- & yes & \\
+DistPro~\citep{deng2022distpro} & O & ECCV'22 & 71.89 & -- & yes & \\
+DOT~\citep{zhao2023dot} & O & ICCV'23 & 71.72 & -- & yes & KD+DOT \\
+DKD~\citep{zhao2022dkd} & L & CVPR'22 & 71.70 & -- & yes & mdistiller \\
+SRD~\citep{miles2024projector} & F & AAAI'24 & 71.63 & -- & yes & \\
+SKD~\citep{jeong2026skd} & H & CVPR'26 & 71.13 & -- & no & \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Stacked, or setting changed (teacher)}}\\
+TopoKD~\citep{kim2024topkd} & F & ICML'24 & 73.60 & -- & no & above its 73.31 teacher \\
+DeepKD~\citep{huang2025deepkd} & O & NeurIPS'25 & 73.34 & 74.85 & no & CRLD+DeepKD \\
+EA-KD~\citep{su2025eakd} & L & ICCV'25 & 71.99 & -- & yes & EA-DKD+LS; EA-KD 71.79 \\
+CTKD~\citep{li2023ctkd} & L & AAAI'23 & 71.51 & -- & yes & DKD+CTKD; KD+CTKD 71.32 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -126,6 +133,8 @@ score lower than offline methods but avoid a fixed pre-trained teacher; searched
 \paragraph{Optimizer-side methods.} DOT (KD+DOT 75.12\%, \citealp{zhao2023dot}), DeepKD (79.25\% stacked on CRLD, \citealp{huang2025deepkd}), DTO-KD (76.40\%, \citealp{hayder2026dtokd}) and DistPro \citep{deng2022distpro} change how the task and distillation gradients are
 combined (\S\ref{sec:kd_moo}); none gates the distillation term per sample. PCD \citep{varam2026pcd} has no reported number on these pairs. Since an optimizer change stacks on a loss change, a fair test of an
 optimiser should report it on top of both KD and a strong logit loss.
+
+\paragraph{A comparison set for combination rules.} For a method that changes how the task and distillation terms are combined, the tables suggest three groups of baselines. Combination rules: a tuned weighted sum \citep{hinton2015kd}, MGDA \citep{sener2018mgda}, PCGrad \citep{yu2020pcgrad}, DOT \citep{zhao2023dot} and DTO-KD \citep{hayder2026dtokd}, with DeepKD \citep{huang2025deepkd} quoted from its paper since no code is linked. Loss-side methods with code: DKD, MLKD, LSKD (MLKD+LS) and GDKD, plus SimKD where the student can keep the teacher's classifier. Reliability methods that act on a wrong teacher: RLD and MCD. Because an optimiser change stacks on a loss change, each combination rule should be run on top of both KD and a strong logit loss, and VRM and SKD, which link no code, are quoted with the protocol caveats above.
 
 \paragraph{Applicability.} Without intermediate-layer access, a logit method with public code
 (DKD, MLKD, LSKD, LumiNet) is the safe start; for accessible homogeneous pairs, SimKD or a projector-based feature method is stronger on the reported numbers; reliability methods fit a partly wrong teacher, and online or data-free schemes fit when a pre-trained teacher is the constraint.

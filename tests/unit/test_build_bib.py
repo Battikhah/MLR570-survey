@@ -7,7 +7,7 @@ BASE = {"type": "paper", "title": "A & B", "authors": ["Ann One", "Bob Two"], "d
 def test_entry_kinds_and_fields():
     conf = entry({**BASE, "id": "c", "venue": "CVPR 2024", "status": "published"})
     assert conf.startswith("@inproceedings{c,")
-    assert "booktitle = {CVPR 2024}" in conf and "author = {Ann One and Bob Two}" in conf
+    assert "booktitle = {CVPR}" in conf and "author = {Ann One and Bob Two}" in conf
     assert "title = {{A \\& B}}" in conf and "note" not in conf
     jour = entry({**BASE, "id": "j", "venue": "Transactions on Machine Learning Research (TMLR)",
                   "status": "published"})
@@ -52,3 +52,16 @@ def test_year_field_overrides_date_for_citation_year():
          "status": "published"}
     assert "year = {2025}" in entry(r)
     assert "year = {2024}" in entry({**BASE, "id": "n", "venue": "X", "status": "published"})
+
+
+def test_venue_cleaned_and_venue_year_beats_posting_date():
+    r = {**BASE, "id": "v", "date": "2023-11-22", "venue": "ICCV 2025 (Highlight)",
+         "status": "published"}
+    assert "booktitle = {ICCV}" in entry(r) and "year = {2025}" in entry(r)
+    j = entry({**BASE, "id": "t", "venue": "IEEE TPAMI 47(7), 2025", "status": "published"})
+    assert "journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence}" in j
+    m = entry({**BASE, "id": "m", "venue": "TMLR (02/2026)", "status": "published"})
+    assert "journal = {Transactions on Machine Learning Research}" in m and "year = {2026}" in m
+    a = entry({**BASE, "id": "a", "venue": "arXiv preprint (author-stated: IEEE TNNLS)",
+               "status": "preprint"})
+    assert a.startswith("@misc{a,")
