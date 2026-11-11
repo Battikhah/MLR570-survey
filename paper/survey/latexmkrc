@@ -3,4 +3,4 @@ ensure_path('TEXINPUTS', './tmlr//');
 ensure_path('BSTINPUTS', './tmlr//');
 $pdf_mode = 1;
 $out_dir = 'build';
-@default_files = ('main.tex');
+@default_files = ('main.tex', 'supplement.tex');

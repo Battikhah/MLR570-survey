@@ -67,6 +67,6 @@ ATS (NeurIPS 2022) is E4: its CIFAR teachers (ResNet110, WRN28-8, ResNeXt29) are
 Coordinator rulings on the residual items:
 - **InherNet (ICLR 2026): SUPPORT.** It builds the student by decomposing the teacher's weights, which is weight inheritance rather than training a given student with a teacher signal (I1). It is cited in §VIII/§IX as a related alternative, not ranked.
 - **CVPR 2023 listing residual: closed by the coordinator.** I re-fetched the CVF CVPR 2023 listing (2,353 papers) and found 80 titles matching S1's regex. Title-screening them leaves 4 possibly eligible: OKDPH, DisWOT and Learning-to-Retain (all assessed and excluded in `s1-cvf.md`), plus "Data-Free KD via Feature Exchange and Activation Region Constraint", which is SpaceshipNet (`yu2023spaceshipnet`), already included. No new inclusions.
-- *Scaffolding a Student to Instill Knowledge* (ICLR 2023) joins the not-assessable list (18 papers in total).
+- *Scaffolding a Student to Instill Knowledge* (ICLR 2023) joins the not-assessable list (18 papers in total). Later manual retrieval (`manual-pdfs.md`) recovered all but two of these, so **2 papers remain not assessable**.
 
 **Final included set: 112 methods** (106 + 6 from the manually retrieved PDFs, `manual-pdfs.md`). The original 106: That is the 106-method union, plus CTKD and SRD, minus LTKD (E4 by ruling; cited in §V) and PE-BKD (SUPPORT). The Codex spot-check (`spotcheck-codex.md`) found 0/20 inclusion errors and 0/20 exclusion errors on accessible papers after adjudication.

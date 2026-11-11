@@ -10,20 +10,20 @@ Teacher reliability is not one property; Table~\ref{tab:reliability} summarises 
 \centering
 \footnotesize
 \setlength{\tabcolsep}{3pt}
-\caption{Reliability signals and treatment of teacher supervision.}
+\caption{Reliability signals and treatment of teacher supervision. $^\dagger$: outside image classification (speech, text generation or summarisation); background for the mechanism, not compared with \S\ref{sec:benchmarks}.}
 \label{tab:reliability}
 \begin{tabular}{p{0.16\linewidth}p{0.22\linewidth}p{0.27\linewidth}p{0.27\linewidth}}
 \toprule
 Method & Reliability signal & What happens to rejected supervision & Limitation \\
 \midrule
-CTSL \citep{meng2019conditionalts} & Teacher predicts the observed label & Replaced by hard-label supervision & Speech adaptation; label errors affect the gate \\
+CTSL$^\dagger$ \citep{meng2019conditionalts} & Teacher predicts the observed label & Replaced by hard-label supervision & Speech adaptation; label errors affect the gate \\
 CCKD \citep{mishra2021cckd} & Teacher probability on the observed label & Downweighted or blended with one-hot targets; easy examples may be skipped & Preprint; variants have different loss behavior \\
-Hard Gate KD \citep{lee2022hardgatekd} & Calibrated teacher and student true-token/sentence probabilities & Routes to label supervision when the gate rejects teacher advice & Language-generation setting; no per-example CE guarantee \\
+Hard Gate KD$^\dagger$ \citep{lee2022hardgatekd} & Calibrated teacher and student true-token/sentence probabilities & Routes to label supervision when the gate rejects teacher advice & Language-generation setting; no per-example CE guarantee \\
 EA-KD \citep{su2025eakd} & Teacher and student entropy & Up-weights high-entropy samples & Proxy signal; no direct validation of per-sample benefit \\
 TPKD \citep{yuan2026tpkd} & Task-margin preservation & Projects teacher directions before transfer & 2026 preprint; abstract omits teacher/student setting \\
 LR-DS / RLD \citep{lan2025labelrevision,sun2025rld} & Label disagreement and influence / label-refined logits & Revises targets and selects examples / retains refined logits & Refinement can preserve misleading relations \\
 MCD \citep{mishra2026mcd} & Whether the teacher is correct & KD weighted down when the teacher is wrong; inter-class relations still taken & Needs labels; no extra parameters \\
-CHAD \citep{sumit2026chad} & Validation-gradient alignment & Learns sample weights & Unreviewed preprint; evidence is task-specific \\
+CHAD$^\dagger$ \citep{sumit2026chad} & Validation-gradient alignment & Learns sample weights & Unreviewed preprint; evidence is task-specific \\
 KD-AIF \citep{wu2025kdaif} & Influence functions & Samples down-weighted & Also updates the teacher \\
 SCKD \citep{zhu2021sckd} & Similarity between KD and student-task gradients & Suppresses KD gradient when it conflicts with student objective & Gradient similarity is a local proxy \\
 \bottomrule

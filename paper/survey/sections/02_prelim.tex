@@ -74,8 +74,9 @@ non-target classes. Whether it matters in practice is the empirical question of 
 At $T=1$ a confident teacher puts almost all its mass on one class and $\mathcal{L}_{\mathrm{KD}}$ adds
 little to the label. Raising $T$ exposes the probabilities the teacher gives to wrong classes, which
 \citet{hinton2015kd} call its knowledge of which classes resemble one another. Since soft-target
-gradients scale as $1/T^2$ at high temperature, the $T^2$ factor keeps the two terms' relative
-contribution roughly fixed as $T$ is tuned; in the high-$T$ limit with zero-mean logits, KD reduces
+gradients scale as $1/T^2$ at high temperature, \citet{hinton2015kd} multiply by $T^2$ so that the two
+terms' relative contribution stays roughly unchanged as $T$ is tuned, an approximation that holds in the
+high-$T$ regime; in the high-$T$ limit with zero-mean logits, KD reduces
 to squared-error logit matching \citep{hinton2015kd}.
 
 Three properties drive much of \S\ref{sec:logit}: $T$ is one global hyper-parameter, usually grid-searched

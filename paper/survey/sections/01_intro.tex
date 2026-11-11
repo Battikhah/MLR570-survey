@@ -13,7 +13,7 @@ samples \citep{tian2020crd,chen2022simkd,zhang2025vrm}. Other work changes the t
 teacher should be trusted at all, or changes how the task gradient and the distillation gradient are combined
 \citep{zhao2023dot,hayder2026dtokd}.
 
-\paragraph{Motivation and gap.} Most of this work reports results on one shared protocol: CIFAR-100 with the
+\paragraph{Motivation and gap.} Most of this work reports results on the same few teacher--student pairs: CIFAR-100 with the
 teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
 from different papers are rarely put side by side with their caveats, and recent gains are often within a
 point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, \citet{mansourian2025kdsurvey} covers newer work. None of them builds its method set
@@ -40,10 +40,11 @@ TMLR, and AAAI, the two journals and arXiv, with snowballing from recent compari
 second pass with broader title terms (``teach'', ``student'', ``mimic'', ``logit'' and others) screened 445
 further records, re-checked 29 cited works that no search had included, and added two methods. Fifteen
 papers that were first inaccessible were later retrieved by hand and added six more. The final set has
-112 methods; two papers could not be assessed because no full text was found. An independent spot-check of
-20 inclusions and 20 exclusions found no errors among the accessible papers. The complete list of the 112 included methods, with
-each one's reported results and full bibliographic details, is in the supplementary material
-(\texttt{included-methods.md}); the main text cites only the methods it discusses (Fig.~\ref{fig:search-flow}).
+112 methods; two papers could not be assessed because no full text was found. An independent spot-check found no errors among the 20 sampled inclusions and 20 sampled exclusions whose
+full text was accessible (2 and 10 further sampled papers could not be read). The supplementary material gives
+each search's sources, queries, date and counts (Table~S1), the per-record screening logs, and the complete list
+of the 112 included methods with each one's reported results and source table (Table~S2); the main text cites
+only the methods it discusses (Fig.~\ref{fig:search-flow}).
 
 \begin{figure}[t]
 \centering
@@ -62,7 +63,8 @@ multi-teacher or data-free (Section~\ref{sec:schemes}). Two branches rarer in ea
 built from a documented search with fixed criteria, so a reader can check why a method is in or out.
 Second, it describes each family with its strengths, weaknesses and applicability. Third, it reviews
 multi-objective optimisation from the angle of distillation and places the KD methods that use it, including
-the priority-based PCD \citep{varam2026pcd}, among the general gradient-combination rules. Fourth, it
+the priority-based PCD \citep{varam2026pcd}, among the general gradient-combination rules. We use this as a lens for organising update rules; whether the
+two gradients actually conflict in standard distillation is largely untested (\S\ref{sec:kd_moo_critical}). Fourth, it
 collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the rows
 whose setting differs from the standard protocol.
 
@@ -109,7 +111,7 @@ covers MOO in depth but does not mention distillation.
 \input{figures/taxonomy}
 \caption{Taxonomy of the survey. Branches are the survey sections; each leaf lists representative
 state-of-the-art methods (2022--2026) discussed in that section. Methods marked * are preprints. Benchmark leaves list methods
-whose reported results anchor the comparison tables of Sec.~\ref{sec:benchmarks}.}
+whose reported results anchor the comparison tables of Sec.~\ref{sec:benchmarks}. Labels point to the cited discussion in each section; Table~S2 lists all 112 methods.}
 \label{fig:taxonomy}
 \end{figure}
 % --- end Table I / Fig. 1 (T4) ---

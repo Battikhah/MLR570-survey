@@ -6,7 +6,7 @@
 \section{Benchmarks and Reported Results}
 \label{sec:benchmarks}
 
-This section collects each included paper's own reported results, not a controlled comparison. The complete list of 112 included methods, with each one's results, is in the supplementary material (\texttt{included-methods.md}); the tables here keep the top results and the baselines discussed in the text.
+This section collects each included paper's own reported results, not a controlled comparison. The complete list of 112 included methods, with each one's results, is in supplementary Table~S2; the tables here keep the top results and the baselines discussed in the text.
 
 \subsection{Protocol and comparability}
 \label{sec:bench-protocol}
@@ -53,7 +53,7 @@ were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in the supplementary list of included methods.}\label{tab:bench-cifar}
+\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in supplementary Table~S2.}\label{tab:bench-cifar}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & Code & Flags \\
@@ -86,7 +86,7 @@ SRD~\citep{miles2024projector} & F & AAAI'24 & 76.44 & yes & SSKD teachers, Rand
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. R50$\to$MBV1: ResNet50$\to$MobileNetV1, where only four included papers were read. All 79 ResNet34$\to$ResNet18 rows are in the supplementary list.}\label{tab:bench-imagenet}
+\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. R50$\to$MBV1: ResNet50$\to$MobileNetV1, where only four included papers were read. Of all 79 ResNet34$\to$ResNet18 rows (Table~S2), values range from 70.67 to 73.60; five lie above 73.0 and two below 71.0.}\label{tab:bench-imagenet}
 \begin{tabular}{@{}llllll>{\raggedright\arraybackslash}p{3.9cm}@{}}
 \toprule
 Method & Fam. & Venue & R34$\to$R18 & R50$\to$MBV1 & Code & Flags \\
@@ -116,7 +116,7 @@ CTKD~\citep{li2023ctkd} & L & AAAI'23 & 71.51 & -- & yes & DKD+CTKD; KD+CTKD 71.
 \subsection{Data-free and untabulated methods}
 \label{sec:bench-datafree}
 
-Ten data-free methods (\S\ref{sec:schemes}) report WRN-40-2$\to$WRN-16-2 values under their own synthesis budgets, and four more methods meet the criteria only on a pair not tabulated here; all are in the supplementary list and not ranked.
+Ten data-free methods (\S\ref{sec:schemes}) report WRN-40-2$\to$WRN-16-2 values under their own synthesis budgets, and four more methods meet the criteria only on a pair not tabulated here; all are in supplementary Table~S2 and not ranked.
 
 \subsection{Comparison across families}
 \label{sec:bench-families}
