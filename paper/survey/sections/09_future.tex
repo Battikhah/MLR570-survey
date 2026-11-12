@@ -11,7 +11,7 @@ Each paragraph names an open question, its evidence, and a testable direction (a
 The tables are not a controlled comparison (Section~\ref{sec:bench-protocol}). On ResNet32$\times$4$\to$ResNet8$\times$4,
 classical KD is 73.33\% in DKD's table \citep{zhao2022dkd}, and 74.75\% in SKD's \citep{jeong2026skd}, a spread wider than the gaps between most single logit methods in
 Table~\ref{tab:bench-cifar}, while gaps of 0.3--0.5 points sit inside the seed spread
-(Section~\ref{sec:prelim-benchmarks}). Stacking adds a second problem. Three of the five highest CIFAR-100 rows are stacked
+(Section~\ref{sec:prelim-benchmarks}). Stacking adds a second problem. Three of the five highest CIFAR-100 results are stacked
 (DeepKD on CRLD, EA-MLD with label smoothing, MLKD with logit standardisation;
 \citealp{huang2025deepkd,su2025eakd,sun2024lskd}), and several plug-ins lose much of their gain alone: EA-KD gives
 75.46\% against 78.38\% stacked. We found no
@@ -38,7 +38,7 @@ logging the CE--KD cosine and norm ratio, and compare each rule with its implied
 
 \paragraph{Data-free distillation and the ImageNet gap.}
 The data-free methods report on WRN-40-2$\to$WRN-16-2 only, with differing budgets and some rows mixing collected and generated
-data, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 rows fall between 71.0\% and 73.0\%,
+data, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 results fall between 71.0\% and 73.0\%,
 close to DKD's 71.70\% \citep{zhao2023dot}, so CIFAR-100 gains of two or more points mostly shrink to under one.
 \emph{Direction:} report data-free and data-based methods on the same pairs and teacher, and the ratio of ImageNet to CIFAR-100 gain over KD for the top methods.
 

@@ -27,7 +27,7 @@ Flags column names the base and, where given, the stand-alone number. Third, som
 a retrained or updated teacher (KD-AIF, \citealp{wu2025kdaif}), extra data or augmentation (SRD,
 \citealp{miles2024projector}), label smoothing on the student (LSKD and EA-KD rows), online or
 multi-student training, a searched distiller, or a stronger KD baseline than \texttt{mdistiller}'s, as in SKD
-\citep{jeong2026skd} (KD 74.75). Following the search rulings,
+\citep{jeong2026skd} (KD 74.75). Following our screening rules,
 these rows are flagged rather than dropped.
 
 \subsection{CIFAR-100 and ImageNet-1K}
@@ -45,7 +45,7 @@ standardisation. Among single methods with an official repository, the best are 
 The sparse WRN-40-2$\to$WRN-16-2 column has DistPro at 76.36\% \citep{deng2022distpro} and DeepKD at 78.42\%.
 
 On ImageNet ResNet34$\to$ResNet18 (79 methods, Table~\ref{tab:bench-imagenet}) the spread is narrow: all but
-seven rows fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
+seven of them fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
 reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher. Only three included papers (plus DeepKD, re-read from the camera-ready version)
 were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
 \citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb} (last column of Table~\ref{tab:bench-imagenet}). DeepKD stacked on CRLD reports 73.34\% and

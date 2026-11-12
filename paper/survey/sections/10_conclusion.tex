@@ -4,7 +4,7 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This survey reviewed knowledge distillation for image classification from 2022 to 2026, with a method set of 112 methods produced by documented searches under fixed inclusion criteria.
+This survey reviewed knowledge distillation for image classification from 2022 to 2026, with a method set of 112 methods selected under inclusion criteria set in advance.
 
 The methods fall into five families. Logit methods are the largest and cheapest group; feature and relation methods give some of the
 highest single-method CIFAR-100 numbers but need intermediate layers, and the best can enlarge the deployed student \citep{chen2022simkd}; training schemes trade accuracy for removing a fixed teacher; reliability methods
@@ -15,7 +15,7 @@ PCD \citep{varam2026pcd} as one option without reported numbers on the standard 
 
 The compiled results support a cautious reading. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 the best
 reported configurations are about six points above classical KD, yet most single methods lie within two
-points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack methods, change the teacher, or add data, so gaps of a few tenths of a point say little. Optimizer-side changes stack on
+points of one another, and on ImageNet nearly all results sit within two points. Many of the highest results stack methods, change the teacher, or add data, so gaps of a few tenths of a point say little. Optimizer-side changes stack on
 loss-side ones, so they should be tested on top of both plain KD and a strong logit loss.
 
 Section~\ref{sec:future} turns these caveats into five testable problems: a controlled re-run of the leaderboard, the overlap of teacher-trust signals, combination rules against a tuned

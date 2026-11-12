@@ -16,14 +16,14 @@ teacher should be trusted at all, or changes how the task gradient and the disti
 \paragraph{Motivation and gap.} Most of this work reports results on the same few teacher--student pairs: CIFAR-100 with the
 teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
 from different papers are rarely put side by side with their caveats, and recent gains are often within a
-point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, \citet{mansourian2025kdsurvey} covers newer work. None of them builds its method set
-from a stated search, and none treats the combination of task and distillation objectives as a
+point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, \citet{mansourian2025kdsurvey} covers newer work. None of them states how its methods
+were selected, and none treats the combination of task and distillation objectives as a
 multi-objective optimisation problem in its own section. A survey of gradient-based multi-objective learning
 \citep{chen2026gradmoo} covers that side in depth but does not discuss distillation.
 
 \paragraph{Scope and inclusion criteria.} We survey state-of-the-art KD for image classification published
-from 2022 to 2026. A paper is included in the method set when it meets three criteria, fixed before the
-search started. \textbf{I1}: it proposes a KD method in which a student is trained with a teacher signal for
+from 2022 to 2026. We include a paper if it meets all three criteria below, which we set before
+screening began. \textbf{I1}: it proposes a KD method in which a student is trained with a teacher signal for
 image classification, in one of five families (logit or loss, feature or relation, training scheme, teacher
 reliability, objective combination). Analysis-only papers are cited as supporting work but not ranked.
 \textbf{I2}: it appeared between January 2022 and November 2026 at CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR,
@@ -35,21 +35,21 @@ E4 no standard-protocol result; E5 survey or position paper; E6 dataset distilla
 teacher; E7 withdrawn or duplicate version. Distillation for language models, vision--language models,
 detection and other tasks is outside the scope; Section~\ref{sec:future} gives pointers.
 
-\paragraph{Search.} Three searches covered the computer-vision venues, the machine-learning venues and
-TMLR, and AAAI, the two journals and arXiv, with snowballing from recent comparison tables. They identified 2,193 records (656, 985 and 552), and 310 were read in full. A
+\paragraph{Paper selection.} We queried three groups of sources: the computer-vision venues; the machine-learning venues and
+TMLR; and AAAI, the two journals and arXiv, adding papers cited in recent comparison tables. This gave 2,193 records (656, 985 and 552), of which 310 were read in full. A
 second pass with broader title terms (``teach'', ``student'', ``mimic'', ``logit'' and others) screened 445
-further records, re-checked 29 cited works that no search had included, and added two methods. Fifteen
+further records, re-checked 29 cited works that none of the three queries had picked up, and added two methods. Fifteen
 papers that were first inaccessible were later retrieved by hand and added six more. The final set has
 112 methods; two papers could not be assessed because no full text was found. An independent spot-check found no errors among the 20 sampled inclusions and 20 sampled exclusions whose
 full text was accessible (2 and 10 further sampled papers could not be read). The supplementary material gives
-each search's sources, queries, date and counts (Table~S1), the per-record screening logs, and the complete list
+the sources, queries, date and counts of each query group (Table~S1), the per-record screening logs, and the complete list
 of the 112 included methods with each one's reported results and source table (Table~S2); the main text cites
 only the methods it discusses (Fig.~\ref{fig:search-flow}).
 
 \begin{figure}[t]
 \centering
 \resizebox{\linewidth}{!}{\input{figures/search_flow}}
-\caption{Search and screening flow. Counts are those of the three searches, the second pass and the manual retrieval described in the text; I1--I3 and E1--E7 are the inclusion and exclusion criteria.}
+\caption{Paper selection. Counts are those of the three query groups, the second pass and the manual retrieval described in the text; I1--I3 and E1--E7 are the inclusion and exclusion criteria.}
 \label{fig:search-flow}
 \end{figure}
 
@@ -60,7 +60,7 @@ multi-teacher or data-free (Section~\ref{sec:schemes}). Two branches rarer in ea
 (Sections~\ref{sec:moo} and~\ref{sec:kd_moo}).
 
 \paragraph{Contributions.} The survey makes four contributions. First, it gives a method set for 2022--2026
-built from a documented search with fixed criteria, so a reader can check why a method is in or out.
+selected with criteria set in advance and a logged decision for every paper, so a reader can check why a method is in or out.
 Second, it describes each family with its strengths, weaknesses and applicability. Third, it reviews
 multi-objective optimisation from the angle of distillation and places the KD methods that use it, including
 the priority-based PCD \citep{varam2026pcd}, among the general gradient-combination rules. We use this as a lens for organising update rules; whether the

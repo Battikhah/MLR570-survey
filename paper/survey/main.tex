@@ -25,10 +25,9 @@ A Systematic Survey of Methods, Multi-Objective Optimization, and Reported Resul
 
 \begin{abstract}
 Knowledge distillation trains a compact student to imitate a larger teacher. This survey covers methods for
-image classification from 2022 to 2026, chosen by a documented search.
-Three searches over CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR, AAAI, TMLR, TPAMI, IJCV and recent arXiv
-preprints identified 2,193 records, and a second pass screened 445 more. Against fixed inclusion criteria,
-112 methods qualify. We organise them by what knowledge is transferred (logits, features and relations), how
+image classification from 2022 to 2026. We screened the titles of 2,193 papers from CVPR, ICCV, ECCV,
+NeurIPS, ICML, ICLR, AAAI, TMLR, TPAMI, IJCV and arXiv, then 445 more found with broader title terms, and
+kept the 112 methods that meet three inclusion criteria set in advance. We organise them by what knowledge is transferred (logits, features and relations), how
 training is arranged, how far the teacher is trusted, and how the task and distillation objectives are
 combined, with a primer on multi-objective optimisation for the last group. We use multi-objective optimisation
 as a lens for organising update rules, not as an established explanation of their gains: direct measurements
@@ -36,8 +35,8 @@ of gradient conflict between the two objectives in distillation are scarce. We t
 papers report on the commonly used CIFAR-100 and ImageNet-1K pairs, flagging protocol deviations. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4,
 where classical KD reaches 73.33\%, the highest reported configurations are 79.25\% (DeepKD, stacked on
 another method) and 78.76\% (VRM, a single method), and most single logit methods sit between 76.0\% and
-77.8\%. On ImageNet ResNet34$\to$ResNet18 the spread is narrow: all but seven of 79 rows lie between 71.0\%
-and 73.0\%, against 71.70\% for DKD. Many top rows stack methods, change the teacher or report a single run,
+77.8\%. On ImageNet ResNet34$\to$ResNet18 the spread is narrow: of the 79 methods that report this pair, all but
+seven score between 71.0\% and 73.0\%, against 71.70\% for DKD. Many of the best results stack methods, change the teacher or report a single run,
 so small gaps do not support a ranking. We close with five open problems: a leaderboard re-run
 under one protocol that also tests what stacked results measure, which teacher signal to trust, how to combine
 the task and distillation objectives and whether their gradients conflict at all or only differ in scale, the
