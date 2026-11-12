@@ -20,11 +20,11 @@
 \begin{document}
 \maketitle
 
-\section*{S1. Search protocol}
+\section*{S1. Selection protocol}
 
-The inclusion criteria I1--I3 and exclusion codes E1--E7 (main text, Section~1) were fixed before the
-search started. All searches ran on 2026-11-08. The listings expose titles only, so identification is by
-title; abstracts and full texts were read at screening. Table~\ref{tab:s-search} gives each search; the
+The inclusion criteria I1--I3 and exclusion codes E1--E7 (main text, Section~1) were fixed before any
+query was run. All queries were run on 2026-11-08. The listings show titles only, so records were identified by
+title, and abstracts and full texts were read at screening. Table~\ref{tab:s-search} gives each query group; the
 per-record logs (every listing URL, every title hit with its decision and exclusion code, and the
 full-text tables) accompany this supplement as \texttt{search/s1-cvf.md}, \texttt{search/s2-ml.md},
 \texttt{search/s3-aaai-journals-arxiv-snowball.md}, \texttt{search/g-gap.md} and
@@ -32,11 +32,11 @@ full-text tables) accompany this supplement as \texttt{search/s1-cvf.md}, \textt
 
 \begin{table}[h]
 \centering\footnotesize\setlength{\tabcolsep}{3pt}
-\caption{Searches, queries and counts. Identified: title hits screened. Full text: papers read in full.
-Included: methods meeting I1--I3 in that search, before de-duplication.}\label{tab:s-search}
+\caption{Query groups, queries and counts. Identified: title hits screened. Full text: papers read in full.
+Included: methods meeting I1--I3 in that query group, before de-duplication.}\label{tab:s-search}
 \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{5.4cm}rrr@{}}
 \toprule
-Search & Sources & Query & Identified & Full text & Included \\
+Query group & Sources & Query & Identified & Full text & Included \\
 \midrule
 S1 & CVPR 2022--26, ICCV 2023/25, ECCV 2022/24 (official CVF/ECVA listings) &
   Case-insensitive title regex \texttt{distil|knowledge transfer|teacher|student} & 656 & 96 & 37 \\
@@ -50,13 +50,13 @@ S3 & AAAI 2022--26, TPAMI, IJCV (Crossref, 2022-01-01 to 2026-11-08); arXiv cs.C
 \midrule
 Second pass & The same listings and APIs &
   Broadened title terms (teach, student, mimic, soft label, dark knowledge, logit, temperature
-  scaling); re-check of 29 cited works no search had included & 445 & 13 & +2 \\
-Manual & Papers no search could access & Retrieved by hand; 2 remain unreadable & -- & 15 & +6 \\
+  scaling); re-check of 29 cited works no query group had included & 445 & 13 & +2 \\
+Manual & Papers the query groups could not access & Retrieved by hand; 2 remain unreadable & -- & 15 & +6 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The three searches give 106 distinct methods after de-duplication (six were found twice). The second pass
+The three query groups give 106 distinct methods after de-duplication (six were found twice). The second pass
 added CTKD and the projector study (SRD); two coordinator rulings removed LTKD (E4: CIFAR-100-LT only) and
 PE-BKD (analysis only). Manual retrieval added six methods, for 112. Two papers remain unassessable because no
 full text was found. An independent spot-check drew 22 inclusions and 30 exclusions; among the 20 of each whose

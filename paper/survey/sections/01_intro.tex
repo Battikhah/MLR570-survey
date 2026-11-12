@@ -16,7 +16,7 @@ teacher should be trusted at all, or changes how the task gradient and the disti
 \paragraph{Motivation and gap.} Most of this work reports results on the same few teacher--student pairs: CIFAR-100 with the
 teacher--student pairs of CRD \citep{tian2020crd} and ImageNet-1K with ResNet34$\to$ResNet18. Yet numbers
 from different papers are rarely put side by side with their caveats, and recent gains are often within a
-point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, \citet{mansourian2025kdsurvey} covers newer work. None of them states how its methods
+point of each other. Table~\ref{tab:surveys} compares this survey with existing ones: the broad KD surveys \citep{gou2021kdsurvey,wang2022kdreview} predate most methods covered here, and \citet{mansourian2025kdsurvey} covers newer work. None of them states how its methods
 were selected, and none treats the combination of task and distillation objectives as a
 multi-objective optimisation problem in its own section. A survey of gradient-based multi-objective learning
 \citep{chen2026gradmoo} covers that side in depth but does not discuss distillation.
@@ -65,10 +65,10 @@ Second, it describes each family with its strengths, weaknesses and applicabilit
 multi-objective optimisation from the angle of distillation and places the KD methods that use it, including
 the priority-based PCD \citep{varam2026pcd}, among the general gradient-combination rules. We use this as a lens for organising update rules; whether the
 two gradients actually conflict in standard distillation is largely untested (\S\ref{sec:kd_moo_critical}). Fourth, it
-collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the rows
+collects the reported CIFAR-100 and ImageNet numbers of the included methods in one place and flags the results
 whose setting differs from the standard protocol.
 
-Section~\ref{sec:benchmarks} compiles the reported results, Section~\ref{sec:future} discusses open
+Section~\ref{sec:benchmarks} lists the reported results, Section~\ref{sec:future} discusses open
 challenges, and the supplementary material lists all included methods.
 
 % --- Table I / Fig. 1 (T4) --- (per-cell evidence: docs/survey/table1-evidence.md)

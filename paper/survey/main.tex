@@ -29,10 +29,10 @@ image classification from 2022 to 2026. We screened the titles of 2,193 papers f
 NeurIPS, ICML, ICLR, AAAI, TMLR, TPAMI, IJCV and arXiv, then 445 more found with broader title terms, and
 kept the 112 methods that meet three inclusion criteria set in advance. We organise them by what knowledge is transferred (logits, features and relations), how
 training is arranged, how far the teacher is trusted, and how the task and distillation objectives are
-combined, with a primer on multi-objective optimisation for the last group. We use multi-objective optimisation
-as a lens for organising update rules, not as an established explanation of their gains: direct measurements
-of gradient conflict between the two objectives in distillation are scarce. We then compile the results the
-papers report on the commonly used CIFAR-100 and ImageNet-1K pairs, flagging protocol deviations. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4,
+combined, with a primer on multi-objective optimisation for the last group. We use multi-objective optimisation to
+organise these update rules; whether it explains their gains is open, since direct measurements
+of gradient conflict between the two objectives in distillation are scarce. For the commonly used CIFAR-100 and
+ImageNet-1K pairs we list the results each paper reports and flag protocol deviations. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4,
 where classical KD reaches 73.33\%, the highest reported configurations are 79.25\% (DeepKD, stacked on
 another method) and 78.76\% (VRM, a single method), and most single logit methods sit between 76.0\% and
 77.8\%. On ImageNet ResNet34$\to$ResNet18 the spread is narrow: of the 79 methods that report this pair, all but

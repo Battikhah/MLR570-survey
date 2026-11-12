@@ -18,7 +18,7 @@ learns \citep{hinton2015kd}. For a temperature $T>0$ the softened class distribu
   p^{T}_{c}(\mathbf{z}) = \frac{\exp(z_c/T)}{\sum_{j=1}^{C}\exp(z_j/T)}, \qquad c=1,\dots,C,
 \end{equation}
 so $\mathbf{p}^{1}(\mathbf{z}_s)$ is the ordinary softmax. \citet{hinton2015kd} train the student on the
-label and on the teacher's softened distribution at once; following the original draft we write
+label and on the teacher's softened distribution at once; we write
 \begin{equation}
   \label{eq:kd-objective}
   \mathcal{L}(\theta) = \underbrace{\mathcal{L}_{\mathrm{CE}}\big(y,\mathbf{p}^{1}(\mathbf{z}_s)\big)}_{\text{task loss}}
@@ -86,7 +86,7 @@ confidence scaling the latter down \citep{zhao2022dkd}.
 CTKD learns $T$, LSKD standardises the logits before the softmax, and DKD separates the two parts of
 the KL term; \S\ref{sec:logit} compares them.
 
-The KD temperature should not be confused with the temperature used for calibration.
+The KD temperature is different from the temperature used for calibration.
 \citet{guo2017calibration} fit one temperature post hoc so that confidence matches accuracy; the KD
 temperature is chosen so the student learns better. A teacher distilled at large $T$ is not thereby
 calibrated, and a calibrated teacher is not necessarily a good one to distil from.
@@ -118,8 +118,8 @@ Two cautions apply to every table in this survey. First, papers do not reuse eac
 consistently. On ResNet32$\times$4$\to$ResNet8$\times$4, CTKD is listed at 73.39\% by
 \citet{sun2024lskd} but at 73.70\% by \citet{xu2025ldrld}, and LSKD reports 76.62\% for itself while
 \citet{xu2025ldrld} list it at 76.16\%. Such 0.3--0.5-point gaps exceed several differences between 2023--2025 methods in Table~\ref{tab:bench-cifar}. Second, \citet{miles2024vkd} argue that CIFAR-100 is increasingly saturated as a KD
-benchmark, so some reported gains may come from regularisation rather than better transfer
-(their claim; whether it holds for a given method is open).
+benchmark, so some reported gains may come from regularisation rather than better transfer;
+whether this holds for a given method is open.
 We therefore report each method's own number with its source table and do not rank methods whose
 gaps are within this spread.
 % src: LSKD Table 2 (KD+CTKD 73.39; KD+Ours 76.62); LDRLD Table 1 (CTKD 73.70; LSKD 76.16)

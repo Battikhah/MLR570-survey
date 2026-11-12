@@ -7,8 +7,8 @@
 \label{sec:moo}
 
 A distillation loss is a sum of a task loss and terms that
-pull the student towards the teacher. This section gives the multi-objective optimisation (MOO)
-vocabulary \S\ref{sec:kd_moo} needs, restricted to first-order rules over per-objective gradients; \citet{chen2026gradmoo} survey the wider field.
+pull the student towards the teacher. \S\ref{sec:kd_moo} uses one part of
+multi-objective optimisation (MOO): the first-order rules over per-objective gradients defined below. \citet{chen2026gradmoo} survey the wider field.
 
 \paragraph{Pareto optimality and stationarity.}
 Consider $K$ differentiable losses $L_1,\dots,L_K$ of shared parameters $\theta$, with
