@@ -15,8 +15,6 @@ It also selects the comparison set for the team's PCD project (separate reposito
 | `docs/reviews/survey-*` | Review rounds and audits |
 | `scripts/` | `build_bib.py` (registry → `refs.bib`), `build_supplement.py` (→ Table S2) |
 
-Latest PDFs: [`pdf/SOTA-KD-Survey.pdf`](pdf/SOTA-KD-Survey.pdf) and [`pdf/SOTA-KD-Survey-supplement.pdf`](pdf/SOTA-KD-Survey-supplement.pdf) (copies of `paper/survey/build/`; refresh them when you rebuild).
-
 ## Build
 
 ```bash

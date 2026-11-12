@@ -12,15 +12,15 @@ Two loss gradients conflict when their inner product is negative \citep{yu2020pc
 Conflict is a property of the optimisation state, not of the teacher: a correct, confident teacher can still conflict with the label gradient. At temperature 1,
 with teacher probabilities $(0.85,0.10,0.05)$, student probabilities $(0.95,0.03,0.02)$ and
 label class 1, the cross-entropy logit gradient $p_s-y$ and the forward-KL logit gradient
-$p_s-p_t$ have inner product $-0.0077$. This is a local calculation in logit space, with no
-experiment behind it and no claim about parameter space. Whether the teacher is right is the separate question of Section~\ref{sec:reliability}.
+$p_s-p_t$ have inner product $-0.0077$, a local logit-space calculation, not an experiment or a
+claim about parameter space. Whether the teacher is right is the separate question of Section~\ref{sec:reliability}.
 % Worked example from the draft (L114); recomputed: (p_s - y) = (-0.05, 0.03, 0.02),
 % (p_s - p_t) = (0.10, -0.07, -0.03); inner product = -0.005 - 0.0021 - 0.0006 = -0.0077.
 
 \subsection{How state-of-the-art distillation uses MOO}
 \label{sec:kd_moo_methods}
 
-The methods below fall into three groups by update rule: symmetric balancing (MGDA line), label-primary gating and projection, and
+We group methods by rule: symmetric balancing (MGDA line), label-primary gating and projection, and
 optimiser-side rules.
 
 \paragraph{AE-KD: MGDA over teachers (lineage).}

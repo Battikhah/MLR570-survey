@@ -6,7 +6,7 @@
 \section{Benchmarks and Reported Results}
 \label{sec:benchmarks}
 
-The numbers below are the results each included paper reports for itself, so they do not form a controlled comparison. Supplementary Table~S2 lists all 112 included methods with their results; the tables here keep the top results and the baselines discussed in the text.
+This section collects each included paper's own reported results, not a controlled comparison. The complete list of 112 included methods, with each one's results, is in supplementary Table~S2; the tables here keep the top results and the baselines discussed in the text.
 
 \subsection{Protocol and comparability}
 \label{sec:bench-protocol}
@@ -22,13 +22,13 @@ Three things limit cross-paper comparison even under this protocol. First, paper
 statistics: the mean of three or five runs, the best run, or a single run.
 Gaps under about 0.3 points on CIFAR-100 are within the usual seed spread and should not be read as a
 ranking. Second, many top numbers are \emph{stacked}: a plug-in is added to an already strong method such
-as MLKD \citep{jin2023mlkd}, SimKD \citep{chen2022simkd} or CRLD, the base of DeepKD's best result \citep[Table~1]{huang2025deepkd}, so the number measures the combination. The
-Flags column names the base and, where given, the stand-alone number. Third, some results come from a changed setting:
+as MLKD \citep{jin2023mlkd}, SimKD \citep{chen2022simkd} or CRLD, the base of DeepKD's best row \citep[Table~1]{huang2025deepkd}, so the row measures the combination. The
+Flags column names the base and, where given, the stand-alone number. Third, some rows change the setting:
 a retrained or updated teacher (KD-AIF, \citealp{wu2025kdaif}), extra data or augmentation (SRD,
-\citealp{miles2024projector}), label smoothing on the student (LSKD and EA-KD), online or
+\citealp{miles2024projector}), label smoothing on the student (LSKD and EA-KD rows), online or
 multi-student training, a searched distiller, or a stronger KD baseline than \texttt{mdistiller}'s, as in SKD
-\citep{jeong2026skd} (KD 74.75). Following our screening rules,
-these results are kept and flagged.
+\citep{jeong2026skd} (KD 74.75). Following the search rulings,
+these rows are flagged rather than dropped.
 
 \subsection{CIFAR-100 and ImageNet-1K}
 \label{sec:bench-cifar}
@@ -39,13 +39,13 @@ KD-AIF's 82.20\% is listed but not ranked, because its teacher is updated to 86.
 configurations among the rest are DeepKD at 79.25\% \citep{huang2025deepkd}, VRM at 78.76\%
 \citep{zhang2025vrm}, EA-KD at 78.38\% \citep{su2025eakd}, SKD at 78.33\% \citep{jeong2026skd} and LSKD at
 78.28\% \citep{sun2024lskd}. Only VRM and SKD are single methods here: DeepKD is stacked on CRLD, EA-KD's best
-result comes from EA-MLD with label smoothing (EA-KD alone gives 75.46\%), and LSKD's is MLKD with logit
+row is EA-MLD with label smoothing (EA-KD alone gives 75.46\%), and LSKD's is MLKD with logit
 standardisation. Among single methods with an official repository, the best are SimKD at 78.08\%
 \citep{chen2022simkd}, GDKD at 77.76\% \citep{zheng2025gdkd} and LumiNet at 77.50\% \citep{hossain2025luminet}.
-Few methods report WRN-40-2$\to$WRN-16-2; among them, DistPro reaches 76.36\% \citep{deng2022distpro} and DeepKD 78.42\%.
+The sparse WRN-40-2$\to$WRN-16-2 column has DistPro at 76.36\% \citep{deng2022distpro} and DeepKD at 78.42\%.
 
 On ImageNet ResNet34$\to$ResNet18 (79 methods, Table~\ref{tab:bench-imagenet}) the spread is narrow: all but
-seven of them fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
+seven rows fall between 71.0\% and 73.0\%, against 71.70\% for DKD. The highest values carry caveats. TopoKD
 reports 73.60\% \citep{kim2024topkd}, above the 73.31\% of its own teacher. Only three included papers (plus DeepKD, re-read from the camera-ready version)
 were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+ 73.47\%
 \citep{huang2025distplus} and LB 73.25\% \citep{lin2026lb} (last column of Table~\ref{tab:bench-imagenet}). DeepKD stacked on CRLD reports 73.34\% and
@@ -53,7 +53,7 @@ were read for ResNet50$\to$MobileNetV1: MCD 73.65\% \citep{mishra2026mcd}, DIST+
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the highest reported results among the methods cited in the text, and the baselines. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 results, with their source tables, are in supplementary Table~S2.}\label{tab:bench-cifar}
+\caption{CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Each value is the paper's own claim for its best reported variant (named under Flags). Fam.: L logit/loss, F feature/relation, S training scheme, R reliability, O optimizer/combination, H hybrid. Code: the authors link an official repository (unreachable on 2026-11-08 counts as no). Reference point: KD 73.33 \citep[Table~6]{zhao2022dkd}. All 72 CIFAR-100 rows, with source tables, are in supplementary Table~S2.}\label{tab:bench-cifar}
 \begin{tabular}{@{}lllll>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 Method & Fam. & Venue & R32$\times$4$\to$R8$\times$4 & Code & Flags \\
@@ -86,7 +86,7 @@ SRD~\citep{miles2024projector} & F & AAAI'24 & 76.44 & yes & SSKD teachers, Rand
 
 \begin{table}[t]
 \centering\scriptsize\setlength{\tabcolsep}{2pt}
-\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported results among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. R50$\to$MBV1: ResNet50$\to$MobileNetV1, where only four included papers were read. The 79 ResNet34$\to$ResNet18 results in Table~S2 range from 70.67 to 73.60; five lie above 73.0 and two below 71.0.}\label{tab:bench-imagenet}
+\caption{ImageNet-1K ResNet34$\to$ResNet18 top-1 (\%): the highest reported rows among the methods cited in the text, and the baselines. Conventions as in Table~\ref{tab:bench-cifar}. Reference point: KD 71.03 and DKD 71.70 in the \texttt{mdistiller} README \citep{zhao2023dot}. R50$\to$MBV1: ResNet50$\to$MobileNetV1, where only four included papers were read. Of all 79 ResNet34$\to$ResNet18 rows (Table~S2), values range from 70.67 to 73.60; five lie above 73.0 and two below 71.0.}\label{tab:bench-imagenet}
 \begin{tabular}{@{}llllll>{\raggedright\arraybackslash}p{3.9cm}@{}}
 \toprule
 Method & Fam. & Venue & R34$\to$R18 & R50$\to$MBV1 & Code & Flags \\
@@ -121,7 +121,7 @@ Ten data-free methods (\S\ref{sec:schemes}) report WRN-40-2$\to$WRN-16-2 values 
 \subsection{Comparison across families}
 \label{sec:bench-families}
 
-\paragraph{Logit methods.} These are the most numerous and the cheapest methods. Most single logit methods fall between 76.0\% and 77.8\% (GDKD), the stacked results above 78\% mostly combine two of them, and on ImageNet they sit within about one point of DKD.
+\paragraph{Logit methods.} The most numerous and cheapest group: most single logit methods fall between 76.0\% and 77.8\% (GDKD), the stacked rows above 78\% mostly combine two of them, and on ImageNet they sit within about one point of DKD.
 
 \paragraph{Feature and relation methods.} VRM and SimKD give the highest single-method CIFAR numbers, but
 SimKD reuses the teacher's classifier, so the deployed student is larger than ResNet8$\times$4 alone
@@ -131,9 +131,10 @@ SimKD reuses the teacher's classifier, so the deployed student is larger than Re
 score lower than offline methods but avoid a fixed pre-trained teacher; searched distillers reach 76.6--77.9\% at the price of a search per pair. Reliability methods such as RLD and the teacher-retraining ones give 75.5--76.6\% as single methods where they report it.
 
 \paragraph{Optimizer-side methods.} DOT (KD+DOT 75.12\%, \citealp{zhao2023dot}), DeepKD (79.25\% stacked on CRLD, \citealp{huang2025deepkd}), DTO-KD (76.40\%, \citealp{hayder2026dtokd}) and DistPro \citep{deng2022distpro} change how the task and distillation gradients are
-combined (\S\ref{sec:kd_moo}); none gates the distillation term per sample. PCD \citep{varam2026pcd} has no reported number on these pairs.
+combined (\S\ref{sec:kd_moo}); none gates the distillation term per sample. PCD \citep{varam2026pcd} has no reported number on these pairs. Since an optimizer change stacks on a loss change, a fair test of an
+optimiser should report it on top of both KD and a strong logit loss.
 
-\paragraph{A comparison set for combination rules.} For a method that changes how the task and distillation terms are combined, the tables suggest three groups of baselines. Combination rules: a tuned weighted sum \citep{hinton2015kd}, MGDA \citep{sener2018mgda}, PCGrad \citep{yu2020pcgrad}, DOT \citep{zhao2023dot} and DTO-KD \citep{hayder2026dtokd}, with DeepKD \citep{huang2025deepkd} quoted from its paper since no code is linked. Loss-side methods with code: DKD, MLKD, LSKD (MLKD+LS) and GDKD, plus SimKD where the student can keep the teacher's classifier. Reliability methods that act on a wrong teacher: RLD and MCD. Since an optimiser change stacks on a loss change, each combination rule should be run on top of both KD and a strong logit loss. VRM and SKD link no code, so they are quoted with the protocol caveats above.
+\paragraph{A comparison set for combination rules.} For a method that changes how the task and distillation terms are combined, the tables suggest three groups of baselines. Combination rules: a tuned weighted sum \citep{hinton2015kd}, MGDA \citep{sener2018mgda}, PCGrad \citep{yu2020pcgrad}, DOT \citep{zhao2023dot} and DTO-KD \citep{hayder2026dtokd}, with DeepKD \citep{huang2025deepkd} quoted from its paper since no code is linked. Loss-side methods with code: DKD, MLKD, LSKD (MLKD+LS) and GDKD, plus SimKD where the student can keep the teacher's classifier. Reliability methods that act on a wrong teacher: RLD and MCD. Because an optimiser change stacks on a loss change, each combination rule should be run on top of both KD and a strong logit loss, and VRM and SKD, which link no code, are quoted with the protocol caveats above.
 
 \paragraph{Applicability.} Without intermediate-layer access, a logit method with public code
 (DKD, MLKD, LSKD, LumiNet) is the safe start; for accessible homogeneous pairs, SimKD or a projector-based feature method is stronger on the reported numbers; reliability methods fit a partly wrong teacher, and online or data-free schemes fit when a pre-trained teacher is the constraint.

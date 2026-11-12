@@ -5,13 +5,13 @@
 \section{Open Challenges and Future Directions}
 \label{sec:future}
 
-Each open question below is followed by the evidence for it and a direction that could test it.
+Each paragraph names an open question, its evidence, and a testable direction (a recommendation).
 
 \paragraph{A comparable leaderboard.}
 The tables are not a controlled comparison (Section~\ref{sec:bench-protocol}). On ResNet32$\times$4$\to$ResNet8$\times$4,
 classical KD is 73.33\% in DKD's table \citep{zhao2022dkd}, and 74.75\% in SKD's \citep{jeong2026skd}, a spread wider than the gaps between most single logit methods in
 Table~\ref{tab:bench-cifar}, while gaps of 0.3--0.5 points sit inside the seed spread
-(Section~\ref{sec:prelim-benchmarks}). Stacking adds a second problem. Three of the five highest CIFAR-100 results are stacked
+(Section~\ref{sec:prelim-benchmarks}). Stacking adds a second problem. Three of the five highest CIFAR-100 rows are stacked
 (DeepKD on CRLD, EA-MLD with label smoothing, MLKD with logit standardisation;
 \citealp{huang2025deepkd,su2025eakd,sun2024lskd}), and several plug-ins lose much of their gain alone: EA-KD gives
 75.46\% against 78.38\% stacked. We found no
@@ -30,21 +30,21 @@ these signals pick the same samples. \emph{Direction:} on one fixed teacher, mea
 The optimiser-side methods split into label-first, distillation-first and balancing camps (\S\ref{sec:kd_moo_critical}), no paper compares them under one protocol, and only DOT compares with a sweep of fixed task weights \citep{zhao2023dot}, while
 three multi-task studies found tuned scalarisation hard to beat
 \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization}. PCD \citep{varam2026pcd} has no reported
-distillation result, so it does not yet answer the question. The only direct measurement of conflict we found is DHO's, with a zero-shot CLIP teacher and 16
+distillation result, so it is an open case of the question, not an answer. The only direct measurement of conflict we found is DHO's, with a zero-shot CLIP teacher and 16
 labelled examples per class, where the final-epoch cosine at the classifier is $-0.76$ \citep{kang2025dho}; for
 the full-label protocol with a trained CNN teacher we found none. Scale rather than conflict may explain some gains (PCD's pruning results, TPKD's 0.22-point projection ablation; \citealp{varam2026pcd,yuan2026tpkd}).
 \emph{Direction:} run one rule per camp on KD and a strong logit loss against a tuned weighted sum,
 logging the CE--KD cosine and norm ratio, and compare each rule with its implied rescaling alone.
 
 \paragraph{Data-free distillation and the ImageNet gap.}
-The data-free methods report on WRN-40-2$\to$WRN-16-2 only, with differing budgets and some results mixing collected and generated
-data, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 results fall between 71.0\% and 73.0\%,
+The data-free methods report on WRN-40-2$\to$WRN-16-2 only, with differing budgets and some rows mixing collected and generated
+data, so they share no pair with the main ranking. On ImageNet, most ResNet34$\to$ResNet18 rows fall between 71.0\% and 73.0\%,
 close to DKD's 71.70\% \citep{zhao2023dot}, so CIFAR-100 gains of two or more points mostly shrink to under one.
 \emph{Direction:} report data-free and data-based methods on the same pairs and teacher, and the ratio of ImageNet to CIFAR-100 gain over KD for the top methods.
 
 \paragraph{Metrics and settings beyond top-1 accuracy.}
 Almost every table here ranks by top-1 accuracy, and the KD temperature is distinct from calibration (Section~\ref{sec:prelim-temperature}, \citealp{guo2017calibration}), yet the only expected calibration error quoted in
-Section~\ref{sec:logit} is LumiNet's, 0.06 against 0.11 for KD \citep{hossain2025luminet}. Reliability methods are judged by accuracy alone, without a check of whether teacher errors transfer. Training cost is rarely reported, though DOT needs two backward passes per step and searched
+Section~\ref{sec:logit} is LumiNet's, 0.06 against 0.11 for KD \citep{hossain2025luminet}. Reliability methods are judged by accuracy, not by whether teacher errors transfer. Training cost is rarely reported, though DOT needs two backward passes per step and searched
 distillers a search per pair \citep{zhao2023dot}.
 \label{sec:emerging}Neighbouring settings are outside this survey's scope but raise the same questions: LLM, vision--language,
 adversarially robust and federated distillation; with a zero-shot CLIP teacher, DHO removes CE--KD conflict with separate heads \citep{kang2025dho}.
