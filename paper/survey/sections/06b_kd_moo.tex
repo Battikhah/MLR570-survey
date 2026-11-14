@@ -6,7 +6,7 @@
 \section{Knowledge Distillation as Multi-Objective Optimization}
 \label{sec:kd_moo}
 
-Hinton-style distillation minimises $(1-\lambda)L_{\mathrm{CE}}+\lambda L_{\mathrm{KD}}$
+Hinton-style distillation minimises $L_{\mathrm{CE}}+\lambda L_{\mathrm{KD}}$
 \citep{hinton2015kd}, which is the linear scalarisation of Section~\ref{sec:moo} with $K=2$.
 Two loss gradients conflict when their inner product is negative \citep{yu2020pcgrad,zhu2021sckd}.
 Conflict is a property of the optimisation state, not of the teacher: a correct, confident teacher can still conflict with the label gradient. At temperature 1,
@@ -20,10 +20,9 @@ claim about parameter space. Whether the teacher is right is the separate questi
 \subsection{How state-of-the-art distillation uses MOO}
 \label{sec:kd_moo_methods}
 
-We group methods by rule: symmetric balancing (MGDA line), label-primary gating and projection, and
-optimiser-side rules.
+We group methods by rule: symmetric balancing, label-primary gating or projection, and optimiser-side weighting.
 
-\paragraph{AE-KD: MGDA over teachers (lineage).}
+\paragraph{AE-KD: balancing among teachers.}
 AE-KD \citep{du2020aekd} framed ensemble distillation in gradient space: it solves a soft-margin
 MGDA over the per-teacher KD losses (dual box constraints $0\le\alpha_m\le C$, $C\in[1/M,1]$; $C=1$
 is MGDA), on student-logit gradients, so it is cheap. CE sits outside the MOO step, so it
@@ -32,35 +31,52 @@ weighs teachers against each other, not task against teacher.
 % Eq. (11) (direction); Fig. 1 right (gradients w.r.t. student logits); Sec. 3.2 "C in [1/M, 1]".
 
 \paragraph{DTO-KD: closed-form min-norm on log losses.}
-DTO-KD \citep{hayder2026dtokd} maximises the worse of the two
-relative improvement rates; the dual picks
-$\pi^\star=\arg\min_{\pi}\tfrac12\|J\pi\|^2$ with $J=[\nabla\log L_{\mathrm{distill}},\nabla\log
-L_{\mathrm{task}}]$, with closed form
-$\pi_1^\star=(g_{22}-g_{12})/(g_{11}+g_{22}-2g_{12})$ and
-$\pi_2^\star=(g_{11}-g_{12})/(g_{11}+g_{22}-2g_{12})$. By Corollary~3.3 the direction has equal inner product with both gradients, so neither
-loss dominates; this is the two-vector MGDA rule of Section~\ref{sec:moo_symmetric} applied to log-loss gradients. One
-difference is that Eq.~(10) imposes only $\pi_1+\pi_2=1$ while Eq.~(9) asks for the simplex, so
-the closed form returns a negative weight whenever $g_{12}>g_{22}$ or $g_{12}>g_{11}$, the case MGDA
-handles by clipping. The deployed algorithm amortises
-$\pi$ with a gradient step and softmax renormalisation and adds a feature projection and separate
-heads, so it is not the closed form, and a plain-logit adaptation would need its own specification. On CIFAR-100,
-ResNet32$\times$4$\to$ResNet8$\times$4, DTO-KD reports 76.40\% against 75.44\% for DKD and
-73.33\% for KD in the same table. It also reports COCO gains with ViDT students. Its convergence claim is borrowed from earlier multi-task work, and no code is linked.
+DTO-KD \citep{hayder2026dtokd} maximises the worse of the two relative improvement rates.
+With $J=[\nabla\log L_{\mathrm{distill}},\nabla\log L_{\mathrm{task}}]$ and
+$g_{ij}=(J^\top J)_{ij}$, its dual chooses $\pi^\star=\arg\min_\pi\tfrac12\|J\pi\|^2$.
+The reported closed form is
+\[
+\pi_1^\star=\frac{g_{22}-g_{12}}{g_{11}+g_{22}-2g_{12}},\qquad
+\pi_2^\star=\frac{g_{11}-g_{12}}{g_{11}+g_{22}-2g_{12}}.
+\]
+Here $g_{11}$ and $g_{22}$ are squared log-loss gradient norms and $g_{12}$ is their inner product.
+The paper's Corollary~3.3 gives equal inner products with the two gradients for the equality-only stationary combination. This relates the direction to two-vector MGDA (Section~\ref{sec:moo_symmetric}) when the optimum is inside the simplex.
+
+The paper's Eq.~(10) imposes only $\pi_1+\pi_2=1$, whereas Eq.~(9) requires simplex weights.
+The displayed fractions are the equality-only minimiser and can return a negative weight if
+$g_{12}>g_{22}$ or $g_{12}>g_{11}$. The simplex problem clips the two-vector coefficient to $[0,1]$;
+at a boundary optimum, the equal-inner-product identity need not hold. If the two log-loss gradients
+are identical, the denominator is zero, although every simplex weight gives the same combined gradient.
+
+Algorithm~1 updates $\pi$ by a gradient step and includes a feature projection and separate task and
+distillation heads. The paper then introduces Eq.~(18) as an amortised approximation that avoids an extra
+per-task backward pass. The softmax-renormalisation instruction accompanies that approximation;
+it is absent from the printed Algorithm~1. These procedures differ from direct evaluation of the
+closed-form fractions. No author-linked implementation was located to establish which procedure was
+used for the reported results, and an adaptation using only logits needs its own specification.
+On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4, DTO-KD reports 76.40\%, against 75.44\% for DKD and
+73.33\% for KD in the same table. Its convergence claim draws on earlier multi-task work.
+% Primary PDF rechecked 2026-11-14: pp. 5--7, Eqs. (8)--(18), Cor. 3.3 and Algorithm 1.
 % src: hayder2026dtokd Eq. (7) (max-min of relative rates), Eq. (8)-(9) (dual), Thm. 3.1 Eq. (10)-(12)
 % (closed form, sum-to-one only), Cor. 3.3 (equal inner products), Alg. 1 (projection P, DistillHead,
 % TaskHead), Eq. (18) + text ("renormalize it via a softmax"), Sec. 3 "two backpropagation per iteration".
 % src: hayder2026dtokd Table 2, column ResNet-32x4 -> ResNet-8x4: KD 73.33, DKD 75.44, DTO-KD 76.40.
 % Negative-weight case: pi_1 < 0 iff g12 > g22 (INTERPRETATION, from Eq. (11)).
 
-\paragraph{SCKD: gradient-similarity gating (lineage).}
-SCKD \citep{zhu2021sckd} keeps the supervised loss ungated and switches each
-distillation term on or off by the cosine
-between its gradient and the supervised gradient: the label is primary, as in Section~\ref{sec:moo_priority}, but the update is
-the plain sum of the surviving losses. The published rule
-appears inconsistent with the paper's own explanation: Section~3.4 and Algorithm~1 remove a term when its cosine is
-\emph{greater than or equal to} the threshold $\varphi$, with $\varphi=0$ by default, while the
-surrounding text speaks of removing conflicting, that is negatively aligned, terms. Whether a removed term can return and the parameter subset for the cosine are not stated, and we found no authoritative code. SCKD costs one extra backward pass per
-distillation term, and gradient similarity does not show that the teacher is reliable.
+\paragraph{SCKD: gradient-similarity gating (background precedent).}
+SCKD \citep{zhu2021sckd} leaves the supervised loss ungated and assigns each KD term a binary gate
+based on the cosine between its gradient and the supervised gradient. The update sums the surviving
+losses. As printed, Section~3.4 and Algorithm~1 remove a term when its cosine is at least $\varphi$,
+with $\varphi=0$ by default. This removes aligned or orthogonal gradients and conflicts with the text's
+explanation of rejecting negative transfer.
+
+Algorithm~1 initialises gates once before training and only changes them from one to zero, so a removed
+term stays off in the printed pseudocode. Equation~(6) uses iteration-indexed gates; the paper does not
+reconcile that notation with the permanent removal in the algorithm. Both gradients are written with
+respect to $\theta$, without specifying a narrower parameter subset. No author-linked implementation
+was located to resolve the intended inequality or gate lifecycle. Computing the cosine requires
+per-loss gradients, and gradient alignment alone does not establish teacher reliability.
+% Primary CVF PDF rechecked 2026-11-14: pp. 5--6 (5061--5062), Eq. (6), Sec. 3.4, Algorithm 1.
 % zhu2021sckd Eq. (6) (L_SCKD = sum gamma L_kd + H(p^S, y)); Sec. 3.4 "If cos(.) is greater or equal
 % than some threshold phi, we regard such KD loss have negative transfer"; Alg. 1 ("Initialize all
 % gamma = 1" before the loop; "if cos >= phi then gamma_i = 0"); "we trivially set phi = 0".
@@ -76,8 +92,7 @@ and is evaluated on medical image classification, outside our benchmark scope, s
 % Sec. 1 contributions, Sec. 2, Fig. 1) on 2026-11-08; no numbers transcribed.
 
 \paragraph{TPKD: preserving task margins (preprint).}
-TPKD \citep{yuan2026tpkd} (preprint) proves that full imitation can force a student to give back
-correct-class margin it already has. It splits the teacher signal into a label part and a
+TPKD \citep{yuan2026tpkd} (preprint) proves that full imitation can force a student to reduce an existing correct-class margin. It splits the teacher signal into a label part and a
 conditional part (relative probabilities among wrong classes), keeps the label gradient intact and
 projects the conditional gradient onto a cone of output-space
 directions that do not shrink any correct-class margin, at $O(K\log K)$ per example and no extra
@@ -118,23 +133,25 @@ below DKD alone at 76.32\%, so DOT's gain did not reproduce in DeepKD's runs.
 
 \paragraph{MEMA: history-aware per-sample damping (preprint).}
 SPOFA \citep{yang2026spofa} (under review), for heterogeneous architectures, adds a momentum-driven
-EMA (MEMA) scaler that compares the per-sample logit-space cosine $S_{t,j}$ of task and
-distillation gradients with an EMA baseline $B_{t-1}$, weighting distillation by $\mathrm{clamp}(1-\kappa\max(0,B_{t-1}-S_{t,j}),\omega_{\min},
-\omega_{\max})$: a softer SCKD gate with no extra backward pass. On CIFAR-100 with a Swin-T teacher and
+EMA (MEMA) scaler. It compares the per-sample logit-space cosine $S_{t,j}$ between task and
+distillation gradients with an EMA baseline $B_{t-1}$, then assigns weight
+\[
+w_{t,j}=\mathrm{clamp}(1-\kappa\max(0,B_{t-1}-S_{t,j}),\omega_{\min},\omega_{\max}),
+\]
+where $\kappa$ controls damping and $\omega_{\min},\omega_{\max}$ bound the weight. This continuous per-sample rule uses no extra backward pass. On CIFAR-100 with a Swin-T teacher and
 ResNet18 student, MEMA alone raises the OFA-KD \citep{hao2023ofakd} baseline from 80.54\% to 81.80\%, and the full method
 reaches 82.39\%.
 % yang2026spofa Eq. (4) (S_{t,j}), Eq. (5) (B_t EMA), Eq. (6) (D_{t,j}), Eq. (7) (clamped weight).
 % src: yang2026spofa Table IV (ablation, Swin-T -> ResNet18): OFA 80.54, +MEMA 81.80, full 82.39.
 
 \paragraph{CHAD: sample-level usefulness (preprint).}
-CHAD \citep{sumit2026chad} (\S\ref{sec:reliability}) estimates usefulness rather than teacher confidence: on BanSum, standard KD gains only $+0.0003$ ROUGE-L over cross-entropy and 51.3\% of samples
-are estimated to raise validation loss.
+CHAD \citep{sumit2026chad} (\S\ref{sec:reliability}) estimates sample usefulness from validation-loss gradients rather than teacher confidence; its BanSum results are summarised in Section~\ref{sec:reliability}.
 % src: sumit2026chad abstract (+0.0003, 51.3%, CHAD +0.0173 ROUGE-L over standard KD); Sec. 3.1
 % (probe subset of 5,000, alignment with mean validation gradient); Table 9 (Confidence Only R-L .1169).
 
 \paragraph{Learned weighting and distiller search.}
 DistPro \citep{deng2022distpro} meta-learns a time-varying weight schedule over a set of KD pathways. Its outer-loop weights cannot react to conflict at a single step; it reports 77.54 on ResNet32$\times$4$\to$ShuffleNetV2 and 71.89 on ImageNet ResNet-34$\to$ResNet-18.
-Distiller-search methods search the loss design per pair, by Monte Carlo tree search in Auto-KD \citep{li2023autokd} and by evolution in KD-Zero \citep{li2023kdzero}, excluding search cost from their reported numbers; they sit nearer the tuned-weight baselines of Section~\ref{sec:kd_moo_critical} than the per-step rules.
+Distiller-search methods search the loss design per pair, by Monte Carlo tree search in Auto-KD \citep{li2023autokd} and by evolution in KD-Zero \citep{li2023kdzero}. Their accuracy is reported after a per-pair search; the training cost of that search is excluded. These methods search a loss design rather than modify the gradients at each step.
 % src: deng2022distpro T1, T4.
 
 
@@ -142,15 +159,14 @@ Distiller-search methods search the loss design per pair, by Monte Carlo tree se
 \subsection{A critical view}
 \label{sec:kd_moo_critical}
 
-These methods assume that task and distillation gradients conflict often enough for the rule to matter; few papers test this.
+Conflict removal is a proposed explanation for some label-priority rules, but few papers measure CE--KD conflict. Other methods address teacher weighting, gradient scale or schedules.
 
 \paragraph{Symmetric versus priority rules.}
-AE-KD and DTO-KD balance the losses; SCKD,
-SCOPE, TPKD, MEMA and PCD protect the label; DOT and DeepKD let distillation lead. Both priority camps report
-CIFAR-100 gains and no paper compares them under one protocol.
+AE-KD balances among teacher losses, with CE outside its MOO step; DTO-KD balances task and distillation objectives. SCKD,
+SCOPE, TPKD and MEMA use the task objective or its margins as a reference. PCD provides a candidate task-referenced rule, with no KD evaluation. DOT and DeepKD use distillation-priority momentum. DOT, DeepKD and TPKD report CIFAR-100 gains in different settings; no paper compares the two priority choices under one protocol.
 % INTERPRETATION.
 
-\paragraph{The scalarisation debate.}
+\paragraph{Evidence from multi-task learning.}
 Three large multi-task studies found that specialised optimisers rarely beat a tuned
 weighted sum. \citet{xin2022mtohelp} report, from large-scale language and vision experiments, that these methods ``do not yield any performance improvements beyond what is achievable
 via traditional optimization approaches''. \citet{kurin2022unitary} show that unitary
@@ -170,10 +186,7 @@ their largest pruning gains: regulariser gradients were one to two orders of mag
 the task gradient and the task--regulariser cosine never exceeded $1.2\times10^{-3}$, so ``the cause
 is objective scale rather than gradient conflict'' \citep{varam2026pcd}. They also note that
 their weighted-sum grid floored the effective weight far above its best range, which overstates
-the gap. TPKD's ablation points the same way: removing the projection costs 0.22 points on
-CIFAR-100 and nothing on CLINC150. MEMA is the counter-example: in SPOFA's ablation the
-conflict-damping scaler alone adds 1.26 points, more than the LayerNorm projector's 0.65, so
-conflict handling can matter in heterogeneous distillation.
+the gap. In TPKD's ablation, removing the projection reduces accuracy by 0.22 points on CIFAR-100; on CLINC150, removing it does not reduce accuracy. In SPOFA's ablation, MEMA adds 1.26 points and the LayerNorm projector adds 0.65. These ablations do not establish whether conflict removal, rescaling or another interaction explains the gains.
 % src: varam2026pcd Sec. 5.1.1 (quote; cosine <= 1.2e-3; 1-2 orders of magnitude) and Sec. 5.1.2
 % (WS grid floors lambda_eff at 0.111). yang2026spofa Table IV. yuan2026tpkd Table 5.
 

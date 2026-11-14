@@ -36,9 +36,7 @@ The first family, from multi-task learning, treats all objectives alike.
 \citet{sener2018mgda} cast multi-task learning as MOO with the multiple-gradient descent
 algorithm (MGDA), which picks the minimum-norm point of the convex hull of the gradients,
 $\min_{\alpha\in\Delta}\|\sum_i\alpha_ig_i\|_2^2$. For two objectives the weight
-has a closed form, $\hat\alpha=\big[(g_2-g_1)^\top g_2/\|g_1-g_2\|^2\big]_{[0,1]}$; for more
-objectives, Frank--Wolfe; MGDA-UB takes gradients at a shared representation to need one backward
-pass \citep{sener2018mgda}. Two-objective MGDA favours the \emph{smaller} gradient (an interior minimiser has equal inner
+has a closed form, $\hat\alpha=\big[(g_2-g_1)^\top g_2/\|g_1-g_2\|^2\big]_{[0,1]}$. For more objectives MGDA uses Frank--Wolfe to solve the weight problem. MGDA-UB approximates the gradients at a shared representation and needs one backward pass \citep{sener2018mgda}. Two-objective MGDA favours the \emph{smaller} gradient (an interior minimiser has equal inner
 products with both), so with a large task and a small distillation gradient it moves mostly along
 distillation (Fig.~\ref{fig:moo_geometry}).
 % sener2018mgda Eq. (3) (min-norm problem), Eq. (4) (two-task closed form, clipped to [0,1]),
@@ -64,13 +62,12 @@ inherits MGDA's symmetry and per-objective backward passes and adds one hyperpar
 % (recovers GD at c = 0 and MGDA as c grows).
 
 \paragraph{Other symmetric rules.}
-Other symmetric rules solve a scale-invariant bargaining game, amortise MGDA to one backward pass, or retune scalar loss weights, which addresses scale but not conflict.
+Symmetric treatment does not itself guarantee descent for every objective; guarantees depend on the rule and its assumptions.
 
 \subsection{Priority, lexicographic and constrained rules}
 \label{sec:moo_priority}
 
-The second family makes one objective primary and the others constraints, matching the usual reading of distillation: the labels must be fit and the teacher is useful but fallible. Each rule finds the direction closest to a reference gradient subject to
-linear inequalities on the others.
+The second family makes one objective primary and the others constraints. For distillation, label loss can be primary and teacher loss auxiliary. Each rule finds the direction closest to a reference gradient subject to linear inequalities on the others. In the examples below, $f$ is the primary objective, $g$ a constrained objective, and $F$ an external criterion.
 DBGD minimises $\|\nabla f-v\|^2$ subject to $\nabla g^\top v\ge\phi(\theta)$, with closed form
 $v=\nabla f+\lambda\nabla g$ and a barrier that forces progress on $g$ until its target is met; the authors argue a tuned weighted sum
 cannot solve the constrained problem when the duality gap is non-zero \citep{gong2021dbgd}.
@@ -89,9 +86,7 @@ $\tilde g_j^\top\tilde d\ge\tau\|\tilde g_j\|^2$; for two objectives,
 $\tilde d^\star=\tilde g_1+\max\big(0,\tau-\tilde g_1^\top\tilde g_2/\|\tilde g_2\|^2\big)\tilde g_2$,
 rescaled to the primary gradient norm, with no correction when the constraint already holds.
 The authors say the program is not new (DBGD at $K=2$; continual-learning gradient projection at $\tau=0$); they add the
-normalisation, which makes $\tau$ scale-free, and a general-$K$ analysis. Each secondary makes
-first-order progress, but the primary is not guaranteed to descend under strong conflict, no
-convergence theorem covers the deployed algorithm, and, unlike AuxiNash, the priority is fixed
+normalisation, which makes $\tau$ scale-free, and a general-$K$ analysis. For a feasible normalised problem with nonzero secondary gradients and $\tau>0$, each secondary has positive first-order directional progress. A positive final rescaling preserves the sign of that progress but changes its magnitude. This local condition does not guarantee improvement after a finite training step. The primary is not guaranteed to descend under strong conflict, no convergence theorem covers the deployed algorithm, and, unlike AuxiNash, the priority is fixed
 rather than learned. Its evidence comes from pruning and low-rank compression, not distillation.
 % varam2026pcd Def. 4.1 / Eq. (4), Def. 4.5, Cor. 4.6 / Eq. (14), Alg. 1, Sec. 4.1, Sec. 2,
 % Prop. 4.4, Prop. 4.7 (primary descent only if 1 + tau c - c^2 > 0), Sec. 4.8.
@@ -100,21 +95,18 @@ rather than learned. Its evidence comes from pruning and low-rank compression, n
 
 \begin{figure}[t]
 \centering
-\resizebox{0.45\linewidth}{!}{\input{figures/moo_geometry}}
+\resizebox{0.75\linewidth}{!}{\input{figures/moo_geometry}}
 \caption{Directions chosen by five rules for one pair of conflicting gradients,
 $g_1=(2,0.5)$ (task) and $g_2=(-0.5,0.8)$ (distillation), $g_1^\top g_2=-0.6$. Weighted sum with
 equal weights; MGDA two-vector min-norm point \citep{sener2018mgda}; PCGrad
 \citep{yu2020pcgrad}; CAGrad with $c=0.5$ \citep{liu2021cagrad}; PCD with $\tau=0.5$ and unit
 normalisation scales, so its direction lies on the dotted line $g_2^\top d=\tau\|g_2\|^2$
-\citep{varam2026pcd}. Arrows are update directions before any rescaling. The vectors are
-illustrative, not measured. Generated by \texttt{figures/moo\_geometry.py}; a unit test
-recomputes each direction.}
+\citep{varam2026pcd}. The vectors are illustrative gradients, not measurements; a descent step is $\theta_{\rm new}=\theta-\eta d$. The plotted arrows show $d$ before this negative sign and step-size scaling.}
 \label{fig:moo_geometry}
 \end{figure}
 
 In Fig.~\ref{fig:moo_geometry}, MGDA ($83^\circ$) leans to the shorter distillation gradient; CAGrad sits between the average and MGDA ($66^\circ$);
 PCGrad returns the longest vector ($53^\circ$); PCD ($46^\circ$) is the closest to the task among the conflict-aware
-rules; the equal-weight sum ($41^\circ$) is closest only because the task gradient is longer. Symmetric rules suit settings where every
-objective must improve, priority rules settings where one objective is the reason for training;
+rules; the equal-weight sum ($41^\circ$) is closest only because the task gradient is longer. These rules differ in whether they treat objectives symmetrically or assign one a fixed priority. Symmetry alone does not guarantee improvement of every objective;
 whether any beats a tuned weighted sum is the empirical question of \S\ref{sec:kd_moo_critical}.
 % Angles from moo_geometry.py output: WS 40.9, MGDA 83.2, PCGrad 52.9, CAGrad 65.5, PCD 45.5 degrees.

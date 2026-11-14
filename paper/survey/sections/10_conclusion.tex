@@ -4,20 +4,15 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This survey reviewed knowledge distillation for image classification from 2022 to 2026, with a method set of 112 methods produced by documented searches under fixed inclusion criteria.
+This survey reviewed knowledge distillation for image classification from 2022 to 2026, with 112 included paper records produced by documented searches under fixed inclusion criteria.
 
-The methods fall into five families. Logit methods are the largest and cheapest group; feature and relation methods give some of the
-highest single-method CIFAR-100 numbers but need intermediate layers, and the best can enlarge the deployed student \citep{chen2022simkd}; training schemes trade accuracy for removing a fixed teacher; reliability methods
-decide which teacher outputs to trust. A smaller group changes how the
-task and distillation gradients are combined \citep{zhao2023dot,huang2025deepkd,hayder2026dtokd}. We
-placed it next to the general multi-objective rules, with priority-based rules such as
-PCD \citep{varam2026pcd} as one option without reported numbers on the standard pairs.
+Logit methods are the largest group and require no intermediate features. Feature and relation methods include high-scoring single methods, though some need intermediate layers or retain the teacher classifier at inference \citep{chen2022simkd}. Training schemes change teacher or data access; reliability methods change how teacher outputs are used. A smaller group changes how task and distillation gradients combine \citep{zhao2023dot,huang2025deepkd,hayder2026dtokd}; general rules such as PCD \citep{varam2026pcd} remain candidates without standard-pair distillation results.
 
-The compiled results support a cautious reading. On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 the best
+On CIFAR-100 ResNet32$\times$4$\to$ResNet8$\times$4 the best
 reported configurations are about six points above classical KD, yet most single methods lie within two
-points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack methods, change the teacher, or add data, so gaps of a few tenths of a point say little. Optimizer-side changes stack on
+points of one another, and on ImageNet nearly all rows sit within two points. Many of the highest rows stack methods, change the teacher, or add data, so these differing protocols do not establish a reliable ranking from gaps of a few tenths of a point. Optimizer-side changes stack on
 loss-side ones, so they should be tested on top of both plain KD and a strong logit loss.
 
-Section~\ref{sec:future} turns these caveats into five testable problems: a controlled re-run of the leaderboard, the overlap of teacher-trust signals, combination rules against a tuned
+Section~\ref{sec:future} discusses remaining questions about a controlled re-run of the leaderboard, the overlap of teacher-trust signals, combination rules against a tuned
 weighted sum \citep{xin2022mtohelp,kurin2022unitary,royer2023scalarization} given that conflict has been measured only outside the standard protocol
 \citep{kang2025dho}, the data-free and ImageNet gaps, and metrics beyond top-1.

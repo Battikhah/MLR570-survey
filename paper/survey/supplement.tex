@@ -7,7 +7,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs,array,longtable}
+\usepackage{pdflscape}
 \usepackage{hyperref}
+\hypersetup{hidelinks}
 \usepackage{url}
 \renewcommand{\thetable}{S\arabic{table}}
 
@@ -23,8 +25,9 @@
 \section*{S1. Search protocol}
 
 The inclusion criteria I1--I3 and exclusion codes E1--E7 (main text, Section~1) were fixed before the
-search started. All searches ran on 2026-11-08. The listings expose titles only, so identification is by
-title; abstracts and full texts were read at screening. Table~\ref{tab:s-search} gives each search; the
+search started. The search cutoff was 2026-11-08. S1 and S2 used title queries on official venue listings;
+S3 used Crossref title queries, an arXiv abstract query, and snowballing from comparison tables. Abstracts
+and full texts were read at screening where available. Table~\ref{tab:s-search} gives each search; the
 per-record logs (every listing URL, every title hit with its decision and exclusion code, and the
 full-text tables) accompany this supplement as \texttt{search/s1-cvf.md}, \texttt{search/s2-ml.md},
 \texttt{search/s3-aaai-journals-arxiv-snowball.md}, \texttt{search/g-gap.md} and
@@ -56,36 +59,48 @@ Manual & Papers no search could access & Retrieved by hand; 2 remain unreadable 
 \end{tabular}
 \end{table}
 
-The three searches give 106 distinct methods after de-duplication (six were found twice). The second pass
+The three searches give 106 distinct included records after de-duplication (six were found twice). The second pass
 added CTKD and the projector study (SRD); two coordinator rulings removed LTKD (E4: CIFAR-100-LT only) and
-PE-BKD (analysis only). Manual retrieval added six methods, for 112. Two papers remain unassessable because no
+PE-BKD (analysis only).
+% CRD pair list checked against the author repository benchmark tables, 2026-11-14:
+% https://github.com/HobbitLong/RepDistiller#benchmark-results-on-cifar-100
+Manual retrieval added six methods, for 112 included paper records. The standard CIFAR-100 CRD pairs used
+for eligibility were ResNet-56$\to$ResNet-20, ResNet-110$\to$ResNet-20 or ResNet-32,
+ResNet-32$\times$4$\to$ResNet-8$\times$4, WRN-40-2$\to$WRN-16-2 or WRN-40-1,
+VGG-13$\to$VGG-8 or MobileNetV2, ResNet-32$\times$4$\to$ShuffleNetV1 or ShuffleNetV2,
+ResNet-50$\to$MobileNetV2 or VGG-8, and WRN-40-2$\to$ShuffleNetV1. MobileNetV1 is the separate ImageNet pair. Two papers remain unassessable because no
 full text was found. An independent spot-check drew 22 inclusions and 30 exclusions; among the 20 of each whose
 full text was accessible it found no errors after adjudication (2 inclusions and 10 exclusions could not be
 read).
 
-\section*{S2. All included methods}
-
-{\scriptsize\setlength{\tabcolsep}{3pt}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.1cm}llllll>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{4.4cm}@{}}
-\caption{All 112 included methods, top-1 (\%) as each paper reports it. R8x4: CIFAR-100
+\begin{landscape}
+\section*{S2. All included paper records}
+{\footnotesize\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\linewidth}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{4.2cm}ll>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{6.1cm}@{}}
+\caption{All 112 included paper records, top-1 (\%) as each paper reports it. R8x4: CIFAR-100
 ResNet32$\times$4$\to$ResNet8$\times$4; W16-2: WRN-40-2$\to$WRN-16-2; R18: ImageNet ResNet34$\to$ResNet18;
 MBV1: ImageNet ResNet50$\to$MobileNetV1. Fam.: L logit/loss, F feature/relation, S training scheme,
 R reliability, O optimizer/combination, H hybrid, DF data-free (its W16-2 value uses no CIFAR-100 training
-images and is not comparable with the other rows). Src.: table in the cited paper for the CIFAR-100 (C),
-ImageNet (IN) or data-free (DF) value. Notes: the variant behind the number and protocol flags.
---: not reported or not extracted.}\label{tab:s-methods}\\
+images and is not comparable with the other rows). Family tags identify the principal category; these categories can overlap. Src.: cited paper's table; C: CIFAR-100, IN: ImageNet, DF: data-free.
+NE: no value extracted; original-paper reporting status undetermined. Notes: variant and protocol flags.}\label{tab:s-methods}\\
 \toprule
 Method & Fam. & Venue & R8x4 & W16-2 & R18 & MBV1 & Src. & Notes \\
 \midrule
 \endfirsthead
+\multicolumn{9}{l}{\emph{Table S2 continued}}\\
 \toprule
 Method & Fam. & Venue & R8x4 & W16-2 & R18 & MBV1 & Src. & Notes \\
+\multicolumn{9}{l}{\scriptsize NE: no extracted value; reporting status unconfirmed. R8x4/W16-2: CIFAR-100; R18/MBV1: ImageNet.}\\
 \midrule
 \endhead
 \bottomrule
 \endfoot
+\bottomrule
+\endlastfoot
 \input{supplement_methods}
 \end{longtable}}
+\end{landscape}
 
 \bibliography{refs}
 \bibliographystyle{tmlr}

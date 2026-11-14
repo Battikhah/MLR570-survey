@@ -37,6 +37,7 @@ def rows(md):
 def tex_row(r):
     method, key, fam, venue, *vals, src, notes = r
     src = esc(src).replace(" T", "~T")  # tie "C T2" after escaping, so the ~ stays a TeX tie
+    vals = ["NE" if value == "--" else esc(value) for value in vals]
     return " & ".join([f"{esc(method)}~\\citep{{{key}}}", fam, esc(venue), *vals, src, esc(notes)]) + r" \\"
 
 

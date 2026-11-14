@@ -1,17 +1,15 @@
 % Fig. 4: Scheme comparison by source of guidance and training arrangement.
 \begin{figure}[t]
 \centering
-\begin{tikzpicture}[box/.style={draw,rounded corners,align=center,text width=3.0cm,minimum height=1.45cm,inner sep=4pt}, arr/.style={->,thick}]
-\node[box,fill=blue!8] (offline) at (0,0) {Offline\\fixed pretrained teacher\\KD, FitNets, SimKD};
-\node[box,fill=green!8] (online) at (3.7,0) {Online / mutual\\co-trained peers\\mutual learning};
-\node[box,fill=orange!10] (self) at (7.4,0) {Self-distillation\\same model or history\\branches, generations};
-\node[box,fill=purple!8] (multi) at (0,-2.3) {Multi-teacher\\weighted teacher set\\AE-KD};
-\node[box,fill=yellow!18] (gap) at (3.7,-2.3) {Capacity gap\\assistant or adapted teacher\\Cho et al., DIST};
-\node[box,fill=red!8] (free) at (7.4,-2.3) {Data-free\\synthetic inputs\\BN-statistics inversion};
-\draw[arr] (offline) -- (online);
-\draw[arr] (offline) -- (self);
-\draw[arr] (multi) -- (gap);
+\begin{tikzpicture}[box/.style={draw,rounded corners,align=center,text width=4.3cm,minimum height=2.65cm,inner sep=5pt},
+  panel/.style={fill=blue!7,draw=blue!35}]
+\node[box,panel] (offline) at (0,0) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Offline}\\Fixed pretrained teacher\\Examples: KD, FitNets, SimKD}};
+\node[box,panel] (online) at (4.9,0) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Online / mutual}\\Peers co-trained together\\Example: mutual learning}};
+\node[box,panel] (self) at (9.8,0) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Self-distillation}\\Same model or its history\\Examples: branches, generations}};
+\node[box,panel] (multi) at (0,-3.15) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Multi-teacher}\\Guidance from a teacher set\\Example: AE-KD}};
+\node[box,panel] (gap) at (4.9,-3.15) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Capacity gap}\\Assistant or adapted teacher\\Examples: Cho et al., DIST}};
+\node[box,panel] (free) at (9.8,-3.15) {\parbox[t][2.25cm][t]{4.3cm}{\centering \textbf{Data-free}\\Original training data unavailable\\Synthetic inputs; BN-statistics inversion}};
 \end{tikzpicture}
-\caption{Training schemes differ in teacher availability, number of guidance sources, and whether original training data are available. Arrows indicate alternative arrangements, not a required progression.}
+\caption{Training schemes differ in teacher availability, number of guidance sources, and whether original training data are available. The boxes show alternative arrangements.}
 \label{fig:schemes}
 \end{figure}

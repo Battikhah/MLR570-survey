@@ -2,8 +2,6 @@
 
 Run from the repo root:  uv run --frozen python paper/survey/figures/moo_geometry.py
 It rewrites paper/survey/figures/moo_geometry.tex (TikZ, \\input by sections/06a_moo.tex).
-tests/unit/test_moo_geometry.py recomputes every direction independently.
-
 Each rule follows its paper (equation numbers in the docstrings). g1 is the primary (task) gradient
 where a rule has a primary; the vectors are illustrative, not measured.
 """
@@ -101,17 +99,17 @@ def tikz(g1: np.ndarray = G1, g2: np.ndarray = G2) -> str:
         # PCD constraint boundary {d : g2.d = tau |g2|^2}, a line orthogonal to g2
         _boundary(g2),
         f"\\draw[->,very thick,black] (0,0) -- {_pt(g1)} node[below right] {{$g_1$ (task)}};",
-        f"\\draw[->,very thick,gray] (0,0) -- {_pt(g2)} node[above left] {{$g_2$ (KD)}};",
+        f"\\draw[->,very thick,gray!70!black] (0,0) -- {_pt(g2)} node[above left] {{$g_2$ (KD)}};",
     ]
     for name, v in d.items():
         colour, dash = STYLE[name]
         lines.append(f"\\draw[->,thick,color={colour},{dash}] (0,0) -- {_pt(v)};")
-    # legend
+    # Keep labels outside the data grid so they do not obscure the vectors.
     for i, name in enumerate(d):
         colour, dash = STYLE[name]
         y = 1.9 - 0.25 * i
         lines.append(
-            f"\\draw[thick,color={colour},{dash}] (1.75,{y:.2f}) -- (2.1,{y:.2f}) "
+            f"\\draw[thick,color={colour},{dash}] (2.65,{y:.2f}) -- (2.95,{y:.2f}) "
             f"node[right,black,font=\\scriptsize] {{{name}}};"
         )
     lines.append("\\end{tikzpicture}")
@@ -123,7 +121,7 @@ def _boundary(g2: np.ndarray) -> str:
     t = np.array([g2[1], -g2[0]]) / float(np.linalg.norm(g2))
     a, b = base - 0.9 * t, base + 1.8 * t
     return (
-        f"\\draw[densely dotted,gray] {_pt(a)} node[below right,font=\\scriptsize] "
+        f"\\draw[densely dotted,gray!70!black] {_pt(a)} node[below right,font=\\scriptsize] "
         f"{{$g_2^\\top d=\\tau\\|g_2\\|^2$}} -- {_pt(b)};"
     )
 

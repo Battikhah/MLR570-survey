@@ -661,10 +661,10 @@
   date: 2021-10
   venue: "ICCV 2021"
   status: published
-  urls: {official: "https://doi.org/10.1109/ICCV48922.2021.00501", arxiv: null, code: null}
+  urls: {official: "https://doi.org/10.1109/ICCV48922.2021.00501", arxiv: null, code: null, pdf: "https://openaccess.thecvf.com/content/ICCV2021/papers/Zhu_Student_Customized_Knowledge_Distillation_Bridging_the_Gap_Between_Student_and_ICCV_2021_paper.pdf"}
   identifiers: {doi: "10.1109/ICCV48922.2021.00501", arxiv: null}
   license: null
-  verified_by: "Crossref DOI metadata (title, authors, container '2021 IEEE/CVF ICCV', issued 2021-10)."
+  verified_by: "Crossref DOI metadata (title, authors, container '2021 IEEE/CVF ICCV', issued 2021-10). Primary CVF PDF visually rechecked 2026-11-14, pp. 5-6 / 5061-5062: Eq. (6), Sec. 3.4 and Algorithm 1. Both printed tests use cosine >= phi (default 0), contrary to negative-transfer rationale. Algorithm initializes gamma once and only sets it to zero; Eq. (6) indexes gates by iteration. No author-linked implementation located; intended inequality/lifecycle remain unresolved. See docs/reviews/survey-source-audit-equations.md."
   relevance: "Supervised-primary gradient-similarity gating of KD terms: closest KD precedent for asymmetric KD."
   topics: [kd, gradient-conflict, asymmetric]
   local_pdf: false
@@ -676,10 +676,10 @@
   date: 2026
   venue: "ICLR 2026"
   status: published
-  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/e546ce4230c15bc422a500bb47b341ea-Abstract-Conference.html", arxiv: null, code: null}
+  urls: {official: "https://proceedings.iclr.cc/paper_files/paper/2026/hash/e546ce4230c15bc422a500bb47b341ea-Abstract-Conference.html", arxiv: null, code: null, pdf: "https://proceedings.iclr.cc/paper_files/paper/2026/file/e546ce4230c15bc422a500bb47b341ea-Paper-Conference.pdf"}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "ICLR 2026 proceedings abstract page and full paper PDF (pdftotext), 2026-11-03: Sec. 3.1 Eqs. 6-12, Thm 3.1, Cor. 3.2-3.5, Alg. 1, Eq. 18, Table 2 (CIFAR-100). No code link on the proceedings page."
+  verified_by: "ICLR 2026 proceedings abstract page and full paper PDF (pdftotext), 2026-11-03: Sec. 3.1 Eqs. 6-12, Thm 3.1, Cor. 3.2-3.5, Alg. 1, Eq. 18, Table 2 (CIFAR-100). No code link on the proceedings page. Primary proceedings PDF visually rechecked 2026-11-14, pp. 5-7: Eqs. (8)-(9) simplex vs Eq. (10) sum-only and Eqs. (11)-(12) equality-only fractions. Fractions can be negative and denominator is zero for identical gradients. Algorithm 1 uses gradient updates and projection/separate heads; softmax instruction accompanies amortized Eq. (18), not the printed algorithm. No author-linked implementation located; actual experimental procedure unverified. See docs/reviews/survey-source-audit-equations.md."
   relevance: "Direct optimizer-side KD comparator. FAMO-style (Liu et al. 2023) min-norm convex combination of grad log L_distill and grad log L_task with closed-form weights pi* (Eqs. 11-12); equal contribution to both losses (Cor. 3.3), i.e. SYMMETRIC, versus PCD's fixed priority. Amortized variant avoids the second backprop (Eq. 18). CIFAR-100 ResNet32x4->ResNet8x4: 76.40 (Table 2; that table lists DKD 75.44 vs 76.32 in mdistiller -- cross-paper numbers differ). Same first four authors as the withdrawn MoKD (hayder2025mokd)."
   topics: [kd, gradient-conflict, moo, sota]
   local_pdf: true
@@ -1362,10 +1362,10 @@
   date: 2025-02-28
   venue: "ICCV 2025 (Highlight per arXiv comment)"
   status: published
-  urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VRM_Knowledge_Distillation_via_Virtual_Relation_Matching_ICCV_2025_paper.html", arxiv: "https://arxiv.org/abs/2502.20760", code: null}
+  urls: {official: "https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VRM_Knowledge_Distillation_via_Virtual_Relation_Matching_ICCV_2025_paper.html", arxiv: "https://arxiv.org/abs/2502.20760", code: "https://github.com/VISION-SJTU/VRM"}
   identifiers: {doi: null, arxiv: "2502.20760"}
   license: null
-  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted by ICCV 2025 (Highlight)'; CVF ICCV2025 listing entry; full text read (pdftotext) for the headline table: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 VRM 78.76 vs KD 73.33, LSKD 76.62. No code URL found in the paper text."
+  verified_by: "arXiv API 2026-11-03 (title, authors, v1 date, comment), comment 'Accepted by ICCV 2025 (Highlight)'; CVF ICCV2025 listing entry; full text read (pdftotext) for the headline table: Table 1 CIFAR-100 ResNet32x4->ResNet8x4 VRM 78.76 vs KD 73.33, LSKD 76.62. No code URL found in the paper text. Author-linked repository https://github.com/VISION-SJTU/VRM accessible on 2026-11-14; availability does not establish reproducibility."
   relevance: "VRM: builds affinity graphs over real and virtually augmented samples and matches inter-sample/inter-class relations, pruning unreliable edges; strongest CIFAR-100 relation result found."
   topics: [kd, relation-kd, sota]
   local_pdf: false
@@ -2927,7 +2927,7 @@
   urls: {official: "https://proceedings.mlr.press/v235/kim24aj.html", arxiv: null, code: "https://github.com/jekim5418/TopKD"}
   identifiers: {doi: null, arxiv: null}
   license: null
-  verified_by: "Official listing https://proceedings.mlr.press/v235/kim24aj.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v235/main/assets/kim24aj/kim24aj.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 75.40 (T1); ImageNet R34->R18 73.60 (T3; above the 73.31 teacher). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search."
+  verified_by: "Official listing https://proceedings.mlr.press/v235/kim24aj.html (title, venue, authors) and full-text PDF https://raw.githubusercontent.com/mlresearch/v235/main/assets/kim24aj/kim24aj.pdf (pdftotext), 2026-11-08: CIFAR-100 R32x4->R8x4 75.40 (T1); ImageNet R34->R18 73.60 (T3; above the 73.31 teacher). Code URL as cited in the paper; licence none found (GitHub API, 2026-11-08). Found by T12b-S2 systematic search. Author-linked repository https://github.com/jekim5418/TopKD accessible on 2026-11-14; availability does not establish reproducibility."
   relevance: "TopKD: Distils global topology of the feature space via persistence diagrams (topological features). T12b-S2 leaderboard entry (I1-I3 met). mdistiller/CRD protocol."
   topics: [kd, sota, feature]
   local_pdf: false

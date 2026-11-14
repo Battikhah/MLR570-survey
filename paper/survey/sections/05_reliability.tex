@@ -4,7 +4,9 @@
 \section{Teacher Reliability and Selective Transfer}
 \label{sec:reliability}
 
-Teacher reliability is not one property; Table~\ref{tab:reliability} summarises the signals below. Several of the papers come from speech, text generation or summarisation; they are background for the mechanism, outside our image-classification scope, and their numbers are not compared with the tables of \S\ref{sec:benchmarks}. Conditional Teacher-Student Learning (CTSL) uses teacher targets only when the teacher predicts the observed label, while Confidence Conditioned KD (CCKD, an arXiv preprint) uses the teacher's probability on that label as a sample weight or to blend teacher and one-hot targets, and its self-regulation variant can skip examples the student already handles \citep{meng2019conditionalts,mishra2021cckd}. CTSL makes a discrete correctness decision; CCKD keeps graded confidence. Both rely on observed labels, so label errors corrupt the signal, and correctness says nothing about calibration, student compatibility, or the value of the other class probabilities. % INTERPRETATION: limits of a top-class correctness gate.
+The methods assess teacher reliability using different signals (Table~\ref{tab:reliability}). Several of the papers come from speech, text generation or summarisation; they are background for the mechanism, outside our image-classification scope, and their numbers are not compared with the tables of \S\ref{sec:benchmarks}.
+
+Conditional Teacher-Student Learning (CTSL) uses teacher targets only when the teacher predicts the observed label, while Confidence Conditioned KD (CCKD, an arXiv preprint) uses the teacher's probability on that label as a sample weight or to blend teacher and one-hot targets, and its self-regulation variant can skip examples the student already handles \citep{meng2019conditionalts,mishra2021cckd}. CTSL makes a discrete correctness decision; CCKD keeps graded confidence. Both rely on observed labels, so label errors corrupt the signal, and correctness says nothing about calibration, student compatibility, or the value of the other class probabilities. % INTERPRETATION: limits of a top-class correctness gate.
 
 \begin{table}[tbp]
 \centering
@@ -14,18 +16,19 @@ Teacher reliability is not one property; Table~\ref{tab:reliability} summarises 
 \label{tab:reliability}
 \begin{tabular}{p{0.16\linewidth}p{0.22\linewidth}p{0.27\linewidth}p{0.27\linewidth}}
 \toprule
-Method & Reliability signal & What happens to rejected supervision & Limitation \\
+Method & Signal & Action & Caveat \\
 \midrule
-CTSL$^\dagger$ \citep{meng2019conditionalts} & Teacher predicts the observed label & Replaced by hard-label supervision & Speech adaptation; label errors affect the gate \\
+CTSL$^\dagger$ \citep{meng2019conditionalts} & Teacher predicts the observed label & Uses teacher targets if correct; otherwise hard labels & Speech adaptation; label errors affect the gate \\
 CCKD \citep{mishra2021cckd} & Teacher probability on the observed label & Downweighted or blended with one-hot targets; easy examples may be skipped & Preprint; variants have different loss behavior \\
 Hard Gate KD$^\dagger$ \citep{lee2022hardgatekd} & Calibrated teacher and student true-token/sentence probabilities & Routes to label supervision when the gate rejects teacher advice & Language-generation setting; no per-example CE guarantee \\
 EA-KD \citep{su2025eakd} & Teacher and student entropy & Up-weights high-entropy samples & Proxy signal; no direct validation of per-sample benefit \\
-TPKD \citep{yuan2026tpkd} & Task-margin preservation & Projects teacher directions before transfer & 2026 preprint; abstract omits teacher/student setting \\
-LR-DS / RLD \citep{lan2025labelrevision,sun2025rld} & Label disagreement and influence / label-refined logits & Revises targets and selects examples / retains refined logits & Refinement can preserve misleading relations \\
-MCD \citep{mishra2026mcd} & Whether the teacher is correct & KD weighted down when the teacher is wrong; inter-class relations still taken & Needs labels; no extra parameters \\
+TPKD \citep{yuan2026tpkd} & Task-margin preservation & Projects teacher directions before transfer & 2026 preprint; evaluated with a pretrained student \\
+LR-DS \citep{lan2025labelrevision} & Label disagreement and influence & Revises targets and selects examples & Depends on ground-truth labels and influence estimates \\
+RLD \citep{sun2025rld} & Label-refined logits & Retains refined class relations & Retained relations may still be misleading \\
+MCD \citep{mishra2026mcd} & Whether the teacher is correct & KD weighted down when the teacher is wrong; inter-class relations still taken & Needs observed labels \\
 CHAD$^\dagger$ \citep{sumit2026chad} & Validation-gradient alignment & Learns sample weights & Unreviewed preprint; evidence is task-specific \\
 KD-AIF \citep{wu2025kdaif} & Influence functions & Samples down-weighted & Also updates the teacher \\
-SCKD \citep{zhu2021sckd} & Similarity between KD and student-task gradients & Suppresses KD gradient when it conflicts with student objective & Gradient similarity is a local proxy \\
+SCKD \citep{zhu2021sckd} & Similarity between KD and student-task gradients & Gates KD terms using gradient cosine & Published threshold disagrees with its stated rationale; direction unresolved (\S\ref{sec:kd_moo}) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -34,14 +37,18 @@ Hard Gate KD routes language-generation supervision by comparing the student's p
 
 EA-KD weights examples by teacher and student entropy, up-weighting high-entropy samples without a threshold; entropy does not say which class relations to trust \citep{su2025eakd}. TPKD (a 2026 preprint) projects teacher directions to preserve task margins, asking whether an update threatens the task rather than whether the teacher looks uncertain, which links it to the update rules of \S\ref{sec:kd_moo} \citep{yuan2026tpkd}.
 
-Other methods repair targets or estimate usefulness. Label Revision and Data Selection (LR-DS) revises teacher labels with ground truth and selects a distillation subset by influence; examples outside it keep label supervision \citep{lan2025labelrevision}. RLD refines teacher logits with labels, keeping useful class relations when the teacher's top class is wrong, unlike CTSL's switch; it does not show that every retained relation helps, and its evidence covers CIFAR-100 and ImageNet only \citep{sun2025rld}. MCD weights the KD and CE terms by whether the teacher is correct: a correct teacher gets a large distillation weight, while for a wrong teacher the student leans on the label but still takes inter-class relations from the teacher; it needs no extra parameters and reports 76.81\% on ResNet32$\times$4$\to$ResNet8$\times$4 \citep{mishra2026mcd}. CHAD learns sample weights from the alignment between distillation and validation-loss gradients; on BanSum, teacher-confidence and surface-agreement gates stayed within 0.0001 ROUGE-L of cross-entropy, while CHAD improved over standard KD by 0.0173 ROUGE-L, and the paper's multilingual result is for EWAD+CPDP, not CHAD \citep{sumit2026chad}. % VERIFIED: CHAD is a 2026 arXiv preprint; BanSum table reports the cited deltas.
+Target revision and sample selection use different mechanisms. Label Revision and Data Selection (LR-DS) revises teacher labels with ground truth and selects a distillation subset by influence; examples outside it keep label supervision \citep{lan2025labelrevision}. RLD refines teacher logits with labels, retaining class relations when the teacher's top class is wrong, unlike CTSL's switch. Its evidence covers CIFAR-100 and ImageNet, but does not show that every retained relation helps \citep{sun2025rld}.
+
+MCD weights the KD and CE terms by whether the teacher is correct: a correct teacher gets a large distillation weight, while for a wrong teacher the student leans on the label but still takes inter-class relations from the teacher; it needs no extra parameters and reports 76.81\% on ResNet32$\times$4$\to$ResNet8$\times$4 \citep{mishra2026mcd}.
+
+CHAD learns sample weights from alignment between distillation and validation-loss gradients. On BanSum, teacher-confidence and surface-agreement gates stayed within 0.0001 ROUGE-L of cross-entropy; CHAD improved over standard KD by 0.0173 ROUGE-L \citep{sumit2026chad}. % VERIFIED: CHAD is a 2026 arXiv preprint; BanSum table reports the cited deltas.
 % INTERPRETATION (draft L105, restored as prose after review N1)
 Gradient alignment is a local proxy rather than a causal test, and the gains are specific to low-resource summarisation, so CHAD is background here.
 
 KD-AIF weights samples with influence functions but also updates the teacher (to 86.56), so its 82.20 is not comparable with fixed-teacher results \citep{wu2025kdaif}. % src: wu2025kdaif T2/T3
 
 % INTERPRETATION (draft L43, restored as prose after review N1)
-\paragraph{Comparing reliability signals.} Label agreement and calibration do not say whether a given update helps a given student. CCKD and EA-KD weight, CTSL and Hard Gate KD route, SCKD gates by gradient similarity, RLD repairs, LR-DS selects, and CHAD learns weights. Their failure cases differ: a label gate inherits annotation errors, a confidence weight trusts confident errors, and a gradient proxy depends on the validation objective. Group-level methods should be judged with group metrics, not ranked beside sample gates on overall accuracy \citep{meng2019conditionalts,mishra2021cckd,lee2022hardgatekd,su2025eakd,sun2025rld,lan2025labelrevision,sumit2026chad,zhu2021sckd}.
+\paragraph{Comparing reliability signals.} Label agreement and calibration do not say whether a given update helps a given student. The methods differ in whether they weight samples, switch supervision sources, revise targets or select a training subset. Their failure cases differ: a label gate inherits annotation errors, a confidence weight trusts confident errors, and a gradient proxy depends on the validation objective.
 % INTERPRETATION (restored as prose after review N1)
-As a heuristic: selection fits when harmful targets can be replaced by reliable labels, repair when useful class relations survive a wrong top prediction, group-aware methods fit systematic bias, and task-preserving projection fits interference with the student's objective. The papers span speech, generation, classification, group-robust benchmarks and summarisation, so there is no common protocol \citep{yuan2026tpkd}.
+Selection can help when reliable labels can replace harmful targets; target repair can retain class relations when the teacher's top prediction is wrong; task-preserving projection addresses interference with the student objective. The papers span speech, generation, classification and summarisation, so there is no common protocol \citep{yuan2026tpkd}.
 

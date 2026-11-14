@@ -1,17 +1,25 @@
-% Search flow (counts as stated in Sec. I, "Search" paragraph). Plain TikZ.
-\begin{tikzpicture}[x=1cm, y=-1cm, font=\footnotesize,
-  box/.style={draw, rounded corners=2pt, fill=blue!7, align=center, inner sep=3pt, text width=#1},
-  box/.default=3.6cm, side/.style={draw, rounded corners=2pt, fill=gray!7, align=center, inner sep=3pt, text width=4.2cm},
-  ar/.style={->, >=stealth, black!70, thin}]
-  \node[box=3.6cm] (s1) at (0,0)   {Search 1: computer-vision venues\\656 records};
-  \node[box=3.6cm] (s2) at (4.2,0) {Search 2: ML venues and TMLR\\985 records};
-  \node[box=3.6cm] (s3) at (8.4,0) {Search 3: AAAI, journals, arXiv\\552 records};
-  \node[box=6cm]   (id) at (4.2,1.35) {2,193 records identified};
-  \node[box=6cm]   (ft) at (4.2,2.45) {310 read in full against I1--I3 / E1--E7};
-  \node[box=6cm, fill=blue!18] (in) at (4.2,4.0) {\textbf{112 included methods}\\(2 papers not assessable: no full text)};
-  \node[side] (p2) at (-1.5,4.0) {Second pass: 445 more records,\\29 cited works re-checked\\$\Rightarrow$ +2 methods};
-  \node[side] (hand) at (9.9,4.0) {15 inaccessible papers\\retrieved by hand\\$\Rightarrow$ +6 methods};
-  \foreach \s in {s1,s2,s3} \draw[ar] (\s.south) -- (id.north);
-  \draw[ar] (id) -- (ft); \draw[ar] (ft) -- (in);
-  \draw[ar] (p2) -- (in); \draw[ar] (hand) -- (in);
+% Search and screening flow. Counts and inclusion arithmetic are in Supplement S1.
+\begin{tikzpicture}[x=1cm,y=-1cm,font=\footnotesize,>=stealth,
+  source/.style={draw,rounded corners=2pt,fill=gray!8,align=center,inner sep=5pt,text width=4.35cm,minimum height=0.9cm},
+  box/.style={draw,rounded corners=2pt,fill=blue!7,align=center,inner sep=5pt,text width=13.8cm,minimum height=0.68cm},
+  side/.style={draw,rounded corners=2pt,fill=gray!8,align=center,inner sep=5pt,text width=6.3cm,minimum height=0.9cm},
+  ar/.style={->,>=stealth,black!70,thin}]
+  \node[source] (s1) at (-4.8,0) {Search 1\\CV venues: 656};
+  \node[source] (s2) at (0,0) {Search 2\\ML venues and TMLR: 985};
+  \node[source] (s3) at (4.8,0) {Search 3\\AAAI, journals, arXiv: 552};
+  \node[box] (identified) at (0,1.3) {\textbf{2,193 records identified}};
+  \node[box] (screened) at (0,2.45) {310 papers read in full against I1--I3 / E1--E7};
+  \node[box] (distinct) at (0,3.6) {106 distinct included records from the three searches (six duplicate discoveries)};
+  \node[side] (second) at (-3.55,4.95) {Second pass: 445 more records screened; 29 cited works re-checked; +2 additions, $-$2 coordinator rulings};
+  \node[side] (manual) at (3.55,4.95) {Manual retrieval: 15 inaccessible papers retrieved; 6 methods added};
+  \node[box,fill=blue!18] (included) at (0,6.3) {\textbf{112 included paper records}\\106 initial + 2 second-pass additions $-$ 2 rulings + 6 manual additions};
+  \node[box,fill=gray!10] (unavailable) at (0,7.45) {2 papers remained unassessable because no full text was found (outside the 112)};
+  \draw[ar] (s1.south) -- (identified.north west);
+  \draw[ar] (s2.south) -- (identified.north);
+  \draw[ar] (s3.south) -- (identified.north east);
+  \draw[ar] (identified) -- (screened);
+  \draw[ar] (screened) -- (distinct);
+  \draw[ar] (distinct) -- (included);
+  \draw[ar] (second.south) -- (included.north west);
+  \draw[ar] (manual.south) -- (included.north east);
 \end{tikzpicture}

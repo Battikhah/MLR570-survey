@@ -10,7 +10,7 @@ def test_rows_parse_and_escape():
     (r,) = rows(MD)
     assert r[:2] == ("e^2KD", "p2024e")
     line = tex_row(r)
-    assert line.startswith(r"e\^{}2KD~\citep{p2024e} & L & NeurIPS'24 & 76.1 & -- & 71.0 & --")
+    assert line.startswith(r"e\^{}2KD~\citep{p2024e} & L & NeurIPS'24 & 76.1 & NE & 71.0 & NE")
     assert r"C~T2; IN~T3 & 3 runs \& 5\% \\" in line
 
 
@@ -18,3 +18,9 @@ def test_dagger_and_backslash():
     from scripts.build_supplement import esc
     assert esc(r"DiffKD\dagger 72.49") == r"DiffKD$^\dagger$ 72.49"
     assert esc("a\\b") == r"a\textbackslash{}b"
+
+
+def test_unextracted_values_are_marked_ne_without_changing_reported_values():
+    row = rows(MD)[0]
+    line = tex_row(row)
+    assert "& 76.1 & NE & 71.0 & NE &" in line
